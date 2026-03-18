@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第2章 清和源氏と赤沢氏 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+.content-wrap{max-width:740px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:12px;color:#999;margin-bottom:30px}
+.breadcrumb a{color:#555;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.chapter-header{margin-bottom:40px;padding-bottom:16px}
+.chapter-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:#999;margin-bottom:6px}
+.chapter-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:#1a1a1a;letter-spacing:.1em}
+.chapter-subtitle{font-size:13px;color:#999;margin-top:6px}
+.ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
+.main-text{font-size:15px;line-height:2.2;color:#555;margin-bottom:28px}
+.main-text p{margin-bottom:18px}
+.main-text strong{color:#1a1a1a}
+.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 14px 14px 0;border-left:4px solid #8b6914;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.card-indigo,.card-gold,.card-vermillion{/* legacy classes, now unified */}
+.card::before{display:none}
+.card-title{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+.card p,.card li{font-size:14px;color:#555;line-height:1.9}
+.card ul{padding-left:18px;margin-top:8px}
+.card li{margin-bottom:6px}
+.card strong{color:#1a1a1a}
+.grandpa-note{background:#f8f5ea;border:1px solid #e2dcc4;border-radius:14px;padding:20px 24px;margin:20px 0}
+.grandpa-note::before{content:'📝 おじいちゃん（秀邦）の調査メモ';display:block;font-size:10px;font-weight:600;color:#8b7a48;letter-spacing:.04em;margin-bottom:8px}
+.grandpa-note p{font-size:13px;color:#5a4a28;line-height:1.9}
+.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-radius:14px;padding:20px 24px;margin:20px 0}
+.ai-note::before{content:'🔍 深掘り調査';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
+.ai-note p,.ai-note li{font-size:13px;color:#444;line-height:1.9}
+.ai-note ul{padding-left:18px}
+.ai-note li{margin-bottom:4px}
+.original-text{background:rgba(0,0,0,.02);border-left:2px solid rgba(0,0,0,.08);padding:16px 20px;margin:20px 0;font-size:13px;color:#999;line-height:1.9;border-radius:0 8px 8px 0}
+.original-text::before{content:'原文';display:block;font-size:9px;font-weight:600;color:#bbb;letter-spacing:.1em;margin-bottom:6px}
+
+/* Person Card — 石庭 */
+.person-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 14px 14px 0;border-left:4px solid #8b6914;padding:28px;margin-bottom:24px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.person-card.highlight{border-left-color:#2a2420;border-left-width:5px}
+.person-name{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:4px}
+.person-reading{font-size:12px;color:#999;margin-bottom:12px}
+.person-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.person-tag{font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px}
+.tag-era{background:#2a2420;color:#f0e8d4}
+.tag-role{background:rgba(139,105,20,.08);color:#8b6914}
+.tag-place{background:rgba(0,0,0,.04);color:#666}
+.person-body{font-size:14px;color:#555;line-height:2}
+.person-body p{margin-bottom:12px}
+.person-relation{font-size:12px;color:#999;margin-top:14px;padding-top:12px;border-top:1px solid rgba(0,0,0,.04)}
+
+/* Lineage Flow — 石庭 */
+.lineage-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:30px 0}
+.lf-person{background:#fff;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;padding:12px 24px;text-align:center;min-width:200px;transition:all .2s;box-shadow:0 1px 6px rgba(0,0,0,.03)}
+.lf-person:hover{border-color:rgba(0,0,0,.12);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.lf-person.lf-highlight{border-color:#8b6914;border-width:2px;background:#faf8f0}
+.lf-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;color:#1a1a1a}
+.lf-desc{font-size:11px;color:#999;margin-top:2px}
+.lf-arrow{font-size:16px;color:#bbb;padding:4px 0}
+
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid rgba(0,0,0,.04)}
+.page-nav a{font-size:12px;color:#555;text-decoration:none}
+.page-nav a:hover{color:#1a1a1a}
+.site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:#bbb;margin-top:40px}
+@media(max-width:600px){.chapter-title{font-size:24px}.card,.person-card{padding:18px 20px}.lf-person{min-width:160px;padding:10px 16px}}
+</style>
+</head>
+<body>
+<div class="content-wrap">
+
+<div class="breadcrumb">
+  <a href="index.html">赤澤一族 令和版</a> → 第2章 清和源氏と赤沢氏
+</div>
+
+<div class="chapter-header">
+  <div class="chapter-num">CHAPTER 02</div>
+  <div class="chapter-title">清和源氏と赤沢氏</div>
+  <div class="chapter-subtitle">天皇の血を引く武門の名族 — 清和天皇から赤沢氏誕生まで</div>
+</div>
+
+<!-- ===== 導入 ===== -->
+<div class="main-text">
+  <p>清和源氏を上祖（最も古い先祖）とする赤沢氏は、信濃の名門・<strong>小笠原氏</strong>から分かれた一族だ。</p>
+  <p>「源氏」とは、日本の武門の頂点に立つ一族。歴代の幕府（鎌倉幕府・室町幕府・江戸幕府）はいずれもこの源氏の流れをくむ人々が開いた。その支流は全国に広がり、多くの苗字に分かれて守護・大名・諸侯となった。</p>
+  <p>赤沢氏もその一つ。では、天皇からどうやって「赤沢」という武家の一族が生まれたのか、順を追って見ていこう。</p>
+</div>
+
+<div class="original-text">
+  清和源氏を上祖とする赤沢氏は、信濃の名門小笠原氏より分出せり。源氏とは本朝武門の大宗にて、歴代の幕府は此の氏族の人が開創せり。支苗の諸流は各地に分散繁栄し、多くの苗字に分かれて守護、大名、諸侯などに補され、藤原氏に匹敵する大族たりき。
+</div>
+
+<!-- ===== 系譜の流れ ===== -->
+<div class="lineage-flow">
+  <div class="lf-person"><div class="lf-name">清和天皇</div><div class="lf-desc">第56代天皇（850-881）</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person"><div class="lf-name">貞純親王</div><div class="lf-desc">清和天皇の第六皇子</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person"><div class="lf-name">源経基</div><div class="lf-desc">六孫王 — 臣籍降下して「源」姓に</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person"><div class="lf-name">源満仲</div><div class="lf-desc">多田源氏の祖 — 摂津国多田</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person"><div class="lf-name">源頼信</div><div class="lf-desc">河内源氏の祖</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person"><div class="lf-name">源頼義</div><div class="lf-desc">前九年の役の英雄</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person"><div class="lf-name">源義光</div><div class="lf-desc">新羅三郎 — 甲斐源氏の祖</div></div>
+  <div class="lf-arrow">↓ （数代）</div>
+  <div class="lf-person"><div class="lf-name">小笠原長清</div><div class="lf-desc">信濃守護 — 弓馬術礼法の祖</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person"><div class="lf-name">小笠原長経</div><div class="lf-desc">長清の嫡男</div></div>
+  <div class="lf-arrow">↓</div>
+  <div class="lf-person lf-highlight"><div class="lf-name">赤沢清経</div><div class="lf-desc">赤沢氏の祖 — 伊豆守</div></div>
+</div>
+
+<!-- ===== 各人物の詳細 ===== -->
+
+<!-- 清和天皇 -->
+<div class="person-card">
+  <div class="person-name">清和天皇</div>
+  <div class="person-reading">せいわてんのう — 第56代天皇</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">平安時代</span>
+    <span class="person-tag tag-role">天皇</span>
+    <span class="person-tag tag-place">京都</span>
+  </div>
+  <div class="person-body">
+    <p>850年（嘉祥3年）生まれ、881年（元慶4年）崩御。在位858年〜876年。</p>
+    <p>わずか9歳で即位し、外祖父の藤原良房が摂政として政務を執った。清和天皇自身は穏やかな性格で、仏教に深く帰依した人物として知られる。退位後は出家して「清和院」と号した。</p>
+    <p>この天皇の皇子たちが「源」の姓を賜って臣下に下り（臣籍降下）、<strong>清和源氏</strong>と呼ばれる武家の名門を形成した。赤澤家を含む日本の武門の大半は、この天皇に遡る。</p>
+  </div>
+</div>
+
+<!-- 貞純親王 -->
+<div class="person-card">
+  <div class="person-name">貞純親王</div>
+  <div class="person-reading">さだずみしんのう — 清和天皇の第六皇子</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">平安時代</span>
+    <span class="person-tag tag-role">皇族</span>
+  </div>
+  <div class="person-body">
+    <p>清和天皇の第六皇子。母は不明な点が多い。</p>
+    <p>この貞純親王の子が源経基であり、後に武家として大きく発展する清和源氏の直接の起点となった人物。皇族でありながら、子孫が武門の道を歩むことになった、歴史の転換点にいた人物。</p>
+  </div>
+  <div class="person-relation">父：清和天皇 → 子：源経基（六孫王）</div>
+</div>
+
+<!-- 源経基 -->
+<div class="person-card">
+  <div class="person-name">源経基（六孫王）</div>
+  <div class="person-reading">みなもとのつねもと — 清和源氏の始祖</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">平安時代</span>
+    <span class="person-tag tag-role">武将</span>
+    <span class="person-tag tag-place">京都・関東</span>
+  </div>
+  <div class="person-body">
+    <p>清和天皇の孫にあたることから<strong>「六孫王」（ろくそんのう）</strong>と呼ばれた。</p>
+    <p>貞純親王の子として生まれたが、皇族の身分を離れて「源」の姓を名乗る（臣籍降下）。これが武家としての清和源氏の始まり。</p>
+    <p>東国に赴任した際、平将門の反乱（承平天慶の乱、935-941年）に関わり、将門の謀反を朝廷に報告した。この功績が武家としての源氏の地位を確立するきっかけとなった。</p>
+    <p>京都の六孫王神社（現在も京都市南区にある）は、この源経基を祀った神社。</p>
+  </div>
+  <div class="person-relation">父：貞純親王 → 子：源満仲</div>
+</div>
+
+<div class="ai-note">
+  <p><strong>「臣籍降下」とは？</strong> — 皇族が天皇の姓から離れて臣下（一般人）の身分になること。平安時代には皇族の数が増えすぎたため、一部の皇子・皇孫に「源」や「平」の姓を与えて臣下とした。源経基の場合は「源」姓を賜り、これが後の清和源氏となった。</p>
+</div>
+
+<!-- 源満仲 -->
+<div class="person-card">
+  <div class="person-name">源満仲</div>
+  <div class="person-reading">みなもとのみつなか — 多田源氏の祖</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">平安時代中期</span>
+    <span class="person-tag tag-role">武将・多田荘主</span>
+    <span class="person-tag tag-place">摂津国多田（兵庫県川西市）</span>
+  </div>
+  <div class="person-body">
+    <p>912年生まれ、997年没。源経基の子。</p>
+    <p>摂津国川辺郡多田荘（現在の兵庫県川西市多田）に居館を構え、武士団を組織した。ここが<strong>清和源氏の最初の本拠地</strong>であり、「多田源氏」の始まり。</p>
+    <p>藤原氏との政治的駆け引きにも長け、摂関政治の中で武家としての地位を確立した。晩年は出家して「満慶」と号し、多田院（現在の多田神社）に葬られた。</p>
+    <p>子の<strong>頼光</strong>（摂津源氏の祖、「酒呑童子退治」で有名）、<strong>頼信</strong>（河内源氏の祖、赤澤家のライン）など、後の源氏の主要な流れがすべてこの満仲から分かれた。</p>
+  </div>
+  <div class="person-relation">父：源経基 → 子：源頼光（摂津源氏）、源頼信（河内源氏）ほか</div>
+</div>
+
+<!-- 源頼義 -->
+<div class="person-card">
+  <div class="person-name">源頼義</div>
+  <div class="person-reading">みなもとのよりよし — 前九年の役の英雄</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">平安時代後期</span>
+    <span class="person-tag tag-role">鎮守府将軍</span>
+    <span class="person-tag tag-place">河内・陸奥</span>
+  </div>
+  <div class="person-body">
+    <p>988年生まれ、1075年没。源頼信の子。</p>
+    <p><strong>前九年の役</strong>（1051-1062年）で奥州の安倍氏を討伐し、東国武士団の信望を集めた大英雄。鎌倉の鶴岡八幡宮を創建したことでも知られる。</p>
+    <p>子の<strong>源義家</strong>（八幡太郎）は後三年の役で名を馳せ、後の鎌倉幕府を開く源頼朝の直系の先祖となった。そしてもう一人の子、<strong>源義光</strong>（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</p>
+  </div>
+  <div class="person-relation">父：源頼信 → 子：源義家（八幡太郎）、源義光（新羅三郎）ほか</div>
+</div>
+
+<!-- 源義光 — ここが分岐点 -->
+<div class="person-card highlight">
+  <div class="person-name">源義光（新羅三郎）</div>
+  <div class="person-reading">みなもとのよしみつ — 甲斐源氏の祖・赤澤家への分岐点</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">平安時代後期</span>
+    <span class="person-tag tag-role">武将</span>
+    <span class="person-tag tag-place">甲斐国（山梨県）</span>
+  </div>
+  <div class="person-body">
+    <p>1045年生まれ、1127年没。源頼義の三男。</p>
+    <p>近江国の<strong>新羅明神</strong>（大津市・三井寺新羅善神堂）で元服したことから<strong>「新羅三郎」</strong>と呼ばれた。</p>
+    <p>兄・義家が苦戦した<strong>後三年の役</strong>（1083-1087年）では、朝廷の許可なく独断で奥州に駆けつけ、兄を助けた。このエピソードは「兄弟の絆」の美談として後世に語り継がれている。</p>
+    <p>弓馬の術に秀で、音律にも通じた文武両道の人物。彼の子孫から<strong>武田氏</strong>（甲斐の虎・武田信玄の一族）、<strong>小笠原氏</strong>（弓馬術礼法の宗家）、<strong>佐竹氏</strong>、<strong>南部氏</strong>など、数多くの名族が生まれた。</p>
+    <p><strong>赤澤一族は、この源義光→小笠原氏→赤沢氏のラインに属する。</strong>つまり、武田信玄の武田氏とは「いとこ」のような関係にある。</p>
+  </div>
+  <div class="person-relation">父：源頼義 → 子孫：武田氏、小笠原氏、佐竹氏、南部氏など</div>
+</div>
+
+<div class="ai-note">
+  <p><strong>後三年の役のエピソード</strong> — 義光は京都で官職に就いていたが、奥州で苦戦する兄・義家の知らせを受けると、官職を辞して単身奥州へ向かった。「弟として兄を助けるのは当然」という義侠心から。このとき、逢坂山の関で笙（しょう、雅楽の楽器）の秘曲を後輩に伝授したという「逢坂の関の笙の秘曲」の逸話は有名。</p>
+</div>
+
+<!-- 小笠原長清 -->
+<div class="person-card highlight">
+  <div class="person-name">小笠原長清</div>
+  <div class="person-reading">おがさわら ながきよ — 信濃守護・弓馬術礼法の祖</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">鎌倉時代</span>
+    <span class="person-tag tag-role">信濃守護</span>
+    <span class="person-tag tag-place">信濃国（長野県）</span>
+  </div>
+  <div class="person-body">
+    <p>1162年生まれ、1242年没。甲斐源氏の名門・加賀美氏の子孫。</p>
+    <p>源義光から数代を経て、甲斐源氏の中から<strong>小笠原</strong>の苗字を名乗った最初の人物。甲斐国小笠原（現在の山梨県南アルプス市）を領したことに由来する。</p>
+    <p>源頼朝の鎌倉幕府に仕え、<strong>信濃国の守護</strong>に任じられた。これにより小笠原氏は甲斐から信濃へ拠点を移し、以後数百年にわたって信濃の有力氏族として君臨する。</p>
+    <p>特筆すべきは<strong>弓馬術礼法</strong>の開祖としての功績。流鏑馬（やぶさめ）、笠懸（かさがけ）などの弓術、馬術、そして武家の礼法を体系化した「小笠原流」は、現在も日本の伝統文化として受け継がれている。赤澤家は、この小笠原流の直系から分かれた一族だ。</p>
+  </div>
+  <div class="person-relation">→ 子：小笠原長経 → 孫：赤沢清経（赤沢氏の祖）</div>
+</div>
+
+<div class="grandpa-note">
+  <p>冊子の家系図ページに、おじいちゃん（秀邦）が赤ペンで「加賀美遠光（小笠原の祖）？ 安治元年8月16日 清和源氏八代目 いしはしの合戦 武田氏と同祖（別17了）」と書き込んでいる。加賀美遠光が小笠原氏の始祖であることを確認し、武田氏と同じルーツであることを自分で調べてメモしていた痕跡。</p>
+</div>
+
+<!-- 赤沢清経 -->
+<div class="person-card highlight" style="border-left-color:var(--vermillion);border-left-width:6px">
+  <div class="person-name">赤沢清経</div>
+  <div class="person-reading">あかざわ きよつね — 赤沢氏の始祖</div>
+  <div class="person-tags">
+    <span class="person-tag tag-era">鎌倉時代</span>
+    <span class="person-tag tag-role">伊豆守</span>
+    <span class="person-tag tag-place">伊豆国 → 信濃国</span>
+  </div>
+  <div class="person-body">
+    <p>小笠原長経の次男。伊豆守（いずのかみ）に任じられた。</p>
+    <p>伊豆国田方郡赤沢郷（現在の静岡県伊東市赤沢）を領有し、この地名をとって<strong>「赤沢」を名乗った</strong>。これが赤沢氏の始まり。</p>
+    <p>その後、伊豆から<strong>信濃国埴科郡埴生</strong>（現在の長野県千曲市）に移住。以後、赤沢氏の子孫は信濃を本拠とすることになる。</p>
+    <p>清経によって、天皇→源氏→小笠原氏→<strong>赤沢氏</strong>という、約400年に及ぶ血脈の物語が一つの「苗字」として結実した。</p>
+  </div>
+  <div class="person-relation">父：小笠原長経 / 祖父：小笠原長清（信濃守護）</div>
+</div>
+
+<div class="ai-note">
+  <p><strong>なぜ「次男」が新しい氏を名乗ったのか？</strong> — 鎌倉時代の武家社会では、長男が家督（本家）を継ぎ、次男以下は新たな領地を得て別の苗字を名乗ることが一般的だった。長経の長男は小笠原氏を継ぎ、次男の清経は伊豆の赤沢を領して赤沢を名乗った。これは「分家」であると同時に、一族の勢力を各地に広げる戦略でもあった。</p>
+</div>
+
+<!-- ===== まとめ ===== -->
+<div class="card card-gold">
+  <div class="card-title"><span class="card-dot" style="background:var(--gold)"></span>この章のまとめ</div>
+  <p><strong>赤澤一族のルーツ</strong>は、平安時代の第56代清和天皇に遡る。天皇の血を引く皇族が「源」の姓を賜って武士となり、東国で勢力を拡大。摂津（兵庫）→河内（大阪）→甲斐（山梨）→信濃（長野）と拠点を移しながら、小笠原氏として信濃の守護に。その分流として鎌倉時代に誕生したのが赤沢氏。</p>
+  <br>
+  <p>つまり、赤澤家は：</p>
+  <ul>
+    <li><strong>源頼朝</strong>（鎌倉幕府の創設者）と同じ清和源氏</li>
+    <li><strong>武田信玄</strong>（甲斐の虎）と同じ甲斐源氏・義光の子孫</li>
+    <li><strong>小笠原流</strong>（日本の礼法の元祖）の直系の分流</li>
+  </ul>
+  <br>
+  <p>という、日本の武家社会のど真ん中に位置する名族の血を引いている。</p>
+</div>
+
+<div class="main-text">
+  <p>次章では、赤沢清経以降の家系図を詳しく見ていく。塩崎城を拠点に信濃で活躍した赤沢氏の歴代当主たち、そして室町時代に将軍の弓道師範を務めた赤沢朝経の物語へ。</p>
+</div>
+
+<!-- Page navigation -->
+<div class="page-nav">
+  <a href="chapter1-origins.html">← 第1章 赤沢の起源</a>
+  <a href="family-tree.html">家系図 →</a>
+</div>
+
+<div class="site-footer">
+  <p>赤澤一族 令和版 — 2026年編纂</p>
+</div>
+
+</div>
+
+<script>/* no canvas needed for stone garden style */</script>
+</body>
+</html>
