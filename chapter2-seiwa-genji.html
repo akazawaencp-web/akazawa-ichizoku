@@ -379,7 +379,14 @@ document.querySelectorAll('.lf-person').forEach(function(node) {
     // パネルの切り替え
     document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('show'); });
     var panel = document.getElementById(tabId);
-    if (panel) panel.classList.add('show');
+    if (panel) {
+      panel.classList.add('show');
+      // パネル表示後、少し遅延してスクロール
+      setTimeout(function() {
+        var y = panel.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }, 100);
+    }
   });
 });
 </script>
