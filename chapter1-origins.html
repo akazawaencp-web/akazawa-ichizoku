@@ -9,7 +9,7 @@
 :root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--ink-grad:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.05));--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
-.content{max-width:740px;margin:0 auto;padding:40px 20px 60px}
+.content{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
 .breadcrumb{font-size:12px;color:var(--tx3);margin-bottom:30px}
 .breadcrumb a{color:var(--tx2);text-decoration:none}
 .breadcrumb a:hover{text-decoration:underline}
@@ -19,28 +19,28 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 .ch-sub{font-size:13px;color:var(--tx3);margin-top:6px}
 .ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
 .main-text{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:28px}
-.main-text p{margin-bottom:18px}
+.main-text p{margin-bottom:18px;text-indent:1em}
 .main-text strong{color:var(--tx)}
 .card{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:24px 28px;margin-bottom:18px}
-.card-ink{border-left:4px solid #8b6914;border-radius:0 14px 14px 0}
+.card-ink{border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;border-radius:0}
 .card p,.card li{font-size:14px;color:var(--tx2);line-height:1.9}
 .card ul{padding-left:18px;margin-top:8px}
 .card li{margin-bottom:6px}
 .card strong{color:var(--tx)}
 .card-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
-.ai-note{background:rgba(240,242,248,.5);border:1px solid var(--bd2);border-radius:12px;padding:18px 22px;margin:18px 0;backdrop-filter:var(--blur)}
+.ai-note{background:rgba(240,242,248,.5);border:1px solid var(--bd2);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:18px 22px;margin:18px 0;backdrop-filter:var(--blur)}
 .ai-label{font-size:10px;font-weight:600;color:var(--tx3);letter-spacing:.04em;margin-bottom:6px}
 .ai-note p{font-size:13px;color:#3a3a50;line-height:1.9}
-.original{background:rgba(0,0,0,.02);border-left:2px solid rgba(0,0,0,.08);padding:16px 20px;margin:18px 0;border-radius:0 8px 8px 0}
+.original{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:18px 22px;margin:18px 0}
 .original-label{font-size:9px;font-weight:600;color:var(--tx4);letter-spacing:.1em;margin-bottom:6px}
 .original p{font-size:13px;color:var(--tx3);line-height:1.9}
-.toggle{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);overflow:hidden;margin-bottom:14px}
-.toggle-btn{width:100%;padding:14px 24px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:inherit;font-size:13px;font-weight:500;color:var(--tx);text-align:left}
+.toggle{background:transparent;border:none;border-bottom:1px solid rgba(0,0,0,.06);border-radius:0;overflow:hidden;margin-bottom:14px}
+.toggle-btn{width:100%;padding:14px 0;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:inherit;font-size:13px;font-weight:500;color:var(--tx);text-align:left}
 .toggle-btn:hover{background:rgba(0,0,0,.01)}
 .toggle-btn .arr{font-size:11px;color:var(--tx4);transition:transform .3s}
 .toggle-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
-.toggle-inner{padding:0 24px 18px;font-size:14px;color:var(--tx2);line-height:2}
+.toggle-inner{padding:0 0 18px;font-size:14px;color:var(--tx2);line-height:2}
 .toggle-body.open{max-height:3000px}
 .toggle-btn.active .arr{transform:rotate(180deg)}
 .page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid var(--bd2)}
@@ -81,6 +81,11 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 
 <div class="original">
   <div class="original-label">原文</div>
+  <p>山城國にも赤沢の地がありて、桓武平氏千葉氏系の赤沢氏は此の地に由来するという。此の赤沢の地は、何れの郡内にありしや、詳細に欠くるものあり。<br>奥川の陸中紫波郡に赤沢邑あり、此の地名を号せし流れは、信濃より来りし記録に伝えらる、源姓小笠原流の族とも言われたり。<br>右の如く、清和源氏系の赤沢氏のは、前記の桓武平氏流、又は室町幕府奉行、或は渡来系の多々良氏族にも、赤沢氏の伝承が見ゆ。</p>
+</div>
+
+<div class="original">
+  <div class="original-label">原文</div>
   <p>赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。但し異説は早くよりありて、甲斐國巨摩郡の赤沢が、此の一族の氏号の地なりとも見えたり。</p>
 </div>
 
@@ -117,6 +122,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
   <div class="toggle-body">
     <div class="toggle-inner">
       <p>信州には<strong>諏訪神氏系の赤沢氏</strong>も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</p>
+      <div class="original">
+        <div class="original-label">原文</div>
+        <p>信州には、諏訪神家の族の方が、より古き赤沢氏の如くにも見えたり。</p>
+      </div>
     </div>
   </div>
 </div>
@@ -129,6 +138,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
     <div class="toggle-inner">
       <p>伊豆国田方郡赤沢郷は、現在の<strong>静岡県伊東市赤沢</strong>。伊豆半島東海岸、相模灘に面した集落。鎌倉時代、源頼朝が挙兵した伊豆の一部で、源氏ゆかりの武士たちが土着していた。</p>
       <p>小笠原長経の次男・清経が伊豆守となってこの赤沢郷を領し、赤沢を名乗ったのが赤沢氏の始まり。清経はその後、信濃国埴科郡埴生（現在の長野県千曲市）へ移住。</p>
+      <div class="original">
+        <div class="original-label">原文</div>
+        <p>小笠原流弓道の家として、此の赤沢氏が名を挙げたり。日本弓道史、中嶋次太郎氏の著書などに詳しく見ゆ。<br>伊豆守経直の子孫は、氏号を小笠原に改めて、徳川氏に臣事せり。</p>
+      </div>
     </div>
   </div>
 </div>

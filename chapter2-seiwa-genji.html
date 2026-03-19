@@ -8,7 +8,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
-.content-wrap{max-width:740px;margin:0 auto;padding:40px 20px 60px}
+.content-wrap{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
 .breadcrumb{font-size:12px;color:#999;margin-bottom:30px}
 .breadcrumb a{color:#555;text-decoration:none}
 .breadcrumb a:hover{text-decoration:underline}
@@ -18,9 +18,9 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 .chapter-subtitle{font-size:13px;color:#999;margin-top:6px}
 .ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
 .main-text{font-size:15px;line-height:2.2;color:#555;margin-bottom:28px}
-.main-text p{margin-bottom:18px}
+.main-text p{margin-bottom:18px;text-indent:1em}
 .main-text strong{color:#1a1a1a}
-.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 14px 14px 0;border-left:4px solid #8b6914;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
 .card-indigo,.card-gold,.card-vermillion{/* legacy classes, now unified */}
 .card::before{display:none}
 .card-title{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
@@ -29,20 +29,20 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 .card ul{padding-left:18px;margin-top:8px}
 .card li{margin-bottom:6px}
 .card strong{color:#1a1a1a}
-.grandpa-note{background:#f8f5ea;border:1px solid #e2dcc4;border-radius:14px;padding:20px 24px;margin:20px 0}
-.grandpa-note::before{content:'📝 おじいちゃん（秀邦）の調査メモ';display:block;font-size:10px;font-weight:600;color:#8b7a48;letter-spacing:.04em;margin-bottom:8px}
+.grandpa-note{background:rgba(245,242,235,.4);border:1px solid #e2dcc4;border-top:2px solid #8b6914;border-radius:0 0 12px 12px;padding:20px 24px;margin:20px 0}
+.grandpa-note::before{content:'📝 秀邦の調査メモ';display:block;font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.04em;margin-bottom:8px}
 .grandpa-note p{font-size:13px;color:#5a4a28;line-height:1.9}
-.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-radius:14px;padding:20px 24px;margin:20px 0}
-.ai-note::before{content:'🔍 深掘り調査';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
+.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:20px 24px;margin:20px 0}
+.ai-note::before{content:'深掘り調査';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
 .ai-note p,.ai-note li{font-size:13px;color:#444;line-height:1.9}
 .ai-note ul{padding-left:18px}
 .ai-note li{margin-bottom:4px}
-.original-text{background:rgba(0,0,0,.02);border-left:2px solid rgba(0,0,0,.08);padding:16px 20px;margin:20px 0;font-size:13px;color:#999;line-height:1.9;border-radius:0 8px 8px 0}
+.original-text{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);padding:18px 22px;margin:20px 0;font-size:13px;color:#999;line-height:1.9;border-radius:10px}
 .original-text::before{content:'原文';display:block;font-size:9px;font-weight:600;color:#bbb;letter-spacing:.1em;margin-bottom:6px}
 
 /* Person Card — 石庭 */
-.person-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 14px 14px 0;border-left:4px solid #8b6914;padding:28px;margin-bottom:24px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
-.person-card.highlight{border-left-color:#2a2420;border-left-width:5px}
+.person-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:28px;margin-bottom:24px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.person-card.highlight{}
 .person-name{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:4px}
 .person-reading{font-size:12px;color:#999;margin-bottom:12px}
 .person-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}

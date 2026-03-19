@@ -20,25 +20,49 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
 
-/* Hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative}
-.hero-en{font-size:10px;letter-spacing:.35em;color:var(--tx4);font-weight:500;margin-bottom:36px}
-.kamon{width:140px;height:140px;margin-bottom:36px;animation:kamonIn 2s ease-out}
-.kamon svg{width:100%;height:100%;filter:drop-shadow(0 2px 12px rgba(0,0,0,.04))}
-@keyframes kamonIn{0%{opacity:0;transform:scale(.85)}100%{opacity:1;transform:scale(1)}}
-.hero-title{font-family:'Shippori Mincho',serif;font-size:40px;font-weight:500;letter-spacing:.22em;color:var(--tx);animation:fadeUp 1.5s ease .3s both}
-.hero-sub{font-size:13px;color:var(--tx3);letter-spacing:.1em;margin-top:10px;animation:fadeUp 1.5s ease .6s both}
-.hero-line{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--tx3),transparent);margin:28px auto;animation:fadeUp 1.5s ease .8s both}
-.hero-lineage{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;animation:fadeUp 1.5s ease 1s both}
-.lin-item{font-size:12px;font-weight:500;color:var(--tx2);padding:5px 14px;background:var(--glass);border:1px solid var(--bd2);border-radius:8px;backdrop-filter:var(--blur)}
-.lin-item.lin-main{color:var(--tx);font-weight:600;border-color:rgba(0,0,0,.1)}
-.lin-arrow{font-size:10px;color:var(--tx4)}
-.scroll-hint{position:absolute;bottom:28px;font-size:11px;color:var(--tx4);letter-spacing:.05em;animation:bounce 2.5s infinite 3s}
-@keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* Hero — Silver Bright (hero8) */
+.hero{min-height:100vh;position:relative;overflow:hidden}
+
+/* 背景: Soft多重透過（4枚soft-light、ダイナミックドリフト） */
+.layers{position:absolute;inset:0;z-index:1}
+.ly{position:absolute;inset:-12%;background-size:cover;background-position:center;filter:brightness(.45) saturate(.5)}
+.l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:bgA 14s ease-in-out infinite alternate}
+.l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.35;mix-blend-mode:soft-light;animation:bgB 16s ease-in-out infinite alternate}
+.l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.3;mix-blend-mode:soft-light;animation:bgC 12s ease-in-out infinite alternate}
+.l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.25;mix-blend-mode:soft-light;animation:bgD 15s ease-in-out infinite alternate}
+
+@keyframes bgA{0%{transform:scale(1.02) translate(1.5%,-1%)}100%{transform:scale(1.12) translate(-2%,1.5%)}}
+@keyframes bgB{0%{transform:scale(1.1) translate(-1.5%,1%)}100%{transform:scale(1.02) translate(2%,-1.5%)}}
+@keyframes bgC{0%{transform:scale(1.05) translate(2%,1.5%)}100%{transform:scale(1.14) translate(-1.5%,-1%)}}
+@keyframes bgD{0%{transform:scale(1.08) translate(-1%,-1.5%)}100%{transform:scale(1.15) translate(1.5%,2%)}}
+
+.ov{position:absolute;inset:0}
+.ov-m{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.35) 0%,rgba(10,10,10,.6) 100%);z-index:2}
+.ov-g{opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:3}
+
+/* 中央コンテンツ */
+.cc{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:60px 24px}
+
+/* 家紋: 浮遊 + なぞり + グロー */
+.km-float{animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.glow-wrap{animation:glowS 4s ease-in-out infinite 3s}
+@keyframes glowS{0%,100%{filter:drop-shadow(0 0 12px rgba(200,205,215,.06))}50%{filter:drop-shadow(0 0 30px rgba(200,205,215,.18))}}
+.p-km{width:280px;height:280px;margin-bottom:44px}
+.p-km svg{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.5s cubic-bezier(.4,0,.2,1) .3s forwards}
+@keyframes draw{0%{stroke-dashoffset:1400}100%{stroke-dashoffset:0}}
+
+/* テキスト */
+.p-en{font-size:9px;letter-spacing:.5em;color:rgba(200,205,215,.25);margin-bottom:20px;animation:fi 2s ease .1s both}
+@keyframes fi{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+.p-t{font-family:'Shippori Mincho',serif;font-size:68px;font-weight:400;letter-spacing:.4em;color:rgba(235,238,245,.85);text-shadow:0 0 60px rgba(200,205,215,.1);animation:fi 2.5s ease 2s both;opacity:0}
+.p-gline{width:80px;height:2px;background:linear-gradient(90deg,transparent,rgba(180,185,200,.35),rgba(220,225,240,.6),rgba(180,185,200,.35),transparent);margin:22px auto;animation:fi 2s ease 2.8s both}
+.p-sub{font-size:10px;letter-spacing:.2em;color:rgba(200,205,215,.3);animation:fi 2s ease 3.2s both;line-height:2}
+.scue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.06em;animation:bn 2.5s infinite;z-index:10}
+@keyframes bn{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
 
 /* Content */
-.content{max-width:740px;margin:0 auto;padding:0 20px 80px}
+.content{max-width:1000px;margin:0 auto;padding:0 20px 80px}
 
 /* Section headers */
 .sec-head{margin:60px 0 20px}
@@ -48,40 +72,37 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 
 /* Card */
 .card{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:24px 28px;margin-bottom:16px;position:relative;overflow:hidden}
-.card-ink{border-left:4px solid #8b6914;border-radius:0 14px 14px 0}
+.card-ink{border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;border-radius:0}
 .card p{font-size:14px;color:var(--tx2);line-height:2}
 .card ul{padding-left:18px;margin-top:8px}
 .card li{font-size:14px;color:var(--tx2);margin-bottom:6px;line-height:1.8}
 .card strong{color:var(--tx)}
 
-/* Stats */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:20px 0}
-.stat{background:var(--glass);border:1px solid var(--bd2);border-radius:12px;backdrop-filter:var(--blur);padding:20px;text-align:center;box-shadow:var(--sh)}
-.stat-num{font-family:'Shippori Mincho',serif;font-size:26px;font-weight:600;color:var(--tx)}
-.stat-label{font-size:10px;color:var(--tx3);margin-top:4px;letter-spacing:.02em}
-
 /* Timeline */
-.tl{position:relative;padding-left:26px;margin:20px 0}
-.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1.5px;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.03))}
+.tl{position:relative;padding-left:30px;margin:20px 0}
+.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#7a5a20,#c4a060);border-radius:2px}
 .tl-item{position:relative;padding-bottom:22px}
-.tl-item::before{content:'';position:absolute;left:-23px;top:7px;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.15);border:2px solid var(--bg2)}
-.tl-year{font-size:11px;font-weight:600;color:var(--tx3);letter-spacing:.02em}
-.tl-title{font-family:'Shippori Mincho',serif;font-size:14px;font-weight:500;color:var(--tx);margin:2px 0}
+.tl-item::before{content:'';position:absolute;left:-28px;top:7px;width:10px;height:10px;border-radius:50%;background:#8b6914;border:3px solid #f2f1ee}
+.tl-year{font-size:11px;font-weight:700;color:#8b6914;letter-spacing:.02em}
+.tl-title{font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:600;color:var(--tx);margin:2px 0}
 .tl-desc{font-size:13px;color:var(--tx2);line-height:1.8}
 
 /* Nav grid */
-.nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:20px}
-.nav-card{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:22px;text-decoration:none;color:var(--tx);transition:all .2s;position:relative;overflow:hidden}
-.nav-card:hover{box-shadow:var(--sh2);transform:translateY(-2px);border-color:rgba(0,0,0,.08)}
-.nav-card::after{content:'→';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--tx4);transition:right .2s}
-.nav-card:hover::after{right:14px;color:var(--tx3)}
-.nav-num{font-size:9px;font-weight:600;letter-spacing:.12em;color:var(--tx3);margin-bottom:6px}
-.nav-title{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;margin-bottom:4px}
-.nav-desc{font-size:11px;color:var(--tx2);line-height:1.6}
+.nav-grid{display:flex;flex-direction:column;gap:0;margin-top:20px}
+.nav-card{display:flex;align-items:center;gap:20px;background:var(--glass);border:1px solid var(--bd2);border-radius:0;backdrop-filter:var(--blur);box-shadow:none;padding:16px 24px;text-decoration:none;color:var(--tx);transition:all .25s;position:relative;overflow:hidden;border-bottom:none}
+.nav-card:first-child{border-radius:14px 14px 0 0}
+.nav-card:last-child{border-radius:0 0 14px 14px;border-bottom:1px solid var(--bd2)}
+.nav-card:hover{padding:20px 24px;background:var(--glass2);box-shadow:var(--sh2);transform:translateX(4px)}
+.nav-card::after{content:'→';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--tx4);transition:all .2s}
+.nav-card:hover::after{right:20px;color:var(--tx3)}
+.nav-num{font-family:'Shippori Mincho',serif;font-size:20px;font-weight:400;color:var(--tx4);flex-shrink:0;min-width:40px}
+.nav-title{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;margin-bottom:2px}
+.nav-body{flex:1;min-width:0}
+.nav-desc{font-size:11px;color:var(--tx2);line-height:1.6;padding-right:30px}
 
 /* Grandpa note */
-.gp-note{background:var(--warm);border:1px solid var(--warm-bd);border-radius:12px;padding:18px 22px;margin:16px 0;backdrop-filter:var(--blur)}
-.gp-label{font-size:10px;font-weight:600;color:#998a70;letter-spacing:.05em;margin-bottom:6px}
+.gp-note{background:rgba(245,242,235,.4);border:1px solid var(--warm-bd);border-top:2px solid #8b6914;border-radius:0 0 12px 12px;padding:18px 22px;margin:16px 0;backdrop-filter:var(--blur)}
+.gp-label{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.05em;margin-bottom:6px}
 .gp-note p{font-size:13px;color:var(--warm-tx);line-height:1.8}
 
 /* Source info */
@@ -94,12 +115,12 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 /* Footer */
 .footer{text-align:center;padding:40px 0 24px;font-size:11px;color:var(--tx4);border-top:1px solid var(--bd2);margin-top:60px}
 
+@media(max-width:768px){
+  .p-t{font-size:44px !important;letter-spacing:.25em !important}
+  .p-km{width:200px;height:200px}
+}
 @media(max-width:600px){
-  .hero-title{font-size:30px;letter-spacing:.15em}
-  .kamon{width:110px;height:110px}
   .card{padding:18px 20px}
-  .nav-grid{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -107,32 +128,39 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-en">AKAZAWA ICHIZOKU</div>
-  <div class="kamon">
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(30,30,30,.2)" stroke-width="1.8"/>
-      <g transform="translate(100,100)">
-        <polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(30,30,30,.2)" stroke-width="1.8"/>
-        <polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(30,30,30,.3)" stroke-width="2.2"/>
-        <polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(30,30,30,.2)" stroke-width="1.8"/>
-      </g>
-      <line x1="100" y1="88" x2="100" y2="112" stroke="rgba(30,30,30,.2)" stroke-width="1.5"/>
-      <line x1="88" y1="100" x2="112" y2="100" stroke="rgba(30,30,30,.2)" stroke-width="1.5"/>
-    </svg>
+  <div class="layers">
+    <div class="ly l1"></div>
+    <div class="ly l2"></div>
+    <div class="ly l3"></div>
+    <div class="ly l4"></div>
   </div>
-  <div class="hero-title">赤澤一族</div>
-  <div class="hero-sub">清和源氏 — 小笠原氏庶流 — 信濃発祥</div>
-  <div class="hero-line"></div>
-  <div class="hero-lineage">
-    <span class="lin-item">清和天皇</span>
-    <span class="lin-arrow">→</span>
-    <span class="lin-item">源経基</span>
-    <span class="lin-arrow">→</span>
-    <span class="lin-item">小笠原長清</span>
-    <span class="lin-arrow">→</span>
-    <span class="lin-item lin-main">赤沢清経</span>
+  <div class="ov ov-m"></div>
+  <div class="ov ov-g"></div>
+
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float">
+      <div class="glow-wrap">
+        <div class="p-km">
+          <svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5">
+            <circle cx="100" cy="100" r="90"/>
+            <g transform="translate(100,100)">
+              <polygon points="0,-55 25,-40 0,-25 -25,-40"/>
+              <polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/>
+              <polygon points="0,25 25,40 0,55 -25,40"/>
+            </g>
+            <line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/>
+            <line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="p-t">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
   </div>
-  <div class="scroll-hint">↓ scroll</div>
+
+  <div class="scue">↓ scroll</div>
 </div>
 
 <!-- CONTENT -->
@@ -151,14 +179,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
     <p>原本には、赤澤秀邦（編者の祖父）が生前に各地のお寺を巡り、独自に調査した手書きのメモが多数残されている。そのメモも本文中に注釈として織り込んだ。</p>
     <br>
     <p>赤澤家の血を引く者が、自らのルーツを知り、先祖たちがどんな時代にどんな人生を歩んだのかを感じ取れる — そんな一冊を目指している。</p>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat"><div class="stat-num">850</div><div class="stat-label">年〜 清和天皇の治世</div></div>
-    <div class="stat"><div class="stat-num">1,100+</div><div class="stat-label">年の歴史</div></div>
-    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">世代以上</div></div>
-    <div class="stat"><div class="stat-num">松皮菱</div><div class="stat-label">家紋</div></div>
   </div>
 
   <!-- Overview -->
@@ -207,29 +227,24 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 
   <div class="nav-grid">
     <a class="nav-card" href="chapter1-origins.html">
-      <div class="nav-num">CHAPTER 01</div>
-      <div class="nav-title">赤沢の起源</div>
-      <div class="nav-desc">「赤沢」という名前はどこから来たのか。</div>
+      <div class="nav-num">01</div>
+      <div class="nav-body"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div>
     </a>
     <a class="nav-card" href="chapter2-seiwa-genji.html">
-      <div class="nav-num">CHAPTER 02</div>
-      <div class="nav-title">清和源氏と赤沢氏</div>
-      <div class="nav-desc">天皇から武門の頂点へ。</div>
+      <div class="nav-num">02</div>
+      <div class="nav-body"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div>
     </a>
     <a class="nav-card" href="family-tree.html">
-      <div class="nav-num">FAMILY TREE</div>
-      <div class="nav-title">家系図</div>
-      <div class="nav-desc">清和天皇から現代まで。クリックで詳細表示。</div>
+      <div class="nav-num">系</div>
+      <div class="nav-body"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。クリックで詳細表示。</div></div>
     </a>
     <a class="nav-card" href="chapter4-branches.html">
-      <div class="nav-num">CHAPTER 04</div>
-      <div class="nav-title">全国に広がる赤沢氏</div>
-      <div class="nav-desc">阿波、備中、奥州…一族の足跡。</div>
+      <div class="nav-num">04</div>
+      <div class="nav-body"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div>
     </a>
     <a class="nav-card" href="chapter5-kamon.html">
-      <div class="nav-num">CHAPTER 05</div>
-      <div class="nav-title">家紋と伝承</div>
-      <div class="nav-desc">松皮菱の由来。</div>
+      <div class="nav-num">05</div>
+      <div class="nav-body"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div>
     </a>
   </div>
 
@@ -252,7 +267,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
   </div>
 
   <div class="gp-note">
-    <div class="gp-label">おじいちゃんの調査メモ</div>
+    <div class="gp-label">秀邦の調査メモ</div>
     <p>原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。この令和版では、その手書きメモを注釈として織り込んでいる。</p>
   </div>
 

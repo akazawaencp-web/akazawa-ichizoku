@@ -8,34 +8,34 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
-.content-wrap{max-width:740px;margin:0 auto;padding:40px 20px 60px}
+.content-wrap{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
 .breadcrumb{font-size:12px;color:#999;margin-bottom:30px}.breadcrumb a{color:#555;text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
 .chapter-header{margin-bottom:40px;padding-bottom:16px}
 .chapter-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:#999;margin-bottom:6px}
 .chapter-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:#1a1a1a;letter-spacing:.1em}
 .chapter-subtitle{font-size:13px;color:#999;margin-top:6px}
-.main-text{font-size:15px;line-height:2.2;color:#555;margin-bottom:28px}.main-text p{margin-bottom:18px}.main-text strong{color:#1a1a1a}
+.main-text{font-size:15px;line-height:2.2;color:#555;margin-bottom:28px}.main-text p{margin-bottom:18px;text-indent:1em}.main-text strong{color:#1a1a1a}
 .section-header{margin:50px 0 20px;padding-bottom:10px}
 .section-header h2{font-family:'Shippori Mincho',serif;font-size:21px;font-weight:500;color:#1a1a1a}
 .section-header .section-num{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.1em;margin-bottom:4px}
-.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 14px 14px 0;border-left:4px solid #8b6914;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
 .card::before{display:none}
 .card-indigo,.card-gold{}
 .card-title{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
 .card p,.card li{font-size:14px;color:#555;line-height:1.9}.card ul{padding-left:18px}.card li{margin-bottom:6px}.card strong{color:#1a1a1a}
-.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-radius:14px;padding:20px 24px;margin:20px 0}
-.ai-note::before{content:'🔍 深掘り調査';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
+.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:20px 24px;margin:20px 0}
+.ai-note::before{content:'深掘り調査';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
 .ai-note p,.ai-note li{font-size:13px;color:#444;line-height:1.9}
-.grandpa-note{background:#f8f5ea;border:1px solid #e2dcc4;border-radius:14px;padding:20px 24px;margin:20px 0}
-.grandpa-note::before{content:'📝 おじいちゃんの調査メモ';display:block;font-size:10px;font-weight:600;color:#8b7a48;letter-spacing:.04em;margin-bottom:8px}
+.grandpa-note{background:rgba(245,242,235,.4);border:1px solid #e2dcc4;border-top:2px solid #8b6914;border-radius:0 0 12px 12px;padding:20px 24px;margin:20px 0}
+.grandpa-note::before{content:'📝 秀邦の調査メモ';display:block;font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.04em;margin-bottom:8px}
 .grandpa-note p{font-size:13px;color:#5a4a28;line-height:1.9}
 .kamon-display{text-align:center;padding:50px 30px;margin:30px 0}
 .kamon-svg{width:200px;height:200px;margin:0 auto 20px}
 .kamon-svg svg{width:100%;height:100%}
 .kamon-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;color:#1a1a1a;margin-bottom:8px}
 .kamon-desc{font-size:14px;color:#888}
-.original-text{background:rgba(0,0,0,.02);border-left:2px solid rgba(0,0,0,.08);padding:16px 20px;margin:20px 0;font-size:13px;color:#999;line-height:1.9;border-radius:0 8px 8px 0}
+.original-text{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);padding:18px 22px;margin:20px 0;font-size:13px;color:#999;line-height:1.9;border-radius:10px}
 .original-text::before{content:'原文';display:block;font-size:9px;font-weight:600;color:#bbb;letter-spacing:.1em;margin-bottom:6px}
 .page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid rgba(0,0,0,.04)}
 .page-nav a{font-size:12px;color:#555;text-decoration:none}.page-nav a:hover{color:#1a1a1a}
@@ -75,6 +75,49 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 <div class="main-text">
   <p>赤沢氏の家紋は<strong>「松皮菱の内に十文字」</strong>。冊子には「<strong>五七桐</strong>」も併用すると記されている。</p>
   <p>この紋は、親族である小笠原氏の<strong>三階菱</strong>から派生したもの。菱形を重ねた形が松の木の樹皮に似ていることから「松皮菱」と呼ばれる。</p>
+</div>
+
+<div class="section-header">
+  <div class="section-num">MIGRATION</div>
+  <h2>苗字の移動と家紋の変遷</h2>
+</div>
+
+<div class="main-text">
+  <p>冊子は第5章の冒頭で、一族が祖宗の地（本拠地）を離れ、他国に居住するようになった歴史を<strong>5つの時期</strong>に分けて解説している。</p>
+</div>
+
+<div class="card card-gold">
+  <div class="card-title"><span class="card-dot" style="background:var(--gold)"></span>第一の時期 — 鎌倉幕府の草創と承久の乱</div>
+  <p>鎌倉幕府の成立にともない、東国の御家人が奥州へ、あるいは九州へと移った。承久の乱の処理により中国・東国へ移り、やがて鎌倉幕府のもとで領地に移住する際、一族の人々を引き連れて各地へ赴いた。</p>
+</div>
+
+<div class="card card-gold">
+  <div class="card-title"><span class="card-dot" style="background:var(--gold)"></span>第二の時期 — 元弘・建武以来の南北朝動乱</div>
+  <p>足利尊氏や北畠顕家、新田一族など、征西将軍の家臣たちが各地で活動。中央から西国・九州へ、東国から南海・西海へ、北国から奥州へと、数多くの武族が移動した。</p>
+</div>
+
+<div class="card card-gold">
+  <div class="card-title"><span class="card-dot" style="background:var(--gold)"></span>第三の時期 — 応仁の乱に続く戦国争乱</div>
+  <p>下剋上による権力の交替が激しく、各地に頻出した。氏族は新主に服せず隣国・遠国に赴いたり、同じ一族でありながら敵味方に分かれることもあった。北条早雲や斎藤道三、宇喜多氏の簒奪、松永氏、龍造寺、鍋島氏の経緯、三好氏の交替など、多くの氏族が南北東西に移動。一城の攻防に際し、陣営に同姓同族の者がいる例も少なくなかった。</p>
+</div>
+
+<div class="card card-gold">
+  <div class="card-title"><span class="card-dot" style="background:var(--gold)"></span>第四の時期 — 豊臣政権以後・徳川時代</div>
+  <p>大名の改易・移封・国替にともない、家臣である氏族も異動した。子は旧領地にとどまり、弟が新知行の土地に赴くこともあった。娘などが他国に嫁入りしたり、領主とともに遠国に行き決まった土地に住むことで、同氏同紋の流れが意外な地に存在することになった。</p>
+</div>
+
+<div class="card card-gold">
+  <div class="card-title"><span class="card-dot" style="background:var(--gold)"></span>第五の時期 — 明治維新以後の移動</div>
+  <p>領地・領民という封建的な関係が消滅し、各氏さまざまに東西に出て、大阪に赴くなどの例が増えた。昭和二十年以後は見聞がさらに新しくなっている。</p>
+</div>
+
+<div class="original-text">
+族が祖宗の地を離れ、他国に居住するに到り、こと頗る多くなれり。これを歴史的に見るに、凡そ五つの時期に分つことを得べし。<br><br>
+第一は鎌倉幕府の草創と承久の乱の処理により、東国の御家人が奥州へ、或は九州、中国へ移り、やがてその初めに於て自らは鎌倉幕府にありしが、領地に移住するに到り、時期なり。族家人を引き連れて移りしが為、数多くの氏族が、諸国に移動せり。<br><br>
+第二は元弘、建武以来の南北朝動乱のせゐ、足利尊氏、北畠顕家、新田一族、征西将軍の家臣などの動きを見るに、中央より西国、九州へ、東国より南海、西海へ、北国より奥州へ、山陰、北陸より四国、九州へなど、数次に分れて黙だしき武族、苗字の移動ありしこと、史実に明らかなり。<br><br>
+第三は応仁の乱に続く戦国争乱の時期なり。下剋上による権力の交替は、各地に頻出し、氏族は新主に服せず、もと同じ傍たりし、隣国、遠国に赴く、その最たるは北条早雲の東遷、斎藤道三の簒奪なれど、浦、宇喜多氏の松永氏の交替、龍造寺、鍋島氏の経緯、三好、ホカ、氏の交替などにより、此の頃に幾多の氏族が南北に奔り、東西に移りて、遂に一城の攻防に際し、陣営に同姓同族のある例、多くの文献に見るものなり。<br><br>
+第四は豊臣政権以後、徳川時代を通じての大名の改易、移封、国替に伴なう氏族の異動あり。土地を領有して父子は旧地にてどまり、弟点は領主と共に新知の土地に赴く、娘などが他国に嫁入りする際、そのまゝ新主の家臣となる例も、或は又、領主の附人として共に遠国に行き、決まって同氏同紋の流れが、少なからず。斯くして同氏の紋の流れが、意外な地に存在するに到ること多が。<br><br>
+第五は明治維新以後の移動にて、最早、領地領民といふものが消滅せし後れば、各氏各様に東西に出で、大阪赴くなどの例、見聞尚新しきもののて言ふを得べし。昭和二十年以後は尚更著しきものあり。
 </div>
 
 <div class="section-header">
@@ -123,6 +166,11 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
   </ul>
 </div>
 
+<div class="original-text">
+家紋に関しても、誠に複雑なるものあり。その変遷の歴史は古来一定せるものは少なからず。或は裏紋、替紋とし、或は本家と別家、別家との別々己別せむが為に、丸を附し、図柄を、位置角度を変更するなどあり。大身の極端なる例として、上位より拝領せし家紋を、以後の正紋とし、古来のものを少なからず。或は本家、別家の中にてもときとして新しきことある、夫々分割し、家も少なからず。<br><br>
+家より養子を迎え、又は嫁を取りし場合に発生するを見る。即ち日常使用する合笠、提燈、合羽などには、生家の定紋を附し、己が世代となりて以後は、一家悉くその新しき家紋を使用せしめ、遂に旧来の家紋を忘失する事もあり。菩提寺、墓所を新たなる所にする事もあり。苦しくて夫々の家伝経歴に複雑するに到る。中には宗旨を変更し、提寺を新たなる所にする事もあり。斯くて夫々の家伝経歴に複雑す。
+</div>
+
 <div class="grandpa-note">
   <p>冊子の「わが家のこと」のページには、家紋の記入欄があり、そこに<strong>松皮菱の紋の実物</strong>（紙に描かれた紋）が貼り付けられている。おじいちゃん（秀邦）が、家の正式な家紋を確認して貼ったものと思われる。</p>
 </div>
@@ -152,7 +200,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 </div>
 
 <div class="original-text">
-  るものあるべし。本書に記する所、渉らざるを遺憾とするものなり。
+  るものあるべし。本書に記する所、渉らざるを遺憾とするものなり。　渉
 </div>
 
 <div class="main-text">
