@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>デザインテスト v8 — 家系図ページ D1〜D4</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;
+  --tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;
+  --bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);
+  --glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);
+  --blur:blur(12px);
+  --sh:0 2px 12px rgba(0,0,0,.03);--sh2:0 4px 20px rgba(0,0,0,.04);
+  --warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40;
+  --gold1:#b8a472;--gold2:#d4c28a;--gold3:#a89560;
+  --silver1:#a0a0a0;--silver2:#c0c0c0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+.page{max-width:1000px;margin:0 auto;padding:40px 24px 80px}
+.page-title{font-family:'Shippori Mincho',serif;font-size:28px;font-weight:500;text-align:center;margin-bottom:8px;letter-spacing:.08em}
+.page-sub{text-align:center;font-size:12px;color:var(--tx3);margin-bottom:50px}
+
+/* Section divider */
+.section{margin-bottom:60px}
+.section-divider{border:none;border-top:1px solid rgba(0,0,0,.06);margin:60px 0 40px}
+.section h2{font-family:'Shippori Mincho',serif;font-size:20px;font-weight:500;margin-bottom:6px;letter-spacing:.06em}
+.section .section-desc{font-size:13px;color:var(--tx2);margin-bottom:28px;line-height:1.8}
+
+/* Pattern label */
+.pattern{margin-bottom:28px;padding:20px;border:1px solid rgba(0,0,0,.04);border-radius:12px;background:rgba(255,255,255,.3)}
+.pattern-label{font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:12px;letter-spacing:.04em}
+.pattern-label span{color:var(--gold1);margin-right:6px}
+
+/* ========================================
+   D1: Top Bar Patterns
+   ======================================== */
+.bar-demo{border-radius:8px;overflow:hidden;margin-bottom:4px}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
+.bar a,.bar-link{color:var(--tx3);text-decoration:none;font-size:12px;cursor:pointer;transition:all .2s}
+.bar a:hover,.bar-link:hover{color:var(--tx)}
+.bar h3{font-size:15px;font-weight:500;letter-spacing:.08em}
+
+/* D1-1 Current */
+.bar-1{background:var(--glass2);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd2)}
+.bar-1 h3{font-family:'Shippori Mincho',serif;color:var(--tx)}
+
+/* D1-2 Dark */
+.bar-2{background:#1a1a1a}
+.bar-2 a{color:rgba(255,255,255,.5)}
+.bar-2 a:hover{color:#fff}
+.bar-2 h3{font-family:'Shippori Mincho',serif;color:#fff}
+
+/* D1-3 Transparent */
+.bar-3{background:transparent;border-bottom:1px solid rgba(0,0,0,.06)}
+.bar-3 h3{font-family:'Shippori Mincho',serif;color:var(--tx)}
+
+/* D1-4 White+shadow */
+.bar-4{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.bar-4 h3{font-family:'Shippori Mincho',serif;color:var(--tx)}
+
+/* D1-5 Glass strong */
+.bar-5{background:rgba(255,255,255,.4);backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,.5);border-radius:12px;margin:4px}
+.bar-5 h3{font-family:'Shippori Mincho',serif;color:var(--tx)}
+
+/* D1-6 Gold accent */
+.bar-6{background:var(--glass2);backdrop-filter:blur(20px);border-bottom:2px solid var(--gold1)}
+.bar-6 h3{font-family:'Shippori Mincho',serif;color:var(--tx)}
+
+/* D1-7 Large title */
+.bar-7{background:var(--glass2);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd2);padding:16px 24px}
+.bar-7 h3{font-family:'Shippori Mincho',serif;color:var(--tx);font-size:22px;font-weight:400;letter-spacing:.12em}
+.bar-7 a{font-size:11px}
+
+/* D1-8 Compact */
+.bar-8{background:var(--glass2);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd2);padding:6px 20px}
+.bar-8 h3{font-family:'Shippori Mincho',serif;color:var(--tx);font-size:13px}
+.bar-8 a{font-size:10px}
+
+/* D1-9 Hover effect */
+.bar-9{background:var(--glass2);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd2)}
+.bar-9 a{padding:6px 14px;border-radius:6px;transition:all .2s}
+.bar-9 a:hover{background:rgba(0,0,0,.04);color:var(--tx)}
+.bar-9 h3{font-family:'Shippori Mincho',serif;color:var(--tx)}
+
+/* D1-10 Japanese */
+.bar-10{background:var(--glass2);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.04);position:relative}
+.bar-10::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold1),transparent)}
+.bar-10 h3{font-family:'Shippori Mincho',serif;color:var(--tx);font-size:17px;font-weight:400;letter-spacing:.15em}
+.bar-10 a{font-family:'Shippori Mincho',serif;font-size:12px;letter-spacing:.06em}
+
+/* ========================================
+   D2: Node Patterns
+   ======================================== */
+.node-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+
+/* Base node for demo */
+.demo-node{display:inline-flex;flex-direction:column;gap:2px;padding:7px 14px;cursor:pointer;transition:all .15s;text-decoration:none;color:var(--tx);min-width:120px}
+.demo-node:hover{transform:translateY(-1px)}
+.demo-node .nn{font-family:'Shippori Mincho',serif;font-size:13px;font-weight:500;color:var(--tx)}
+.demo-node .nr{font-size:9px;color:var(--tx3)}
+
+/* D2-1 Current */
+.n2-1{border:1px solid var(--bd2);border-radius:10px;background:var(--glass);backdrop-filter:var(--blur);box-shadow:0 1px 4px rgba(0,0,0,.02)}
+.n2-1:hover{border-color:rgba(0,0,0,.1);box-shadow:var(--sh)}
+.n2-1.direct{border-color:rgba(0,0,0,.08);background:var(--glass2)}
+.n2-1.direct .nn{font-weight:600}
+.n2-1.key{border-color:rgba(0,0,0,.15);border-width:1.5px;background:var(--glass2)}
+.n2-1.key .nn{font-weight:600;color:#111}
+.n2-1.modern{border-color:rgba(0,0,0,.12);background:rgba(248,248,245,.7);border-width:1.5px}
+.n2-1.modern .nn{font-weight:600}
+
+/* D2-2 Left color line */
+.n2-2{border:1px solid var(--bd2);border-radius:8px;background:var(--glass);border-left:3px solid #ccc;padding-left:12px}
+.n2-2:hover{box-shadow:var(--sh)}
+.n2-2.direct{border-left-color:var(--silver1)}
+.n2-2.key{border-left-color:var(--gold1)}
+.n2-2.modern{border-left-color:#c4a882}
+.n2-2.normal{border-left-color:#ccc}
+
+/* D2-3 Bottom bar */
+.n2-3{border:1px solid var(--bd2);border-radius:8px;background:var(--glass);position:relative;overflow:hidden;padding-bottom:10px}
+.n2-3::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#ddd}
+.n2-3:hover{box-shadow:var(--sh)}
+.n2-3.direct::after{background:var(--silver1)}
+.n2-3.key::after{background:linear-gradient(90deg,var(--gold1),var(--gold2))}
+.n2-3.modern::after{background:#c4a882}
+
+/* D2-4 Card+shadow */
+.n2-4{border:none;border-radius:10px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.n2-4:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.n2-4.key{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.n2-4.key .nn{font-weight:600}
+.n2-4.direct .nn{font-weight:600}
+
+/* D2-5 Border weight */
+.n2-5{border-radius:8px;background:var(--glass);border:1px solid rgba(0,0,0,.06)}
+.n2-5:hover{border-color:rgba(0,0,0,.12)}
+.n2-5.direct{border-width:1.5px;border-color:rgba(0,0,0,.1)}
+.n2-5.key{border-width:2.5px;border-color:rgba(0,0,0,.18)}
+.n2-5.key .nn{font-weight:600}
+.n2-5.modern{border-width:2px;border-color:rgba(0,0,0,.1)}
+
+/* D2-6 Pill */
+.n2-6{border:1px solid var(--bd2);border-radius:99px;background:var(--glass);padding:6px 20px}
+.n2-6:hover{box-shadow:var(--sh);border-color:rgba(0,0,0,.1)}
+.n2-6.key{border-color:rgba(0,0,0,.12);border-width:1.5px}
+.n2-6.key .nn{font-weight:600}
+.n2-6.direct .nn{font-weight:600}
+
+/* D2-7 Minimal */
+.n2-7{border:1px solid transparent;border-radius:8px;background:transparent;padding:6px 12px}
+.n2-7:hover{border-color:rgba(0,0,0,.08);background:var(--glass)}
+.n2-7.key .nn{font-weight:600}
+.n2-7.direct .nn{font-weight:500}
+
+/* D2-8 Gold accent for key */
+.n2-8{border:1px solid var(--bd2);border-radius:10px;background:var(--glass);backdrop-filter:var(--blur)}
+.n2-8:hover{box-shadow:var(--sh)}
+.n2-8.key{border-color:var(--gold1);border-width:1.5px}
+.n2-8.key .nn{font-weight:600;color:var(--gold3)}
+.n2-8.direct{border-color:rgba(0,0,0,.08)}
+.n2-8.direct .nn{font-weight:600}
+.n2-8.modern{border-color:rgba(0,0,0,.1)}
+
+/* D2-9 Glassmorphism */
+.n2-9{border:1px solid rgba(255,255,255,.4);border-radius:12px;background:rgba(255,255,255,.35);backdrop-filter:blur(20px);box-shadow:0 2px 12px rgba(0,0,0,.03)}
+.n2-9:hover{background:rgba(255,255,255,.5);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.n2-9.key{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.45)}
+.n2-9.key .nn{font-weight:600}
+
+/* D2-10 Tag style */
+.n2-10{border:1px solid var(--bd2);border-radius:6px;background:var(--glass);padding:4px 10px;min-width:auto}
+.n2-10 .nn{font-size:11px}
+.n2-10 .nr{font-size:8px}
+.n2-10:hover{border-color:rgba(0,0,0,.1);box-shadow:0 1px 4px rgba(0,0,0,.03)}
+.n2-10.key{border-color:rgba(0,0,0,.12);background:var(--glass2)}
+.n2-10.key .nn{font-weight:600}
+
+/* ========================================
+   D3: Connector Patterns
+   ======================================== */
+.connector-demo{padding:10px 0 10px 40px;position:relative}
+.connector-demo .c-nodes{display:flex;flex-direction:column;gap:0}
+.connector-demo .c-node{padding:8px 14px;font-family:'Shippori Mincho',serif;font-size:13px;color:var(--tx);position:relative;margin-left:20px;background:var(--glass);border:1px solid var(--bd2);border-radius:8px;display:inline-block;width:fit-content;margin-bottom:0}
+.connector-demo .c-spacer{height:18px;position:relative}
+
+/* D3-1 Current */
+.c3-1 .c-line{position:absolute;left:0;top:0;bottom:0;width:1.5px;background:rgba(0,0,0,.06)}
+.c3-1 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:1.5px;background:rgba(0,0,0,.06)}
+
+/* D3-2 Gold gradient */
+.c3-2 .c-line{position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold1),var(--gold2),rgba(212,194,138,.3))}
+.c3-2 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:2px;background:var(--gold1)}
+
+/* D3-3 Silver gradient */
+.c3-3 .c-line{position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--silver1),var(--silver2),rgba(192,192,192,.3))}
+.c3-3 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:2px;background:var(--silver1)}
+
+/* D3-4 Dashed */
+.c3-4 .c-line{position:absolute;left:0;top:0;bottom:0;width:0;border-left:1.5px dashed rgba(0,0,0,.12)}
+.c3-4 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:0;border-top:1.5px dashed rgba(0,0,0,.12)}
+
+/* D3-5 Thick */
+.c3-5 .c-line{position:absolute;left:-0.5px;top:0;bottom:0;width:3px;background:rgba(0,0,0,.08)}
+.c3-5 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:3px;background:rgba(0,0,0,.08)}
+
+/* D3-6 Thin */
+.c3-6 .c-line{position:absolute;left:0;top:0;bottom:0;width:0.5px;background:rgba(0,0,0,.1)}
+.c3-6 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:0.5px;background:rgba(0,0,0,.1)}
+
+/* D3-7 Ink gradient */
+.c3-7 .c-line{position:absolute;left:0;top:0;bottom:0;width:1.5px;background:linear-gradient(180deg,rgba(30,30,30,.2),rgba(30,30,30,.05))}
+.c3-7 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:1.5px;background:rgba(30,30,30,.12)}
+
+/* D3-8 Dotted */
+.c3-8 .c-line{position:absolute;left:0;top:0;bottom:0;width:0;border-left:2px dotted rgba(0,0,0,.1)}
+.c3-8 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:0;border-top:2px dotted rgba(0,0,0,.1)}
+
+/* D3-9 Gold+dots */
+.c3-9 .c-line{position:absolute;left:-2px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold1),var(--gold2))}
+.c3-9 .c-node::before{content:'';position:absolute;left:-24px;top:50%;transform:translateY(-50%);width:7px;height:7px;border-radius:50%;background:var(--gold1);border:2px solid #fff;box-shadow:0 0 0 1px rgba(184,164,114,.3)}
+.c3-9 .c-node{margin-left:24px}
+
+/* D3-10 Fade out */
+.c3-10 .c-line{position:absolute;left:0;top:0;bottom:0;width:1.5px;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.02))}
+.c3-10 .c-node::before{content:'';position:absolute;left:-20px;top:50%;width:16px;height:1.5px;background:rgba(0,0,0,.08)}
+
+/* ========================================
+   D4: Detail Modal (card form)
+   ======================================== */
+.modal-card{padding:28px;margin-bottom:20px;max-width:640px}
+.modal-card .mc-name{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;margin-bottom:3px}
+.modal-card .mc-reading{font-size:12px;color:var(--tx3);margin-bottom:12px}
+.modal-card .mc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.modal-card .mc-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(0,0,0,.04);color:#666}
+.modal-card .mc-body{font-size:13px;color:var(--tx2);line-height:2;margin-bottom:14px}
+.modal-card .mc-memo{padding:12px 16px;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:14px}
+.modal-card .mc-memo-label{font-size:10px;font-weight:600;margin-bottom:4px;letter-spacing:.04em}
+.modal-card .mc-tl{position:relative;padding-left:18px;margin-top:12px}
+.modal-card .mc-tl::before{content:'';position:absolute;left:3px;top:0;bottom:0;width:1.5px;background:linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.03))}
+.modal-card .mc-tl-item{position:relative;padding-bottom:10px}
+.modal-card .mc-tl-item::before{content:'';position:absolute;left:-18px;top:4px;width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.12);border:2px solid #fff}
+.modal-card .mc-tl-year{font-size:10px;font-weight:600;color:var(--tx3)}
+.modal-card .mc-tl-text{font-size:12px;color:var(--tx2)}
+
+/* D4-1 Current */
+.m4-1{background:#fff;border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.1)}
+
+/* D4-2 Glass */
+.m4-2{background:rgba(255,255,255,.4);backdrop-filter:blur(24px);border-radius:18px;border:1px solid rgba(255,255,255,.5);box-shadow:0 8px 32px rgba(0,0,0,.06)}
+
+/* D4-3 Left gold line */
+.m4-3{background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06);border-left:3px solid var(--gold1)}
+
+/* D4-4 Top gold line */
+.m4-4{background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06);position:relative;overflow:hidden}
+.m4-4::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold1),var(--gold2),var(--gold1))}
+
+/* D4-5 Border+corners */
+.m4-5{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:4px;position:relative}
+.m4-5::before,.m4-5::after{content:'';position:absolute;width:12px;height:12px;border-color:var(--gold1);border-style:solid}
+.m4-5::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.m4-5::after{top:-1px;right:-1px;border-width:2px 2px 0 0}
+.m4-5 .corner-bl,.m4-5 .corner-br{position:absolute;width:12px;height:12px;border-color:var(--gold1);border-style:solid}
+.m4-5 .corner-bl{bottom:-1px;left:-1px;border-width:0 0 2px 2px}
+.m4-5 .corner-br{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+
+/* D4-6 Dark */
+.m4-6{background:#1a1a1a;border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.2)}
+.m4-6 .mc-name{color:#f0f0f0}
+.m4-6 .mc-reading{color:rgba(255,255,255,.4)}
+.m4-6 .mc-tag{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)}
+.m4-6 .mc-body{color:rgba(255,255,255,.65)}
+.m4-6 .mc-memo{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.m4-6 .mc-memo-label{color:rgba(255,255,255,.4)}
+.m4-6 .mc-memo p{color:rgba(255,255,255,.5)}
+.m4-6 .mc-tl::before{background:linear-gradient(rgba(255,255,255,.15),rgba(255,255,255,.03))}
+.m4-6 .mc-tl-item::before{background:rgba(255,255,255,.15);border-color:#1a1a1a}
+.m4-6 .mc-tl-year{color:rgba(255,255,255,.4)}
+.m4-6 .mc-tl-text{color:rgba(255,255,255,.55)}
+
+/* D4-7 Left silver gradient */
+.m4-7{background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06);border-left:3px solid transparent;border-image:linear-gradient(180deg,var(--silver1),rgba(192,192,192,.2)) 1}
+
+/* D4-8 Washi texture */
+.m4-8{background:linear-gradient(135deg,#faf8f4,#f6f4ef,#faf7f2);border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid rgba(140,120,80,.08)}
+.m4-8 .mc-memo{background:rgba(245,242,235,.6);border:1px solid rgba(140,120,80,.1)}
+.m4-8 .mc-memo-label{color:#998a70}
+.m4-8 .mc-memo p{color:var(--warm-tx)}
+
+/* D4-9 Minimal border */
+.m4-9{background:transparent;border:1px solid rgba(0,0,0,.1);border-radius:12px}
+
+/* D4-10 Gold+Silver hybrid */
+.m4-10{background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06);border-top:2px solid var(--gold1)}
+.m4-10 .mc-name{color:var(--gold3)}
+.m4-10 .mc-tag{background:rgba(160,160,160,.1);color:var(--silver1);border:1px solid rgba(160,160,160,.15)}
+</style>
+</head>
+<body>
+
+<div class="page">
+<h1 class="page-title">家系図ページ デザインテスト</h1>
+<p class="page-sub">D1 上部バー / D2 人物ノード / D3 コネクタ / D4 詳細モーダル --- 各10パターン</p>
+
+<!-- ============================================================
+     SECTION 1: D1 Top Bar
+     ============================================================ -->
+<div class="section">
+<h2>D1: 上部バー（10パターン）</h2>
+<p class="section-desc">家系図ページ上部のナビゲーションバー。左に「← トップ」、中央に「家系図」タイトル、右に「清和源氏 →」リンク。</p>
+
+<div class="pattern">
+<div class="pattern-label"><span>1</span>現在（半透明白+blur+下線）</div>
+<div class="bar-demo"><div class="bar bar-1"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>2</span>ダーク（暗い背景+白文字）</div>
+<div class="bar-demo"><div class="bar bar-2"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>3</span>透明（背景なし+下にだけ薄いライン）</div>
+<div class="bar-demo"><div class="bar bar-3"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>4</span>白背景+影</div>
+<div class="bar-demo"><div class="bar bar-4"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>5</span>ガラスモーフィズム強め</div>
+<div class="bar-demo"><div class="bar bar-5"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>6</span>金ライン下部アクセント</div>
+<div class="bar-demo"><div class="bar bar-6"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>7</span>中央タイトルを大きく</div>
+<div class="bar-demo"><div class="bar bar-7"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>8</span>コンパクト（小さいpadding）</div>
+<div class="bar-demo"><div class="bar bar-8"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>9</span>左右にホバーエフェクト付き</div>
+<div class="bar-demo"><div class="bar bar-9"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+<div class="pattern">
+<div class="pattern-label"><span>10</span>和風（Shippori Minchoタイトル+金アクセント）</div>
+<div class="bar-demo"><div class="bar bar-10"><a href="#">← トップ</a><h3>家系図</h3><a href="#">清和源氏 →</a></div></div>
+</div>
+
+</div><!-- /section -->
+
+<hr class="section-divider">
+
+<!-- ============================================================
+     SECTION 2: D2 Person Node
+     ============================================================ -->
+<div class="section">
+<h2>D2: 人物ノード（10パターン）</h2>
+<p class="section-desc">家系図上の各人物を表すカード。通常/直系/重要人物/近現代の4種を各パターンで表示。ホバーで変化します。</p>
+
+<!-- D2-1 -->
+<div class="pattern">
+<div class="pattern-label"><span>1</span>現在（半透明白+薄ボーダー+角丸10px）</div>
+<div class="node-row">
+  <div class="demo-node n2-1"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-1 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-1 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-1 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-2 -->
+<div class="pattern">
+<div class="pattern-label"><span>2</span>左に色付きライン（重要=金/直系=銀/通常=グレー/近現代=暖色）</div>
+<div class="node-row">
+  <div class="demo-node n2-2 normal"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-2 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-2 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-2 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-3 -->
+<div class="pattern">
+<div class="pattern-label"><span>3</span>下部にカラーバー</div>
+<div class="node-row">
+  <div class="demo-node n2-3"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-3 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-3 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-3 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-4 -->
+<div class="pattern">
+<div class="pattern-label"><span>4</span>カード+影（立体感）</div>
+<div class="node-row">
+  <div class="demo-node n2-4"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-4 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-4 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-4 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-5 -->
+<div class="pattern">
+<div class="pattern-label"><span>5</span>枠線の太さで重要度を表現</div>
+<div class="node-row">
+  <div class="demo-node n2-5"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-5 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-5 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-5 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-6 -->
+<div class="pattern">
+<div class="pattern-label"><span>6</span>丸角大きめ（pill型）</div>
+<div class="node-row">
+  <div class="demo-node n2-6"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-6 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-6 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-6 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-7 -->
+<div class="pattern">
+<div class="pattern-label"><span>7</span>ミニマル（枠なし+ホバーで枠が出る）</div>
+<div class="node-row">
+  <div class="demo-node n2-7"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-7 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-7 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-7 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-8 -->
+<div class="pattern">
+<div class="pattern-label"><span>8</span>金アクセント（重要人物に金ボーダー）</div>
+<div class="node-row">
+  <div class="demo-node n2-8"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-8 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-8 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-8 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-9 -->
+<div class="pattern">
+<div class="pattern-label"><span>9</span>ガラスモーフィズム</div>
+<div class="node-row">
+  <div class="demo-node n2-9"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-9 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-9 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-9 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+<!-- D2-10 -->
+<div class="pattern">
+<div class="pattern-label"><span>10</span>タグ風（小さめ+密集配置）</div>
+<div class="node-row" style="gap:6px">
+  <div class="demo-node n2-10"><span class="nn">源頼信</span><span class="nr">河内源氏の祖</span></div>
+  <div class="demo-node n2-10 direct"><span class="nn">小笠原長清</span><span class="nr">弓馬の名手</span></div>
+  <div class="demo-node n2-10 key"><span class="nn">源義光</span><span class="nr">新羅三郎</span></div>
+  <div class="demo-node n2-10 modern"><span class="nn">赤澤秀邦</span><span class="nr">祖父</span></div>
+</div>
+</div>
+
+</div><!-- /section -->
+
+<hr class="section-divider">
+
+<!-- ============================================================
+     SECTION 3: D3 Connectors
+     ============================================================ -->
+<div class="section">
+<h2>D3: 世代の縦線・コネクタ（10パターン）</h2>
+<p class="section-desc">世代間をつなぐ縦線と接続部分。3〜4個のノードが縦に並び、線で繋がっている状態を再現。</p>
+
+<!-- D3-1 -->
+<div class="pattern">
+<div class="pattern-label"><span>1</span>現在（薄い灰色の細い線+左マージン）</div>
+<div class="connector-demo c3-1">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-2 -->
+<div class="pattern">
+<div class="pattern-label"><span>2</span>金グラデーション線</div>
+<div class="connector-demo c3-2">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-3 -->
+<div class="pattern">
+<div class="pattern-label"><span>3</span>銀グラデーション線</div>
+<div class="connector-demo c3-3">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-4 -->
+<div class="pattern">
+<div class="pattern-label"><span>4</span>ダッシュ線</div>
+<div class="connector-demo c3-4">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-5 -->
+<div class="pattern">
+<div class="pattern-label"><span>5</span>太い線（3px）</div>
+<div class="connector-demo c3-5">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-6 -->
+<div class="pattern">
+<div class="pattern-label"><span>6</span>細い線（0.5px）</div>
+<div class="connector-demo c3-6">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-7 -->
+<div class="pattern">
+<div class="pattern-label"><span>7</span>墨色のグラデーション</div>
+<div class="connector-demo c3-7">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-8 -->
+<div class="pattern">
+<div class="pattern-label"><span>8</span>ドット線</div>
+<div class="connector-demo c3-8">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-9 -->
+<div class="pattern">
+<div class="pattern-label"><span>9</span>金+ドット付き</div>
+<div class="connector-demo c3-9">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+<!-- D3-10 -->
+<div class="pattern">
+<div class="pattern-label"><span>10</span>グラデーション（上から下に薄くなる）</div>
+<div class="connector-demo c3-10">
+  <div class="c-line"></div>
+  <div class="c-node">源経基</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源満仲</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼信</div>
+  <div class="c-spacer"></div>
+  <div class="c-node">源頼義</div>
+</div>
+</div>
+
+</div><!-- /section -->
+
+<hr class="section-divider">
+
+<!-- ============================================================
+     SECTION 4: D4 Detail Modal
+     ============================================================ -->
+<div class="section">
+<h2>D4: 人物詳細モーダル（10パターン）</h2>
+<p class="section-desc">人物をクリックした時に表示される詳細情報。カード形式で10パターンを縦に並べて表示。</p>
+
+<!-- D4-1 -->
+<div class="pattern">
+<div class="pattern-label"><span>1</span>現在（白背景+角丸18px+影）</div>
+<div class="modal-card m4-1">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:var(--warm);border:1px solid var(--warm-bd)">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-2 -->
+<div class="pattern">
+<div class="pattern-label"><span>2</span>ガラスモーフィズム</div>
+<div class="modal-card m4-2">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:rgba(245,242,235,.4);border:1px solid rgba(140,120,80,.08);border-radius:8px">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-3 -->
+<div class="pattern">
+<div class="pattern-label"><span>3</span>左に金ライン</div>
+<div class="modal-card m4-3">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:var(--warm);border:1px solid var(--warm-bd);border-radius:8px">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-4 -->
+<div class="pattern">
+<div class="pattern-label"><span>4</span>上部に金ライン</div>
+<div class="modal-card m4-4">
+  <div class="mc-name" style="padding-top:4px">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:var(--warm);border:1px solid var(--warm-bd);border-radius:8px">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-5 -->
+<div class="pattern">
+<div class="pattern-label"><span>5</span>枠線+四隅アクセント</div>
+<div class="modal-card m4-5">
+  <div class="corner-bl"></div><div class="corner-br"></div>
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:var(--warm);border:1px solid var(--warm-bd);border-radius:8px">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-6 -->
+<div class="pattern">
+<div class="pattern-label"><span>6</span>ダーク（暗い背景+白文字）</div>
+<div class="modal-card m4-6">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="border-radius:8px">
+    <div class="mc-memo-label">秀邦の調査メモ</div>
+    <p style="margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-7 -->
+<div class="pattern">
+<div class="pattern-label"><span>7</span>カード+左銀グラデライン</div>
+<div class="modal-card m4-7">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:var(--warm);border:1px solid var(--warm-bd);border-radius:8px">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-8 -->
+<div class="pattern">
+<div class="pattern-label"><span>8</span>和紙風テクスチャ</div>
+<div class="modal-card m4-8">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="border-radius:8px">
+    <div class="mc-memo-label">秀邦の調査メモ</div>
+    <p style="margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-9 -->
+<div class="pattern">
+<div class="pattern-label"><span>9</span>ミニマル（枠線のみ）</div>
+<div class="modal-card m4-9">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:var(--warm);border:1px solid var(--warm-bd);border-radius:8px">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+<!-- D4-10 -->
+<div class="pattern">
+<div class="pattern-label"><span>10</span>金+銀のハイブリッド（名前=金、タグ=銀）</div>
+<div class="modal-card m4-10">
+  <div class="mc-name">赤沢朝経</div>
+  <div class="mc-reading">あかざわ ともつね</div>
+  <div class="mc-tags">
+    <span class="mc-tag">室町時代</span><span class="mc-tag">武将</span><span class="mc-tag">信濃国</span>
+  </div>
+  <div class="mc-body">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。「悪太郎」の異名を持つ。</div>
+  <div class="mc-memo" style="background:var(--warm);border:1px solid var(--warm-bd);border-radius:8px">
+    <div class="mc-memo-label" style="color:#998a70">秀邦の調査メモ</div>
+    <p style="color:var(--warm-tx);margin:0">「朝経は赤沢一族でもっとも有名な武将」</p>
+  </div>
+  <div class="mc-tl">
+    <div class="mc-tl-item"><div class="mc-tl-year">1490年</div><div class="mc-tl-text">弓道師範就任</div></div>
+    <div class="mc-tl-item"><div class="mc-tl-year">1507年</div><div class="mc-tl-text">丹後にて自刃</div></div>
+  </div>
+</div>
+</div>
+
+</div><!-- /section -->
+
+<div style="text-align:center;padding:30px 0;font-size:11px;color:var(--tx4);border-top:1px solid var(--bd2)">
+  Design Test v8 --- D1〜D4 家系図ページパーツ比較
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

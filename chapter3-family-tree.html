@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第3章 家系図と人物録 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--indigo:#1e3a5f;--indigo-light:rgba(30,58,95,.08);--gold:#b8860b;--gold-light:rgba(184,134,11,.08);--vermillion:#c53d43;--vermillion-light:rgba(197,61,67,.08);--bg:#faf8f5;--tx:#1a1a2e;--tx2:#5a5a6e;--tx3:#9ca3af;--bd:#e5e2dc;--shimmer:linear-gradient(145deg,#fff 0%,#fdfcfa 22%,#fff 45%,#f9f7f3 68%,#fff 88%,#fdfcfa 100%);--sh:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.06);--sh2:0 2px 6px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP','Inter',sans-serif;background:var(--bg);color:var(--tx);line-height:1.8;min-height:100vh}
+#bg-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+.content-wrap{position:relative;z-index:10;max-width:860px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:12px;color:var(--tx3);margin-bottom:30px}
+.breadcrumb a{color:var(--indigo);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.chapter-header{margin-bottom:40px;padding-bottom:20px;border-bottom:3px solid var(--indigo)}
+.chapter-num{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.15em;margin-bottom:8px}
+.chapter-title{font-family:'Noto Serif JP',serif;font-size:32px;font-weight:700;color:var(--indigo);letter-spacing:.05em;margin-bottom:8px}
+.chapter-subtitle{font-size:14px;color:var(--tx2)}
+.main-text{font-size:15px;line-height:2;color:var(--tx);margin-bottom:30px}
+.main-text p{margin-bottom:20px}
+.main-text strong{color:var(--indigo)}
+.section-header{margin:50px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--indigo)}
+.section-header h2{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:700;color:var(--indigo)}
+.section-header .section-num{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.1em;margin-bottom:4px}
+
+/* Family Tree */
+.ft-container{overflow-x:auto;padding:20px 0}
+.ft-generation{margin-bottom:30px}
+.ft-gen-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.1em;margin-bottom:10px;padding-left:4px}
+.ft-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.ft-person{background:var(--shimmer);border:1.5px solid var(--bd);border-radius:10px;padding:10px 16px;min-width:140px;cursor:pointer;transition:all .2s;position:relative}
+.ft-person:hover{border-color:var(--indigo);box-shadow:var(--sh)}
+.ft-person.ft-main{border-color:var(--indigo);border-width:2px}
+.ft-person.ft-highlight{border-color:var(--gold);background:var(--gold-light);border-width:2px}
+.ft-person.ft-rio{border-color:var(--vermillion);background:var(--vermillion-light);border-width:2px}
+.ft-name{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:600;color:var(--indigo)}
+.ft-role{font-size:10px;color:var(--tx2);margin-top:1px}
+.ft-link-icon{position:absolute;top:8px;right:10px;font-size:10px;color:var(--tx3)}
+.ft-connector{width:2px;height:20px;background:var(--bd);margin:0 auto 0 60px}
+
+/* Person Detail - Deep Dive */
+.person-detail{background:var(--shimmer);border-radius:14px;box-shadow:var(--sh2);padding:32px;margin-bottom:32px;border-left:5px solid var(--indigo);display:none}
+.person-detail.visible{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.pd-header{margin-bottom:20px}
+.pd-name{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:var(--indigo);margin-bottom:4px}
+.pd-reading{font-size:13px;color:var(--tx3);margin-bottom:12px}
+.pd-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.pd-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:99px}
+.tag-era{background:var(--indigo-light);color:var(--indigo)}
+.tag-role{background:var(--gold-light);color:var(--gold)}
+.tag-place{background:var(--vermillion-light);color:var(--vermillion)}
+.tag-direct{background:#22c55e20;color:#16a34a}
+.pd-body{font-size:14px;color:var(--tx2);line-height:2}
+.pd-body p{margin-bottom:14px}
+.pd-body h3{font-size:15px;font-weight:700;color:var(--indigo);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.pd-body ul{padding-left:20px;margin-bottom:12px}
+.pd-body li{margin-bottom:6px}
+.pd-relation{font-size:12px;color:var(--tx3);margin-top:18px;padding-top:14px;border-top:1px solid var(--bd)}
+.pd-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:18px;color:var(--tx3);cursor:pointer}
+
+.grandpa-note{background:linear-gradient(135deg,#fdf6e3,#fef9ee);border:1px dashed var(--gold);border-radius:12px;padding:20px 24px;margin:16px 0}
+.grandpa-note::before{content:'📝 おじいちゃん（秀邦）の調査メモ';display:block;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.05em;margin-bottom:8px}
+.grandpa-note p{font-size:13px;color:#5a4a2a;line-height:1.8}
+.ai-note{background:linear-gradient(135deg,#eef6ff,#f0f8ff);border:1px solid rgba(30,58,95,.15);border-radius:12px;padding:20px 24px;margin:16px 0}
+.ai-note::before{content:'🔍 AI深掘り調査';display:block;font-size:11px;font-weight:700;color:var(--indigo);letter-spacing:.05em;margin-bottom:8px}
+.ai-note p,.ai-note li{font-size:13px;color:#2a3a5a;line-height:1.8}
+.ai-note ul{padding-left:20px}
+.ai-note li{margin-bottom:4px}
+
+.card{background:var(--shimmer);border-radius:2px 14px 14px 2px;box-shadow:var(--sh);padding:24px 28px;position:relative;overflow:hidden;margin-bottom:20px}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.card-indigo::before{background:var(--indigo)}
+.card-gold::before{background:var(--gold)}
+.card p,.card li{font-size:14px;color:var(--tx2);line-height:1.8}
+.card ul{padding-left:20px}
+.card li{margin-bottom:6px}
+
+/* Timeline in person */
+.pd-timeline{position:relative;padding-left:24px;margin:16px 0}
+.pd-timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--indigo),var(--gold))}
+.pdt-item{position:relative;padding-bottom:16px}
+.pdt-item::before{content:'';position:absolute;left:-22px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--indigo);border:2px solid var(--bg)}
+.pdt-year{font-size:11px;font-weight:700;color:var(--gold)}
+.pdt-text{font-size:13px;color:var(--tx2);line-height:1.7}
+
+.page-nav{display:flex;justify-content:space-between;margin-top:60px;padding-top:20px;border-top:1px solid var(--bd)}
+.page-nav a{font-size:13px;color:var(--indigo);text-decoration:none;font-weight:500}
+.page-nav a:hover{text-decoration:underline}
+.site-footer{text-align:center;padding:40px 0 20px;font-size:11px;color:var(--tx3);border-top:1px solid var(--bd);margin-top:40px}
+
+@media(max-width:600px){
+  .chapter-title{font-size:24px}
+  .ft-row{flex-direction:column}
+  .ft-person{min-width:auto;width:100%}
+  .person-detail{padding:20px}
+  .pd-name{font-size:20px}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="content-wrap">
+
+<div class="breadcrumb">
+  <a href="index.html">赤澤一族 令和版</a> → 第3章 家系図と人物録
+</div>
+
+<div class="chapter-header">
+  <div class="chapter-num">CHAPTER 03</div>
+  <div class="chapter-title">家系図と人物録</div>
+  <div class="chapter-subtitle">赤沢清経から現代まで — 人物をクリックして詳細を見る</div>
+</div>
+
+<div class="main-text">
+  <p>冊子「赤澤一族」には、清和天皇から信州赤沢氏の末裔まで、<strong>30世代以上にわたる詳細な家系図</strong>が記載されている。ここでは、赤沢氏の始祖・清経以降の主要な人物を時代順に紹介する。</p>
+  <p>金色の枠は<strong>RIOの直系先祖</strong>にあたる人物。人物名をクリックすると詳しい情報が表示される。</p>
+</div>
+
+<!-- ===== 赤沢氏 家系図 ===== -->
+<div class="section-header">
+  <div class="section-num">FAMILY TREE</div>
+  <h2>信州赤沢氏の系譜</h2>
+</div>
+
+<!-- 初代 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">初代 ― 鎌倉時代</div>
+  <div class="ft-row">
+    <div class="ft-person ft-highlight" onclick="showDetail('kiyotsune')">
+      <div class="ft-name">赤沢清経</div>
+      <div class="ft-role">伊豆守 — 赤沢氏の祖</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+  </div>
+</div>
+
+<!-- 2代目〜 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">2代目〜3代目 ― 鎌倉時代</div>
+  <div class="ft-row">
+    <div class="ft-person ft-main" onclick="showDetail('nagatada')">
+      <div class="ft-name">長忠</div>
+      <div class="ft-role">大蔵少輔</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+    <div class="ft-person ft-main" onclick="showDetail('kiyotoki')">
+      <div class="ft-name">清時</div>
+      <div class="ft-role">鳴海 — 大海庄の一</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+  </div>
+</div>
+
+<!-- 建武〜南北朝 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">南北朝時代 ― 塩崎城の築城</div>
+  <div class="ft-row">
+    <div class="ft-person ft-highlight" onclick="showDetail('tsuneoki')">
+      <div class="ft-name">常興</div>
+      <div class="ft-role">伊豆守 — 塩崎城を築く</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+    <div class="ft-person" onclick="showDetail('tsuneharu')">
+      <div class="ft-name">常晴</div>
+      <div class="ft-role">太郎四郎</div>
+    </div>
+  </div>
+</div>
+
+<!-- 室町前期 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">室町時代前期</div>
+  <div class="ft-row">
+    <div class="ft-person ft-main" onclick="showDetail('tsunemitsu')">
+      <div class="ft-name">経光</div>
+      <div class="ft-role">孫太郎 — 治部少輔・伊豆守</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+    <div class="ft-person" onclick="showDetail('tsuneoya')">
+      <div class="ft-name">常親</div>
+      <div class="ft-role">彦三郎</div>
+    </div>
+  </div>
+</div>
+
+<!-- 室町中期 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">室町時代中期</div>
+  <div class="ft-row">
+    <div class="ft-person ft-main" onclick="showDetail('tsunetaka')">
+      <div class="ft-name">経隆</div>
+      <div class="ft-role">小笠原 天真郎 — 伊豆守</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+    <div class="ft-person" onclick="showDetail('tsuneie')">
+      <div class="ft-name">経家</div>
+      <div class="ft-role">左京</div>
+    </div>
+    <div class="ft-person" onclick="showDetail('mitsukage')">
+      <div class="ft-name">光景</div>
+      <div class="ft-role">左衛門 — 八刺</div>
+    </div>
+  </div>
+</div>
+
+<!-- 室町後期 — 赤沢朝経の時代 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">室町時代後期 ― 赤沢氏の最盛期</div>
+  <div class="ft-row">
+    <div class="ft-person ft-highlight" onclick="showDetail('tomotsune')" style="border-color:var(--vermillion);min-width:200px">
+      <div class="ft-name" style="font-size:16px">赤沢朝経</div>
+      <div class="ft-role">澤蔵軒宗益 — 将軍の弓道師範・畿内の猛将</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+  </div>
+</div>
+
+<!-- 戦国時代 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">戦国時代 ― 武田信玄との戦い</div>
+  <div class="ft-row">
+    <div class="ft-person ft-main" onclick="showDetail('masatsune')">
+      <div class="ft-name">政経</div>
+      <div class="ft-role">朝経の子 — 三郎左衛門尉・伊豆守</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+  </div>
+  <div class="ft-row" style="margin-top:10px">
+    <div class="ft-person ft-highlight" onclick="showDetail('tsunetomo')">
+      <div class="ft-name">経智</div>
+      <div class="ft-role">式部少輔 — 武田信玄に敗れて越後へ</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+    <div class="ft-person" onclick="showDetail('tsuneyasu')">
+      <div class="ft-name">経康</div>
+      <div class="ft-role">伊豆守 — 天文年中</div>
+    </div>
+  </div>
+</div>
+
+<!-- 安土桃山〜江戸初期 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">安土桃山〜江戸時代初期</div>
+  <div class="ft-row">
+    <div class="ft-person ft-main" onclick="showDetail('sadatsune')">
+      <div class="ft-name">貞経</div>
+      <div class="ft-role">小笠原に復姓 — 徳川家康に召し出される</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+  </div>
+</div>
+
+<!-- 真田藩の赤沢氏 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">江戸時代 ― 真田藩の赤沢氏</div>
+  <div class="ft-row">
+    <div class="ft-person ft-highlight" onclick="showDetail('anzune')">
+      <div class="ft-name">安経</div>
+      <div class="ft-role">百五十石内 — 大郎たる内</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+    <div class="ft-person ft-main" onclick="showDetail('tsunemitsu2')">
+      <div class="ft-name">経満</div>
+      <div class="ft-role">八世孫 — 志摩守</div>
+    </div>
+    <div class="ft-person ft-main" onclick="showDetail('tsunesada')">
+      <div class="ft-name">経定</div>
+      <div class="ft-role">加賀殿を真田氏に — 嘉兵衛</div>
+    </div>
+  </div>
+</div>
+
+<!-- 幕末〜明治 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">幕末〜明治 ― 赤澤遠康の時代</div>
+  <div class="ft-row">
+    <div class="ft-person ft-rio" onclick="showDetail('toyasu')">
+      <div class="ft-name" style="font-size:16px">赤澤遠康</div>
+      <div class="ft-role">源右衛門 — 天保12年(1841)に記録を残す</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+  </div>
+</div>
+
+<!-- 近現代 -->
+<div class="ft-generation">
+  <div class="ft-gen-label">近現代 ― RIOの直系</div>
+  <div class="ft-row">
+    <div class="ft-person ft-rio" onclick="showDetail('hidekuni')">
+      <div class="ft-name">赤澤秀邦</div>
+      <div class="ft-role">RIOの祖父 — 東京神田→長野疎開。冊子に調査メモを残す</div>
+      <span class="ft-link-icon">→</span>
+    </div>
+  </div>
+  <div class="ft-row" style="margin-top:10px">
+    <div class="ft-person ft-rio">
+      <div class="ft-name">RIOの父</div>
+      <div class="ft-role">長野県在住</div>
+    </div>
+  </div>
+  <div class="ft-row" style="margin-top:10px">
+    <div class="ft-person ft-rio" style="border-width:3px">
+      <div class="ft-name" style="font-size:16px">RIO</div>
+      <div class="ft-role">32歳 — 令和版の編纂者</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 人物詳細セクション ===== -->
+<div class="section-header" id="person-details">
+  <div class="section-num">PERSON PROFILES</div>
+  <h2>主要人物の詳細</h2>
+</div>
+
+<div class="main-text">
+  <p>上の家系図で人物をクリックすると、以下に詳細が表示される。まずは特に重要な人物の詳細を常時表示しておく。</p>
+</div>
+
+<!-- ===== 赤沢朝経 — 超深掘り ===== -->
+<div class="person-detail visible" id="detail-tomotsune" style="border-left-color:var(--vermillion)">
+  <div class="pd-header">
+    <div class="pd-name">赤沢朝経（澤蔵軒宗益）</div>
+    <div class="pd-reading">あかざわ ともつね / たくぞうけん そうえき</div>
+    <div class="pd-tags">
+      <span class="pd-tag tag-era">室町後期〜戦国時代</span>
+      <span class="pd-tag tag-role">将軍の弓道師範</span>
+      <span class="pd-tag tag-role">管領細川政元の猛将</span>
+      <span class="pd-tag tag-place">信濃→京都→畿内各地</span>
+    </div>
+  </div>
+  <div class="pd-body">
+    <p>赤沢一族の歴史の中で、もっとも劇的な人生を送った人物。<strong>1451年頃生まれ、1507年没。享年57。</strong></p>
+
+    <h3>生い立ちと家督</h3>
+    <p>信濃国塩崎城を拠点とする赤沢氏の当主として生まれる。父は経隆。赤沢氏は代々小笠原流の弓馬術を伝承しており、朝経もその達人だった。</p>
+    <p>家督を嫡子の<strong>政経</strong>に早々に譲り、父や弟の<strong>幸純</strong>（福王寺、大和守）とともに京都へ上洛。以後、朝経は信濃の一領主から、畿内の政治と戦争の中心に躍り出ることになる。</p>
+
+    <h3>将軍の弓道師範に</h3>
+    <p>京都では、小笠原流の<strong>「糾法（弓法）的伝」</strong>を室町幕府の管領・<strong>細川政元</strong>に伝授。この縁で、第8代将軍<strong>足利義政</strong>の弓道師範に任じられ、さらに<strong>武者所</strong>（将軍の警護役）を兼任する。信濃の地方武士から、一気に幕府の中枢に食い込んだ。</p>
+
+    <h3>澤蔵軒宗益 — 出家後の名</h3>
+    <p>家督を譲った後に出家し、<strong>澤蔵軒宗益（たくぞうけん そうえき）</strong>と号した。しかし「出家」は名ばかりで、実態は戦場を駆け巡る猛将だった。</p>
+
+    <h3>畿内の暴風 — 朝経の戦歴</h3>
+    <div class="pd-timeline">
+      <div class="pdt-item">
+        <div class="pdt-year">1499年（明応8年）7月</div>
+        <div class="pdt-text">細川政元の命で<strong>比叡山延暦寺を焼き討ち</strong>。日本仏教の総本山への攻撃という前代未聞の暴挙。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1499年（明応8年）9月</div>
+        <div class="pdt-text">「早朝より宗益（朝経）、御牧城を攻め落とし、放火す。首9つ討ち取る」と記録される。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1499年（明応8年）12月</div>
+        <div class="pdt-text"><strong>大和国（奈良県）に侵攻</strong>。大和北部を軍事占領する。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1506年（永正3年）</div>
+        <div class="pdt-text">河内国で<strong>畠山義英・畠山尚順</strong>を撃破。高屋城を占領。三好之長と共に畿内を席巻。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1507年（永正4年）6月</div>
+        <div class="pdt-text">政元の命で丹後国の一色義有を攻撃中、<strong>主君・細川政元が家臣に暗殺</strong>されたとの知らせが届く。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1507年（永正4年）6月26日</div>
+        <div class="pdt-text">京都への撤退を試みるが、丹後の国人衆の反撃を受け、<strong>自刃</strong>。享年57。</div>
+      </div>
+    </div>
+
+    <h3>朝経の評価</h3>
+    <p>赤沢朝経は、弓馬の名手でありながら、戦国時代の幕開けを象徴するような激烈な武将だった。比叡山焼き討ちは、80年後に織田信長が行ったことで有名だが、実はそれより先に朝経がやっている。</p>
+    <p>CiNii（国立情報学研究所）にも「<strong>細川政元政権と内衆赤沢朝経</strong>」という学術論文が存在し、歴史研究の対象になるほどの重要人物。信濃の一地方武士が、畿内の政治と戦争の中心で活躍した稀有な例。</p>
+    <p>主君の暗殺という思いがけない事態で最期を迎えたが、57年の人生は、文武両道の達人として、そして時代の荒波を全力で駆け抜けた生涯だった。</p>
+  </div>
+  <div class="pd-relation">
+    父：経隆 / 子：政経（信濃守護代） / 弟：幸純（福王寺、大和守）
+  </div>
+</div>
+
+<!-- ===== 赤沢常興 ===== -->
+<div class="person-detail visible" id="detail-tsuneoki" style="border-left-color:var(--gold)">
+  <div class="pd-header">
+    <div class="pd-name">赤沢常興</div>
+    <div class="pd-reading">あかざわ つねおき — 塩崎城の築城者</div>
+    <div class="pd-tags">
+      <span class="pd-tag tag-era">南北朝時代</span>
+      <span class="pd-tag tag-role">伊豆守</span>
+      <span class="pd-tag tag-place">信濃国塩崎</span>
+      <span class="pd-tag tag-direct">直系先祖</span>
+    </div>
+  </div>
+  <div class="pd-body">
+    <p>赤沢氏が信濃で本格的に力をつけるきっかけを作った人物。</p>
+
+    <h3>中先代の乱での武功</h3>
+    <p>1335年（建武2年）、<strong>中先代の乱</strong>が勃発。これは北条時行（鎌倉幕府の残党）が足利尊氏に対して蜂起した反乱。常興は主家の<strong>小笠原貞宗</strong>に従って信濃に出陣し、武功を挙げた。</p>
+
+    <h3>塩崎城の建設</h3>
+    <p>この功績により、<strong>信濃筑摩郡浅間郷</strong>と<strong>更級郡四宮荘北条（塩崎）</strong>を与えられる。常興はこの塩崎の地に城を築き、<strong>塩崎城</strong>を赤沢氏の居城とした。</p>
+    <p>塩崎城は善光寺平の最南端に位置し、千曲川の西岸にある。対岸の屋代城と共に狭隘部を抑える<strong>軍事上の重要拠点</strong>だった。現在も長野県長野市篠ノ井塩崎に城跡が残る。</p>
+  </div>
+</div>
+
+<div class="ai-note">
+  <p><strong>塩崎城の現在</strong> — 長野県長野市篠ノ井塩崎に城跡が残っている。山城であり、数多くの段郭と主要部を守る石垣が見どころ。JR篠ノ井駅から徒歩圏内。赤澤家のルーツを訪ねるなら、ぜひ立ち寄りたい場所。</p>
+</div>
+
+<!-- ===== 赤沢経智 ===== -->
+<div class="person-detail visible" id="detail-tsunetomo" style="border-left-color:var(--gold)">
+  <div class="pd-header">
+    <div class="pd-name">赤沢経智</div>
+    <div class="pd-reading">あかざわ つねとも — 武田信玄に敗れ、信濃を去る</div>
+    <div class="pd-tags">
+      <span class="pd-tag tag-era">戦国時代</span>
+      <span class="pd-tag tag-role">式部少輔</span>
+      <span class="pd-tag tag-place">信濃→越後</span>
+      <span class="pd-tag tag-direct">直系先祖</span>
+    </div>
+  </div>
+  <div class="pd-body">
+    <p>1511年生まれ。赤沢氏が信濃を失う転換期を生きた人物。</p>
+
+    <h3>武田信玄との戦い</h3>
+    <p>1545年頃から、甲斐の<strong>武田信玄</strong>が信濃侵攻を本格化。赤沢氏は主家の小笠原氏に従って抵抗するが、1550年（天文19年）、小笠原長時の本拠地・<strong>林城が陥落</strong>。これにより小笠原氏は信濃を追われ、赤沢氏も運命を共にする。</p>
+
+    <h3>越後への亡命</h3>
+    <p>経智は小笠原長時に従って<strong>越後国（新潟県）</strong>に逃れた。信濃から越後へ逃れ、さらにその子の貞経は後に<strong>伊豆守</strong>を継ぎ、信濃に戻ることなく京都方面で活動した。</p>
+
+    <h3>小笠原流の継承</h3>
+    <p>1562年（永禄5年）、小笠原長時は赤沢経智（小笠原貞経）に<strong>小笠原流弓馬術礼法の正統な継承</strong>を託した。戦乱の中で一族の伝統が途絶えることを恐れ、信頼できる赤沢氏に伝授したのだ。</p>
+    <p>これは赤沢氏が単なる武力だけの家ではなく、<strong>文化・礼法の継承者</strong>としても認められていたことを示す重要なエピソード。</p>
+
+    <h3>切腹</h3>
+    <p>天正10年（1582年）7月、小笠原貞慶に招かれ深志城に赴くが、切腹。経智も式部少輔、清純も式部少輔として記録されている。世系は不明の部分が多い。</p>
+  </div>
+</div>
+
+<!-- ===== 赤澤遠康 ===== -->
+<div class="person-detail visible" id="detail-toyasu" style="border-left-color:var(--vermillion)">
+  <div class="pd-header">
+    <div class="pd-name">赤澤遠康</div>
+    <div class="pd-reading">あかざわ とおやす — 源右衛門</div>
+    <div class="pd-tags">
+      <span class="pd-tag tag-era">江戸時代後期</span>
+      <span class="pd-tag tag-role">記録者</span>
+      <span class="pd-tag tag-place">信州</span>
+      <span class="pd-tag tag-direct">RIOの直系先祖</span>
+    </div>
+  </div>
+  <div class="pd-body">
+    <p><strong>天保12年（1841年）</strong>に赤澤家の記録を残した人物。RIOが「自分と同じことをしている」と感じた先祖。</p>
+
+    <h3>令和の編纂者の先駆け</h3>
+    <p>遠康は、天保の時代にこの一族の歴史をまとめようとした。まだインターネットもAIもない時代に、お寺の過去帳や古文書を調べ、一族の記録を書き残した。</p>
+    <p>その約150年後、孫の世代の秀邦が同じようにお寺を巡って調査し、さらにその孫の世代のRIOがAIの力を借りて「令和版」を編纂している。<strong>三世代にわたって同じ衝動に駆られている</strong>のは、血の力なのかもしれない。</p>
+
+    <h3>天保12年の日本</h3>
+    <p>1841年は江戸時代後期。天保の改革が行われていた時代。黒船来航（1853年）の12年前。まだ武士の世が続いていたが、社会の変化は始まっていた。</p>
+    <p>遠康が記録を残した動機は分からないが、時代の変わり目に「自分たちはどこから来たのか」を確認したくなったのかもしれない。それは185年後のRIOとまったく同じ衝動だ。</p>
+  </div>
+</div>
+
+<!-- ===== 赤澤秀邦 ===== -->
+<div class="person-detail visible" id="detail-hidekuni" style="border-left-color:var(--vermillion)">
+  <div class="pd-header">
+    <div class="pd-name">赤澤秀邦</div>
+    <div class="pd-reading">あかざわ ひでくに — RIOのおじいちゃん</div>
+    <div class="pd-tags">
+      <span class="pd-tag tag-era">昭和〜平成</span>
+      <span class="pd-tag tag-role">赤澤家のルーツ調査者</span>
+      <span class="pd-tag tag-place">東京神田→長野県</span>
+      <span class="pd-tag tag-direct">RIOの祖父</span>
+    </div>
+  </div>
+  <div class="pd-body">
+    <p>東京・神田の生まれ。戦時中の疎開で長野県に移住。RIOの祖父にあたる。約10年前に逝去。</p>
+
+    <h3>ルーツへの情熱</h3>
+    <p>晩年、急に家系図を作ろうと立ち上がった。各地のお寺を巡り、過去帳を調べ、赤澤家のルーツを探った。その過程で入手したのが昭和63年発行の「赤澤一族」冊子。</p>
+    <p>冊子には秀邦の手書きメモが随所に残されている。赤ペンで家系図に書き込みをし、年号一覧表に印をつけ、「わが家のこと」の記入欄に松本市の住所や遍照寺の情報を記載した。</p>
+
+    <h3>残したもの</h3>
+    <p>秀邦が残した情報は、この「令和版」の重要な基盤となっている：</p>
+    <ul>
+      <li><strong>菩提寺</strong>：東京都港区南麻布 遍照寺（浄土宗）</li>
+      <li><strong>墓地</strong>：松本市島立区新村（赤澤清次宅の近く）</li>
+      <li><strong>石碑の情報</strong>：信州筑摩郡坂北村・入澤村の関連</li>
+      <li><strong>家系図の書き込み</strong>：加賀美遠光と武田氏の関係メモなど</li>
+    </ul>
+
+    <h3>三世代の系譜</h3>
+    <p>遠康（天保12年）→ ... → 秀邦（昭和〜平成）→ 父 → RIO（令和）。この三世代が、それぞれの時代にルーツを辿ろうとした。秀邦の遺した冊子とメモがなければ、RIOがこのプロジェクトを始めることはなかったかもしれない。</p>
+  </div>
+</div>
+
+<div class="grandpa-note">
+  <p>冊子の「わが家のこと」欄に、秀邦は以下の情報を手書きで記入している：</p>
+  <p>「松本市 島立区 新村 二七七田 赤澤清次宅近くに墓地あり。墓地に石碑二ツあり、内一ツに信州筑摩郡坂北村入澤村」</p>
+  <p>「東京都港区南麻布 三-四-六 遍照寺」</p>
+  <p>また、年号一覧表には多数の赤ペン書き込みがあり、特定の時代に印がつけられている。おそらく一族に関わる出来事があった年号をマークしていたと思われる。</p>
+</div>
+
+<!-- ===== まとめ ===== -->
+<div class="card card-gold">
+  <div class="card-title" style="display:flex;align-items:center;gap:8px"><span class="card-dot" style="background:var(--gold)"></span>この章のまとめ</div>
+  <p>赤沢氏は鎌倉時代から約700年にわたって歴史を刻んできた。</p>
+  <ul>
+    <li><strong>鎌倉時代</strong>：清経が伊豆の赤沢を名乗り、信濃に移住</li>
+    <li><strong>南北朝時代</strong>：常興が塩崎城を築き、信濃での地盤を確立</li>
+    <li><strong>室町時代</strong>：朝経が将軍の弓道師範となり、畿内で猛威を振るう</li>
+    <li><strong>戦国時代</strong>：武田信玄に敗れて信濃を失うが、小笠原流の文化を守り継ぐ</li>
+    <li><strong>江戸時代</strong>：真田藩の中で家名を保ち、遠康が記録を残す</li>
+    <li><strong>近現代</strong>：秀邦がお寺を巡って調査、RIOが令和版を編纂</li>
+  </ul>
+</div>
+
+<div class="page-nav">
+  <a href="chapter2-seiwa-genji.html">← 第2章 清和源氏と赤沢氏</a>
+  <a href="chapter4-branches.html">第4章 全国に広がる赤沢氏 →</a>
+</div>
+
+<div class="site-footer">
+  <p>赤澤一族 令和版 — 2026年編纂</p>
+</div>
+
+</div>
+
+<script>
+// Background
+const canvas=document.getElementById('bg-canvas');const ctx=canvas.getContext('2d');let w,h;
+function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight}resize();
+window.addEventListener('resize',resize);
+const particles=[];for(let i=0;i<30;i++){particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12,size:Math.random()*1.2+.4,alpha:Math.random()*.05+.02})}
+function draw(){ctx.fillStyle='#faf8f5';ctx.fillRect(0,0,w,h);particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=`rgba(30,58,95,${p.alpha})`;ctx.fill()});requestAnimationFrame(draw)}draw();
+
+// Person detail toggle
+function showDetail(id) {
+  const el = document.getElementById('detail-' + id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.style.animation = 'none';
+    setTimeout(() => { el.style.animation = 'fadeIn .5s ease'; }, 10);
+  }
+}
+</script>
+</body>
+</html>

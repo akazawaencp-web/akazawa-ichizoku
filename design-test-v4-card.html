@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>カード左ライン検証 — 石庭ベース</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:#f2f1ee;color:#1a1a1a;padding:20px}
+nav{position:sticky;top:0;z-index:999;background:rgba(242,241,238,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06);padding:10px 0;margin:-20px -20px 30px;padding:10px 20px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+nav a{color:#777;font-size:11px;text-decoration:none;padding:4px 10px;border-radius:6px;border:1px solid rgba(0,0,0,.06);transition:all .2s}
+nav a:hover{color:#1a1a1a;border-color:rgba(0,0,0,.15)}
+.wrap{max-width:700px;margin:0 auto}
+.label{position:sticky;top:50px;z-index:50;font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 14px;border-radius:6px;display:inline-block;margin-bottom:6px}
+.desc{font-size:12px;color:#888;margin-bottom:20px}
+.card-section{padding:30px 0 40px;border-bottom:1px solid rgba(0,0,0,.04)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#c1">1</a><a href="#c2">2</a><a href="#c3">3</a><a href="#c4">4</a><a href="#c5">5</a>
+  <a href="#c6">6</a><a href="#c7">7</a><a href="#c8">8</a><a href="#c9">9</a><a href="#c10">10</a>
+</nav>
+<div class="wrap">
+
+<!-- 1: 太墨直線 -->
+<div class="card-section" id="c1">
+<div class="label" style="background:#2a2420;color:#f0e8d4">1 — 太墨直線（5px）</div>
+<div class="desc">角丸なし。太い墨色の直線。力強い。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;padding:30px;border-left:5px solid #2a2420;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(0,0,0,.04);color:#666">畿内の猛将</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。管領・細川政元の下で山城・河内・大和を転戦。丹後で主君の暗殺を知り、九世戸の文殊堂にて自刃。享年57。</div>
+</div>
+</div>
+
+<!-- 2: 墨グラデ直線 -->
+<div class="card-section" id="c2">
+<div class="label" style="background:rgba(0,0,0,.06);color:#555">2 — 墨グラデ直線（4px）</div>
+<div class="desc">上が濃く下が薄い墨のグラデーション。角丸なし。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;padding:30px;border-left:4px solid;border-image:linear-gradient(180deg,#2a2420,#c8c0b0) 1;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。管領・細川政元の下で山城・河内・大和を転戦。丹後で主君の暗殺を知り、九世戸の文殊堂にて自刃。享年57。</div>
+</div>
+</div>
+
+<!-- 3: 金直線 -->
+<div class="card-section" id="c3">
+<div class="label" style="background:rgba(139,105,20,.08);color:#8b6914">3 — 金直線（4px）</div>
+<div class="desc">タイムラインと同じ金色。統一感。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;padding:30px;border-left:4px solid #8b6914;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。</div>
+</div>
+</div>
+
+<!-- 4: 極細墨 -->
+<div class="card-section" id="c4">
+<div class="label" style="background:rgba(0,0,0,.06);color:#555">4 — 極細墨（2px）</div>
+<div class="desc">細いが存在感のある墨線。繊細。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;padding:30px;border-left:2px solid #2a2420;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+</div>
+</div>
+
+<!-- 5: 墨+金の二重線 -->
+<div class="card-section" id="c5">
+<div class="label" style="background:rgba(0,0,0,.06);color:#555">5 — 墨+金の二重線</div>
+<div class="desc">外側が墨、内側が金のダブルライン。格式高い。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;padding:30px 30px 30px 34px;border-left:5px solid #2a2420;box-shadow:0 4px 20px rgba(40,30,20,.04);position:relative">
+  <div style="position:absolute;left:5px;top:0;bottom:0;width:2px;background:#b8960b"></div>
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+</div>
+</div>
+
+<!-- 6: カード全体角丸なし+太墨 -->
+<div class="card-section" id="c6">
+<div class="label" style="background:rgba(0,0,0,.06);color:#555">6 — 完全スクエア+太墨</div>
+<div class="desc">カード自体も角丸なし。シャープで硬質。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:0;padding:30px;border-left:5px solid #2a2420;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:0;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:0;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+</div>
+</div>
+
+<!-- 7: 右のみ角丸+太墨 -->
+<div class="card-section" id="c7">
+<div class="label" style="background:rgba(0,0,0,.06);color:#555">7 — 左直線+右だけ角丸</div>
+<div class="desc">左は直線、右だけ丸み。今のv3の10番から左の丸みだけ取った形。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 18px 18px 0;padding:30px;border-left:4px solid #2a2420;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(0,0,0,.04);color:#666">畿内の猛将</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。管領・細川政元の下で山城・河内・大和を転戦。丹後で主君の暗殺を知り、九世戸の文殊堂にて自刃。享年57。</div>
+</div>
+</div>
+
+<!-- 8: 金グラデ直線 -->
+<div class="card-section" id="c8">
+<div class="label" style="background:rgba(139,105,20,.08);color:#8b6914">8 — 金グラデ直線（4px）</div>
+<div class="desc">金色のグラデーション。タイムラインとの統一感。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 16px 16px 0;padding:30px;border-left:4px solid;border-image:linear-gradient(180deg,#7a5a20,#c4a060) 1;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。</div>
+</div>
+</div>
+
+<!-- 9: 墨+微角丸（2px） -->
+<div class="card-section" id="c9">
+<div class="label" style="background:rgba(0,0,0,.06);color:#555">9 — 墨+微角丸（2px radius）</div>
+<div class="desc">ほぼ直線だが角に微かな丸み（2px）。硬すぎない。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 2px 2px 0;padding:30px;border-left:4px solid #2a2420;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。</div>
+</div>
+</div>
+
+<!-- 10: 墨→金グラデ+右角丸 -->
+<div class="card-section" id="c10">
+<div class="label" style="background:#2a2420;color:#f0e8d4">10 — 墨→金グラデ+右角丸（推奨）</div>
+<div class="desc">左は墨から金へのグラデーション直線、右だけ控えめな角丸。石庭デザインのベストバランス。</div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0 14px 14px 0;padding:30px;border-left:4px solid;border-image:linear-gradient(180deg,#2a2420,#a08040) 1;box-shadow:0 4px 20px rgba(40,30,20,.04)">
+  <div style="font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500">赤沢朝経</div>
+  <div style="font-size:12px;color:#999;margin:4px 0 16px">あかざわ ともつね（1451-1507）</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:#2a2420;color:#f0e8d4">室町後期</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(139,105,20,.08);color:#8b6914">将軍弓道師範</span><span style="font-size:9px;font-weight:600;padding:4px 12px;border-radius:99px;background:rgba(0,0,0,.04);color:#666">畿内の猛将</span></div>
+  <div style="font-size:14px;color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。管領・細川政元の下で山城・河内・大和を転戦。丹後で主君の暗殺を知り、九世戸の文殊堂にて自刃。享年57。</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

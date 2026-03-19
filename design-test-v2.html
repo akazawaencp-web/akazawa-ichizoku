@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>デザイン検証 v2 — 白砂×銀霧ベース</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Old+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:#f5f5f7;color:#1a1a2e}
+nav{position:sticky;top:0;z-index:999;background:rgba(245,245,247,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+nav a{color:#666;font-size:11px;text-decoration:none;padding:4px 10px;border-radius:6px;border:1px solid rgba(0,0,0,.06);transition:all .2s;white-space:nowrap}
+nav a:hover{color:#1a1a2e;border-color:rgba(0,0,0,.15);background:rgba(0,0,0,.03)}
+.section{min-height:100vh;padding:60px 20px 80px}
+.design-label{position:sticky;top:48px;z-index:50;font-size:11px;font-weight:700;letter-spacing:.1em;padding:8px 16px;border-radius:8px;margin-bottom:8px;display:inline-block}
+.design-desc{font-size:13px;color:#888;margin-bottom:30px;max-width:600px}
+.demo-wrap{max-width:780px;margin:0 auto}
+.sep{height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.04),transparent);margin:0 auto;max-width:600px}
+
+/* Shared */
+.demo-hero{padding:48px 30px;border-radius:20px;margin-bottom:24px;text-align:center;position:relative;overflow:hidden}
+.demo-hero h2{font-size:28px;font-weight:700;letter-spacing:.15em;margin-bottom:8px}
+.demo-hero p{font-size:13px}
+.demo-kamon{width:80px;height:80px;margin:0 auto 20px}
+.demo-kamon svg{width:100%;height:100%}
+.demo-nodes{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.demo-node{padding:10px 16px;border-radius:10px;cursor:pointer;transition:all .2s;min-width:120px}
+.demo-node:hover{transform:translateY(-2px)}
+.demo-node-name{font-size:14px;font-weight:600}
+.demo-node-role{font-size:10px;margin-top:2px}
+.demo-connector{width:2px;height:20px;margin:0 0 0 50px}
+.demo-card{border-radius:16px;padding:28px;margin-bottom:20px;position:relative;overflow:hidden}
+.demo-card h3{font-size:20px;font-weight:700;margin-bottom:6px}
+.demo-card .reading{font-size:11px;margin-bottom:14px}
+.demo-card .body{font-size:13px;line-height:1.9}
+.demo-card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.demo-card .tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:99px}
+.demo-tl{position:relative;padding-left:22px;margin:16px 0}
+.demo-tl-item{position:relative;padding-bottom:14px}
+.demo-tl-year{font-size:10px;font-weight:700}
+.demo-tl-text{font-size:12px;line-height:1.6}
+.demo-grandpa{border-radius:12px;padding:16px 20px;margin:16px 0;font-size:12px;line-height:1.8}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#s1">1: 氷室</a>
+  <a href="#s2">2: 淡墨</a>
+  <a href="#s3">3: 銀砂</a>
+  <a href="#s4">4: 雪花</a>
+  <a href="#s5">5: 朝霧</a>
+  <a href="#s6">6: 硯</a>
+  <a href="#s7">7: 真珠</a>
+  <a href="#s8">8: 月白</a>
+  <a href="#s9">9: 薄氷</a>
+  <a href="#s10">10: 水墨</a>
+</nav>
+
+<!-- ===== 1: 氷室 — 白砂ベース+微かなブルーシフト+極細ライン ===== -->
+<div class="section" id="s1" style="background:#fafafc">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(0,0,0,.03);color:#555">STYLE 1 — 氷室（ひむろ）</div>
+  <div class="design-desc">白砂ベースに微かな青みを加えた冷たい透明感。極細のラインと最小限の装飾。</div>
+
+  <div class="demo-hero" style="background:#fff;border:1px solid #e8e8ec;border-radius:4px">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="#aab" stroke-width="1.2"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="#aab" stroke-width="1.2"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="#889" stroke-width="1.8"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="#aab" stroke-width="1.2"/></g></svg></div>
+    <h2 style="font-family:'Zen Old Mincho',serif;color:#2a2a38;font-weight:400;letter-spacing:.2em">赤澤一族</h2>
+    <p style="color:#aaa;letter-spacing:.08em">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:#fff;border:1px solid #e0e0e4;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.02)">
+      <div class="demo-node-name" style="font-family:'Zen Old Mincho',serif;color:#333;font-weight:400">清和天皇</div>
+      <div class="demo-node-role" style="color:#aaa">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:#fff;border:1px solid #e0e0e4;border-radius:6px">
+      <div class="demo-node-name" style="font-family:'Zen Old Mincho',serif;color:#333;font-weight:400">源義光</div>
+      <div class="demo-node-role" style="color:#aaa">新羅三郎</div>
+    </div>
+    <div class="demo-node" style="background:#f8f8fc;border:1.5px solid #bbc;border-radius:6px">
+      <div class="demo-node-name" style="font-family:'Zen Old Mincho',serif;color:#1a1a28;font-weight:500">赤沢清経</div>
+      <div class="demo-node-role" style="color:#889">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-connector" style="background:#e0e0e4"></div>
+  <div class="demo-card" style="background:#fff;border:1px solid #e8e8ec;border-radius:6px;border-left:2px solid #889">
+    <h3 style="font-family:'Zen Old Mincho',serif;color:#1a1a28;font-weight:500">赤沢朝経</h3>
+    <div class="reading" style="color:#aaa">あかざわ ともつね（1451-1507）</div>
+    <div class="tags"><span class="tag" style="background:#f0f0f4;color:#666">室町後期</span><span class="tag" style="background:#f0f0f4;color:#666">将軍弓道師範</span></div>
+    <div class="body" style="color:#555">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。丹後で主君の暗殺を知り、自刃。享年57。</div>
+  </div>
+  <div class="demo-grandpa" style="background:#fafaf6;border:1px solid #e8e4dc;color:#776a55">
+    <div style="font-size:10px;font-weight:600;color:#998a70;margin-bottom:6px;letter-spacing:.05em">おじいちゃんの調査メモ</div>
+    冊子の家系図に赤ペンで「加賀美遠光（小笠原の祖）？ 武田氏と同祖」と書き込みあり。
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 2: 淡墨 — 白砂+墨のグラデーション左ライン+余白大 ===== -->
+<div class="section" id="s2" style="background:#f8f8f6">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(0,0,0,.03);color:#555">STYLE 2 — 淡墨（うすずみ）</div>
+  <div class="design-desc">白砂から発展。墨色のグラデーションラインと大きな余白。書道的な美しさ。</div>
+
+  <div class="demo-hero" style="background:transparent;border:none;padding:60px 30px">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="#444" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="#444" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="#333" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="#444" stroke-width="1.5"/></g></svg></div>
+    <h2 style="font-family:'Shippori Mincho',serif;color:#1a1a1a;font-weight:400;letter-spacing:.25em;font-size:32px">赤澤一族</h2>
+    <p style="color:#aaa;letter-spacing:.15em;font-size:12px;margin-top:12px">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+    <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,#999,transparent);margin:20px auto 0"></div>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:transparent;border:none;border-bottom:1px solid #ddd;border-radius:0;padding:12px 0">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#222;font-weight:400;font-size:15px">清和天皇</div>
+      <div class="demo-node-role" style="color:#aaa">第56代天皇（850-881）</div>
+    </div>
+    <div class="demo-node" style="background:transparent;border:none;border-bottom:1px solid #ddd;border-radius:0;padding:12px 0">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#222;font-weight:400;font-size:15px">源義光</div>
+      <div class="demo-node-role" style="color:#aaa">新羅三郎 — 甲斐源氏の祖</div>
+    </div>
+    <div class="demo-node" style="background:transparent;border:none;border-bottom:2px solid #333;border-radius:0;padding:12px 0">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#000;font-weight:500;font-size:15px">赤沢清経</div>
+      <div class="demo-node-role" style="color:#888">伊豆守 — 赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-card" style="background:transparent;border:none;border-left:3px solid;border-image:linear-gradient(180deg,#333,#ccc) 1;border-radius:0;padding:24px 0 24px 28px;margin-top:30px">
+    <h3 style="font-family:'Shippori Mincho',serif;color:#111;font-weight:500;font-size:22px">赤沢朝経</h3>
+    <div class="reading" style="color:#999;font-size:12px">あかざわ ともつね（1451-1507）</div>
+    <div class="body" style="color:#444;margin-top:16px;font-size:14px;line-height:2.2">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 3: 銀砂 — 銀霧ベース+微粒子シマー+丸みあり ===== -->
+<div class="section" id="s3" style="background:linear-gradient(160deg,#ededf2,#f2f2f6,#eeeef3)">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(80,80,120,.05);color:#6a6a8a">STYLE 3 — 銀砂（ぎんさ）</div>
+  <div class="design-desc">銀霧の光沢感に白砂のミニマルを融合。柔らかい丸みとシマー。</div>
+
+  <div class="demo-hero" style="background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(245,245,252,.9));border:1px solid rgba(0,0,0,.04);border-radius:24px;backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(80,80,120,.04)">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(50,50,80,.25)" stroke-width="1.8"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(50,50,80,.25)" stroke-width="1.8"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(50,50,80,.35)" stroke-width="2.2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(50,50,80,.25)" stroke-width="1.8"/></g></svg></div>
+    <h2 style="font-family:'Noto Serif JP',serif;color:#2a2a3a;font-weight:600;letter-spacing:.12em">赤澤一族</h2>
+    <p style="color:#8888a0;letter-spacing:.06em">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.04);border-radius:12px;backdrop-filter:blur(8px);box-shadow:0 1px 6px rgba(80,80,120,.03)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#2a2a3a">清和天皇</div>
+      <div class="demo-node-role" style="color:#9999b0">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.04);border-radius:12px;backdrop-filter:blur(8px)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#2a2a3a">源義光</div>
+      <div class="demo-node-role" style="color:#9999b0">新羅三郎</div>
+    </div>
+    <div class="demo-node" style="background:rgba(255,255,255,.85);border:1.5px solid rgba(60,60,100,.12);border-radius:12px;backdrop-filter:blur(8px);box-shadow:0 2px 10px rgba(60,60,100,.05)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#1a1a2a;font-weight:600">赤沢清経</div>
+      <div class="demo-node-role" style="color:#7070a0">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-connector" style="background:rgba(80,80,120,.08);border-radius:1px"></div>
+  <div class="demo-card" style="background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.04);border-radius:16px;backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(80,80,120,.04)">
+    <h3 style="font-family:'Noto Serif JP',serif;color:#1a1a2a">赤沢朝経</h3>
+    <div class="reading" style="color:#9999b0">あかざわ ともつね（1451-1507）</div>
+    <div class="tags"><span class="tag" style="background:rgba(60,60,100,.06);color:#5a5a80">室町後期</span><span class="tag" style="background:rgba(60,60,100,.06);color:#5a5a80">将軍弓道師範</span></div>
+    <div class="body" style="color:#4a4a60">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 4: 雪花 — 純白+極薄グレー+フロストガラス ===== -->
+<div class="section" id="s4" style="background:#fff">
+<div class="demo-wrap">
+  <div class="design-label" style="background:#f5f5f5;color:#777">STYLE 4 — 雪花（せっか）</div>
+  <div class="design-desc">究極の白。フロストガラスの淡い境界線だけで空間を区切る。</div>
+
+  <div class="demo-hero" style="background:rgba(248,248,252,.6);border:1px solid rgba(0,0,0,.03);border-radius:28px;backdrop-filter:blur(30px)">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/></g></svg></div>
+    <h2 style="font-family:'Zen Old Mincho',serif;color:#222;font-weight:400;letter-spacing:.18em">赤澤一族</h2>
+    <p style="color:#bbb;letter-spacing:.1em">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:rgba(248,248,252,.5);border:1px solid rgba(0,0,0,.04);border-radius:14px;backdrop-filter:blur(20px)">
+      <div class="demo-node-name" style="font-family:'Zen Old Mincho',serif;color:#333;font-weight:400">清和天皇</div>
+      <div class="demo-node-role" style="color:#bbb">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:rgba(245,245,250,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:14px;backdrop-filter:blur(20px)">
+      <div class="demo-node-name" style="font-family:'Zen Old Mincho',serif;color:#111;font-weight:500">赤沢清経</div>
+      <div class="demo-node-role" style="color:#999">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-card" style="background:rgba(248,248,252,.5);border:1px solid rgba(0,0,0,.03);border-radius:20px;backdrop-filter:blur(20px)">
+    <h3 style="font-family:'Zen Old Mincho',serif;color:#111;font-weight:400;font-size:22px">赤沢朝経</h3>
+    <div class="reading" style="color:#bbb">あかざわ ともつね（1451-1507）</div>
+    <div class="body" style="color:#555;line-height:2.2">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 5: 朝霧 — 銀霧+暖色シフト+ほのかなゴールド ===== -->
+<div class="section" id="s5" style="background:linear-gradient(160deg,#f2f0ee,#f6f4f2,#f0eee8)">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(140,120,80,.06);color:#8a7a5a">STYLE 5 — 朝霧（あさぎり）</div>
+  <div class="design-desc">銀霧を暖色にシフト。ほのかなゴールドが和の温もりを加える。</div>
+
+  <div class="demo-hero" style="background:linear-gradient(145deg,rgba(255,255,252,.85),rgba(252,250,245,.9));border:1px solid rgba(160,140,100,.08);border-radius:20px;box-shadow:0 2px 16px rgba(140,120,80,.04)">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(120,100,60,.25)" stroke-width="1.8"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(120,100,60,.25)" stroke-width="1.8"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(120,100,60,.35)" stroke-width="2.2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(120,100,60,.25)" stroke-width="1.8"/></g></svg></div>
+    <h2 style="font-family:'Noto Serif JP',serif;color:#3a3428;font-weight:600;letter-spacing:.12em">赤澤一族</h2>
+    <p style="color:#a09878">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:rgba(255,253,248,.7);border:1px solid rgba(160,140,100,.08);border-radius:10px;box-shadow:0 1px 4px rgba(140,120,80,.03)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#3a3428">清和天皇</div>
+      <div class="demo-node-role" style="color:#a09878">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:rgba(255,253,248,.8);border:1.5px solid rgba(140,120,60,.15);border-radius:10px;box-shadow:0 2px 8px rgba(140,120,80,.04)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#2a2418;font-weight:600">赤沢清経</div>
+      <div class="demo-node-role" style="color:#8a7a5a">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-card" style="background:rgba(255,253,248,.7);border:1px solid rgba(160,140,100,.06);border-radius:14px;border-left:3px solid rgba(140,120,60,.2);box-shadow:0 2px 12px rgba(140,120,80,.03)">
+    <h3 style="font-family:'Noto Serif JP',serif;color:#2a2418">赤沢朝経</h3>
+    <div class="reading" style="color:#a09878">あかざわ ともつね（1451-1507）</div>
+    <div class="body" style="color:#5a5040">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 6: 硯 — 白地+太い墨ライン+コントラスト強 ===== -->
+<div class="section" id="s6" style="background:#f5f5f3">
+<div class="demo-wrap">
+  <div class="design-label" style="background:#1a1a1a;color:#fff">STYLE 6 — 硯（すずり）</div>
+  <div class="design-desc">白地に墨の太いストロークで力強さを出す。高コントラスト。</div>
+
+  <div class="demo-hero" style="background:#fff;border-bottom:4px solid #1a1a1a;border-radius:0;padding:60px 30px">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="#1a1a1a" stroke-width="2.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="#1a1a1a" stroke-width="2"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="#1a1a1a" stroke-width="3"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="#1a1a1a" stroke-width="2"/></g></svg></div>
+    <h2 style="font-family:'Shippori Mincho',serif;color:#0a0a0a;font-weight:700;letter-spacing:.2em;font-size:34px">赤澤一族</h2>
+    <p style="color:#888;letter-spacing:.1em;margin-top:8px">清和源氏 — 小笠原氏庶流</p>
+  </div>
+  <div class="demo-nodes" style="margin-top:24px">
+    <div class="demo-node" style="background:#fff;border:2px solid #1a1a1a;border-radius:2px;padding:12px 20px">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#0a0a0a;font-weight:500;font-size:15px">清和天皇</div>
+      <div class="demo-node-role" style="color:#888">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:#1a1a1a;border:2px solid #1a1a1a;border-radius:2px;padding:12px 20px">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#fff;font-weight:500;font-size:15px">赤沢清経</div>
+      <div class="demo-node-role" style="color:rgba(255,255,255,.5)">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-card" style="background:#fff;border:none;border-left:5px solid #1a1a1a;border-radius:0;padding:28px 28px 28px 32px;margin-top:24px;box-shadow:0 2px 8px rgba(0,0,0,.04)">
+    <h3 style="font-family:'Shippori Mincho',serif;color:#0a0a0a;font-weight:600;font-size:22px">赤沢朝経</h3>
+    <div class="reading" style="color:#999">あかざわ ともつね（1451-1507）</div>
+    <div class="body" style="color:#333;line-height:2.2">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 7: 真珠 — 銀霧+パールの虹彩+上品な光沢 ===== -->
+<div class="section" id="s7" style="background:linear-gradient(145deg,#f0f0f5,#f5f3f8,#eff0f5)">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(120,100,160,.06);color:#7a6a9a">STYLE 7 — 真珠（しんじゅ）</div>
+  <div class="design-desc">銀霧にパールの虹彩。微かなラベンダーシフトで上品な光沢感。</div>
+
+  <div class="demo-hero" style="background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(248,245,255,.85));border:1px solid rgba(120,100,160,.06);border-radius:24px;backdrop-filter:blur(20px);box-shadow:0 4px 24px rgba(100,80,140,.04)">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(80,60,120,.2)" stroke-width="1.8"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(80,60,120,.2)" stroke-width="1.8"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(80,60,120,.3)" stroke-width="2.2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(80,60,120,.2)" stroke-width="1.8"/></g></svg></div>
+    <h2 style="font-family:'Noto Serif JP',serif;color:#2a2040;font-weight:600;letter-spacing:.12em">赤澤一族</h2>
+    <p style="color:#9088a8">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:rgba(255,255,255,.65);border:1px solid rgba(120,100,160,.06);border-radius:14px;backdrop-filter:blur(10px)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#2a2040">清和天皇</div>
+      <div class="demo-node-role" style="color:#9088a8">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:rgba(255,255,255,.75);border:1.5px solid rgba(100,80,160,.1);border-radius:14px;backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(100,80,140,.04)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#1a1030;font-weight:600">赤沢清経</div>
+      <div class="demo-node-role" style="color:#7060a0">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-card" style="background:rgba(255,255,255,.65);border:1px solid rgba(120,100,160,.05);border-radius:18px;backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(100,80,140,.04)">
+    <h3 style="font-family:'Noto Serif JP',serif;color:#1a1030">赤沢朝経</h3>
+    <div class="reading" style="color:#9088a8">あかざわ ともつね（1451-1507）</div>
+    <div class="body" style="color:#4a4060">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 8: 月白 — 白砂+極淡ブルー+大きなタイポグラフィ ===== -->
+<div class="section" id="s8" style="background:#f8f9fc">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(60,80,120,.05);color:#5a6a8a">STYLE 8 — 月白（げっぱく）</div>
+  <div class="design-desc">月の白さ。極淡いブルーグレー+大きなタイポグラフィで読ませるデザイン。</div>
+
+  <div class="demo-hero" style="background:transparent;border:none;padding:70px 30px 50px">
+    <div style="font-size:10px;letter-spacing:.3em;color:#aab;margin-bottom:30px;font-weight:500">AKAZAWA ICHIZOKU</div>
+    <div class="demo-kamon" style="margin-bottom:30px"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(60,70,100,.2)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(60,70,100,.2)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(60,70,100,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(60,70,100,.2)" stroke-width="1.5"/></g></svg></div>
+    <h2 style="font-family:'Noto Serif JP',serif;color:#1a2030;font-weight:700;letter-spacing:.15em;font-size:36px">赤澤一族</h2>
+    <p style="color:#8890a8;font-size:14px;margin-top:12px;letter-spacing:.06em">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:#fff;border:1px solid #e4e6ec;border-radius:10px;box-shadow:0 1px 4px rgba(60,70,100,.03)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#2a3040">清和天皇</div>
+      <div class="demo-node-role" style="color:#9098b0">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:#f4f5fa;border:1.5px solid rgba(60,70,120,.12);border-radius:10px">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#1a2030;font-weight:600">赤沢清経</div>
+      <div class="demo-node-role" style="color:#6a7090">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-card" style="background:#fff;border:1px solid #e8eaf0;border-radius:14px;border-left:3px solid rgba(60,70,120,.2);box-shadow:0 2px 10px rgba(60,70,100,.03)">
+    <h3 style="font-family:'Noto Serif JP',serif;color:#1a2030;font-size:22px">赤沢朝経</h3>
+    <div class="reading" style="color:#9098b0">あかざわ ともつね（1451-1507）</div>
+    <div class="body" style="color:#4a5060;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 9: 薄氷 — 白+微かなシアン+氷の結晶感 ===== -->
+<div class="section" id="s9" style="background:#f6f9fa">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(60,140,160,.05);color:#4a8a98">STYLE 9 — 薄氷（うすらい）</div>
+  <div class="design-desc">薄い氷のような透明感。白ベースに微かなシアンが差す。</div>
+
+  <div class="demo-hero" style="background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(240,248,252,.85));border:1px solid rgba(60,140,160,.06);border-radius:20px;backdrop-filter:blur(16px)">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(40,100,120,.2)" stroke-width="1.8"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(40,100,120,.2)" stroke-width="1.8"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(40,100,120,.3)" stroke-width="2.2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(40,100,120,.2)" stroke-width="1.8"/></g></svg></div>
+    <h2 style="font-family:'Noto Serif JP',serif;color:#1a3038;font-weight:600;letter-spacing:.12em">赤澤一族</h2>
+    <p style="color:#7898a8">清和源氏 — 小笠原氏庶流</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:rgba(255,255,255,.65);border:1px solid rgba(60,140,160,.06);border-radius:12px;backdrop-filter:blur(10px)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#1a3038">清和天皇</div>
+      <div class="demo-node-role" style="color:#7898a8">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:rgba(240,250,255,.7);border:1.5px solid rgba(40,120,140,.12);border-radius:12px;backdrop-filter:blur(10px)">
+      <div class="demo-node-name" style="font-family:'Noto Serif JP',serif;color:#0a2028;font-weight:600">赤沢清経</div>
+      <div class="demo-node-role" style="color:#508898">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-card" style="background:rgba(255,255,255,.65);border:1px solid rgba(60,140,160,.05);border-radius:14px;backdrop-filter:blur(12px);border-left:3px solid rgba(40,120,140,.2)">
+    <h3 style="font-family:'Noto Serif JP',serif;color:#0a2028">赤沢朝経</h3>
+    <div class="reading" style="color:#7898a8">あかざわ ともつね</div>
+    <div class="body" style="color:#3a5058">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。</div>
+  </div>
+</div></div><div class="sep"></div>
+
+<!-- ===== 10: 水墨 — 白+墨グラデ+ガラスモーフィズム融合 ===== -->
+<div class="section" id="s10" style="background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0)">
+<div class="demo-wrap">
+  <div class="design-label" style="background:rgba(0,0,0,.04);color:#555">STYLE 10 — 水墨（すいぼく）</div>
+  <div class="design-desc">白砂の余白+淡墨のライン+銀霧のグラス感。3つのベストを統合した決定版。</div>
+
+  <div class="demo-hero" style="background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(248,248,246,.85));border:1px solid rgba(0,0,0,.04);border-radius:20px;backdrop-filter:blur(16px);box-shadow:0 2px 16px rgba(0,0,0,.03)">
+    <div class="demo-kamon"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(30,30,30,.2)" stroke-width="1.8"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(30,30,30,.2)" stroke-width="1.8"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(30,30,30,.3)" stroke-width="2.2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(30,30,30,.2)" stroke-width="1.8"/></g></svg></div>
+    <h2 style="font-family:'Shippori Mincho',serif;color:#1a1a1a;font-weight:500;letter-spacing:.2em;font-size:32px">赤澤一族</h2>
+    <p style="color:#999;letter-spacing:.1em;margin-top:10px">清和源氏 — 小笠原氏庶流 — 信濃発祥</p>
+  </div>
+  <div class="demo-nodes">
+    <div class="demo-node" style="background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.04);border-radius:10px;backdrop-filter:blur(10px);box-shadow:0 1px 4px rgba(0,0,0,.02)">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#222;font-weight:400">清和天皇</div>
+      <div class="demo-node-role" style="color:#aaa">第56代天皇</div>
+    </div>
+    <div class="demo-node" style="background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.04);border-radius:10px;backdrop-filter:blur(10px)">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#222;font-weight:400">源義光</div>
+      <div class="demo-node-role" style="color:#aaa">新羅三郎</div>
+    </div>
+    <div class="demo-node" style="background:rgba(255,255,255,.7);border:1.5px solid rgba(0,0,0,.08);border-radius:10px;backdrop-filter:blur(10px);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+      <div class="demo-node-name" style="font-family:'Shippori Mincho',serif;color:#111;font-weight:500">赤沢清経</div>
+      <div class="demo-node-role" style="color:#888">赤沢氏の祖</div>
+    </div>
+  </div>
+  <div class="demo-connector" style="background:rgba(0,0,0,.06)"></div>
+  <div class="demo-card" style="background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.04);border-radius:14px;backdrop-filter:blur(12px);border-left:3px solid;border-image:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.05)) 1;box-shadow:0 2px 12px rgba(0,0,0,.03)">
+    <h3 style="font-family:'Shippori Mincho',serif;color:#111;font-weight:500;font-size:22px">赤沢朝経</h3>
+    <div class="reading" style="color:#aaa">あかざわ ともつね（1451-1507）</div>
+    <div class="tags"><span class="tag" style="background:rgba(0,0,0,.04);color:#666">室町後期</span><span class="tag" style="background:rgba(0,0,0,.04);color:#666">将軍弓道師範</span></div>
+    <div class="body" style="color:#444;line-height:2.1">比叡山延暦寺を焼き討ちし、大和国を軍事制圧した畿内の猛将。織田信長の72年前に比叡山を焼いた男。丹後で主君の暗殺を知り、自刃。享年57。</div>
+  </div>
+  <div class="demo-grandpa" style="background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.08);color:#6a5a40;backdrop-filter:blur(8px);border-radius:12px">
+    <div style="font-size:10px;font-weight:600;color:#998a70;margin-bottom:6px;letter-spacing:.05em">おじいちゃんの調査メモ</div>
+    冊子の家系図に赤ペンで「加賀美遠光（小笠原の祖）？ 武田氏と同祖」と書き込みあり。
+  </div>
+</div></div>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B8 — カード左ライン 10パターン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;padding:60px 20px 80px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-size:16px;font-weight:600;margin-bottom:4px}
+.desc{font-size:12px;color:#999;margin-bottom:40px}
+.section{margin-bottom:50px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.1em;color:#999;margin-bottom:14px;padding:6px 12px;background:rgba(0,0,0,.03);border-radius:6px;display:inline-block}
+
+/* Base card */
+.card{background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.04);backdrop-filter:blur(12px);box-shadow:0 2px 12px rgba(0,0,0,.03);padding:24px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.card p{font-size:14px;color:#555;line-height:2}
+.card strong{color:#1a1a1a}
+.card-title{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+
+/* 1: 現在 — 金直線4px */
+.c1{border-left:4px solid #8b6914;border-radius:0 14px 14px 0}
+
+/* 2: 金グラデーション */
+.c2{border-left:4px solid transparent;border-radius:0 14px 14px 0;border-image:linear-gradient(180deg,#7a5a20,#c4a060,#7a5a20) 1}
+
+/* 3: 金グラデーション（明→暗） */
+.c3{border-left:4px solid transparent;border-radius:0 14px 14px 0;border-image:linear-gradient(180deg,#c4a060,#8b6914) 1}
+
+/* 4: 銀グラデーション */
+.c4{border-left:4px solid transparent;border-radius:0 14px 14px 0;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1}
+
+/* 5: 墨色グラデーション */
+.c5{border-left:4px solid transparent;border-radius:0 14px 14px 0;border-image:linear-gradient(180deg,#2a2420,#6a6058,#2a2420) 1}
+
+/* 6: 細い金2px */
+.c6{border-left:2px solid #8b6914;border-radius:0 14px 14px 0}
+
+/* 7: 太い金6px */
+.c7{border-left:6px solid #8b6914;border-radius:0 14px 14px 0}
+
+/* 8: 金+影（立体感） */
+.c8{border-left:4px solid #8b6914;border-radius:0 14px 14px 0;box-shadow:0 4px 20px rgba(40,30,20,.06),-4px 0 12px rgba(139,105,20,.06)}
+
+/* 9: 上部アクセント（左ラインなし、上に金ライン） */
+.c9{border-radius:14px;border-top:3px solid #8b6914}
+
+/* 10: 左ライン＋左上に小さなドット */
+.c10{border-left:4px solid #8b6914;border-radius:0 14px 14px 0}
+.c10::before{content:'';position:absolute;top:12px;left:8px;width:6px;height:6px;border-radius:50%;background:#8b6914;opacity:.4}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>B8 — カード左ライン 10パターン</h1>
+<div class="desc">同じカード内容で左ラインのデザインだけ変えています</div>
+
+<div class="section">
+<div class="section-label">1 — 現在（金直線4px）</div>
+<div class="card c1">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">2 — 金グラデーション（暗→明→暗）</div>
+<div class="card c2">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">3 — 金グラデーション（明→暗）</div>
+<div class="card c3">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">4 — 銀グラデーション</div>
+<div class="card c4">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">5 — 墨色グラデーション</div>
+<div class="card c5">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">6 — 細い金（2px）</div>
+<div class="card c6">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">7 — 太い金（6px）</div>
+<div class="card c7">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">8 — 金+影（立体感）</div>
+<div class="card c8">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">9 — 上部アクセント（左ラインなし、上に金ライン）</div>
+<div class="card c9">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+<div class="section">
+<div class="section-label">10 — 金ライン＋左上に小さなドット</div>
+<div class="card c10">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div></div>
+
+</div>
+</body>
+</html>

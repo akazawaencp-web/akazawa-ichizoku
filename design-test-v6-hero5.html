@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v6.5 — 多重透過バリエーション10パターン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
+
+.sel{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);padding:10px 14px;display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.sel-l{font-size:9px;color:rgba(255,255,255,.25);margin-right:4px}
+.sb{padding:5px 11px;border:1px solid rgba(255,255,255,.08);border-radius:5px;background:transparent;cursor:pointer;font-family:inherit;font-size:9px;color:rgba(255,255,255,.4);transition:all .12s;white-space:nowrap}
+.sb:hover{border-color:rgba(255,255,255,.2);color:#fff}
+.sb.on{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.18)}
+
+.hero{display:none;min-height:100vh;position:relative;overflow:hidden}
+.hero.on{display:block}
+.plbl{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:9px;color:rgba(255,255,255,.25);z-index:10;text-align:center;background:rgba(0,0,0,.5);padding:5px 14px;border-radius:4px;backdrop-filter:blur(8px);max-width:95%}
+
+/* Shared center content */
+.cc{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:60px 24px}
+.cc-en{font-size:9px;letter-spacing:.55em;color:rgba(255,255,255,.22);margin-bottom:28px;animation:fi 2s ease .5s both}
+.cc-km{width:90px;height:90px;margin-bottom:36px;animation:fi 2s ease .8s both}
+.cc-km svg *{stroke:rgba(255,255,255,.22) !important}
+.cc-t{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:500;letter-spacing:.3em;color:rgba(255,255,255,.92);animation:fi 2s ease 1.2s both;text-shadow:0 2px 50px rgba(0,0,0,.5)}
+.cc-line{width:55px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);margin:22px auto;animation:fi 2s ease 1.6s both}
+.cc-sub{font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.28);animation:fi 2s ease 1.9s both}
+.scue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.06em;animation:bn 2.5s infinite 3s;z-index:10}
+@keyframes fi{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes bn{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
+
+/* Shared overlays */
+.ov{position:absolute;inset:0}
+.ov-grain{opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:4}
+
+/* Layer base */
+.layers{position:absolute;inset:0;z-index:1}
+.ly{position:absolute;inset:-8%;background-size:cover;background-position:center}
+
+/* ===== 1: Warm Dark — 4枚、暖色寄り、高コントラスト ===== */
+.v1 .ly{filter:brightness(.4) saturate(.55) sepia(.1)}
+.v1 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.55;animation:d1a 20s ease-in-out infinite alternate}
+.v1 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.25;mix-blend-mode:screen;animation:d1b 24s ease-in-out infinite alternate}
+.v1 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.2;mix-blend-mode:screen;animation:d1c 18s ease-in-out infinite alternate}
+.v1 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.15;mix-blend-mode:screen;animation:d1d 22s ease-in-out infinite alternate}
+.v1 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(12,10,6,.4) 0%,rgba(12,10,6,.65) 100%)}
+@keyframes d1a{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.06) translate(-1%,.5%)}}
+@keyframes d1b{0%{transform:scale(1.04) translate(1%,0)}100%{transform:scale(1) translate(-1%,1%)}}
+@keyframes d1c{0%{transform:scale(1) translate(-1%,1%)}100%{transform:scale(1.07) translate(1%,-1%)}}
+@keyframes d1d{0%{transform:scale(1.02) translate(.5%,.5%)}100%{transform:scale(1.08) translate(-1%,0)}}
+
+/* ===== 2: Cool Tone — 4枚、青寄り、静か ===== */
+.v2 .ly{filter:brightness(.35) saturate(.4) hue-rotate(10deg)}
+.v2 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:d2a 22s ease-in-out infinite alternate}
+.v2 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.22;mix-blend-mode:screen;animation:d2b 26s ease-in-out infinite alternate}
+.v2 .l3{background-image:url('../jpeg/IMG_9945.jpg');opacity:.18;mix-blend-mode:screen;animation:d2c 20s ease-in-out infinite alternate}
+.v2 .l4{background-image:url('../jpeg/IMG_9927.jpg');opacity:.12;mix-blend-mode:screen;animation:d2d 24s ease-in-out infinite alternate}
+.v2 .ov-main{background:radial-gradient(ellipse at 50% 50%,rgba(8,10,14,.45) 0%,rgba(8,10,14,.7) 100%)}
+@keyframes d2a{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.05) translate(-.5%,.8%)}}
+@keyframes d2b{0%{transform:scale(1.03) translate(.8%,0)}100%{transform:scale(1) translate(-.5%,.5%)}}
+@keyframes d2c{0%{transform:scale(1) translate(-.5%,.5%)}100%{transform:scale(1.06) translate(.5%,-.5%)}}
+@keyframes d2d{0%{transform:scale(1.01)}100%{transform:scale(1.07) translate(-.8%,.3%)}}
+
+/* ===== 3: Deep — 6枚、より多くの資料ページ ===== */
+.v3 .ly{filter:brightness(.33) saturate(.45)}
+.v3 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.45;animation:d3a 18s ease-in-out infinite alternate}
+.v3 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.2;mix-blend-mode:screen;animation:d3b 22s ease-in-out infinite alternate}
+.v3 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.18;mix-blend-mode:screen;animation:d3c 20s ease-in-out infinite alternate}
+.v3 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.15;mix-blend-mode:screen;animation:d3d 24s ease-in-out infinite alternate}
+.v3 .l5{background-image:url('../jpeg/IMG_9945.jpg');opacity:.12;mix-blend-mode:screen;animation:d3e 19s ease-in-out infinite alternate}
+.v3 .l6{background-image:url('../jpeg/IMG_9950.jpg');opacity:.1;mix-blend-mode:screen;animation:d3f 21s ease-in-out infinite alternate}
+.v3 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.45) 0%,rgba(10,10,10,.7) 100%)}
+@keyframes d3a{0%{transform:scale(1)}100%{transform:scale(1.07) translate(-1%,.5%)}}
+@keyframes d3b{0%{transform:scale(1.05) translate(.5%,0)}100%{transform:scale(1) translate(-.5%,1%)}}
+@keyframes d3c{0%{transform:scale(1.02) translate(-.5%,.5%)}100%{transform:scale(1.08) translate(.5%,-.5%)}}
+@keyframes d3d{0%{transform:scale(1)}100%{transform:scale(1.06) translate(-.8%,.3%)}}
+@keyframes d3e{0%{transform:scale(1.03) translate(.3%,-.3%)}100%{transform:scale(1) translate(-.3%,.8%)}}
+@keyframes d3f{0%{transform:scale(1.01) translate(-.5%,0)}100%{transform:scale(1.07) translate(.5%,.5%)}}
+
+/* ===== 4: Fast — 高速ドリフト、ダイナミック ===== */
+.v4 .ly{filter:brightness(.35) saturate(.5)}
+.v4 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:d4a 10s ease-in-out infinite alternate}
+.v4 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.25;mix-blend-mode:screen;animation:d4b 12s ease-in-out infinite alternate}
+.v4 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.2;mix-blend-mode:screen;animation:d4c 9s ease-in-out infinite alternate}
+.v4 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.15;mix-blend-mode:screen;animation:d4d 11s ease-in-out infinite alternate}
+.v4 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.5) 0%,rgba(10,10,10,.65) 100%)}
+@keyframes d4a{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.12) translate(-2%,1.5%)}}
+@keyframes d4b{0%{transform:scale(1.1) translate(2%,0)}100%{transform:scale(1) translate(-1.5%,2%)}}
+@keyframes d4c{0%{transform:scale(1) translate(-1.5%,1.5%)}100%{transform:scale(1.1) translate(1.5%,-1.5%)}}
+@keyframes d4d{0%{transform:scale(1.05) translate(1%,1%)}100%{transform:scale(1.12) translate(-2%,-.5%)}}
+
+/* ===== 5: Soft-light — overlay blend、柔らかい質感 ===== */
+.v5 .ly{filter:brightness(.45) saturate(.5)}
+.v5 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:d1a 20s ease-in-out infinite alternate}
+.v5 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.35;mix-blend-mode:soft-light;animation:d1b 24s ease-in-out infinite alternate}
+.v5 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.3;mix-blend-mode:soft-light;animation:d1c 18s ease-in-out infinite alternate}
+.v5 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.25;mix-blend-mode:soft-light;animation:d1d 22s ease-in-out infinite alternate}
+.v5 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.35) 0%,rgba(10,10,10,.6) 100%)}
+
+/* ===== 6: Bright — 少し明るめ、写真がより見える ===== */
+.v6 .ly{filter:brightness(.5) saturate(.55)}
+.v6 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.6;animation:d1a 20s ease-in-out infinite alternate}
+.v6 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.3;mix-blend-mode:screen;animation:d1b 24s ease-in-out infinite alternate}
+.v6 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.25;mix-blend-mode:screen;animation:d1c 18s ease-in-out infinite alternate}
+.v6 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.2;mix-blend-mode:screen;animation:d1d 22s ease-in-out infinite alternate}
+.v6 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.3) 0%,rgba(10,10,10,.55) 100%)}
+
+/* ===== 7: Tight vignette — 中央だけ明るく、周辺ガッツリ暗い ===== */
+.v7 .ly{filter:brightness(.4) saturate(.5)}
+.v7 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.55;animation:d1a 20s ease-in-out infinite alternate}
+.v7 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.25;mix-blend-mode:screen;animation:d1b 24s ease-in-out infinite alternate}
+.v7 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.2;mix-blend-mode:screen;animation:d1c 18s ease-in-out infinite alternate}
+.v7 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.15;mix-blend-mode:screen;animation:d1d 22s ease-in-out infinite alternate}
+.v7 .ov-main{background:radial-gradient(ellipse at 50% 48%,rgba(10,10,10,.2) 0%,rgba(10,10,10,.5) 25%,rgba(10,10,10,.85) 70%,rgba(0,0,0,.95) 100%)}
+
+/* ===== 8: Gold tint — 金色がかったオーバーレイ ===== */
+.v8 .ly{filter:brightness(.35) saturate(.45) sepia(.2)}
+.v8 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:d1a 20s ease-in-out infinite alternate}
+.v8 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.25;mix-blend-mode:screen;animation:d1b 24s ease-in-out infinite alternate}
+.v8 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.2;mix-blend-mode:screen;animation:d1c 18s ease-in-out infinite alternate}
+.v8 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.15;mix-blend-mode:screen;animation:d1d 22s ease-in-out infinite alternate}
+.v8 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(20,16,8,.4) 0%,rgba(12,10,6,.7) 100%)}
+.v8 .ov-gold{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(139,105,20,.05) 0%,transparent 50%);z-index:3;animation:goldPulse 8s ease-in-out infinite}
+@keyframes goldPulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ===== 9: Crossfade hybrid — 多重+ゆっくりフェードインアウト ===== */
+.v9 .ly{filter:brightness(.35) saturate(.5)}
+.v9 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.45;animation:d9a 20s ease-in-out infinite alternate}
+.v9 .l2{background-image:url('../jpeg/IMG_9935.jpg');mix-blend-mode:screen;animation:d9b 16s ease-in-out infinite}
+.v9 .l3{background-image:url('../jpeg/IMG_9927.jpg');mix-blend-mode:screen;animation:d9c 16s ease-in-out infinite}
+.v9 .l4{background-image:url('../jpeg/IMG_9940.jpg');mix-blend-mode:screen;animation:d9d 16s ease-in-out infinite}
+.v9 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.45) 0%,rgba(10,10,10,.7) 100%)}
+@keyframes d9a{0%{transform:scale(1)}100%{transform:scale(1.06) translate(-.5%,.5%)}}
+@keyframes d9b{0%{opacity:.25;transform:scale(1.03) translate(1%,0)}50%{opacity:.1;transform:scale(1.06) translate(-.5%,1%)}100%{opacity:.25;transform:scale(1.03) translate(1%,0)}}
+@keyframes d9c{0%{opacity:.1;transform:scale(1) translate(-.5%,.5%)}50%{opacity:.25;transform:scale(1.05) translate(.5%,-.5%)}100%{opacity:.1;transform:scale(1) translate(-.5%,.5%)}}
+@keyframes d9d{0%{opacity:.18;transform:scale(1.02)}50%{opacity:.08;transform:scale(1.08) translate(-1%,.3%)}100%{opacity:.18;transform:scale(1.02)}}
+
+/* ===== 10: Dense — 5枚、全体的に明瞭、グレイン強め ===== */
+.v10 .ly{filter:brightness(.42) saturate(.6)}
+.v10 .l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:d1a 18s ease-in-out infinite alternate}
+.v10 .l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.28;mix-blend-mode:screen;animation:d1b 22s ease-in-out infinite alternate}
+.v10 .l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.22;mix-blend-mode:screen;animation:d1c 16s ease-in-out infinite alternate}
+.v10 .l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.18;mix-blend-mode:screen;animation:d1d 20s ease-in-out infinite alternate}
+.v10 .l5{background-image:url('../jpeg/IMG_9950.jpg');opacity:.14;mix-blend-mode:screen;animation:d3e 19s ease-in-out infinite alternate}
+.v10 .ov-main{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.35) 0%,rgba(10,10,10,.6) 100%)}
+.v10 .ov-grain-strong{opacity:.07;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:4}
+
+@media(max-width:768px){
+  .cc-t{font-size:36px !important;letter-spacing:.2em !important}
+  .sel{gap:3px;padding:6px 8px}
+  .sb{padding:4px 7px;font-size:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="sel">
+  <span class="sel-l">多重透過:</span>
+  <button class="sb on" onclick="sw(1,this)">1 Warm</button>
+  <button class="sb" onclick="sw(2,this)">2 Cool</button>
+  <button class="sb" onclick="sw(3,this)">3 Deep(6枚)</button>
+  <button class="sb" onclick="sw(4,this)">4 Fast</button>
+  <button class="sb" onclick="sw(5,this)">5 Soft</button>
+  <button class="sb" onclick="sw(6,this)">6 Bright</button>
+  <button class="sb" onclick="sw(7,this)">7 Vignette</button>
+  <button class="sb" onclick="sw(8,this)">8 Gold</button>
+  <button class="sb" onclick="sw(9,this)">9 呼吸</button>
+  <button class="sb" onclick="sw(10,this)">10 Dense(5枚)</button>
+</div>
+
+<!-- ===== 1: Warm ===== -->
+<div class="hero on v1" id="h1">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">1 — Warm: 暖色寄り。sepia入り。落ち着いた古書の雰囲気</div>
+</div>
+
+<!-- ===== 2: Cool ===== -->
+<div class="hero v2" id="h2">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">2 — Cool: 寒色寄り。藍色の表紙の色味が活きる。静かな印象</div>
+</div>
+
+<!-- ===== 3: Deep (6枚) ===== -->
+<div class="hero v3" id="h3">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div><div class="ly l5"></div><div class="ly l6"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">3 — Deep: 6枚の資料ページを重ねて奥行き感。情報量リッチ</div>
+</div>
+
+<!-- ===== 4: Fast ===== -->
+<div class="hero v4" id="h4">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">4 — Fast: ドリフト速度2倍。動きが大きくダイナミック</div>
+</div>
+
+<!-- ===== 5: Soft ===== -->
+<div class="hero v5" id="h5">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">5 — Soft: soft-lightブレンド。写真が柔らかく溶け合う</div>
+</div>
+
+<!-- ===== 6: Bright ===== -->
+<div class="hero v6" id="h6">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">6 — Bright: 明るめ。写真の内容がよく見える。暗すぎない</div>
+</div>
+
+<!-- ===== 7: Vignette ===== -->
+<div class="hero v7" id="h7">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">7 — Vignette: 中央だけ少し明るく、端はガッツリ暗い。スポットライト感</div>
+</div>
+
+<!-- ===== 8: Gold ===== -->
+<div class="hero v8" id="h8">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-gold"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(196,160,96,.4)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(196,160,96,.4)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(196,160,96,.5)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(196,160,96,.4)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(196,160,96,.4)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(196,160,96,.4)" stroke-width="1.2"/></svg></div><div class="cc-t" style="color:#f0e6d0;text-shadow:0 0 50px rgba(139,105,20,.15)">赤澤一族</div><div class="cc-line" style="background:linear-gradient(90deg,transparent,rgba(196,160,96,.35),transparent)"></div><div class="cc-sub" style="color:rgba(196,160,96,.3)">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">8 — Gold: 暖色sepia+金のグロー脈動。家紋・文字も金色。高級感</div>
+</div>
+
+<!-- ===== 9: Breathe ===== -->
+<div class="hero v9" id="h9">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">9 — 呼吸: レイヤーの透明度が脈動。写真が浮き沈みして生きている感じ</div>
+</div>
+
+<!-- ===== 10: Dense ===== -->
+<div class="hero v10" id="h10">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div><div class="ly l5"></div></div>
+  <div class="ov ov-main"></div><div class="ov ov-grain-strong"></div>
+  <div class="cc"><div class="cc-en">AKAZAWA ICHIZOKU</div><div class="cc-km"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/><polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/></g><line x1="100" y1="88" x2="100" y2="112" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg></div><div class="cc-t">赤澤一族</div><div class="cc-line"></div><div class="cc-sub">清和源氏 — 令和版</div></div>
+  <div class="scue">↓ scroll</div>
+  <div class="plbl">10 — Dense: 5枚+強めグレイン。フィルム映画のような質感</div>
+</div>
+
+<script>
+function sw(n, btn) {
+  document.querySelectorAll('.hero').forEach(h => h.classList.remove('on'));
+  document.querySelectorAll('.sb').forEach(b => b.classList.remove('on'));
+  const el = document.getElementById('h' + n);
+  el.style.display = 'none';
+  el.offsetHeight;
+  el.style.display = '';
+  el.classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+
+</body>
+</html>

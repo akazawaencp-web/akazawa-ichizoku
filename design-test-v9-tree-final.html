@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赤澤一族 家系図 — 最終デザイン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);
+  font-family:'Noto Sans JP',sans-serif;
+  color:#2c2c2c;
+  line-height:1.6;
+  padding:40px 20px;
+  min-height:100vh;
+}
+
+/* ========== PAGE HEADER ========== */
+.page-title{
+  text-align:center;
+  font-family:'Shippori Mincho',serif;
+  font-size:2rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  margin-bottom:8px;
+  color:#1a1a1a;
+}
+.page-subtitle{
+  text-align:center;
+  font-size:.85rem;
+  color:#888;
+  margin-bottom:50px;
+  letter-spacing:.05em;
+}
+
+/* ========== TREE CONTAINER ========== */
+.tree-wrapper{
+  max-width:1000px;
+  margin:0 auto;
+  padding:40px 30px 60px;
+  background:rgba(255,255,255,.6);
+  border-radius:16px;
+  box-shadow:0 2px 20px rgba(0,0,0,.04);
+  overflow-x:auto;
+  position:relative;
+}
+.tree-container{
+  position:relative;
+  display:inline-block;
+  min-width:100%;
+}
+
+/* ========== SVG OVERLAY ========== */
+.tree-svg{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* ========== GENERATION ROW ========== */
+.gen-row{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  position:relative;
+  z-index:2;
+}
+
+/* ========== NODE ========== */
+.node{
+  background:#fff;
+  border-radius:10px;
+  padding:14px 18px 12px;
+  min-width:120px;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-shadow:0 2px 12px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+  transition: transform .25s ease, box-shadow .25s ease;
+  border:1px solid rgba(0,0,0,.06);
+}
+.node:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 28px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+}
+
+/* ---- Name styles by importance ---- */
+.node-name{
+  font-family:'Shippori Mincho',serif;
+  font-size:.95rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  color:#555;
+  margin-bottom:4px;
+  white-space:nowrap;
+}
+.node.direct .node-name{
+  color:#1a1a1a;
+  font-weight:700;
+}
+.node.important .node-name{
+  color:#8b6914;
+  font-size:1.05rem;
+  font-weight:700;
+}
+
+/* ---- Role / subtitle ---- */
+.node-role{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:.72rem;
+  color:#999;
+  letter-spacing:.03em;
+  white-space:nowrap;
+}
+
+/* ---- Direct lineage subtle glow ---- */
+.node.direct{
+  border-color:rgba(139,105,20,.15);
+}
+.node.important{
+  border-color:rgba(139,105,20,.25);
+}
+
+/* ========== LEGEND ========== */
+.legend{
+  display:flex;
+  gap:24px;
+  justify-content:center;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:.78rem;
+  color:#888;
+}
+.legend-line{
+  width:30px;
+  height:2px;
+  border-radius:1px;
+}
+.legend-line.silver{
+  background:linear-gradient(90deg,#b0b0b0,#d4d4d4,#b0b0b0);
+}
+.legend-line.gold{
+  background:linear-gradient(90deg,#b8960c,#d4b84a,#b8960c);
+}
+.legend-swatch{
+  width:14px;
+  height:14px;
+  border-radius:4px;
+  border:1px solid rgba(0,0,0,.08);
+}
+.legend-swatch.normal{
+  background:#fff;
+}
+.legend-swatch.important{
+  background:#fff;
+  border-color:rgba(139,105,20,.25);
+}
+
+/* ========== SVG LINE DEFS ========== */
+/* Defined inline in SVG */
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:600px){
+  body{padding:20px 10px}
+  .tree-wrapper{padding:20px 15px 40px}
+  .page-title{font-size:1.5rem}
+  .node{padding:10px 12px 8px;min-width:100px}
+  .node-name{font-size:.82rem}
+  .node-role{font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<h1 class="page-title">赤澤一族 家系図</h1>
+<p class="page-subtitle">小笠原長清から赤沢常興へ ─ 四世代の系譜</p>
+
+<div class="tree-wrapper">
+  <div class="tree-container" id="treeContainer">
+    <!-- SVG will be injected here by JS -->
+
+    <!-- Generation 1 -->
+    <div class="gen-row" id="gen1" style="margin-bottom:60px;">
+      <div class="node important direct" id="nagakiyo" data-parent="">
+        <div class="node-name">小笠原長清</div>
+        <div class="node-role">信濃守護</div>
+      </div>
+    </div>
+
+    <!-- Generation 2 -->
+    <div class="gen-row" id="gen2" style="margin-bottom:60px; gap:30px;">
+      <div class="node direct" id="nagatsune" data-parent="nagakiyo">
+        <div class="node-name">小笠原長経</div>
+        <div class="node-role">長男・嫡流</div>
+      </div>
+      <div class="node" id="nagatada" data-parent="nagakiyo">
+        <div class="node-name">小笠原長忠</div>
+        <div class="node-role">次男</div>
+      </div>
+    </div>
+
+    <!-- Generation 3 -->
+    <div class="gen-row" id="gen3" style="margin-bottom:60px; gap:30px;">
+      <div class="node" id="nagamasa" data-parent="nagatsune">
+        <div class="node-name">小笠原長政</div>
+        <div class="node-role">長男・本家</div>
+      </div>
+      <div class="node important direct" id="kiyotsune" data-parent="nagatsune">
+        <div class="node-name">赤沢清経</div>
+        <div class="node-role">次男・赤沢氏の祖</div>
+      </div>
+      <div class="node" id="nagafusa" data-parent="nagatsune">
+        <div class="node-name">伴野長房</div>
+        <div class="node-role">三男</div>
+      </div>
+    </div>
+
+    <!-- Generation 4 -->
+    <div class="gen-row" id="gen4" style="gap:30px;">
+      <div class="node direct" id="tsuneoki" data-parent="kiyotsune">
+        <div class="node-name">赤沢常興</div>
+        <div class="node-role">塩崎城主</div>
+      </div>
+      <div class="node" id="tsuneyasu" data-parent="kiyotsune">
+        <div class="node-name">赤沢経康</div>
+        <div class="node-role">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-line gold"></div>
+      <span>直系ライン</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-line silver"></div>
+      <span>分家ライン</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch important"></div>
+      <span style="color:#8b6914;font-weight:500;">重要人物</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch normal"></div>
+      <span>その他</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // --- Direct lineage node IDs ---
+  const DIRECT_IDS = new Set(['nagakiyo','nagatsune','kiyotsune','tsuneoki']);
+
+  // --- Create SVG element ---
+  const container = document.getElementById('treeContainer');
+  const ns = 'http://www.w3.org/2000/svg';
+
+  function createSVG(){
+    // Remove old SVG if exists
+    const old = container.querySelector('.tree-svg');
+    if(old) old.remove();
+
+    const svg = document.createElementNS(ns,'svg');
+    svg.classList.add('tree-svg');
+    svg.setAttribute('xmlns', ns);
+
+    // Size SVG to container
+    const rect = container.getBoundingClientRect();
+    svg.setAttribute('width', container.scrollWidth);
+    svg.setAttribute('height', container.scrollHeight);
+    svg.style.width = container.scrollWidth + 'px';
+    svg.style.height = container.scrollHeight + 'px';
+
+    // Gradient definitions
+    const defs = document.createElementNS(ns,'defs');
+
+    // Silver gradient (vertical)
+    const silverG = document.createElementNS(ns,'linearGradient');
+    silverG.setAttribute('id','silver-v');
+    silverG.setAttribute('x1','0');
+    silverG.setAttribute('y1','0');
+    silverG.setAttribute('x2','0');
+    silverG.setAttribute('y2','1');
+    silverG.innerHTML = '<stop offset="0%" stop-color="#c8c8c8"/><stop offset="50%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#b0b0b0"/>';
+    defs.appendChild(silverG);
+
+    // Silver gradient (horizontal)
+    const silverH = document.createElementNS(ns,'linearGradient');
+    silverH.setAttribute('id','silver-h');
+    silverH.setAttribute('x1','0');
+    silverH.setAttribute('y1','0');
+    silverH.setAttribute('x2','1');
+    silverH.setAttribute('y2','0');
+    silverH.innerHTML = '<stop offset="0%" stop-color="#b0b0b0"/><stop offset="50%" stop-color="#d4d4d4"/><stop offset="100%" stop-color="#b0b0b0"/>';
+    defs.appendChild(silverH);
+
+    // Gold gradient (vertical)
+    const goldG = document.createElementNS(ns,'linearGradient');
+    goldG.setAttribute('id','gold-v');
+    goldG.setAttribute('x1','0');
+    goldG.setAttribute('y1','0');
+    goldG.setAttribute('x2','0');
+    goldG.setAttribute('y2','1');
+    goldG.innerHTML = '<stop offset="0%" stop-color="#c9a81e"/><stop offset="50%" stop-color="#e0c954"/><stop offset="100%" stop-color="#a88a0c"/>';
+    defs.appendChild(goldG);
+
+    // Gold gradient (horizontal)
+    const goldH = document.createElementNS(ns,'linearGradient');
+    goldH.setAttribute('id','gold-h');
+    goldH.setAttribute('x1','0');
+    goldH.setAttribute('y1','0');
+    goldH.setAttribute('x2','1');
+    goldH.setAttribute('y2','0');
+    goldH.innerHTML = '<stop offset="0%" stop-color="#a88a0c"/><stop offset="50%" stop-color="#d4b84a"/><stop offset="100%" stop-color="#a88a0c"/>';
+    defs.appendChild(goldH);
+
+    svg.appendChild(defs);
+    container.insertBefore(svg, container.firstChild);
+    return svg;
+  }
+
+  function drawLines(){
+    const svg = createSVG();
+    const containerRect = container.getBoundingClientRect();
+    const scrollLeft = container.scrollLeft || 0;
+    const scrollTop = container.scrollTop || 0;
+
+    // Collect all nodes with data-parent
+    const nodes = container.querySelectorAll('.node[data-parent]');
+
+    // Group children by parent
+    const childrenMap = {};
+    nodes.forEach(function(node){
+      const pid = node.dataset.parent;
+      if(!pid) return;
+      if(!childrenMap[pid]) childrenMap[pid] = [];
+      childrenMap[pid].push(node);
+    });
+
+    // For each parent, draw connector lines
+    Object.keys(childrenMap).forEach(function(parentId){
+      const parentEl = document.getElementById(parentId);
+      if(!parentEl) return;
+      const children = childrenMap[parentId];
+      if(!children.length) return;
+
+      const pRect = parentEl.getBoundingClientRect();
+      // Parent bottom center (relative to container)
+      const px = pRect.left + pRect.width/2 - containerRect.left + scrollLeft;
+      const py = pRect.bottom - containerRect.top + scrollTop;
+
+      // Child top centers
+      const childPoints = children.map(function(c){
+        const cRect = c.getBoundingClientRect();
+        return {
+          x: cRect.left + cRect.width/2 - containerRect.left + scrollLeft,
+          y: cRect.top - containerRect.top + scrollTop,
+          id: c.id
+        };
+      });
+
+      // Midpoint Y between parent bottom and child top
+      const midY = py + (childPoints[0].y - py) / 2;
+
+      // Determine if this is a direct lineage connection
+      const parentIsDirect = DIRECT_IDS.has(parentId);
+
+      if(children.length === 1){
+        // Single child: straight vertical line
+        const cp = childPoints[0];
+        const isDirect = parentIsDirect && DIRECT_IDS.has(cp.id);
+        const strokeV = isDirect ? 'url(#gold-v)' : 'url(#silver-v)';
+        const sw = isDirect ? 2.5 : 2;
+
+        const line = document.createElementNS(ns,'line');
+        line.setAttribute('x1', px);
+        line.setAttribute('y1', py);
+        line.setAttribute('x2', cp.x);
+        line.setAttribute('y2', cp.y);
+        line.setAttribute('stroke', strokeV);
+        line.setAttribute('stroke-width', sw);
+        line.setAttribute('stroke-linecap','round');
+        svg.appendChild(line);
+      } else {
+        // Multiple children: parent down to midY, horizontal bar, children down from midY
+
+        // For each child, determine if its specific connection is direct
+        childPoints.forEach(function(cp){
+          const isDirect = parentIsDirect && DIRECT_IDS.has(cp.id);
+          const strokeV = isDirect ? 'url(#gold-v)' : 'url(#silver-v)';
+          const strokeH = isDirect ? 'url(#gold-h)' : 'url(#silver-h)';
+          const sw = isDirect ? 2.5 : 2;
+
+          // Vertical line from child top up to midY
+          const lineUp = document.createElementNS(ns,'line');
+          lineUp.setAttribute('x1', cp.x);
+          lineUp.setAttribute('y1', midY);
+          lineUp.setAttribute('x2', cp.x);
+          lineUp.setAttribute('y2', cp.y);
+          lineUp.setAttribute('stroke', strokeV);
+          lineUp.setAttribute('stroke-width', sw);
+          lineUp.setAttribute('stroke-linecap','round');
+          svg.appendChild(lineUp);
+        });
+
+        // Horizontal bar at midY connecting all children
+        const xs = childPoints.map(function(c){ return c.x; });
+        const minX = Math.min.apply(null, xs);
+        const maxX = Math.max.apply(null, xs);
+
+        const hBar = document.createElementNS(ns,'line');
+        hBar.setAttribute('x1', minX);
+        hBar.setAttribute('y1', midY);
+        hBar.setAttribute('x2', maxX);
+        hBar.setAttribute('y2', midY);
+        hBar.setAttribute('stroke', 'url(#silver-h)');
+        hBar.setAttribute('stroke-width', 2);
+        hBar.setAttribute('stroke-linecap','round');
+        svg.appendChild(hBar);
+
+        // If direct line passes through, overlay gold segment on horizontal bar
+        // Find direct child x position
+        const directChild = childPoints.find(function(cp){ return DIRECT_IDS.has(cp.id); });
+        if(parentIsDirect && directChild){
+          // Gold overlay from parent x to direct child x on horizontal bar
+          const goldMinX = Math.min(px, directChild.x);
+          const goldMaxX = Math.max(px, directChild.x);
+          const goldBar = document.createElementNS(ns,'line');
+          goldBar.setAttribute('x1', goldMinX);
+          goldBar.setAttribute('y1', midY);
+          goldBar.setAttribute('x2', goldMaxX);
+          goldBar.setAttribute('y2', midY);
+          goldBar.setAttribute('stroke', 'url(#gold-h)');
+          goldBar.setAttribute('stroke-width', 2.5);
+          goldBar.setAttribute('stroke-linecap','round');
+          svg.appendChild(goldBar);
+        }
+
+        // Vertical line from parent bottom down to midY
+        // Draw silver first, then gold overlay if direct
+        const parentDown = document.createElementNS(ns,'line');
+        parentDown.setAttribute('x1', px);
+        parentDown.setAttribute('y1', py);
+        parentDown.setAttribute('x2', px);
+        parentDown.setAttribute('y2', midY);
+        parentDown.setAttribute('stroke', parentIsDirect ? 'url(#gold-v)' : 'url(#silver-v)');
+        parentDown.setAttribute('stroke-width', parentIsDirect ? 2.5 : 2);
+        parentDown.setAttribute('stroke-linecap','round');
+        svg.appendChild(parentDown);
+      }
+    });
+  }
+
+  // Initial draw after layout settles
+  function init(){
+    // Small delay to ensure layout is complete
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        drawLines();
+      });
+    });
+  }
+
+  // Redraw on resize
+  let resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(drawLines, 100);
+  });
+
+  // Draw on load
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  window.addEventListener('load', drawLines);
+
+})();
+</script>
+
+</body>
+</html>

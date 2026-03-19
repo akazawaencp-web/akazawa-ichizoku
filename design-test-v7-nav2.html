@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B10 — ナビカード 6番ベース 10バリエーション</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;padding:60px 20px 80px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-size:16px;font-weight:600;margin-bottom:4px}
+.desc{font-size:12px;color:#999;margin-bottom:40px}
+.section{margin-bottom:50px}
+.sl{font-size:11px;font-weight:600;letter-spacing:.1em;color:#999;margin-bottom:14px;padding:6px 12px;background:rgba(0,0,0,.03);border-radius:6px;display:inline-block}
+
+/* Shared structure: full-width row, number left, info center, arrow right */
+.nav-title{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;margin-bottom:2px}
+.nav-desc{font-size:11px;color:#888;line-height:1.6}
+
+/* ===== 1: 元の6番そのまま ===== */
+.n1 a{display:flex;align-items:center;gap:20px;text-decoration:none;color:#1a1a1a;padding:20px 24px;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.04);border-radius:14px;margin-bottom:10px;transition:all .2s}
+.n1 a:hover{background:rgba(255,255,255,.7);box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateX(4px)}
+.n1 .nn{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:400;color:rgba(0,0,0,.1);min-width:50px;letter-spacing:0}
+.n1 .ni{flex:1}
+.n1 .na{font-size:16px;color:#bbb;transition:all .2s}
+.n1 a:hover .na{transform:translateX(4px);color:#999}
+
+/* ===== 2: 左に金ライン追加 ===== */
+.n2 a{display:flex;align-items:center;gap:20px;text-decoration:none;color:#1a1a1a;padding:20px 24px;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.04);border-left:3px solid #8b6914;border-radius:0 14px 14px 0;margin-bottom:10px;transition:all .2s}
+.n2 a:hover{background:rgba(255,255,255,.7);box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateX(4px)}
+.n2 .nn{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:400;color:rgba(139,105,20,.15);min-width:50px}
+.n2 .ni{flex:1}
+.n2 .na{font-size:16px;color:#bbb;transition:all .2s}
+.n2 a:hover .na{color:#8b6914}
+
+/* ===== 3: 番号に金背景 ===== */
+.n3 a{display:flex;align-items:center;gap:18px;text-decoration:none;color:#1a1a1a;padding:18px 24px;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.04);border-radius:14px;margin-bottom:10px;transition:all .2s}
+.n3 a:hover{background:rgba(255,255,255,.7);box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateX(4px)}
+.n3 .nn{font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:600;color:#8b6914;min-width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(139,105,20,.06);border-radius:10px;letter-spacing:.05em}
+.n3 .ni{flex:1}
+.n3 .na{font-size:16px;color:#bbb;transition:all .2s}
+.n3 a:hover .na{color:#8b6914}
+
+/* ===== 4: セパレーターライン+ホバーで背景変化 ===== */
+.n4 a{display:flex;align-items:center;gap:20px;text-decoration:none;color:#1a1a1a;padding:20px 24px;border-bottom:1px solid rgba(0,0,0,.04);transition:all .2s}
+.n4 a:last-child{border-bottom:none}
+.n4 a:hover{background:rgba(255,255,255,.5);padding-left:28px;border-radius:14px}
+.n4 .nn{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:400;color:rgba(0,0,0,.08);min-width:50px}
+.n4 .ni{flex:1}
+.n4 .na{font-size:16px;color:#bbb;transition:all .2s}
+.n4 a:hover .na{color:#999}
+
+/* ===== 5: ガラスカード+大きめ余白 ===== */
+.n5 a{display:flex;align-items:center;gap:22px;text-decoration:none;color:#1a1a1a;padding:24px 28px;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.5);border-radius:16px;margin-bottom:12px;transition:all .25s;backdrop-filter:blur(12px)}
+.n5 a:hover{background:rgba(255,255,255,.6);box-shadow:0 8px 30px rgba(0,0,0,.04);transform:translateY(-2px)}
+.n5 .nn{font-family:'Shippori Mincho',serif;font-size:28px;font-weight:400;color:rgba(0,0,0,.06);min-width:55px}
+.n5 .ni{flex:1}
+.n5 .na{font-size:16px;color:#bbb;transition:all .2s}
+.n5 a:hover .na{color:#999}
+
+/* ===== 6: ホバーで金アクセント ===== */
+.n6 a{display:flex;align-items:center;gap:20px;text-decoration:none;color:#1a1a1a;padding:20px 24px;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.04);border-radius:14px;margin-bottom:10px;transition:all .25s}
+.n6 a:hover{background:rgba(255,255,255,.7);box-shadow:0 4px 20px rgba(139,105,20,.04);border-color:rgba(139,105,20,.1);transform:translateX(4px)}
+.n6 .nn{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:400;color:rgba(0,0,0,.1);min-width:50px;transition:color .25s}
+.n6 a:hover .nn{color:rgba(139,105,20,.3)}
+.n6 .ni{flex:1}
+.n6 .na{font-size:16px;color:#bbb;transition:all .25s}
+.n6 a:hover .na{color:#8b6914}
+
+/* ===== 7: 番号縦線区切り ===== */
+.n7 a{display:flex;align-items:center;gap:0;text-decoration:none;color:#1a1a1a;padding:18px 0;background:transparent;margin-bottom:8px;transition:all .2s;border-radius:14px}
+.n7 a:hover{background:rgba(255,255,255,.5);padding:18px 20px}
+.n7 .nn{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:400;color:rgba(0,0,0,.1);min-width:60px;text-align:center;padding-right:16px;border-right:1px solid rgba(0,0,0,.06)}
+.n7 .ni{flex:1;padding-left:16px}
+.n7 .na{font-size:16px;color:#bbb;padding-right:12px;transition:all .2s}
+.n7 a:hover .na{color:#999}
+
+/* ===== 8: コンパクト+ホバーで展開風 ===== */
+.n8 a{display:flex;align-items:center;gap:20px;text-decoration:none;color:#1a1a1a;padding:16px 24px;background:rgba(255,255,255,.4);border:1px solid rgba(0,0,0,.03);border-radius:12px;margin-bottom:8px;transition:all .25s}
+.n8 a:hover{padding:20px 24px;background:rgba(255,255,255,.65);box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateX(4px)}
+.n8 .nn{font-family:'Shippori Mincho',serif;font-size:20px;font-weight:400;color:rgba(0,0,0,.1);min-width:44px}
+.n8 .ni{flex:1}
+.n8 .na{font-size:14px;color:#bbb;transition:all .2s}
+.n8 a:hover .na{color:#999}
+
+/* ===== 9: 影強め+ホバーで浮く ===== */
+.n9 a{display:flex;align-items:center;gap:20px;text-decoration:none;color:#1a1a1a;padding:22px 26px;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.04);border-radius:14px;margin-bottom:12px;transition:all .3s;box-shadow:0 2px 12px rgba(0,0,0,.03)}
+.n9 a:hover{box-shadow:0 8px 30px rgba(0,0,0,.06);transform:translateY(-3px);background:rgba(255,255,255,.75)}
+.n9 .nn{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:400;color:rgba(0,0,0,.08);min-width:50px}
+.n9 .ni{flex:1}
+.n9 .na{font-size:16px;color:#bbb;transition:all .3s}
+.n9 a:hover .na{color:#999;transform:translateX(4px)}
+
+/* ===== 10: 金グラデライン+番号金 ===== */
+.n10 a{display:flex;align-items:center;gap:20px;text-decoration:none;color:#1a1a1a;padding:20px 24px;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.04);border-left:3px solid transparent;border-image:linear-gradient(180deg,#7a5a20,#c4a060) 1;border-radius:0;margin-bottom:10px;transition:all .2s}
+.n10 a:hover{background:rgba(255,255,255,.7);box-shadow:0 4px 20px rgba(139,105,20,.04);transform:translateX(4px)}
+.n10 .nn{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:#8b6914;min-width:50px;opacity:.4}
+.n10 .ni{flex:1}
+.n10 .na{font-size:16px;color:#c4a060;opacity:.4;transition:all .2s}
+.n10 a:hover .na{opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>B10 — ナビカード 6番ベース 10バリエーション</h1>
+<div class="desc">全てフル幅+横並び（番号左/内容中央/矢印右）。ホバーしてみてください</div>
+
+<div class="section"><div class="sl">1 — 元の6番そのまま</div>
+<div class="n1">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">2 — 左に金ライン追加</div>
+<div class="n2">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">3 — 番号に金背景ボックス</div>
+<div class="n3">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">4 — セパレーターライン（カードなし）</div>
+<div class="n4">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">5 — ガラスカード+大きめ余白+大番号</div>
+<div class="n5">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">6 — ホバーで金アクセント（番号・矢印が金に）</div>
+<div class="n6">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">7 — 番号と縦線で区切り</div>
+<div class="n7">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">8 — コンパクト+ホバーで展開</div>
+<div class="n8">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">9 — 影強め+ホバーで浮く</div>
+<div class="n9">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+<div class="section"><div class="sl">10 — 金グラデ左ライン+金番号</div>
+<div class="n10">
+  <a><span class="nn">01</span><div class="ni"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div><span class="na">→</span></a>
+  <a><span class="nn">02</span><div class="ni"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div><span class="na">→</span></a>
+  <a><span class="nn">FT</span><div class="ni"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。</div></div><span class="na">→</span></a>
+  <a><span class="nn">04</span><div class="ni"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div><span class="na">→</span></a>
+  <a><span class="nn">05</span><div class="ni"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div><span class="na">→</span></a>
+</div></div>
+
+</div>
+</body>
+</html>

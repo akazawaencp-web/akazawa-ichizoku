@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B11 — メモカード（Hidekuniの調査メモ）10パターン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;padding:60px 20px 80px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-size:16px;font-weight:600;margin-bottom:4px}
+.desc{font-size:12px;color:#999;margin-bottom:40px}
+.section{margin-bottom:50px}
+.sl{font-size:11px;font-weight:600;letter-spacing:.1em;color:#999;margin-bottom:14px;padding:6px 12px;background:rgba(0,0,0,.03);border-radius:6px;display:inline-block}
+
+.memo-text{font-size:13px;line-height:1.8}
+
+/* ===== 1: 現在（温かい背景） ===== */
+.m1{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.08);border-radius:12px;padding:18px 22px;backdrop-filter:blur(12px)}
+.m1 .ml{font-size:10px;font-weight:600;color:#998a70;letter-spacing:.05em;margin-bottom:6px}
+.m1 p{color:#6a5a40}
+
+/* ===== 2: 左に金ライン ===== */
+.m2{background:rgba(245,242,235,.4);border:1px solid rgba(140,120,80,.06);border-left:3px solid #8b6914;border-radius:0 12px 12px 0;padding:18px 22px}
+.m2 .ml{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.05em;margin-bottom:6px}
+.m2 p{color:#6a5a40}
+
+/* ===== 3: 和紙風（少し荒い背景） ===== */
+.m3{background:rgba(248,244,236,.6);border:1px solid rgba(140,120,80,.1);border-radius:12px;padding:20px 24px;position:relative;overflow:hidden}
+.m3::before{content:'';position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none}
+.m3 .ml{font-size:10px;font-weight:600;color:#998a70;letter-spacing:.05em;margin-bottom:6px;position:relative}
+.m3 p{color:#6a5a40;position:relative}
+
+/* ===== 4: アイコン付き ===== */
+.m4{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.08);border-radius:12px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start}
+.m4-icon{width:28px;height:28px;flex-shrink:0;border-radius:6px;background:rgba(139,105,20,.08);display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:2px}
+.m4 .ml{font-size:10px;font-weight:600;color:#998a70;letter-spacing:.05em;margin-bottom:4px}
+.m4 p{color:#6a5a40}
+
+/* ===== 5: 枠線のみ（背景なし） ===== */
+.m5{border:1px dashed rgba(140,120,80,.15);border-radius:12px;padding:18px 22px}
+.m5 .ml{font-size:10px;font-weight:600;color:#998a70;letter-spacing:.05em;margin-bottom:6px}
+.m5 p{color:#6a5a40}
+
+/* ===== 6: 上部に金ライン ===== */
+.m6{background:rgba(245,242,235,.4);border:1px solid rgba(140,120,80,.06);border-top:2px solid #8b6914;border-radius:0 0 12px 12px;padding:18px 22px}
+.m6 .ml{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.05em;margin-bottom:6px}
+.m6 p{color:#6a5a40}
+
+/* ===== 7: 引用スタイル（左ボーダー太め+イタリック風） ===== */
+.m7{border-left:4px solid rgba(140,120,80,.2);padding:16px 22px;margin-left:8px}
+.m7 .ml{font-size:10px;font-weight:600;color:#998a70;letter-spacing:.05em;margin-bottom:6px}
+.m7 p{color:#6a5a40;font-style:italic}
+
+/* ===== 8: カード+影（立体感） ===== */
+.m8{background:rgba(250,247,240,.7);border:1px solid rgba(140,120,80,.06);border-radius:14px;padding:20px 24px;box-shadow:0 4px 20px rgba(120,100,60,.05)}
+.m8 .ml{font-size:10px;font-weight:600;color:#998a70;letter-spacing:.05em;margin-bottom:6px}
+.m8 p{color:#6a5a40}
+
+/* ===== 9: ダーク逆転（暗い背景+薄い文字） ===== */
+.m9{background:rgba(42,36,32,.06);border:1px solid rgba(42,36,32,.06);border-radius:12px;padding:18px 22px}
+.m9 .ml{font-size:10px;font-weight:600;color:#8a7a60;letter-spacing:.05em;margin-bottom:6px}
+.m9 p{color:#5a5040}
+
+/* ===== 10: 左金ライン+金ドット+和紙 ===== */
+.m10{background:rgba(248,244,236,.5);border:1px solid rgba(140,120,80,.08);border-left:3px solid #8b6914;border-radius:0 12px 12px 0;padding:18px 22px;position:relative}
+.m10::before{content:'';position:absolute;top:14px;left:8px;width:5px;height:5px;border-radius:50%;background:#8b6914;opacity:.35}
+.m10::after{content:'';position:absolute;inset:0;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;border-radius:0 12px 12px 0}
+.m10 .ml{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.05em;margin-bottom:6px;position:relative;z-index:1}
+.m10 p{color:#6a5a40;position:relative;z-index:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>B11 — メモカード（Hidekuniの調査メモ）10パターン</h1>
+<div class="desc">ラベルは全て「Hidekuniの調査メモ」に統一済み</div>
+
+<div class="section"><div class="sl">1 — 現在（温かい背景）</div>
+<div class="m1"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">2 — 左に金ライン</div>
+<div class="m2"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">3 — 和紙風（ノイズテクスチャ）</div>
+<div class="m3"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">4 — アイコン付き</div>
+<div class="m4"><div class="m4-icon">📝</div><div><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div></div>
+</div>
+
+<div class="section"><div class="sl">5 — 枠線のみ（ダッシュボーダー）</div>
+<div class="m5"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">6 — 上部に金ライン</div>
+<div class="m6"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">7 — 引用スタイル（左太ボーダー）</div>
+<div class="m7"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">8 — カード+影（立体感）</div>
+<div class="m8"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">9 — やや暗め背景（差別化）</div>
+<div class="m9"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+<div class="section"><div class="sl">10 — 金ライン+ドット+和紙風</div>
+<div class="m10"><div class="ml">Hidekuniの調査メモ</div><p class="memo-text">原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。</p></div>
+</div>
+
+</div>
+</body>
+</html>

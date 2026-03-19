@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赤澤一族 家系図 — 10パターン比較</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);
+  font-family:'Noto Sans JP',sans-serif;
+  color:#2c2c2c;
+  line-height:1.6;
+  padding:40px 20px;
+}
+.page-title{
+  text-align:center;
+  font-family:'Shippori Mincho',serif;
+  font-size:2rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  margin-bottom:20px;
+  color:#1a1a1a;
+}
+.page-subtitle{
+  text-align:center;
+  font-size:.85rem;
+  color:#888;
+  margin-bottom:60px;
+  letter-spacing:.05em;
+}
+
+/* ========== SECTION WRAPPER ========== */
+.pattern-section{
+  max-width:1000px;
+  margin:0 auto 80px;
+  padding:40px 30px 50px;
+  background:rgba(255,255,255,.6);
+  border-radius:16px;
+  box-shadow:0 2px 20px rgba(0,0,0,.04);
+}
+.pattern-label{
+  font-family:'Shippori Mincho',serif;
+  font-size:1.3rem;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#1a1a1a;
+  letter-spacing:.08em;
+}
+.pattern-desc{
+  font-size:.8rem;
+  color:#999;
+  margin-bottom:30px;
+  letter-spacing:.03em;
+}
+.tree-scroll{
+  overflow-x:auto;
+  padding-bottom:20px;
+}
+
+/* ========== SHARED TREE STRUCTURE ========== */
+.tree{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-width:700px;
+  padding:10px 20px;
+}
+
+/* Generation row */
+.gen{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  position:relative;
+}
+
+/* Family group: parent + children below */
+.family{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+}
+
+/* Couple (side by side) */
+.couple{
+  display:flex;
+  align-items:center;
+  gap:0;
+  position:relative;
+}
+.couple-link{
+  width:24px;
+  height:2px;
+  background:#aaa;
+  align-self:center;
+  flex-shrink:0;
+}
+
+/* Node base */
+.node{
+  text-align:center;
+  cursor:pointer;
+  transition:transform .25s ease, box-shadow .25s ease;
+  position:relative;
+  flex-shrink:0;
+}
+.node:hover{
+  transform:translateY(-3px);
+}
+.node .name{
+  font-family:'Shippori Mincho',serif;
+  font-weight:600;
+  white-space:nowrap;
+}
+.node .role{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:300;
+  white-space:nowrap;
+}
+
+/* Children row */
+.children{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  position:relative;
+}
+
+/* Vertical line from parent down to horizontal bar */
+.vline{
+  width:2px;
+  background:#aaa;
+  margin:0 auto;
+  flex-shrink:0;
+}
+
+/* Horizontal bar connecting siblings */
+.hbar{
+  position:absolute;
+  top:0;
+  height:2px;
+  background:#aaa;
+}
+
+/* Child branch: vertical line from horizontal bar down to node */
+.branch{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+}
+.branch-line{
+  width:2px;
+  background:#aaa;
+  flex-shrink:0;
+}
+
+/* ========== CONNECTOR SYSTEM (CSS-based) ========== */
+/*
+  Structure:
+  .family
+    .couple > .node + .couple-link + .node
+    .vline (height:30px)
+    .children-wrap (position:relative)
+      .hbar (absolute, connects first-child center to last-child center)
+      .children (flex row)
+        .branch > .branch-line(h:30px) + .family or .node
+*/
+.children-wrap{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* ========== DIVIDER ========== */
+.section-divider{
+  max-width:1000px;
+  margin:0 auto 60px;
+  border:none;
+  border-top:1px solid #ddd;
+}
+
+/* ====================================================================
+   PATTERN 1 — Simple Line
+   ==================================================================== */
+.p1 .node{
+  background:#f9f9f8;
+  border:1px solid #d0d0cc;
+  border-radius:10px;
+  padding:12px 18px;
+  min-width:110px;
+}
+.p1 .node:hover{
+  box-shadow:0 6px 16px rgba(0,0,0,.08);
+}
+.p1 .node .name{font-size:.95rem;color:#1a1a1a}
+.p1 .node .role{font-size:.7rem;color:#999;margin-top:2px}
+.p1 .node.highlight{
+  background:linear-gradient(135deg,#fffbe6,#fff8e0);
+  border-color:#c9a84c;
+}
+.p1 .node.highlight .name{color:#8b6914}
+.p1 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#c0c0c0,#a0a0a0,#c0c0c0);
+  border-radius:0 0 6px 6px;
+}
+.p1 .node.important::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#d4af37,#c9a84c,#d4af37);
+  border-radius:0 0 6px 6px;
+}
+.p1 .vline,.p1 .branch-line{background:#bbb;width:1.5px}
+.p1 .hbar{background:#bbb;height:1.5px}
+.p1 .couple-link{background:#bbb;height:1.5px}
+
+/* ====================================================================
+   PATTERN 2 — Gold & Silver Lines
+   ==================================================================== */
+.p2 .node{
+  background:#fafafa;
+  border:1px solid #ccc;
+  border-radius:8px;
+  padding:12px 18px;
+  min-width:110px;
+}
+.p2 .node:hover{box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.p2 .node .name{font-size:.95rem;color:#1a1a1a}
+.p2 .node .role{font-size:.7rem;color:#999;margin-top:2px}
+.p2 .node.highlight{
+  background:linear-gradient(135deg,#fffde8,#fff6cc);
+  border-color:#c9a84c;
+}
+.p2 .node.highlight .name{color:#8b6914}
+.p2 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#c0c0c0,#a8a8a8,#c0c0c0);
+  border-radius:0 0 6px 6px;
+}
+.p2 .node.important::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#d4af37,#b8942e,#d4af37);
+  border-radius:0 0 6px 6px;
+}
+.p2 .vline,.p2 .branch-line{
+  background:linear-gradient(180deg,#c0c0c0,#a8a8a8);
+  width:2px;
+}
+.p2 .hbar{
+  background:linear-gradient(90deg,#c0c0c0,#a8a8a8,#c0c0c0);
+  height:2px;
+}
+.p2 .couple-link{
+  background:linear-gradient(90deg,#c0c0c0,#a8a8a8);
+  height:2px;
+}
+/* Gold lines for direct lineage */
+.p2 .direct-line .vline,
+.p2 .direct-line .branch-line{
+  background:linear-gradient(180deg,#d4af37,#c9a84c) !important;
+  width:2.5px;
+}
+.p2 .direct-line .hbar{
+  background:linear-gradient(90deg,#d4af37,#c9a84c) !important;
+  height:2.5px;
+}
+
+/* ====================================================================
+   PATTERN 3 — Card with Shadow
+   ==================================================================== */
+.p3 .node{
+  background:#fff;
+  border:1px solid #e8e8e4;
+  border-radius:10px;
+  padding:14px 20px;
+  min-width:115px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.p3 .node:hover{
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+  transform:translateY(-4px);
+}
+.p3 .node .name{font-size:.95rem;color:#1a1a1a}
+.p3 .node .role{font-size:.7rem;color:#999;margin-top:3px}
+.p3 .node.highlight{
+  background:linear-gradient(135deg,#fffbe6,#fff4d0);
+  border-color:#c9a84c;
+  box-shadow:0 3px 14px rgba(201,168,76,.15);
+}
+.p3 .node.highlight:hover{
+  box-shadow:0 8px 28px rgba(201,168,76,.25);
+}
+.p3 .node.highlight .name{color:#8b6914}
+.p3 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#c0c0c0,#a0a0a0,#c0c0c0);
+  border-radius:0 0 8px 8px;
+}
+.p3 .node.important::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#d4af37,#c9a84c,#d4af37);
+  border-radius:0 0 8px 8px;
+}
+.p3 .vline,.p3 .branch-line{background:#ccc;width:1.5px}
+.p3 .hbar{background:#ccc;height:1.5px}
+.p3 .couple-link{background:#ccc;height:1.5px}
+
+/* ====================================================================
+   PATTERN 4 — Glassmorphism
+   ==================================================================== */
+.p4{
+  background:linear-gradient(135deg,#e8e6e0,#ddd9d0,#e4e0d8) !important;
+}
+.p4 .node{
+  background:rgba(255,255,255,.35);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:12px;
+  padding:14px 20px;
+  min-width:115px;
+}
+.p4 .node:hover{
+  background:rgba(255,255,255,.55);
+  box-shadow:0 8px 24px rgba(0,0,0,.1);
+  transform:translateY(-4px);
+}
+.p4 .node .name{font-size:.95rem;color:#1a1a1a}
+.p4 .node .role{font-size:.7rem;color:#777;margin-top:2px}
+.p4 .node.highlight{
+  background:rgba(255,248,210,.5);
+  border-color:rgba(201,168,76,.5);
+}
+.p4 .node.highlight .name{color:#8b6914}
+.p4 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,rgba(192,192,192,.6),rgba(160,160,160,.8),rgba(192,192,192,.6));
+  border-radius:0 0 8px 8px;
+}
+.p4 .node.important::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,rgba(212,175,55,.6),rgba(201,168,76,.8),rgba(212,175,55,.6));
+  border-radius:0 0 8px 8px;
+}
+.p4 .vline,.p4 .branch-line{background:rgba(160,160,160,.5);width:2px}
+.p4 .hbar{background:rgba(160,160,160,.5);height:2px}
+.p4 .couple-link{background:rgba(160,160,160,.5);height:2px}
+
+/* ====================================================================
+   PATTERN 5 — Japanese Style
+   ==================================================================== */
+.p5{
+  background:
+    url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E"),
+    linear-gradient(160deg,#f5f0e8,#f8f4ec,#f2ede4) !important;
+}
+.p5 .node{
+  background:rgba(255,252,245,.8);
+  border:2px solid #8a7e6a;
+  border-radius:4px;
+  padding:12px 18px;
+  min-width:110px;
+  position:relative;
+}
+.p5 .node::before{
+  content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;
+  border:1px solid rgba(138,126,106,.3);
+  border-radius:6px;
+  pointer-events:none;
+}
+.p5 .node:hover{
+  box-shadow:0 4px 16px rgba(100,80,50,.12);
+  transform:translateY(-3px);
+}
+.p5 .node .name{font-size:.95rem;color:#3a2e1e;font-weight:700}
+.p5 .node .role{font-size:.7rem;color:#8a7e6a;margin-top:2px}
+.p5 .node.highlight{
+  background:rgba(255,248,220,.9);
+  border-color:#b08d30;
+}
+.p5 .node.highlight .name{color:#6b4e0a}
+.p5 .node.direct::after{
+  content:'';position:absolute;bottom:-2px;left:15%;right:15%;height:3px;
+  background:linear-gradient(90deg,#a0a0a0,#888,#a0a0a0);
+}
+.p5 .node.important::after{
+  content:'';position:absolute;bottom:-2px;left:15%;right:15%;height:3px;
+  background:linear-gradient(90deg,#b08d30,#9a7a20,#b08d30);
+}
+.p5 .vline,.p5 .branch-line{background:#8a7e6a;width:2px}
+.p5 .hbar{background:#8a7e6a;height:2px}
+.p5 .couple-link{background:#8a7e6a;height:2px}
+
+/* ====================================================================
+   PATTERN 6 — Bold Lines + Large Nodes
+   ==================================================================== */
+.p6 .node{
+  background:#fafaf8;
+  border:2px solid #bbb;
+  border-radius:12px;
+  padding:16px 24px;
+  min-width:130px;
+}
+.p6 .node:hover{
+  box-shadow:0 8px 22px rgba(0,0,0,.1);
+  transform:translateY(-4px);
+}
+.p6 .node .name{font-size:1.05rem;color:#1a1a1a}
+.p6 .node .role{font-size:.75rem;color:#999;margin-top:4px}
+.p6 .node.highlight{
+  background:linear-gradient(135deg,#fffbe6,#fff4cc);
+  border-color:#c9a84c;
+}
+.p6 .node.highlight .name{color:#8b6914}
+.p6 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:8%;right:8%;height:4px;
+  background:linear-gradient(90deg,#c0c0c0,#a0a0a0,#c0c0c0);
+  border-radius:0 0 8px 8px;
+}
+.p6 .node.important::after{
+  content:'';position:absolute;bottom:0;left:8%;right:8%;height:4px;
+  background:linear-gradient(90deg,#d4af37,#c9a84c,#d4af37);
+  border-radius:0 0 8px 8px;
+}
+.p6 .vline,.p6 .branch-line{background:#aaa;width:3px;border-radius:2px}
+.p6 .hbar{background:#aaa;height:3px;border-radius:2px}
+.p6 .couple-link{background:#aaa;height:3px;width:30px;border-radius:2px}
+
+/* ====================================================================
+   PATTERN 7 — Color-coded Branches
+   ==================================================================== */
+.p7 .node{
+  background:#fafaf8;
+  border:1.5px solid #ccc;
+  border-radius:10px;
+  padding:12px 18px;
+  min-width:110px;
+}
+.p7 .node:hover{
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transform:translateY(-3px);
+}
+.p7 .node .name{font-size:.95rem;color:#1a1a1a}
+.p7 .node .role{font-size:.7rem;color:#999;margin-top:2px}
+/* Akazawa branch = gold */
+.p7 .branch-akazawa .node{border-color:#c9a84c}
+.p7 .branch-akazawa .vline,
+.p7 .branch-akazawa .branch-line{background:#c9a84c;width:2px}
+.p7 .branch-akazawa .hbar{background:#c9a84c;height:2px}
+/* Ogasawara branch = silver */
+.p7 .branch-ogasawara .node{border-color:#a0a0a0}
+.p7 .branch-ogasawara .vline,
+.p7 .branch-ogasawara .branch-line{background:#a0a0a0;width:2px}
+.p7 .branch-ogasawara .hbar{background:#a0a0a0;height:2px}
+/* Tomono branch = copper */
+.p7 .branch-tomono .node{border-color:#b08060}
+.p7 .branch-tomono .vline,
+.p7 .branch-tomono .branch-line{background:#b08060;width:2px}
+.p7 .branch-tomono .hbar{background:#b08060;height:2px}
+
+.p7 .node.highlight{
+  background:linear-gradient(135deg,#fffbe6,#fff4d0);
+  border-color:#c9a84c;
+}
+.p7 .node.highlight .name{color:#8b6914}
+.p7 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#c0c0c0,#a0a0a0,#c0c0c0);
+  border-radius:0 0 6px 6px;
+}
+.p7 .node.important::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#d4af37,#c9a84c,#d4af37);
+  border-radius:0 0 6px 6px;
+}
+.p7 .vline,.p7 .branch-line{background:#ccc;width:2px}
+.p7 .hbar{background:#ccc;height:2px}
+.p7 .couple-link{background:#ccc;height:2px}
+
+/* ====================================================================
+   PATTERN 8 — Hover Highlight
+   ==================================================================== */
+.p8 .node{
+  background:rgba(245,245,243,.7);
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px 18px;
+  min-width:110px;
+  opacity:.65;
+  transition:opacity .3s, transform .3s, box-shadow .3s;
+}
+.p8 .tree:hover .node{opacity:.5}
+.p8 .tree:hover .node:hover{
+  opacity:1;
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+.p8 .node .name{font-size:.95rem;color:#1a1a1a}
+.p8 .node .role{font-size:.7rem;color:#999;margin-top:2px}
+.p8 .node.highlight{
+  background:linear-gradient(135deg,#fffbe6,#fff4d0);
+  border-color:#c9a84c;
+  opacity:.85;
+}
+.p8 .tree:hover .node.highlight:hover{opacity:1}
+.p8 .node.highlight .name{color:#8b6914}
+.p8 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#c0c0c0,#a0a0a0,#c0c0c0);
+  border-radius:0 0 6px 6px;
+}
+.p8 .node.important::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#d4af37,#c9a84c,#d4af37);
+  border-radius:0 0 6px 6px;
+}
+.p8 .vline,.p8 .branch-line{background:#ccc;width:1.5px;transition:background .3s}
+.p8 .hbar{background:#ccc;height:1.5px;transition:background .3s}
+.p8 .couple-link{background:#ccc;height:1.5px}
+
+/* ====================================================================
+   PATTERN 9 — Dotted Connections
+   ==================================================================== */
+.p9 .node{
+  background:#fafaf8;
+  border:1px solid #d0d0cc;
+  border-radius:14px;
+  padding:12px 18px;
+  min-width:110px;
+}
+.p9 .node:hover{
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transform:translateY(-3px);
+}
+.p9 .node .name{font-size:.95rem;color:#1a1a1a}
+.p9 .node .role{font-size:.7rem;color:#999;margin-top:2px}
+.p9 .node.highlight{
+  background:linear-gradient(135deg,#fffbe6,#fff4d0);
+  border-color:#c9a84c;
+}
+.p9 .node.highlight .name{color:#8b6914}
+.p9 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#c0c0c0,#a0a0a0,#c0c0c0);
+  border-radius:0 0 10px 10px;
+}
+.p9 .node.important::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,#d4af37,#c9a84c,#d4af37);
+  border-radius:0 0 10px 10px;
+}
+.p9 .vline,.p9 .branch-line{
+  background:repeating-linear-gradient(
+    180deg,#bbb 0,#bbb 4px,transparent 4px,transparent 8px
+  );
+  width:2px;
+}
+.p9 .hbar{
+  background:repeating-linear-gradient(
+    90deg,#bbb 0,#bbb 4px,transparent 4px,transparent 8px
+  );
+  height:2px;
+}
+.p9 .couple-link{
+  background:repeating-linear-gradient(
+    90deg,#bbb 0,#bbb 4px,transparent 4px,transparent 8px
+  );
+  height:2px;
+}
+
+/* ====================================================================
+   PATTERN 10 — Luxury Card
+   ==================================================================== */
+.p10 .node{
+  background:#fff;
+  border:1.5px solid rgba(201,168,76,.3);
+  border-radius:10px;
+  padding:14px 20px;
+  min-width:115px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04),0 1px 3px rgba(201,168,76,.08);
+}
+.p10 .node:hover{
+  box-shadow:0 8px 28px rgba(0,0,0,.08),0 2px 8px rgba(201,168,76,.12);
+  transform:translateY(-4px);
+}
+.p10 .node .name{font-size:.95rem;color:#1a1a1a}
+.p10 .node .role{font-size:.7rem;color:#999;margin-top:3px}
+.p10 .node.highlight{
+  background:linear-gradient(135deg,#fffef5,#fff8e0);
+  border-color:rgba(201,168,76,.6);
+  box-shadow:0 3px 14px rgba(201,168,76,.15);
+}
+.p10 .node.highlight .name{color:#8b6914}
+.p10 .node.direct::after{
+  content:'';position:absolute;bottom:0;left:8%;right:8%;height:3px;
+  background:linear-gradient(90deg,#d0d0d0,#b0b0b0,#d0d0d0);
+  border-radius:0 0 6px 6px;
+}
+.p10 .node.important::after{
+  content:'';position:absolute;bottom:0;left:8%;right:8%;height:3px;
+  background:linear-gradient(90deg,#d4af37,#b8942e,#d4af37);
+  border-radius:0 0 6px 6px;
+}
+.p10 .vline,.p10 .branch-line{
+  background:linear-gradient(180deg,#c8c8c8,#b0b0b0);
+  width:1.5px;
+}
+.p10 .hbar{
+  background:linear-gradient(90deg,#c8c8c8,#b0b0b0,#c8c8c8);
+  height:1.5px;
+}
+.p10 .couple-link{
+  background:linear-gradient(90deg,#c8c8c8,#b0b0b0);
+  height:1.5px;
+}
+
+/* ====================================================================
+   HELPER SIZES
+   ==================================================================== */
+.vline-30{height:30px}
+.vline-25{height:25px}
+.vline-35{height:35px}
+.bl-30{height:30px}
+.bl-25{height:25px}
+.bl-35{height:35px}
+.gap-40{gap:40px}
+.gap-50{gap:50px}
+.gap-60{gap:60px}
+.gap-30{gap:30px}
+
+/* Star badge for highlight */
+.star{
+  position:absolute;
+  top:-8px;right:-8px;
+  width:20px;height:20px;
+  background:#c9a84c;
+  color:#fff;
+  font-size:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  box-shadow:0 2px 6px rgba(201,168,76,.3);
+  font-family:'Noto Sans JP',sans-serif;
+}
+</style>
+</head>
+<body>
+
+<h1 class="page-title">赤澤一族 家系図 — トップダウン・ツリー構造</h1>
+<p class="page-subtitle">10パターン比較 | 小笠原長清 → 赤沢清経の系譜</p>
+
+<!-- ===================================================================
+     PATTERN 1 — Simple Line
+     =================================================================== -->
+<div class="pattern-section p1">
+  <div class="pattern-label">Pattern 1 — シンプルライン</div>
+  <div class="pattern-desc">細い線で繋ぐミニマルなデザイン。角丸カードで統一</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <!-- Gen 1 -->
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <!-- Branch: Nagatsune -->
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Branch: Nagatada -->
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 2 — Gold & Silver Lines
+     =================================================================== -->
+<div class="pattern-section p2">
+  <div class="pattern-label">Pattern 2 — 金銀ライン</div>
+  <div class="pattern-desc">接続線が銀グラデーション。直系ラインは金グラデーションで強調</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family direct-line">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch direct-line">
+              <div class="branch-line bl-30"></div>
+              <div class="family direct-line">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch direct-line">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family direct-line">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch direct-line">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 3 — Card with Shadow
+     =================================================================== -->
+<div class="pattern-section p3">
+  <div class="pattern-label">Pattern 3 — カード影あり</div>
+  <div class="pattern-desc">ノードに影を付けて立体感。接続線は細めで上品</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 4 — Glassmorphism
+     =================================================================== -->
+<div class="pattern-section p4">
+  <div class="pattern-label">Pattern 4 — ガラスモーフィズム</div>
+  <div class="pattern-desc">ノードが半透明ガラス風。接続線もソフトな仕上がり</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 5 — Japanese Style
+     =================================================================== -->
+<div class="pattern-section p5">
+  <div class="pattern-label">Pattern 5 — 和風</div>
+  <div class="pattern-desc">ノード枠が筆風、接続線が墨色。背景に和紙テクスチャ</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 6 — Bold Lines + Large Nodes
+     =================================================================== -->
+<div class="pattern-section p6">
+  <div class="pattern-label">Pattern 6 — 太線+大きいノード</div>
+  <div class="pattern-desc">接続線が太め(3px)。ノードも大きめでゆったりとした印象</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-35"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 120px);width:240px"></div>
+          <div class="children gap-60">
+            <div class="branch">
+              <div class="branch-line bl-35"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-35"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 170px);width:340px"></div>
+                  <div class="children gap-50">
+                    <div class="branch">
+                      <div class="branch-line bl-35"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-35"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-35"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 90px);width:180px"></div>
+                          <div class="children gap-40">
+                            <div class="branch">
+                              <div class="branch-line bl-35"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-35"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-35"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-35"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 7 — Color-coded Branches
+     =================================================================== -->
+<div class="pattern-section p7">
+  <div class="pattern-label">Pattern 7 — 色分け枝</div>
+  <div class="pattern-desc">各分家の枝ごとに色が異なる（赤沢=金系、小笠原=銀系、伴野=銅系）</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch branch-ogasawara">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch branch-akazawa">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family branch-akazawa">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch branch-akazawa">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch branch-akazawa">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch branch-tomono">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 8 — Hover Highlight
+     =================================================================== -->
+<div class="pattern-section p8">
+  <div class="pattern-label">Pattern 8 — ホバー強調</div>
+  <div class="pattern-desc">通常は薄く表示。ホバーした人物が一気にハイライトされる</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 9 — Dotted Connections
+     =================================================================== -->
+<div class="pattern-section p9">
+  <div class="pattern-label">Pattern 9 — ドット接続</div>
+  <div class="pattern-desc">接続線がドット（点線）。ノードは丸角で柔らかい印象</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================================================================
+     PATTERN 10 — Luxury Card
+     =================================================================== -->
+<div class="pattern-section p10">
+  <div class="pattern-label">Pattern 10 — 高級カード</div>
+  <div class="pattern-desc">背景白+薄い金ボーダー+影。接続線は銀グラデーション</div>
+  <div class="tree-scroll">
+    <div class="tree">
+      <div class="family">
+        <div class="node direct">
+          <div class="name">小笠原長清</div>
+          <div class="role">信濃守護</div>
+        </div>
+        <div class="vline vline-30"></div>
+        <div class="children-wrap">
+          <div class="hbar" style="left:calc(50% - 100px);width:200px"></div>
+          <div class="children gap-50">
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="family">
+                <div class="node direct">
+                  <div class="name">小笠原長経</div>
+                  <div class="role">長男・嫡流</div>
+                </div>
+                <div class="vline vline-30"></div>
+                <div class="children-wrap">
+                  <div class="hbar" style="left:calc(50% - 150px);width:300px"></div>
+                  <div class="children gap-40">
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">小笠原長政</div>
+                        <div class="role">長男・小笠原本家</div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="family">
+                        <div class="node highlight important">
+                          <span class="star">★</span>
+                          <div class="name">赤沢清経</div>
+                          <div class="role">次男・赤沢氏の祖</div>
+                        </div>
+                        <div class="vline vline-30"></div>
+                        <div class="children-wrap">
+                          <div class="hbar" style="left:calc(50% - 80px);width:160px"></div>
+                          <div class="children gap-30">
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node direct">
+                                <div class="name">赤沢常興</div>
+                                <div class="role">塩崎城主</div>
+                              </div>
+                            </div>
+                            <div class="branch">
+                              <div class="branch-line bl-30"></div>
+                              <div class="node">
+                                <div class="name">赤沢経康</div>
+                                <div class="role"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="branch">
+                      <div class="branch-line bl-30"></div>
+                      <div class="node">
+                        <div class="name">伴野長房</div>
+                        <div class="role">三男</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="branch-line bl-30"></div>
+              <div class="node">
+                <div class="name">小笠原長忠</div>
+                <div class="role">次男</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:40px 0 20px;color:#bbb;font-size:.75rem;letter-spacing:.05em">
+  赤澤一族 家系図デザイン比較 — 10 Patterns
+</div>
+
+</body>
+</html>

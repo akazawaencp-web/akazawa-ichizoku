@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v6 — タイトル「赤澤一族」デザイン10パターン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
+
+.sel{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);padding:10px 14px;display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.sel-l{font-size:9px;color:rgba(255,255,255,.25);margin-right:4px}
+.sb{padding:5px 11px;border:1px solid rgba(255,255,255,.08);border-radius:5px;background:transparent;cursor:pointer;font-family:inherit;font-size:9px;color:rgba(255,255,255,.4);transition:all .12s;white-space:nowrap}
+.sb:hover{border-color:rgba(255,255,255,.2);color:#fff}
+.sb.on{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.18)}
+
+.hero{display:none;min-height:100vh;position:relative;overflow:hidden}
+.hero.on{display:block}
+
+/* BG: Soft多重透過 */
+.layers{position:absolute;inset:0;z-index:1}
+.ly{position:absolute;inset:-12%;background-size:cover;background-position:center;filter:brightness(.45) saturate(.5)}
+.l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:bgA 14s ease-in-out infinite alternate}
+.l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.35;mix-blend-mode:soft-light;animation:bgB 16s ease-in-out infinite alternate}
+.l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.3;mix-blend-mode:soft-light;animation:bgC 12s ease-in-out infinite alternate}
+.l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.25;mix-blend-mode:soft-light;animation:bgD 15s ease-in-out infinite alternate}
+@keyframes bgA{0%{transform:scale(1.02) translate(1.5%,-1%)}100%{transform:scale(1.12) translate(-2%,1.5%)}}
+@keyframes bgB{0%{transform:scale(1.1) translate(-1.5%,1%)}100%{transform:scale(1.02) translate(2%,-1.5%)}}
+@keyframes bgC{0%{transform:scale(1.05) translate(2%,1.5%)}100%{transform:scale(1.14) translate(-1.5%,-1%)}}
+@keyframes bgD{0%{transform:scale(1.08) translate(-1%,-1.5%)}100%{transform:scale(1.15) translate(1.5%,2%)}}
+.ov{position:absolute;inset:0}
+.ov-m{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.35) 0%,rgba(10,10,10,.6) 100%);z-index:2}
+.ov-g{opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:3}
+
+.cc{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:60px 24px}
+
+/* Shared kamon */
+.km-float{animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.glow-wrap{animation:glowS 4s ease-in-out infinite 3s}
+@keyframes glowS{0%,100%{filter:drop-shadow(0 0 12px rgba(200,205,215,.06))}50%{filter:drop-shadow(0 0 30px rgba(200,205,215,.18))}}
+.p-km{width:280px;height:280px;margin-bottom:44px}
+.p-km svg{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.5s cubic-bezier(.4,0,.2,1) .3s forwards}
+@keyframes draw{0%{stroke-dashoffset:1400}100%{stroke-dashoffset:0}}
+
+/* Shared elements */
+.p-en{font-size:9px;letter-spacing:.5em;color:rgba(200,205,215,.25);margin-bottom:20px;animation:fi 2s ease .1s both}
+@keyframes fi{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes fi0{0%{opacity:0}100%{opacity:1}}
+.p-gline{width:80px;height:2px;background:linear-gradient(90deg,transparent,rgba(180,185,200,.35),rgba(220,225,240,.6),rgba(180,185,200,.35),transparent);margin:22px auto;animation:fi 2s ease 2.8s both}
+.p-sub{font-size:10px;letter-spacing:.2em;color:rgba(200,205,215,.3);animation:fi 2s ease 3.2s both;line-height:2}
+.scue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.18);animation:bn 2.5s infinite;z-index:10}
+@keyframes bn{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
+.plbl{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:9px;color:rgba(255,255,255,.25);z-index:10;text-align:center;background:rgba(0,0,0,.5);padding:5px 14px;border-radius:4px;backdrop-filter:blur(8px);max-width:95%}
+
+/* ===== Title variations ===== */
+
+/* 1: 現在 — Shippori Mincho 52px 600weight */
+.t1{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:600;letter-spacing:.3em;color:rgba(235,238,245,.92);text-shadow:0 0 50px rgba(200,205,215,.12);animation:fi 2s ease 2s both;opacity:0}
+
+/* 2: 超大 — 68px thin */
+.t2{font-family:'Shippori Mincho',serif;font-size:68px;font-weight:400;letter-spacing:.4em;color:rgba(235,238,245,.85);text-shadow:0 0 60px rgba(200,205,215,.1);animation:fi 2.5s ease 2s both;opacity:0}
+
+/* 3: 太め — 52px 800weight */
+.t3{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:800;letter-spacing:.25em;color:rgba(235,238,245,.95);text-shadow:0 2px 40px rgba(0,0,0,.3);animation:fi 2s ease 2s both;opacity:0}
+
+/* 4: Noto Sans JP — ゴシック体 */
+.t4{font-family:'Noto Sans JP',sans-serif;font-size:48px;font-weight:700;letter-spacing:.2em;color:rgba(235,238,245,.92);text-shadow:0 0 50px rgba(200,205,215,.1);animation:fi 2s ease 2s both;opacity:0}
+
+/* 5: 字間狭め — 密な感じ */
+.t5{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:600;letter-spacing:.1em;color:rgba(235,238,245,.92);text-shadow:0 0 50px rgba(200,205,215,.12);animation:fi 2s ease 2s both;opacity:0}
+
+/* 6: 字間超広 — 一文字ずつ独立 */
+.t6{font-family:'Shippori Mincho',serif;font-size:48px;font-weight:500;letter-spacing:.6em;color:rgba(235,238,245,.88);text-shadow:0 0 50px rgba(200,205,215,.1);animation:fi 2s ease 2s both;opacity:0}
+
+/* 7: 一文字ずつフェードイン */
+.t7{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:600;letter-spacing:.3em;color:rgba(235,238,245,.92);text-shadow:0 0 50px rgba(200,205,215,.12)}
+.t7 span{opacity:0;display:inline-block;animation:fi 1s ease both}
+.t7 span:nth-child(1){animation-delay:2s}
+.t7 span:nth-child(2){animation-delay:2.2s}
+.t7 span:nth-child(3){animation-delay:2.4s}
+.t7 span:nth-child(4){animation-delay:2.6s}
+
+/* 8: 下からスライドイン */
+.t8{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:600;letter-spacing:.3em;color:rgba(235,238,245,.92);text-shadow:0 0 50px rgba(200,205,215,.12);overflow:hidden}
+.t8 span{display:inline-block;animation:slideUp 1.5s cubic-bezier(.16,1,.3,1) 2s both;opacity:0}
+@keyframes slideUp{0%{opacity:0;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}
+
+/* 9: 薄い→濃い（フェードで濃くなる） */
+.t9{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:600;letter-spacing:.3em;animation:t9fade 4s ease 2s both}
+@keyframes t9fade{0%{color:rgba(235,238,245,.1);text-shadow:none}100%{color:rgba(235,238,245,.92);text-shadow:0 0 50px rgba(200,205,215,.12)}}
+
+/* 10: スケールイン（小さい→大きい） */
+.t10{font-family:'Shippori Mincho',serif;font-size:52px;font-weight:600;letter-spacing:.3em;color:rgba(235,238,245,.92);text-shadow:0 0 50px rgba(200,205,215,.12);opacity:0;animation:scaleIn 2s cubic-bezier(.16,1,.3,1) 2s both}
+@keyframes scaleIn{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1)}}
+
+@media(max-width:768px){
+  .sel{gap:2px;padding:6px 8px}.sb{padding:3px 6px;font-size:8px}
+  .t1,.t3,.t5,.t7,.t8,.t9,.t10{font-size:36px !important}
+  .t2{font-size:44px !important}
+  .t4{font-size:34px !important}
+  .t6{font-size:32px !important}
+  .p-km{width:200px;height:200px}
+}
+</style>
+</head>
+<body>
+
+<div class="sel">
+  <span class="sel-l">タイトル:</span>
+  <button class="sb on" onclick="sw(1,this)">1 現在</button>
+  <button class="sb" onclick="sw(2,this)">2 超大thin</button>
+  <button class="sb" onclick="sw(3,this)">3 太め</button>
+  <button class="sb" onclick="sw(4,this)">4 ゴシック</button>
+  <button class="sb" onclick="sw(5,this)">5 字間狭め</button>
+  <button class="sb" onclick="sw(6,this)">6 字間超広</button>
+  <button class="sb" onclick="sw(7,this)">7 一文字ずつ</button>
+  <button class="sb" onclick="sw(8,this)">8 スライドイン</button>
+  <button class="sb" onclick="sw(9,this)">9 薄→濃</button>
+  <button class="sb" onclick="sw(10,this)">10 スケールイン</button>
+</div>
+
+<!-- 1 -->
+<div class="hero on" id="h1">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t1">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">1 — 現在: Shippori Mincho 52px 600weight letter-spacing:.3em</div>
+</div>
+
+<!-- 2 -->
+<div class="hero" id="h2">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t2">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">2 — 超大thin: 68px 400weight。繊細で大きい。余白感</div>
+</div>
+
+<!-- 3 -->
+<div class="hero" id="h3">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t3">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">3 — 太め: 52px 800weight。力強く重厚</div>
+</div>
+
+<!-- 4 -->
+<div class="hero" id="h4">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t4">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">4 — ゴシック: Noto Sans JP 48px 700weight。モダン</div>
+</div>
+
+<!-- 5 -->
+<div class="hero" id="h5">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t5">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">5 — 字間狭め: letter-spacing:.1em。ぎゅっと詰まった感じ</div>
+</div>
+
+<!-- 6 -->
+<div class="hero" id="h6">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t6">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">6 — 字間超広: letter-spacing:.6em。一文字ずつ独立した佇まい</div>
+</div>
+
+<!-- 7 -->
+<div class="hero" id="h7">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t7"><span>赤</span><span>澤</span><span>一</span><span>族</span></div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">7 — 一文字ずつ: 赤→澤→一→族と0.2秒間隔でフェードイン</div>
+</div>
+
+<!-- 8 -->
+<div class="hero" id="h8">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t8"><span>赤澤一族</span></div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">8 — スライドイン: 下から滑り上がって登場。勢いがある</div>
+</div>
+
+<!-- 9 -->
+<div class="hero" id="h9">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t9">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">9 — 薄→濃: ほぼ見えない状態から4秒かけてじわっと浮かび上がる</div>
+</div>
+
+<!-- 10 -->
+<div class="hero" id="h10">
+  <div class="layers"><div class="ly l1"></div><div class="ly l2"></div><div class="ly l3"></div><div class="ly l4"></div></div>
+  <div class="ov ov-m"></div><div class="ov ov-g"></div>
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float"><div class="glow-wrap"><div class="p-km"><svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5"><circle cx="100" cy="100" r="90"/><g transform="translate(100,100)"><polygon points="0,-55 25,-40 0,-25 -25,-40"/><polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/><polygon points="0,25 25,40 0,55 -25,40"/></g><line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/><line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/></svg></div></div></div>
+    <div class="t10">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div><div class="scue">↓</div>
+  <div class="plbl">10 — スケールイン: 小さい状態からスッと大きくなって登場</div>
+</div>
+
+<script>
+function sw(n,btn){
+  document.querySelectorAll('.hero').forEach(h=>h.classList.remove('on'));
+  document.querySelectorAll('.sb').forEach(b=>b.classList.remove('on'));
+  const el=document.getElementById('h'+n);
+  el.style.display='none';el.offsetHeight;el.style.display='';
+  el.classList.add('on');btn.classList.add('on');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>デザインテスト v8 - チャプター要素</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: linear-gradient(160deg, #f4f4f2, #f8f8f6, #f2f2f0);
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #555;
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+
+/* ページタイトル */
+.page-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: .08em;
+}
+
+.page-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 60px;
+  letter-spacing: .04em;
+}
+
+/* セクション */
+.section {
+  margin-bottom: 80px;
+}
+
+.section-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  letter-spacing: .06em;
+}
+
+.section-desc {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+
+/* パターンラッパー */
+.pattern {
+  margin-bottom: 40px;
+}
+
+.pattern-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #b0a090;
+  margin-bottom: 12px;
+  letter-spacing: .04em;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* セクション区切り */
+.section-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,.08), transparent);
+  margin: 80px 0;
+}
+
+/* ============================
+   セクション1: 深掘り調査ボックス
+   ============================ */
+
+/* パターン1: 現在（薄青背景） */
+.deep-1 {
+  background: rgba(240,242,248,.6);
+  border: 1px solid rgba(0,0,0,.04);
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+.deep-1 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8090a0;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-1 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン2: 薄青+左ライン */
+.deep-2 {
+  background: rgba(240,242,248,.5);
+  border-left: 3px solid rgba(100,120,160,.3);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+}
+.deep-2 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8090a0;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-2 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン3: 薄青+上部ライン（銀） */
+.deep-3 {
+  background: rgba(240,242,248,.5);
+  border-top: 2px solid rgba(160,160,170,.35);
+  border-radius: 0 0 12px 12px;
+  padding: 24px 28px;
+}
+.deep-3 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8090a0;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-3 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン4: グレー背景+左ライン */
+.deep-4 {
+  background: rgba(0,0,0,.025);
+  border-left: 3px solid rgba(0,0,0,.1);
+  border-radius: 0 10px 10px 0;
+  padding: 24px 28px;
+}
+.deep-4 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-4 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン5: 白背景+影+左に銀ライン */
+.deep-5 {
+  background: rgba(255,255,255,.7);
+  border-left: 3px solid rgba(160,165,175,.4);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+.deep-5 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8090a0;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-5 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン6: 薄紫背景 */
+.deep-6 {
+  background: rgba(235,232,245,.45);
+  border: 1px solid rgba(0,0,0,.03);
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+.deep-6 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9088a8;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-6 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン7: グラスモーフィズム */
+.deep-7 {
+  background: rgba(255,255,255,.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.04);
+}
+.deep-7 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8090a0;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-7 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン8: 枠線のみ（ダッシュ） */
+.deep-8 {
+  border: 1.5px dashed rgba(0,0,0,.1);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+.deep-8 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #999;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-8 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン9: 左に太い銀ライン+白背景 */
+.deep-9 {
+  background: rgba(255,255,255,.6);
+  border-left: 5px solid rgba(160,165,175,.35);
+  border-radius: 0 10px 10px 0;
+  padding: 24px 28px;
+}
+.deep-9 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8090a0;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-9 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン10: 薄青+左銀グラデライン */
+.deep-10 {
+  background: rgba(240,242,248,.5);
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, rgba(160,165,180,.5), rgba(160,165,180,.1)) 1;
+  padding: 24px 28px;
+}
+.deep-10 .deep-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8090a0;
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+}
+.deep-10 .deep-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+
+/* ============================
+   セクション2: 原文ブロック
+   ============================ */
+
+/* パターン1: 現在（薄グレー+左ボーダー） */
+.gen-1 {
+  background: rgba(0,0,0,.02);
+  border-left: 2px solid rgba(0,0,0,.08);
+  padding: 24px 28px;
+}
+.gen-1 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-1 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+/* パターン2: 和紙風テクスチャ+左ボーダー */
+.gen-2 {
+  background: linear-gradient(135deg, rgba(245,240,230,.6), rgba(240,235,225,.4));
+  border-left: 2px solid rgba(160,140,100,.25);
+  padding: 24px 28px;
+  border-radius: 0 4px 4px 0;
+}
+.gen-2 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #b0a080;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-2 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+/* パターン3: 薄い墨色背景+左に太いボーダー */
+.gen-3 {
+  background: rgba(40,40,40,.03);
+  border-left: 4px solid rgba(60,60,60,.12);
+  padding: 24px 28px;
+}
+.gen-3 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #999;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-3 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #555;
+}
+
+/* パターン4: 枠線で囲む+角丸 */
+.gen-4 {
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 10px;
+  padding: 24px 28px;
+}
+.gen-4 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-4 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+/* パターン5: 引用スタイル（大きな開きカッコ） */
+.gen-5 {
+  position: relative;
+  padding: 32px 28px 24px 48px;
+}
+.gen-5::before {
+  content: '\201C';
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 56px;
+  color: rgba(0,0,0,.08);
+  line-height: 1;
+}
+.gen-5 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-5 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+/* パターン6: 縦書き風 */
+.gen-6 {
+  background: rgba(0,0,0,.02);
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 8px;
+  padding: 28px 32px;
+  overflow-x: auto;
+}
+.gen-6 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 14px;
+  letter-spacing: .1em;
+}
+.gen-6 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  max-height: 300px;
+  overflow-x: auto;
+}
+
+/* パターン7: 背景なし+左に墨色グラデライン */
+.gen-7 {
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, rgba(80,70,60,.2), rgba(80,70,60,.02)) 1;
+  padding: 24px 28px;
+}
+.gen-7 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-7 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+/* パターン8: 薄いベージュ背景（和風） */
+.gen-8 {
+  background: rgba(210,195,170,.12);
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.gen-8 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #b0a080;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-8 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+/* パターン9: カード風（白背景+影）+左ボーダー */
+.gen-9 {
+  background: rgba(255,255,255,.65);
+  border-left: 2px solid rgba(0,0,0,.08);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+.gen-9 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-9 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+/* パターン10: 薄グレー+上下にライン */
+.gen-10 {
+  background: rgba(0,0,0,.015);
+  border-top: 1px solid rgba(0,0,0,.06);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  padding: 24px 28px;
+}
+.gen-10 .gen-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 10px;
+  letter-spacing: .1em;
+}
+.gen-10 .gen-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #666;
+}
+
+
+/* ============================
+   セクション3: トグル
+   ============================ */
+
+.toggle-btn {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: all .25s ease;
+}
+
+.toggle-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .35s ease, opacity .3s ease, padding .3s ease;
+}
+
+.toggle-content.open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.toggle-content .toggle-inner {
+  font-size: 14px;
+  line-height: 2;
+  color: #666;
+}
+
+/* パターン1: 現在（ガラスカード+▼） */
+.toggle-1 .toggle-btn {
+  background: rgba(255,255,255,.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 12px;
+  padding: 16px 22px;
+  color: #555;
+  font-weight: 500;
+}
+.toggle-1 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; }
+.toggle-1 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-1 .toggle-content { padding: 0 22px; }
+.toggle-1 .toggle-content.open { padding: 16px 22px 20px; }
+
+/* パターン2: ボーダーなし+下線のみ+▼ */
+.toggle-2 .toggle-btn {
+  background: none;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  border-radius: 0;
+  padding: 14px 0;
+  color: #555;
+  font-weight: 500;
+}
+.toggle-2 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; }
+.toggle-2 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-2 .toggle-content { padding: 0; }
+.toggle-2 .toggle-content.open { padding: 16px 0 20px; }
+
+/* パターン3: 左に金ライン+カード */
+.toggle-3 .toggle-btn {
+  background: rgba(255,255,255,.5);
+  border-left: 3px solid rgba(180,160,100,.35);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 22px;
+  color: #555;
+  font-weight: 500;
+}
+.toggle-3 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; }
+.toggle-3 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-3 .toggle-content { padding: 0 22px; }
+.toggle-3 .toggle-content.open { padding: 16px 22px 20px; }
+
+/* パターン4: ミニマル（テキストリンク風+矢印） */
+.toggle-4 .toggle-btn {
+  background: none;
+  padding: 10px 0;
+  color: #8090a0;
+  font-weight: 400;
+  font-size: 13px;
+}
+.toggle-4 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 6px; font-size: 10px; }
+.toggle-4 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-4 .toggle-btn:hover { color: #556; }
+.toggle-4 .toggle-content { padding: 0; }
+.toggle-4 .toggle-content.open { padding: 12px 0 16px; }
+
+/* パターン5: カード+ホバーで影 */
+.toggle-5 .toggle-btn {
+  background: rgba(255,255,255,.5);
+  border: 1px solid rgba(0,0,0,.04);
+  border-radius: 12px;
+  padding: 16px 22px;
+  color: #555;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0,0,0,.02);
+}
+.toggle-5 .toggle-btn:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+.toggle-5 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; }
+.toggle-5 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-5 .toggle-content { padding: 0 22px; }
+.toggle-5 .toggle-content.open { padding: 16px 22px 20px; }
+
+/* パターン6: 背景なし+上下にライン+▼ */
+.toggle-6 .toggle-btn {
+  background: none;
+  border-top: 1px solid rgba(0,0,0,.06);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  border-radius: 0;
+  padding: 14px 0;
+  color: #555;
+  font-weight: 500;
+}
+.toggle-6 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; }
+.toggle-6 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-6 .toggle-content { padding: 0; }
+.toggle-6 .toggle-content.open { padding: 16px 0 20px; }
+
+/* パターン7: アイコン（+/-）切り替え */
+.toggle-7 .toggle-btn {
+  background: rgba(255,255,255,.4);
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 10px;
+  padding: 16px 22px;
+  color: #555;
+  font-weight: 500;
+}
+.toggle-7 .toggle-btn .icon-pm {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 50%;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #999;
+  transition: all .3s ease;
+}
+.toggle-7 .toggle-btn.active .icon-pm { transform: rotate(90deg); }
+.toggle-7 .toggle-content { padding: 0 22px; }
+.toggle-7 .toggle-content.open { padding: 16px 22px 20px; }
+
+/* パターン8: 金アクセント+カード */
+.toggle-8 .toggle-btn {
+  background: rgba(255,255,255,.45);
+  border: 1px solid rgba(180,160,100,.15);
+  border-radius: 12px;
+  padding: 16px 22px;
+  color: #555;
+  font-weight: 500;
+}
+.toggle-8 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; color: rgba(180,160,100,.5); }
+.toggle-8 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-8 .toggle-content { padding: 0 22px; }
+.toggle-8 .toggle-content.open { padding: 16px 22px 20px; }
+
+/* パターン9: 薄い背景+左銀ライン+▼ */
+.toggle-9 .toggle-btn {
+  background: rgba(240,242,248,.4);
+  border-left: 3px solid rgba(160,165,175,.3);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 22px;
+  color: #555;
+  font-weight: 500;
+}
+.toggle-9 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; }
+.toggle-9 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-9 .toggle-content { padding: 0 22px; }
+.toggle-9 .toggle-content.open { padding: 16px 22px 20px; }
+
+/* パターン10: ガラス+ホバーで少し浮く */
+.toggle-10 .toggle-btn {
+  background: rgba(255,255,255,.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 12px;
+  padding: 16px 22px;
+  color: #555;
+  font-weight: 500;
+  transition: all .3s ease;
+}
+.toggle-10 .toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
+.toggle-10 .toggle-btn .arrow { transition: transform .3s ease; display: inline-block; margin-right: 8px; font-size: 10px; }
+.toggle-10 .toggle-btn.active .arrow { transform: rotate(180deg); }
+.toggle-10 .toggle-content { padding: 0 22px; }
+.toggle-10 .toggle-content.open { padding: 16px 22px 20px; }
+
+
+/* ============================
+   セクション4: 本文ブロック
+   ============================ */
+
+.body-text p { margin-bottom: 16px; }
+.body-text p:last-child { margin-bottom: 0; }
+
+/* パターン1: 現在 */
+.body-1 { font-size: 15px; line-height: 2.2; color: #555; }
+
+/* パターン2: 少し大きめ */
+.body-2 { font-size: 16px; line-height: 2.0; color: #555; }
+
+/* パターン3: 小さめ+広い行間 */
+.body-3 { font-size: 14px; line-height: 2.4; color: #555; }
+
+/* パターン4: 少し濃い */
+.body-4 { font-size: 15px; line-height: 2.2; color: #444; }
+
+/* パターン5: drop-cap風 */
+.body-5 { font-size: 15px; line-height: 2.2; color: #555; }
+.body-5 p:first-child::first-letter {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 3em;
+  float: left;
+  line-height: 1;
+  margin-right: 8px;
+  margin-top: 6px;
+  color: #444;
+}
+
+/* パターン6: 段落間にライン区切り */
+.body-6 { font-size: 15px; line-height: 2.2; color: #555; }
+.body-6 p {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0,0,0,.04);
+}
+.body-6 p:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+/* パターン7: 細めウェイト */
+.body-7 { font-size: 16px; line-height: 1.9; color: #555; font-weight: 300; }
+
+/* パターン8: 字下げ */
+.body-8 { font-size: 15px; line-height: 2.2; color: #555; }
+.body-8 p { text-indent: 1em; }
+
+/* パターン9: 段落間広め */
+.body-9 { font-size: 15px; line-height: 2.0; color: #555; }
+.body-9 p { margin-bottom: 24px; }
+.body-9 p:last-child { margin-bottom: 0; }
+
+/* パターン10: 小さめ+letter-spacing */
+.body-10 { font-size: 14px; line-height: 2.2; color: #555; letter-spacing: .02em; }
+
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <h1 class="page-title">デザインテスト v8</h1>
+  <p class="page-subtitle">チャプター要素 - 4カテゴリ x 10パターン</p>
+
+
+  <!-- ============================
+       セクション1: 深掘り調査ボックス
+       ============================ -->
+  <div class="section">
+    <h2 class="section-title">C4 深掘り調査ボックス</h2>
+    <p class="section-desc">AI調査で補足した情報を表示するボックス。ラベル+説明文の構成。</p>
+
+    <div class="pattern">
+      <div class="pattern-label">1 / 現在（薄青背景）</div>
+      <div class="deep-1">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">2 / 薄青+左ライン</div>
+      <div class="deep-2">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">3 / 薄青+上部ライン（銀）</div>
+      <div class="deep-3">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">4 / グレー背景+左ライン</div>
+      <div class="deep-4">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">5 / 白背景+影+左に銀ライン</div>
+      <div class="deep-5">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">6 / 薄紫背景</div>
+      <div class="deep-6">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">7 / グラスモーフィズム</div>
+      <div class="deep-7">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">8 / 枠線のみ（ダッシュ）</div>
+      <div class="deep-8">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">9 / 左に太い銀ライン+白背景</div>
+      <div class="deep-9">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">10 / 薄青+左銀グラデライン</div>
+      <div class="deep-10">
+        <div class="deep-label">深掘り調査</div>
+        <div class="deep-text">伊東市赤沢は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。赤沢という地名の由来は「赤い色の沢（渓流）」。</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================
+       セクション2: 原文ブロック
+       ============================ -->
+  <div class="section">
+    <h2 class="section-title">C5 原文ブロック</h2>
+    <p class="section-desc">冊子の原文（古文）を表示するブロック。明朝体で古典的な雰囲気を出す。</p>
+
+    <div class="pattern">
+      <div class="pattern-label">1 / 現在（薄グレー+左ボーダー）</div>
+      <div class="gen-1">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">2 / 和紙風テクスチャ+左ボーダー</div>
+      <div class="gen-2">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">3 / 薄い墨色背景+左に太いボーダー</div>
+      <div class="gen-3">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">4 / 枠線で囲む+角丸</div>
+      <div class="gen-4">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">5 / 引用スタイル（大きな開きカッコ）</div>
+      <div class="gen-5">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">6 / 縦書き風（writing-mode使用）</div>
+      <div class="gen-6">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">7 / 背景なし+左に墨色グラデライン</div>
+      <div class="gen-7">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">8 / 薄いベージュ背景（和風）</div>
+      <div class="gen-8">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">9 / カード風（白背景+影）+左ボーダー</div>
+      <div class="gen-9">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">10 / 薄グレー+上下にライン</div>
+      <div class="gen-10">
+        <div class="gen-label">原文</div>
+        <div class="gen-text">赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================
+       セクション3: トグル
+       ============================ -->
+  <div class="section">
+    <h2 class="section-title">C6 トグル（開閉式コンテンツ）</h2>
+    <p class="section-desc">クリックで開閉するアコーディオン形式。ボタンをクリックすると中身が表示される。</p>
+
+    <div class="pattern">
+      <div class="pattern-label">1 / 現在（ガラスカード+▼）</div>
+      <div class="toggle-1">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">2 / ボーダーなし+下線のみ+▼</div>
+      <div class="toggle-2">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">3 / 左に金ライン+カード</div>
+      <div class="toggle-3">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">4 / ミニマル（テキストリンク風+矢印）</div>
+      <div class="toggle-4">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">5 / カード+ホバーで影</div>
+      <div class="toggle-5">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">6 / 背景なし+上下にライン+▼</div>
+      <div class="toggle-6">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">7 / アイコン（+/-）切り替え</div>
+      <div class="toggle-7">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="icon-pm">+</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">8 / 金アクセント+カード</div>
+      <div class="toggle-8">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">9 / 薄い背景+左銀ライン+▼</div>
+      <div class="toggle-9">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">10 / ガラス+ホバーで少し浮く</div>
+      <div class="toggle-10">
+        <button class="toggle-btn" onclick="toggleContent(this)"><span class="arrow">▼</span>信州における赤沢氏の補足</button>
+        <div class="toggle-content">
+          <div class="toggle-inner">信州には諏訪神氏系の赤沢氏も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================
+       セクション4: 本文ブロック
+       ============================ -->
+  <div class="section">
+    <h2 class="section-title">C2 本文ブロック</h2>
+    <p class="section-desc">チャプターの本文テキストのスタイル比較。フォントサイズ・行間・色・装飾の違い。</p>
+
+    <div class="pattern">
+      <div class="pattern-label">1 / 現在（15px / 行間2.2 / #555）</div>
+      <div class="body-text body-1">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">2 / 16px / 行間2.0（少し大きめ）</div>
+      <div class="body-text body-2">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">3 / 14px / 行間2.4（小さめ+広い行間）</div>
+      <div class="body-text body-3">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">4 / 15px / color:#444（少し濃い）</div>
+      <div class="body-text body-4">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">5 / drop-cap風（最初の文字を大きく）</div>
+      <div class="body-text body-5">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">6 / 段落間にライン区切り</div>
+      <div class="body-text body-6">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">7 / 16px / 行間1.9 / font-weight:300（細め）</div>
+      <div class="body-text body-7">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">8 / 段落先頭に字下げ（text-indent:1em）</div>
+      <div class="body-text body-8">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">9 / 行間2.0 / 段落間広め（margin-bottom:24px）</div>
+      <div class="body-text body-9">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="pattern-label">10 / 14px / 行間2.2 / letter-spacing:.02em</div>
+      <div class="body-text body-10">
+        <p>「赤沢」という苗字は、先祖の誰かが領有し、あるいは住んでいた土地の名前に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+        <p>もっとも有力な説は、伊豆国田方郡の赤沢（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleContent(btn) {
+  const content = btn.nextElementSibling;
+  const isOpen = content.classList.contains('open');
+
+  if (isOpen) {
+    content.classList.remove('open');
+    btn.classList.remove('active');
+    // +/- アイコン切り替え
+    const icon = btn.querySelector('.icon-pm');
+    if (icon) icon.textContent = '+';
+  } else {
+    content.classList.add('open');
+    btn.classList.add('active');
+    const icon = btn.querySelector('.icon-pm');
+    if (icon) icon.textContent = '-';
+  }
+}
+</script>
+
+</body>
+</html>
