@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人物伝 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--sh2:0 4px 20px rgba(0,0,0,.04);--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+.content-wrap{max-width:1000px;margin:0 auto;padding:40px 20px 80px}
+.breadcrumb{font-size:12px;color:var(--tx3);margin-bottom:30px}.breadcrumb a{color:var(--tx2);text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
+.chapter-header{margin-bottom:40px;padding-bottom:16px}
+.chapter-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--tx3);margin-bottom:6px}
+.chapter-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:var(--tx);letter-spacing:.1em}
+.chapter-subtitle{font-size:13px;color:var(--tx3);margin-top:6px}
+.ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
+
+/* TOC */
+.toc{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:12px;font-weight:600;color:var(--tx3);letter-spacing:.1em;margin-bottom:12px}
+.toc-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.toc-list a{font-size:13px;color:var(--tx2);text-decoration:none;display:flex;align-items:baseline;gap:8px;padding:4px 0;transition:color .2s}
+.toc-list a:hover{color:var(--tx)}
+.toc-era{font-size:10px;color:var(--tx4);min-width:48px}
+
+/* Story sections */
+.story{margin-bottom:60px;scroll-margin-top:20px}
+.story-header{margin-bottom:24px;position:relative}
+.story-era{font-size:10px;font-weight:600;letter-spacing:.15em;color:#8b6914;margin-bottom:4px}
+.story-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;color:var(--tx);letter-spacing:.06em}
+.story-reading{font-size:12px;color:var(--tx4);margin-top:2px}
+.story-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.story-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(0,0,0,.04);color:#666}
+.story-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.03));margin-top:14px}
+
+/* Narrative text */
+.narrative{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:20px}
+.narrative p{margin-bottom:18px;text-indent:1em}
+.narrative p:first-child{text-indent:0}
+.narrative strong{color:var(--tx)}
+.narrative .first-line{font-size:17px;color:var(--tx);font-weight:500}
+
+/* Cards */
+.card{background:#fff;border:1px solid var(--bd);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:24px 28px;margin-bottom:18px;box-shadow:var(--sh2)}
+.card-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+.card p,.card li{font-size:14px;color:var(--tx2);line-height:1.9}.card ul{padding-left:18px}.card li{margin-bottom:6px}.card strong{color:var(--tx)}
+
+/* Timeline */
+.pd-timeline{position:relative;padding-left:28px;margin:16px 0}
+.pd-timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#7a5a20,#c4a060);border-radius:0}
+.pdt-item{position:relative;padding-bottom:18px}
+.pdt-item::before{content:'';position:absolute;left:-25px;top:6px;width:10px;height:10px;border-radius:50%;background:#8b6914;border:3px solid #f2f1ee}
+.pdt-year{font-size:12px;font-weight:700;color:#8b6914}
+.pdt-text{font-size:13px;color:#666;line-height:1.8}
+
+/* Death scene */
+.death-scene{background:rgba(30,28,25,.03);border:1px solid rgba(0,0,0,.06);border-top:3px solid #555;border-radius:0 0 14px 14px;padding:24px 28px;margin:20px 0}
+.death-scene::before{content:'最期の時';display:block;font-size:10px;font-weight:600;color:var(--tx3);letter-spacing:.1em;margin-bottom:10px}
+.death-scene p{font-size:14px;color:var(--tx2);line-height:2;margin-bottom:10px}
+
+/* AI note */
+.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:20px 24px;margin:20px 0}
+.ai-note::before{content:'ゆかりの地';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
+.ai-note p{font-size:13px;color:#444;line-height:1.9}
+
+/* Grandpa note */
+.gp-note{background:rgba(245,242,235,.4);border:1px solid var(--warm-bd);border-top:2px solid #8b6914;border-radius:0 0 10px 10px;padding:14px 18px;margin:12px 0;font-size:12px;color:var(--warm-tx);line-height:1.8;backdrop-filter:var(--blur)}
+.gp-note::before{content:'秀邦の調査メモ';display:block;font-size:10px;font-weight:600;color:#998a70;margin-bottom:5px;letter-spacing:.04em}
+
+/* Separator */
+.story-sep{text-align:center;margin:50px 0;color:var(--tx4);font-size:11px;letter-spacing:.3em}
+
+/* Nav */
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid rgba(0,0,0,.04)}
+.page-nav a{font-size:12px;color:var(--tx2);text-decoration:none}.page-nav a:hover{color:var(--tx)}
+.site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:var(--tx4);margin-top:40px}
+
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content-wrap{padding:30px 16px 50px}
+  .chapter-title{font-size:26px}
+  .narrative{font-size:14px}
+  .card{padding:22px}
+  .story-name{font-size:21px}
+  .toc-list{grid-template-columns:1fr}
+  .death-scene{padding:20px 22px}
+}
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content-wrap{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .chapter-header{margin-bottom:30px}
+  .chapter-num{font-size:9px}
+  .chapter-title{font-size:22px;letter-spacing:.05em}
+  .chapter-subtitle{font-size:12px}
+  .narrative{font-size:13px;line-height:2;margin-bottom:16px}
+  .narrative p{margin-bottom:14px}
+  .narrative .first-line{font-size:15px}
+  .story-header{margin-bottom:18px}
+  .story-era{font-size:9px}
+  .story-name{font-size:19px}
+  .story-reading{font-size:11px}
+  .story-tags{gap:4px;margin-top:8px}
+  .story-tag{font-size:8px;padding:3px 8px}
+  .card{padding:16px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .card-title{font-size:12px}
+  .pd-timeline{padding-left:22px}
+  .pdt-item::before{left:-19px;width:8px;height:8px}
+  .pdt-year{font-size:11px}
+  .pdt-text{font-size:12px}
+  .death-scene{padding:16px 18px;margin:14px 0}
+  .death-scene p{font-size:13px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p{font-size:12px}
+  .gp-note{padding:12px 14px;font-size:11px}
+  .toc{padding:18px}
+  .toc-list{gap:4px}
+  .toc-list a{font-size:12px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .site-footer{font-size:10px;padding:24px 0 16px}
+}
+</style>
+</head>
+<body>
+<div class="content-wrap">
+
+<div class="breadcrumb"><a href="index.html">赤澤一族 令和版</a> → 人物伝</div>
+
+<div class="chapter-header">
+  <div class="chapter-num">STORIES</div>
+  <div class="chapter-title">人物伝 ― 歴史の名前を、生きた人間に</div>
+  <div class="chapter-subtitle">清和天皇から令和まで。赤澤一族を形づくった人々の物語</div>
+  <div class="ch-line"></div>
+</div>
+
+<div class="toc">
+  <div class="toc-title">INDEX</div>
+  <ul class="toc-list">
+    <li><a href="#tsunemoto"><span class="toc-era">914頃</span>源経基 ― 臆病者の末裔</a></li>
+    <li><a href="#mitsunaka"><span class="toc-era">912頃</span>源満仲 ― 密告で切り開いた未来</a></li>
+    <li><a href="#yorimitsu"><span class="toc-era">948</span>源頼光 ― 鬼を斬った男</a></li>
+    <li><a href="#yoshiie"><span class="toc-era">1039</span>源義家 ― 八幡太郎の光と影</a></li>
+    <li><a href="#yoshimitsu"><span class="toc-era">1045</span>源義光 ― 笙の音を残して</a></li>
+    <li><a href="#nagakiyo"><span class="toc-era">1162</span>小笠原長清 ― 弓馬の祖</a></li>
+    <li><a href="#tsuneoki"><span class="toc-era">1335頃</span>赤沢常興 ― 城を築いた男</a></li>
+    <li><a href="#tomotsune"><span class="toc-era">1451</span>赤沢朝経 ― 信長より72年早く</a></li>
+    <li><a href="#masatsune"><span class="toc-era">1467</span>赤沢政経 ― 父の帝国の崩壊</a></li>
+    <li><a href="#tsunetomo"><span class="toc-era">1511</span>赤沢経智 ― 弓を守り抜いた男</a></li>
+    <li><a href="#sadatsune"><span class="toc-era">1543</span>小笠原貞経 ― 難民から将軍の師範へ</a></li>
+    <li><a href="#souden"><span class="toc-era">?-1582</span>赤沢宗伝 ― 草鞋の紐が切れた日</a></li>
+    <li><a href="#bitchu"><span class="toc-era">1467頃</span>備中赤澤氏 ― 真田丸に散った一族</a></li>
+    <li><a href="#toyasu"><span class="toc-era">1841</span>赤澤遠康 ― 記録を残した男</a></li>
+    <li><a href="#hidekuni"><span class="toc-era">昭和</span>赤澤秀邦 ― お寺を巡った祖父</a></li>
+  </ul>
+</div>
+
+<!-- ========================================== -->
+<!-- 源経基 -->
+<!-- ========================================== -->
+<div class="story" id="tsunemoto">
+<div class="story-header">
+  <div class="story-era">HEIAN — 914頃〜961</div>
+  <div class="story-name">源経基 ― 臆病者から始まった千年</div>
+  <div class="story-reading">みなもとのつねもと / 六孫王</div>
+  <div class="story-tags"><span class="story-tag">清和源氏の祖</span><span class="story-tag">正四位上</span><span class="story-tag">征東副将軍</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤澤一族の血脈は、臆病者から始まった。</span></p>
+  <p>源経基。清和天皇の孫にあたるこの男は、皇族の血を引きながらも「源」の姓を賜って臣下に降った。第六皇子・貞純親王の子であることから、後世「<strong>六孫王</strong>」と呼ばれる。</p>
+  <p>承平8年（938年）、武蔵介として関東に赴任した経基は、着任早々にトラブルを起こした。地元の有力者・武蔵武芝への強引な税の取り立てに端を発し、仲裁に入った平将門と三つ巴の紛争に発展。武芝の兵に営所を囲まれると、経基は<strong>妻子を連れて山に逃げ込んだ</strong>。</p>
+  <p>同時代の史料『将門記』は容赦ない。<strong>「介経基は未だ兵の道に練れず。驚き愕いて分散す」</strong>――武芸も知らない腰抜けが、慌てふためいて兵を散らした、と。さらに「悪人の手口を身につけ、盗賊の心を持っている」とまで書かれている。</p>
+  <p>京に逃げ帰った経基は、「将門が謀反を企てている」と朝廷に報告した。しかし将門から5つの国の「事実無根」の証明書が届き、経基は<strong>讒言の罪で投獄</strong>された。</p>
+  <p>ところが――歴史は皮肉だ。</p>
+  <p>その直後、平将門は<strong>本当に謀反を起こした</strong>。経基の「嘘」は「予言」に変わった。釈放された経基は征東副将軍に任命され、藤原純友の乱の鎮圧でも功を上げた。</p>
+</div>
+
+<div class="death-scene">
+  <p>応和元年（961年）、経基は臨終の際にこう遺言したと伝わる。「死後は龍神となって邸内の池に住み、子孫の繁栄を祈る。この地に葬ってくれ」。</p>
+  <p>嫡子・満仲は父の言葉通り、邸宅跡に社殿を建てた。それが現在も京都に残る<strong>六孫王神社</strong>。臆病者と嘲笑された男は、子孫によって神に祀られた。</p>
+  <p>そしてその子孫――源満仲、頼光、義家、義光……彼らが日本史上最強の武門「清和源氏」を築いていく。赤澤一族の血の出発点は、ここにある。</p>
+</div>
+
+<div class="ai-note">
+  <p><strong>六孫王神社</strong>（京都市南区）— JR京都駅八条口から西へ徒歩約15分。多田神社（兵庫県川西市）、壺井八幡宮（大阪府羽曳野市）とともに「源氏三神社」の一つ。境内には経基の墓所と伝える石塔がある。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 源満仲 -->
+<!-- ========================================== -->
+<div class="story" id="mitsunaka">
+<div class="story-header">
+  <div class="story-era">HEIAN — 912頃〜997</div>
+  <div class="story-name">源満仲 ― 密告で切り開いた未来</div>
+  <div class="story-reading">みなもとのみつなか / 多田満仲</div>
+  <div class="story-tags"><span class="story-tag">多田源氏の祖</span><span class="story-tag">安和の変の密告者</span><span class="story-tag">摂津多田庄</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">父が臆病者なら、息子は策略家だった。</span></p>
+  <p>源満仲は父・経基の教訓を学んでいた。武力だけでは生き残れない。権力者に取り入り、情報を武器にする。そのことを、彼は生涯をかけて実践した。</p>
+  <p>安和2年（969年）、満仲は橘繁延と源連が謀反を企てていると朝廷に密告した。これにより左大臣・源高明が太宰府に左遷される政変（<strong>安和の変</strong>）が引き起こされた。密告の恩賞として昇進した満仲は、藤原氏の権力闘争を巧みに利用して勢力を拡大していく。</p>
+  <p>摂津国多田（現在の兵庫県川西市）に拠点を構えた満仲は、<strong>数百人規模の武士団</strong>を組織した。官職に頼らない私的な武力集団――これは日本史上初の本格的な武士団とされる。</p>
+  <p>その一方で、末子で僧侶になった源賢は父の日常に心を痛めていた。『今昔物語集』によれば、満仲は40〜50羽の鷹を飼い、逆らう者は「虫けらのように殺し」、軽い罪でも「手足を切り落とす」という苛烈な人物だった。</p>
+</div>
+
+<div class="death-scene">
+  <p>晩年、恵心僧都源信の説教を聞いた満仲は、突然涙を流し始めた。そして自らの罪深い人生を悔い、出家を決意する。鷹を放ち、猟犬を解き放ち、武具を捨てた。寛和2年（986年）のことだ。</p>
+  <p>長徳3年（997年）、87歳前後で死去。武門の祖として後世に崇められるが、同時に策略と殺生に満ちた生涯を送った人物でもあった。清和源氏の強さは、この男の冷徹さの中で鍛えられた。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 源頼光 -->
+<!-- ========================================== -->
+<div class="story" id="yorimitsu">
+<div class="story-header">
+  <div class="story-era">HEIAN — 948〜1021</div>
+  <div class="story-name">源頼光 ― 鬼を斬った男</div>
+  <div class="story-reading">みなもとのよりみつ（らいこう）</div>
+  <div class="story-tags"><span class="story-tag">酒呑童子退治</span><span class="story-tag">頼光四天王</span><span class="story-tag">摂津源氏</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">満仲の長男は、鬼退治の伝説に包まれた男だった。</span></p>
+  <p>源頼光。父・満仲から武力と政治力を受け継ぎ、摂関家の藤原道長に仕えて莫大な財力を築いた。しかし後世の人々が記憶するのは、彼の政治力ではない。<strong>酒呑童子退治</strong>の伝説だ。</p>
+  <p>丹波国大江山に巣食う鬼の首領・酒呑童子。若い女たちをさらい、人肉を食らい、血を酒として飲むという恐ろしい鬼だった。勅命を受けた頼光は、4人の腹心―― <strong>渡辺綱</strong>、<strong>坂田金時</strong>（金太郎）、<strong>碓井貞光</strong>、<strong>卜部季武</strong> ――とともに山伏に変装して大江山に乗り込んだ。</p>
+  <p>頼光は鬼たちに毒の酒を振る舞い、酔いつぶれた酒呑童子の首を<strong>「鬼斬り」の太刀</strong>で斬り落とした。その太刀は「<strong>童子切安綱</strong>」と呼ばれ、天下五剣の一つとして国宝に指定されている。</p>
+  <p>もう一つの有名な逸話がある。渡辺綱が京都の一条戻橋で美女に変化した鬼の腕を斬り落とした話。後に鬼が老婆に化けて腕を取り返しに来るこの物語は、頼光主従の強さと、それでもなお手に負えない「鬼」の恐ろしさを伝える。</p>
+</div>
+
+<div class="death-scene">
+  <p>治安元年（1021年）、頼光は74歳で没した。晩年は病に伏せることが多かったと伝わる。伝説では、病床の頼光を土蜘蛛の妖怪が襲い、頼光が枕元の太刀で斬りつけたという逸話もある（謡曲『土蜘蛛』）。</p>
+  <p>赤澤一族の直系は頼光ではなく弟・頼信の系統（河内源氏）に繋がるが、頼光の伝説は清和源氏全体の「武勇の象徴」として、赤澤一族のアイデンティティの一部を成している。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 源義家 -->
+<!-- ========================================== -->
+<div class="story" id="yoshiie">
+<div class="story-header">
+  <div class="story-era">HEIAN — 1039〜1106</div>
+  <div class="story-name">源義家 ― 天下第一の武勇の士</div>
+  <div class="story-reading">みなもとのよしいえ / 八幡太郎</div>
+  <div class="story-tags"><span class="story-tag">前九年の役</span><span class="story-tag">後三年の役</span><span class="story-tag">河内源氏の棟梁</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">「八幡太郎義家」――その名は、武士の理想そのものだった。</span></p>
+  <p>石清水八幡宮で元服したことから「八幡太郎」と呼ばれた源義家は、父・頼義とともに<strong>前九年の役</strong>（1051〜1062年）で東北の安倍氏を討伐。12年にわたる激戦を制し、河内源氏の名を東国に轟かせた。</p>
+  <p>義家が真に「武士の鑑」として語り継がれるのは、<strong>後三年の役</strong>（1083〜1087年）のエピソード。出羽国の清原氏の内紛に介入した義家は、金沢柵（かねざわのさく）の攻城戦で苦戦する。そのとき、雁の列が乱れるのを見て<strong>伏兵の存在を察知</strong>した逸話は有名だ。</p>
+  <p>しかし後三年の役の後、朝廷は「私戦」として恩賞を拒否した。義家は自らの財産から従軍した兵士たちに報酬を支払った。この行為が東国武士たちの心を掴み、<strong>「坂東武者は義家の郎党になりたがった」</strong>と伝わる。</p>
+</div>
+
+<div class="death-scene">
+  <p>嘉承元年（1106年）、義家は68歳で死去。晩年は嫡男・義親の反乱という悲劇に見舞われ、朝廷からの信任も失われていた。しかし東国武士たちの間での義家への尊崇は揺るがず、やがてその名声は源頼朝の鎌倉幕府開府へと結実する。</p>
+  <p>義家の弟・義光が甲斐源氏の祖となり、その血脈が小笠原氏、そして赤澤氏へと繋がっていく。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 源義光 -->
+<!-- ========================================== -->
+<div class="story" id="yoshimitsu">
+<div class="story-header">
+  <div class="story-era">HEIAN — 1045〜1127</div>
+  <div class="story-name">源義光 ― 笙の音を残して戦場へ</div>
+  <div class="story-reading">みなもとのよしみつ / 新羅三郎</div>
+  <div class="story-tags"><span class="story-tag">甲斐源氏の祖</span><span class="story-tag">赤澤一族の直系祖先</span><span class="story-tag">笙の秘曲伝授</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤澤一族の直系祖先。この男の物語には、一つの美しい場面がある。</span></p>
+  <p>源義光は義家の弟。近江国の新羅明神（大津三井寺）で元服したことから「<strong>新羅三郎</strong>」と呼ばれた。武勇に優れる一方で、雅楽の<strong>笙（しょう）</strong>の名手でもあった。</p>
+  <p>永保3年（1083年）、兄・義家が後三年の役で苦戦していると聞いた義光は、朝廷の許可なく官職を投げ捨て、<strong>兄を助けるためだけに東北へ向かった</strong>。</p>
+  <p>そのとき、義光はある場所で足を止めた。<strong>足柄山</strong>。</p>
+  <p>義光には笙の師匠がいた。豊原時秋（とよはらのときあき）。義光は時秋から笙の秘曲「<strong>大食調入調</strong>」を伝授されていたが、まだ「<strong>還城楽</strong>」の秘曲の伝授は受けていなかった。</p>
+  <p>戦場に向かう義光は、自分が生きて帰れるかわからなかった。秘曲が自分とともに失われることを恐れた義光は、時秋を足柄山に呼び寄せ、<strong>逆に自分が持つ秘曲を時秋に教え返した</strong>。</p>
+  <p>雄大な山並みを前に、笙の音色が響く。これから血塗られた戦場に向かう武将が、芸術の継承のために立ち止まった一瞬。この「<strong>足柄山の別れ</strong>」は、武と文の両道を体現するエピソードとして語り継がれている。</p>
+</div>
+
+<div class="death-scene">
+  <p>義光は後三年の役で兄の勝利に貢献した後、常陸国に土着。甲斐にも勢力を伸ばし、子孫は<strong>武田氏</strong>・<strong>小笠原氏</strong>・<strong>南部氏</strong>など、中世日本を代表する武家に発展していく。</p>
+  <p>大治2年（1127年）、83歳で没。「足柄山の別れ」で見せた文化への敬意は、子孫の小笠原氏が弓馬術<strong>礼法</strong>を継承する伝統へと受け継がれ、さらに赤澤一族の朝経、経智へと繋がっていく。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 小笠原長清 -->
+<!-- ========================================== -->
+<div class="story" id="nagakiyo">
+<div class="story-header">
+  <div class="story-era">KAMAKURA — 1162〜1242</div>
+  <div class="story-name">小笠原長清 ― 弓馬の道を拓いた男</div>
+  <div class="story-reading">おがさわらのながきよ</div>
+  <div class="story-tags"><span class="story-tag">信濃守護</span><span class="story-tag">小笠原流弓馬術の祖</span><span class="story-tag">源頼朝の御家人</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">義光から数世代。甲斐源氏の名門から、一つの「流儀」が生まれる。</span></p>
+  <p>小笠原長清は加賀美遠光の子として甲斐国に生まれ、源頼朝の挙兵に参加して武功を挙げた。信濃守護に任じられ、小笠原氏は信濃の名族として確立する。</p>
+  <p>長清の最大の功績は、弓馬術を単なる戦闘技術から<strong>「礼法」</strong>にまで昇華させたこと。弓の引き方、馬の乗り方、立ち居振る舞い――すべてに型と理があり、それを体系化した。これが後に<strong>「小笠原流」</strong>として800年以上受け継がれることになる。</p>
+  <p>長清の次男・長経の子が<strong>赤沢清経</strong>。伊豆国赤沢郷を領して「赤沢」を名乗った。赤澤一族はここに始まる。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢常興 -->
+<!-- ========================================== -->
+<div class="story" id="tsuneoki">
+<div class="story-header">
+  <div class="story-era">NANBOKUCHO — 1335年頃</div>
+  <div class="story-name">赤沢常興 ― 城を築いた男</div>
+  <div class="story-reading">あかざわ つねおき</div>
+  <div class="story-tags"><span class="story-tag">塩崎城築城</span><span class="story-tag">中先代の乱</span><span class="story-tag">伊豆守</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">建武2年（1335年）。信濃が揺れた。</span></p>
+  <p>鎌倉幕府最後の得宗・北条高時の遺児、北条時行がわずか10歳前後で挙兵した。<strong>中先代の乱</strong>。諏訪氏、仁科氏、四宮氏ら多くの信濃国人が時行方に呼応し、信濃守護・小笠原貞宗の本拠・船山守護所に襲いかかった。</p>
+  <p>赤沢常興は小笠原貞宗に従って出陣。八幡河原の青沼で繰り広げられた激戦（<strong>青沼合戦</strong>）で武功を挙げた。</p>
+  <p>鎮圧後、常興に与えられたのは<strong>四宮荘北条</strong>と<strong>筑摩郡浅間郷</strong>の所領。四宮荘は、北条方に与して滅亡した四宮氏の旧領だった。そしてこの地に常興は一つの城を築く。</p>
+  <p><strong>塩崎城</strong>。善光寺平の最南端、千曲川を見下ろす山の頂。標高560メートル。主郭を三条の堀切で護り、4つの曲輪と10の段郭を備えた。別名「<strong>五万長者城</strong>」。赤沢氏の本拠として、以後200年にわたって歴史の舞台となる城だ。</p>
+</div>
+
+<div class="ai-note">
+  <p><strong>塩崎城跡</strong>（長野市篠ノ井塩崎）— JR篠ノ井線・稲荷山駅から徒歩25分で登山口（長谷寺）。主郭まで約30分。石垣・土塁・堀切が良好に残る。特に主郭背後の三条堀切は見応えあり。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢朝経 -->
+<!-- ========================================== -->
+<div class="story" id="tomotsune">
+<div class="story-header">
+  <div class="story-era">MUROMACHI — 1451〜1507</div>
+  <div class="story-name">赤沢朝経 ― 信長より72年早く、比叡山を焼いた男</div>
+  <div class="story-reading">あかざわ ともつね / 澤蔵軒宗益</div>
+  <div class="story-tags"><span class="story-tag">比叡山焼き討ち</span><span class="story-tag">大和侵攻</span><span class="story-tag">将軍の弓道師範</span><span class="story-tag">細川政元の懐刀</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤澤一族、最大の「問題児」にして最大の英雄。</span></p>
+  <p>赤沢朝経は、幼名を愛王丸という。信濃の名門・赤沢氏に生まれ、小笠原流弓馬術の秘伝を身につけていた。しかしこの男の人生を変えたのは、信濃での暮らしではない。<strong>上洛</strong>だ。</p>
+  <p>信濃を離れ、京の政治の中心に飛び込んだ朝経は、管領・<strong>細川政元</strong>に弓術を教えたことがきっかけで家臣に取り立てられる。「外様の内衆」――本来の家臣ではないが、実力で中枢に食い込んだ男。学習院大学の家永遵嗣教授は朝経を<strong>「北条早雲を圧迫した立役者」</strong>と評している。</p>
+  <p>朝経は政元の「手足」として畿内を暴れ回った。その記録は凄まじい。</p>
+</div>
+
+<div class="pd-timeline">
+  <div class="pdt-item">
+    <div class="pdt-year">1499年 7月11日</div>
+    <div class="pdt-text"><strong>比叡山延暦寺を焼き討ち</strong>。根本中堂、大講堂、常行堂、法華堂……山上の主要伽藍をことごとく灰にした。織田信長の焼き討ちより<strong>72年も前</strong>のこと。大乗院門跡の尋尊は日記に「先代未聞の沙汰なり」と記した。</div>
+  </div>
+  <div class="pdt-item">
+    <div class="pdt-year">1499年 12月</div>
+    <div class="pdt-text"><strong>第一次大和侵攻</strong>。奈良に乱入し、興福寺から春日大社まで略奪。法華寺、西大寺、喜光寺を破壊。</div>
+  </div>
+  <div class="pdt-item">
+    <div class="pdt-year">1504年</div>
+    <div class="pdt-text"><strong>主君・政元に対して反乱</strong>。薬師寺元一と共謀して政権転覆を企てるも失敗。しかし政元は朝経の豪勇を惜しみ、<strong>助命して復帰させた</strong>。反乱しても殺せない男。それが朝経だった。</div>
+  </div>
+  <div class="pdt-item">
+    <div class="pdt-year">1506年</div>
+    <div class="pdt-text"><strong>第二次大和侵攻</strong>。筒井順賢を撃破し、討ち取った国人衆の<strong>首級131を京に送った</strong>。大和国を事実上の支配下に。</div>
+  </div>
+</div>
+
+<div class="narrative">
+  <p>一方で朝経は、足利将軍の<strong>弓道師範</strong>でもあった。武者所を兼任し、出家後は鷹狩の伝書『宗益相伝書』を残している。比叡山を焼き、寺社を破壊しながら、弓と鷹の道を極めた文武両道の男。矛盾を生きた人間だった。</p>
+</div>
+
+<div class="death-scene">
+  <p>永正4年（1507年）6月23日夜。朝経が丹後で一色義有と対陣している最中、京で事件が起きた。主君・細川政元が入浴中に暗殺されたのだ。</p>
+  <p>3日後、知らせを受けた朝経。直ちに京への撤退を決断するが、丹後の国人衆が政元の死を知って一斉に蜂起した。</p>
+  <p>包囲された朝経は、天橋立の南端にある<strong>九世戸の文殊堂</strong>（現・智恩寺、日本三文殊の一つ）に追い詰められた。</p>
+  <p><strong>永正4年6月26日、自刃。享年57。</strong></p>
+  <p>比叡山を焼き、大和を蹂躙し、将軍に弓を教え、主君に反乱し、主君に赦され、最後は天橋立の文殊堂で腹を切った。この男の57年間は、室町時代の混沌そのものだった。</p>
+</div>
+
+<div class="ai-note">
+  <p><strong>智恩寺（文殊堂）</strong>（京都府宮津市、天橋立の南端）— 朝経自刃の地。日本三文殊の一つ。現在も参拝可能。JR天橋立駅から徒歩約5分。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢政経 -->
+<!-- ========================================== -->
+<div class="story" id="masatsune">
+<div class="story-header">
+  <div class="story-era">MUROMACHI — 1467〜1512</div>
+  <div class="story-name">赤沢政経 ― 父の帝国が崩れた日</div>
+  <div class="story-reading">あかざわ まさつね</div>
+  <div class="story-tags"><span class="story-tag">伊豆守</span><span class="story-tag">河内防衛</span><span class="story-tag">信濃帰還</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">父が20年かけて築いた帝国は、2年で崩壊した。</span></p>
+  <p>赤沢政経は朝経の嫡子。父から赤沢氏の家督を受け継ぎ、河内の城の防衛を任されていた。畿内に広がる赤沢氏の権益――幕府料所、大和の所領、山城の守護代――その全てが政経の双肩にかかっていた。</p>
+  <p>永正4年（1507年）6月、父・朝経の自刃の知らせが届く。政経は河内の<strong>小野上城</strong>と<strong>高屋城</strong>に立て籠もり、畠山氏の反攻に必死に抵抗した。しかし翌永正5年8月12日、両城はついに陥落。政経は河内の全拠点を失った。</p>
+  <p>永正6年（1509年）、政経は畿内を離れ、<strong>故郷・信濃に帰還した</strong>。朝経が30代で信濃を出て築いた畿内の赤沢帝国は、跡形もなく消えた。</p>
+</div>
+
+<div class="death-scene">
+  <p>永正9年（1512年）8月5日、政経は<strong>飯沼館</strong>にて討死。享年46歳。誰に討たれたのか、何が原因だったのか、詳しい記録は残っていない。</p>
+  <p>しかし政経が信濃に戻ったことで、赤澤の血は信濃に回帰した。政経の息子・経智はまだ1歳だった。父の死を知ることもないこの赤子が、やがて赤沢氏の最大の遺産 ―― 弓馬術礼法の道統 ―― を守り抜くことになる。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢経智 -->
+<!-- ========================================== -->
+<div class="story" id="tsunetomo">
+<div class="story-header">
+  <div class="story-era">SENGOKU — 1511〜1574</div>
+  <div class="story-name">赤沢経智 ― 弓を守り抜いた男</div>
+  <div class="story-reading">あかざわ つねとも</div>
+  <div class="story-tags"><span class="story-tag">式部少輔</span><span class="story-tag">弓馬術道統の保護者</span><span class="story-tag">武田信玄の信濃侵攻</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤沢氏の歴史の中で、最も地味で、最も重要な人物かもしれない。</span></p>
+  <p>赤沢経智。父・政経が討死したとき、わずか1歳。幼い経智は小笠原氏宗家の庇護のもとで育ち、信濃守護・小笠原長時に仕えた。</p>
+  <p>天文17年（1548年）、塩尻峠の戦い。武田信玄と小笠原長時の決戦。小笠原軍は約1,000人が戦死する壊滅的な大敗。経智もこの戦場にいたと推定される。</p>
+  <p>天文19年（1550年）、武田軍が小笠原長時の居城・林城を攻略。経智は主君・長時とともに<strong>越後に逃亡</strong>した。松本から北へ、犀川、千曲川沿いに善光寺平を抜け、信越国境の山を越えて上杉謙信のもとへ。先祖が築いた塩崎城も、赤沢氏の所領も、全てを武田に奪われた。</p>
+  <p>越後からさらに京都へ。三好長慶を頼って上洛するも、永禄元年（1558年）、長男・<strong>長勝が京都・北白川の戦いで討死</strong>。後継者は三男の経直（のちの小笠原貞経）だけになった。</p>
+  <p>そんな中、永禄5年（1562年）、小笠原長時は一つの重大な決断を下す。信濃の所領は失われ、帰還の見込みもない。しかし先祖伝来の弓馬術礼法の伝統だけは、何としても残さなければならない。長時は経智の三男・経直に、小笠原流の<strong>「糾法的伝」</strong>（弓馬術の核心的秘伝）、系図、記録の全てを託した。</p>
+</div>
+
+<div class="death-scene">
+  <p>天正2年（1574年）7月、経智は越後・春日村にて死去。享年64。武田信玄はその前年に死去しており、信濃の情勢に変化の兆しが見えた時期だった。しかし経智はその変化を見届けることなく、異国の地で世を去った。</p>
+  <p>経智は城を築かなかった。戦場で首級を挙げることもなかった。しかし、この男がいなければ<strong>今日の弓馬術礼法小笠原教場は存在しない</strong>。信濃を追われ、越後を彷徨い、長男を失い、それでも弓の道を子に託し続けた。460年以上途切れることのない伝統は、この「地味な男」の忍耐の上に成り立っている。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 小笠原貞経 -->
+<!-- ========================================== -->
+<div class="story" id="sadatsune">
+<div class="story-header">
+  <div class="story-era">SENGOKU〜EDO — 1543〜1614</div>
+  <div class="story-name">小笠原貞経 ― 難民から将軍の師範へ</div>
+  <div class="story-reading">おがさわら さだつね（旧名：赤沢経直）</div>
+  <div class="story-tags"><span class="story-tag">旗本小笠原平兵衛家の祖</span><span class="story-tag">徳川家康拝謁</span><span class="story-tag">赤沢→小笠原復姓</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤沢経直は、名前を変えて歴史に復帰した。</span></p>
+  <p>父・経智の三男として生まれた経直は、7歳で信濃を追われ、越後、京都と流浪の日々を送った。長兄・長勝は京都の戦いで討死。家の命運は経直一人の肩にかかった。</p>
+  <p>永禄5年（1562年）、小笠原長時から弓馬術礼法の全てを託された。このとき経直は19歳。戦に明け暮れる時代に、弓と馬と礼の道統を守り抜くという、途方もない使命を負った。</p>
+  <p>父の死後、経直は遠く陸奥国の<strong>相馬氏</strong>に仕えた。相馬氏は「相馬野馬追」で知られる馬術の名門。弓馬の達人である経直を招いたのは自然なことだった。</p>
+  <p>経直は文化人ではなかった。相馬氏のもとで<strong>坂元城攻めの一番乗り</strong>、鎧作原の戦いでの首級 ―― 実戦で武功を重ねた。</p>
+  <p>関ヶ原の後、天下を掌握した徳川家康に拝謁。慶長9年（1604年）、2代将軍・秀忠に仕え、<strong>廩米500俵</strong>の旗本となる。そしてこのとき、「<strong>赤沢</strong>」の姓を捨て、「<strong>小笠原</strong>」に復姓した。小笠原流弓馬術礼法の正統な宗家であることを、天下に宣言するために。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>現代まで続く系譜</div>
+  <p>貞経が興した<strong>旗本小笠原平兵衛家</strong>は、江戸時代を通じて将軍家の騎射（流鏑馬など）の師範を務めた。8代将軍・徳川吉宗の命で流鏑馬を復興させたのも平兵衛家。明治維新後は縫殿助家が途絶え、<strong>平兵衛家が小笠原流の全てを継承</strong>。</p>
+  <p>現在の<strong>弓馬術礼法小笠原教場</strong>（世田谷区）は貞経の直系。第31世宗家・小笠原清忠氏が門下生約700名を率い、明治神宮、鶴岡八幡宮など全国10カ所以上で流鏑馬を奉納している。</p>
+  <p>難民から旗本へ。赤沢から小笠原へ。460年以上途切れることのない弓馬の道は、この男の決断から始まった。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢宗伝 -->
+<!-- ========================================== -->
+<div class="story" id="souden">
+<div class="story-header">
+  <div class="story-era">SENGOKU — ?〜1582</div>
+  <div class="story-name">赤沢宗伝 ― 草鞋の紐が切れた日</div>
+  <div class="story-reading">あかざわ そうでん / 信濃守</div>
+  <div class="story-tags"><span class="story-tag">阿波板西城主</span><span class="story-tag">3,000貫</span><span class="story-tag">赤沢家十二人衆</span><span class="story-tag">中富川の戦い</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">四国の地で、赤沢の名は最も激しく燃え、最も壮絶に散った。</span></p>
+  <p>赤沢宗伝。元は「小笠原宗伝」と称した男が、断絶していた板西城の赤沢家を継ぎ、「赤沢信濃守」と改名した。信濃の遠い血が、四国で復活した。</p>
+  <p>三好実休の姪を妻に迎え、<strong>3,000貫</strong>という大領を持ち、<strong>「赤沢家十二人衆」</strong>という精鋭家臣団を組織した宗伝は、阿波の一大勢力だった。板西城を中心に、新居城、犬伏城、椎本城、七条城……16の村に配された十二人衆は、宗伝の小さな王国そのものだった。</p>
+  <p>しかし時代は宗伝に味方しなかった。</p>
+</div>
+
+<div class="pd-timeline">
+  <div class="pdt-item">
+    <div class="pdt-year">1562年（永禄5年）</div>
+    <div class="pdt-text">主君・三好実休が久米田の戦いで討死。宗伝は深い悲しみの中で出家。しかし出家後も長治の補佐を続けた。</div>
+  </div>
+  <div class="pdt-item">
+    <div class="pdt-year">1573年（天正元年）</div>
+    <div class="pdt-text">盟友・篠原長房が自刃に追い込まれる。宗伝は嘆いた。「忠節な武士を討つことで三好の天下も終末が近い」。自身も攻撃を受け、高野山に3年間籠った。</div>
+  </div>
+  <div class="pdt-item">
+    <div class="pdt-year">1582年（天正10年）6月</div>
+    <div class="pdt-text">本能寺の変で信長死去。四国征伐が中止に。長宗我部元親が阿波への大侵攻を開始。</div>
+  </div>
+</div>
+
+<div class="death-scene">
+  <p>天正10年8月28日。<strong>中富川の合戦</strong>。</p>
+  <p>長宗我部軍23,000に対し、十河存保軍はわずか5,000。宗伝は約2,000の兵を率いて奮戦した。長宗我部軍は上流を堰き止めて放流する戦術を使い、数でも策でも圧倒してきた。</p>
+  <p>乱戦の中、宗伝は敵将と組み合い、激しく格闘していた。</p>
+  <p>そのとき、<strong>草鞋（わらじ）の紐が切れた</strong>。</p>
+  <p>たったそれだけのことだった。足元が崩れ、体勢を失った瞬間を突かれ、宗伝は討ち取られた。嫡子・鹿之丞、犬伏左近、坂東紀伊守……十二人衆の主要メンバーも次々と討死。三好方全体で名のある武将54人、兵800余が戦死。板西城は落城した。</p>
+  <p>この伝承から、宗伝の廟がある<strong>愛染院</strong>（板野町）には「足腰の病に霊験がある」という信仰が生まれた。戦場で草鞋の紐に命を奪われた武将が、今は足腰の守り神として祀られている。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>宗伝の遺した寺 ― 勝覚寺</div>
+  <p>宗伝の一子・正本法師は父の菩提を弔うため大坂で出家し、讃岐国に<strong>勝覚寺</strong>（香川県東かがわ市三本松）を開基した。四国唯一の閣寺院（「海暁閣」の称号）であり、幕末の名僧・赤沢融海や、鈴木大拙が天皇に紹介した妙好人・庄松同行など、多彩な人物を輩出している。</p>
+</div>
+
+<div class="ai-note">
+  <p><strong>愛染院</strong>（徳島県板野町）— 宗伝と将兵が祀られている。<strong>勝覚寺</strong>（香川県東かがわ市三本松426）— 宗伝の子・正本が開基した寺。現在も真宗興正派の寺院として現存。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 備中赤澤氏 -->
+<!-- ========================================== -->
+<div class="story" id="bitchu">
+<div class="story-header">
+  <div class="story-era">MUROMACHI〜EDO — 15世紀〜1615</div>
+  <div class="story-name">備中赤澤氏 ― 真田丸に散った一族</div>
+  <div class="story-reading">びっちゅう あかざわし</div>
+  <div class="story-tags"><span class="story-tag">鴨山城</span><span class="story-tag">森本松山城</span><span class="story-tag">細川野州家被官</span><span class="story-tag">大坂の陣</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">岡山の地で、もう一つの赤澤の物語があった。</span></p>
+  <p>信濃から遠く離れた備中国（岡山県西部）。応仁の乱の混乱期に、信濃出身の赤澤氏が<strong>細川野州家</strong>の重臣として浅口郡に入った。大正14年刊行の「浅口郡誌」には、鴨山城の家臣リストに<strong>赤澤兵庫</strong>（100石）、<strong>赤澤修理亮</strong>（20石）、<strong>赤澤四郎</strong>（15石）の三名が記録されている。</p>
+  <p>赤澤修理亮は<strong>加茂山城（井山城）</strong>の城主を務め、城跡は「修理殿」という通称で呼ばれるほどだった。赤澤氏は細川氏の「長臣」（重臣）として鴨方に屋敷を構え、<strong>森本松山城</strong>の城主を代々務めた。</p>
+  <p>忠説 → 政定（宗春）→ 宗栄 → 久助 → 宗照 → 連定……浅口郡誌に記された系譜が、備中赤澤氏の足跡を伝える。</p>
+</div>
+
+<div class="death-scene">
+  <p>慶長5年（1600年）、関ヶ原の戦い。主家の細川元通は西軍に属して敗北。鴨山城を失い、宗連は元通に従って長州へ。残りの一族は備中に取り残され、武士としての身分と知行を全て失った。</p>
+  <p>15年間の浪人生活。</p>
+  <p>そして慶長19年（1614年）、備中赤澤氏は最後の決断を下す。豊臣家の恩顧に報いるため、<strong>備中から大坂城に入城</strong>。真田信繁（幸村）の隊に、<strong>一族上げて所属した</strong>。</p>
+  <p>なぜ真田隊だったのか。一つの推測がある。赤澤氏の「本国は信州」。真田氏も信濃の武将。遠い故郷を同じくする者同士の絆が、最後の戦場で彼らを結びつけたのかもしれない。</p>
+  <p>慶長20年（1615年）5月、天王寺・岡山の決戦。真田信繁が家康本陣に突撃し、討死した。その隊に属していた備中赤澤氏も、<strong>多くが討死した</strong>と家伝は伝える。</p>
+  <p>鴨山城の家臣リストに名を連ね、加茂山城を「修理殿」の名で守り、森本松山城を代々受け継いだ一族。その最期は、大坂の野で真田の旗の下に散った。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤澤遠康 -->
+<!-- ========================================== -->
+<div class="story" id="toyasu">
+<div class="story-header">
+  <div class="story-era">EDO — 天保12年（1841年）</div>
+  <div class="story-name">赤澤遠康 ― 記録を残した男</div>
+  <div class="story-reading">あかざわ とおやす / 源右衛門</div>
+  <div class="story-tags"><span class="story-tag">RIOの直系祖先</span><span class="story-tag">天保12年の記録</span><span class="story-tag">信州赤沢氏</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">この男について、分かっていることはほとんどない。</span></p>
+  <p>赤澤遠康。通称・源右衛門。天保12年（1841年）に何らかの記録を残したことだけが、冊子「赤澤一族」に記されている。Web上の一次史料にも二次史料にも、遠康の名は見つからない。</p>
+  <p>しかし、そこにある「沈黙」こそが、この人物を特別にしている。</p>
+  <p>天保12年。<strong>天保の大飢饉</strong>（天保4〜10年）の爪痕がまだ残る時代。老中・水野忠邦が天保の改革に着手した年。松代藩では若き佐久間象山が頭角を現し始めていた。</p>
+  <p>そんな時代に、遠康は「記録」を残した。おそらくは家系図の書写、あるいは藩に提出する由緒書。一族のルーツを書き留めるという行為は、飢饉で世の中が不安定だった時代において、<strong>「自分たちが何者であるか」を後世に伝えようとした意志</strong>の表れだ。</p>
+  <p>「源右衛門」という通称。「源」の字は清和源氏の血統への誇り。「右衛門」は中級以上の武家の格式を示す通称。江戸後期の信州で、赤沢氏は武家としてのアイデンティティを維持していた。</p>
+  <p>松代藩の赤沢氏は安経が150石、経定が300石と記録されており、遠康もこの松代藩系赤沢氏の一族であった可能性が高い。</p>
+</div>
+
+<div class="narrative">
+  <p>遠康の「記録を残す」という行為は、180年以上後に思いがけない形で結実する。遠康から数世代を経た赤澤秀邦が、お寺を巡って赤澤家の調査を行い、その情報が昭和63年の冊子「赤澤一族」に結実した。そしてさらにその孫の世代が、AIの力を借りて令和版のデジタルブックを編纂している。</p>
+  <p>遠康がやったことと、RIOがやっていることは、<strong>本質的に同じ</strong>だ。「自分たちが何者であるか」を記録し、次の世代に渡す。その衝動は、180年の時を超えて直系の血の中に受け継がれている。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤澤秀邦 -->
+<!-- ========================================== -->
+<div class="story" id="hidekuni">
+<div class="story-header">
+  <div class="story-era">SHOWA — 20世紀</div>
+  <div class="story-name">赤澤秀邦 ― お寺を巡った祖父</div>
+  <div class="story-reading">あかざわ ひでくに</div>
+  <div class="story-tags"><span class="story-tag">RIOの祖父</span><span class="story-tag">東京神田→長野疎開</span><span class="story-tag">冊子に赤ペンメモ</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤澤秀邦は、東京・神田の人だった。</span></p>
+  <p>戦時中の疎開で東京を離れ、長野県に移った。そして晩年、一つの情熱に取り憑かれた。自分たちのルーツを知りたい。赤澤家はどこから来たのか。先祖はどんな人生を歩んだのか。</p>
+  <p>秀邦はお寺を巡った。過去帳を調べ、墓碑銘を読み、古い記録を探した。戦前生まれの人間にとって、家系調査はインターネットのない時代の作業だ。足で稼ぐしかなかった。電車に乗り、バスに揺られ、見知らぬ土地の寺院の門を叩く。住職に頭を下げ、過去帳を見せてもらい、一つ一つ手書きで写し取る。</p>
+  <p>昭和63年（1988年）、日本家系家紋研究所から「<strong>赤澤一族</strong>」が限定300部で発行された。秀邦はこの冊子に<strong>赤ペンで調査メモを書き加えた</strong>。年号一覧表の横に、家系図の人物名の横に、資料ページの空白に。丁寧だが力強い筆跡。それは、自分の調査の成果を後世に残そうとする意志の痕跡だった。</p>
+</div>
+
+<div class="gp-note">
+  秀邦が冊子に残したメモは、この令和版の各章に注釈として織り込まれている。手書きのメモが誰の手によるものか ―― それは秀邦自身。お寺を巡り、古い記録を読み解き、赤澤家の歴史を少しでも解き明かそうとした祖父の、確かな足跡。
+</div>
+
+<div class="narrative">
+  <p>秀邦は約10年前に他界した。孫のRIOとは、家系のことを深く語り合う時間はなかったかもしれない。</p>
+  <p>しかし秀邦が残した赤ペンのメモは、46ページの写真としてGoogle Driveに保存され、2026年、AIの力を借りて現代語に翻訳され、深掘り調査が加えられ、デジタルブックとして蘇った。</p>
+  <p>天保12年に記録を残した遠康。昭和にお寺を巡った秀邦。令和にAIで調査するRIO。三世代にわたる「自分たちのルーツを知りたい」という衝動。それが赤澤一族の、もう一つの血脈かもしれない。</p>
+</div>
+</div>
+
+<!-- ========================================== -->
+<!-- ページナビ -->
+<!-- ========================================== -->
+<div class="page-nav">
+  <a href="family-tree.html">← 家系図</a>
+  <a href="chapter4-branches.html">第4章 全国に広がる赤沢氏 →</a>
+</div>
+
+<div class="site-footer"><p>赤澤一族 令和版 — 2026年編纂</p></div>
+</div>
+</body>
+</html>
