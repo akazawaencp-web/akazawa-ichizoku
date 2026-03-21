@@ -47,7 +47,49 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 .site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:#bbb;margin-top:40px}
 .original-text{border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:18px 22px;margin:20px 0;font-size:13px;color:#999;line-height:1.9}
 .original-text::before{content:'原文';display:block;font-size:9px;font-weight:600;color:#bbb;letter-spacing:.1em;margin-bottom:6px}
-@media(max-width:600px){.chapter-title{font-size:24px}.card,.region-card{padding:20px}}
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content-wrap{padding:30px 16px 50px}
+  .chapter-title{font-size:26px}
+  .main-text{font-size:14px}
+  .card,.region-card{padding:22px}
+  .section-header h2{font-size:19px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content-wrap{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .chapter-header{margin-bottom:30px}
+  .chapter-num{font-size:9px}
+  .chapter-title{font-size:22px;letter-spacing:.05em}
+  .chapter-subtitle{font-size:12px}
+  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
+  .main-text p{margin-bottom:14px}
+  .section-header{margin:36px 0 16px}
+  .section-header h2{font-size:18px}
+  .section-header .section-num{font-size:9px}
+  .card{padding:16px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .card-title{font-size:12px}
+  .region-card{padding:18px;margin-bottom:20px}
+  .region-name{font-size:19px}
+  .region-modern{font-size:11px}
+  .region-body{font-size:13px;line-height:1.9}
+  .region-body h3{font-size:14px}
+  .region-body ul{padding-left:14px}
+  .pd-timeline{padding-left:22px}
+  .pdt-item::before{left:-19px;width:8px;height:8px}
+  .pdt-year{font-size:11px}
+  .pdt-text{font-size:12px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p,.ai-note li{font-size:12px}
+  .original-text{padding:14px 16px;margin:14px 0;font-size:12px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .site-footer{font-size:10px;padding:24px 0 16px}
+}
 </style>
 </head>
 <body>

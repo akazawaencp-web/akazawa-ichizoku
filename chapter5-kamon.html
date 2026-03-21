@@ -40,7 +40,47 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 .page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid rgba(0,0,0,.04)}
 .page-nav a{font-size:12px;color:#555;text-decoration:none}.page-nav a:hover{color:#1a1a1a}
 .site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:#bbb;margin-top:40px}
-@media(max-width:600px){.chapter-title{font-size:24px}.kamon-svg{width:150px;height:150px}}
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content-wrap{padding:30px 16px 50px}
+  .chapter-title{font-size:26px}
+  .main-text{font-size:14px}
+  .card{padding:22px}
+  .kamon-display{padding:40px 20px}
+  .kamon-svg{width:170px;height:170px}
+  .section-header h2{font-size:19px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content-wrap{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .chapter-header{margin-bottom:30px}
+  .chapter-num{font-size:9px}
+  .chapter-title{font-size:22px;letter-spacing:.05em}
+  .chapter-subtitle{font-size:12px}
+  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
+  .main-text p{margin-bottom:14px}
+  .section-header{margin:36px 0 16px}
+  .section-header h2{font-size:18px}
+  .section-header .section-num{font-size:9px}
+  .kamon-display{padding:30px 16px;margin:20px 0}
+  .kamon-svg{width:140px;height:140px;margin-bottom:16px}
+  .kamon-name{font-size:20px}
+  .kamon-desc{font-size:12px}
+  .card{padding:16px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .card-title{font-size:12px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p{font-size:12px}
+  .grandpa-note{padding:14px 16px;margin:14px 0}
+  .grandpa-note p{font-size:12px}
+  .original-text{padding:14px 16px;margin:14px 0;font-size:12px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .site-footer{font-size:10px;padding:24px 0 16px}
+}
 </style>
 </head>
 <body>

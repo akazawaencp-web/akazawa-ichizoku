@@ -91,12 +91,62 @@ body{font-family:'Noto Sans JP','Inter',sans-serif;background:var(--bg);color:va
 .page-nav a:hover{text-decoration:underline}
 .site-footer{text-align:center;padding:40px 0 20px;font-size:11px;color:var(--tx3);border-top:1px solid var(--bd);margin-top:40px}
 
-@media(max-width:600px){
-  .chapter-title{font-size:24px}
-  .ft-row{flex-direction:column}
-  .ft-person{min-width:auto;width:100%}
-  .person-detail{padding:20px}
-  .pd-name{font-size:20px}
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content-wrap{max-width:100%;padding:30px 16px 50px}
+  .chapter-title{font-size:26px}
+  .main-text{font-size:14px}
+  .ft-person{min-width:120px;padding:8px 14px}
+  .ft-name{font-size:13px}
+  .person-detail{padding:24px}
+  .pd-name{font-size:22px}
+  .card{padding:20px 22px}
+  .section-header h2{font-size:20px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content-wrap{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .chapter-header{margin-bottom:30px;padding-bottom:14px}
+  .chapter-num{font-size:10px}
+  .chapter-title{font-size:22px;letter-spacing:.03em;margin-bottom:4px}
+  .chapter-subtitle{font-size:12px}
+  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
+  .section-header{margin:36px 0 16px;padding-bottom:8px}
+  .section-header h2{font-size:18px}
+  .section-header .section-num{font-size:9px}
+  .ft-container{padding:12px 0}
+  .ft-generation{margin-bottom:20px}
+  .ft-gen-label{font-size:10px}
+  .ft-row{flex-direction:column;gap:8px}
+  .ft-person{min-width:auto;width:100%;padding:10px 14px}
+  .ft-name{font-size:13px}
+  .ft-role{font-size:9px}
+  .ft-connector{height:14px;margin:0 auto 0 30px}
+  .person-detail{padding:18px;border-radius:10px;border-left-width:3px}
+  .pd-name{font-size:18px}
+  .pd-reading{font-size:11px;margin-bottom:10px}
+  .pd-tags{gap:4px;margin-bottom:12px}
+  .pd-tag{font-size:9px;padding:2px 8px}
+  .pd-body{font-size:13px;line-height:1.9}
+  .pd-body h3{font-size:14px}
+  .pd-body ul{padding-left:16px}
+  .pd-relation{font-size:11px}
+  .pd-timeline{padding-left:20px}
+  .pdt-item::before{left:-18px;width:7px;height:7px}
+  .pdt-year{font-size:10px}
+  .pdt-text{font-size:12px}
+  .grandpa-note{padding:14px 16px;margin:12px 0}
+  .grandpa-note p{font-size:12px}
+  .ai-note{padding:14px 16px;margin:12px 0}
+  .ai-note p,.ai-note li{font-size:12px}
+  .card{padding:16px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .site-footer{font-size:10px;padding:24px 0 16px}
 }
 </style>
 </head>

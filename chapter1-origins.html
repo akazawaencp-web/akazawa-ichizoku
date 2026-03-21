@@ -47,7 +47,40 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 .page-nav a{font-size:12px;color:var(--tx2);text-decoration:none}
 .page-nav a:hover{color:var(--tx)}
 .footer{text-align:center;padding:30px 0 20px;font-size:11px;color:var(--tx4);margin-top:40px}
-@media(max-width:600px){.ch-title{font-size:24px}.card{padding:18px 20px}}
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content{padding:30px 16px 50px}
+  .ch-title{font-size:26px}
+  .main-text{font-size:14px}
+  .card{padding:20px 22px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .ch-header{margin-bottom:30px}
+  .ch-num{font-size:9px}
+  .ch-title{font-size:22px;letter-spacing:.05em}
+  .ch-sub{font-size:12px}
+  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
+  .main-text p{margin-bottom:14px}
+  .card{padding:16px;border-radius:10px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .card-title{font-size:12px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p{font-size:12px}
+  .ai-label{font-size:9px}
+  .original{padding:14px 16px;margin:14px 0}
+  .original p{font-size:12px;line-height:1.8}
+  .original-label{font-size:8px}
+  .toggle-btn{padding:12px 0;font-size:12px}
+  .toggle-inner{font-size:13px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .footer{font-size:10px;padding:24px 0 16px}
+}
 </style>
 </head>
 <body>
