@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイムラインスクロール体験 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;
+  --tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;
+  --bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);
+  --glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);
+  --blur:blur(12px);
+  --sh:0 2px 12px rgba(0,0,0,.03);
+  --sh2:0 4px 20px rgba(0,0,0,.04);
+  --gold:#8b6914;--gold-light:#c4a060;--gold-bg:rgba(139,105,20,.06);
+  --warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40;
+  --timeline-px-per-year: 6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* Breadcrumb */
+.breadcrumb{max-width:1000px;margin:0 auto;padding:20px 20px 0;font-size:12px;color:var(--tx3)}
+.breadcrumb a{color:var(--tx3);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--tx)}
+.breadcrumb span{margin:0 6px;color:var(--tx4)}
+
+/* Page header */
+.page-header{max-width:1000px;margin:0 auto;padding:40px 20px 20px;text-align:center}
+.page-header h1{font-family:'Shippori Mincho',serif;font-size:32px;font-weight:500;letter-spacing:.12em;color:var(--tx);margin-bottom:8px}
+.page-header .subtitle{font-size:13px;color:var(--tx2);line-height:1.8;max-width:600px;margin:0 auto 16px}
+.page-header .year-range{font-family:'Shippori Mincho',serif;font-size:14px;color:var(--gold);font-weight:600;letter-spacing:.1em}
+.header-line{width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold-light),var(--gold),var(--gold-light),transparent);margin:20px auto 0}
+
+/* Era nav */
+.era-nav{max-width:1000px;margin:24px auto 0;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.era-btn{font-size:11px;padding:6px 14px;border-radius:20px;border:1px solid var(--bd);background:var(--glass);color:var(--tx2);cursor:pointer;transition:all .2s;text-decoration:none;white-space:nowrap}
+.era-btn:hover,.era-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+/* Progress indicator */
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:1000;width:0;transition:width .1s}
+
+/* Current year indicator */
+.current-year-indicator{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:999;text-align:right;pointer-events:none;transition:opacity .3s}
+.current-year-indicator .year-display{font-family:'Shippori Mincho',serif;font-size:48px;font-weight:700;color:var(--gold);opacity:.15;line-height:1}
+.current-year-indicator .era-display{font-size:11px;color:var(--tx4);margin-top:2px}
+
+/* Timeline container */
+.timeline-container{max-width:1000px;margin:40px auto 0;padding:0 20px 80px;position:relative}
+
+/* Timeline trunk */
+.timeline-trunk{position:relative;padding-left:100px;min-height:100px}
+
+/* The vertical line */
+.timeline-trunk::before{
+  content:'';position:absolute;left:80px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,transparent,var(--gold-light) 40px,var(--gold-light) calc(100% - 40px),transparent);
+}
+
+/* Year markers (left side) */
+.year-marker{
+  position:absolute;left:0;width:72px;text-align:right;
+  font-family:'Shippori Mincho',serif;font-size:11px;font-weight:700;
+  color:var(--gold);letter-spacing:.02em;line-height:1;
+  transform:translateY(-50%);
+}
+.year-marker.century{font-size:13px;color:var(--gold-light);font-weight:400}
+
+/* Event cards */
+.tl-event{
+  position:absolute;left:100px;right:0;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.tl-event.visible{opacity:1;transform:translateY(0)}
+
+/* Dot on the line */
+.tl-event::before{
+  content:'';position:absolute;left:-26px;top:14px;
+  width:10px;height:10px;border-radius:50%;
+  border:3px solid var(--bg1);z-index:2;
+}
+/* Family events: gold thick dot */
+.tl-event.family::before{background:var(--gold);box-shadow:0 0 0 3px var(--gold-bg)}
+.tl-event.family::after{
+  content:'';position:absolute;left:-22px;top:0;bottom:0;width:2px;
+  background:transparent;
+}
+/* History events: gray dot */
+.tl-event.history::before{background:var(--tx4);border-color:var(--bg2)}
+
+/* Card styling */
+.event-card{
+  background:var(--glass);border:1px solid var(--bd2);border-radius:12px;
+  backdrop-filter:var(--blur);box-shadow:var(--sh);
+  padding:16px 20px;position:relative;overflow:hidden;
+  transition:box-shadow .3s,transform .3s;
+}
+.event-card:hover{box-shadow:var(--sh2);transform:translateX(4px)}
+
+.tl-event.family .event-card{border-left:3px solid var(--gold)}
+.tl-event.history .event-card{border-left:2px solid var(--tx4);opacity:.85}
+
+.event-year{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.02em;margin-bottom:2px}
+.tl-event.history .event-year{color:var(--tx3)}
+
+.event-title{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px;line-height:1.5}
+.event-desc{font-size:13px;color:var(--tx2);line-height:1.8}
+.event-tag{display:inline-block;font-size:9px;padding:2px 8px;border-radius:10px;margin-top:6px;letter-spacing:.02em}
+.event-tag.tag-family{background:var(--gold-bg);color:var(--gold)}
+.event-tag.tag-history{background:rgba(0,0,0,.04);color:var(--tx3)}
+
+/* Century dividers */
+.century-divider{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--bd),transparent);
+}
+.century-label{
+  position:absolute;left:0;font-size:10px;color:var(--tx4);
+  letter-spacing:.08em;transform:translateY(-50%);
+}
+
+/* Bottom nav */
+.bottom-nav{max-width:1000px;margin:0 auto;padding:20px 20px 40px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.nav-link{
+  display:flex;align-items:center;gap:8px;
+  text-decoration:none;color:var(--tx2);font-size:13px;
+  padding:12px 20px;border-radius:12px;
+  background:var(--glass);border:1px solid var(--bd2);
+  backdrop-filter:var(--blur);transition:all .25s;
+}
+.nav-link:hover{background:var(--glass2);box-shadow:var(--sh2);transform:translateY(-2px)}
+.nav-link .arrow{font-size:16px;color:var(--tx4)}
+
+/* Footer */
+.footer{text-align:center;padding:40px 0 24px;font-size:11px;color:var(--tx4);border-top:1px solid var(--bd2);max-width:1000px;margin:0 auto}
+
+/* Back to top */
+.back-to-top{
+  position:fixed;bottom:24px;right:24px;width:44px;height:44px;
+  border-radius:50%;background:var(--glass2);border:1px solid var(--bd2);
+  backdrop-filter:var(--blur);box-shadow:var(--sh);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;opacity:0;pointer-events:none;transition:all .3s;z-index:998;
+  font-size:16px;color:var(--tx3);
+}
+.back-to-top.show{opacity:1;pointer-events:auto}
+.back-to-top:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .page-header h1{font-size:26px;letter-spacing:.08em}
+  .page-header .subtitle{font-size:12px}
+  .timeline-trunk{padding-left:80px}
+  .timeline-trunk::before{left:60px}
+  .tl-event{left:80px}
+  .tl-event::before{left:-26px}
+  .year-marker{width:52px;font-size:10px}
+  .event-card{padding:14px 16px}
+  .event-title{font-size:14px}
+  .event-desc{font-size:12px}
+  .current-year-indicator .year-display{font-size:36px}
+  .era-nav{gap:6px}
+  .era-btn{font-size:10px;padding:5px 10px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .breadcrumb{padding:14px 12px 0;font-size:11px}
+  .page-header{padding:24px 12px 16px}
+  .page-header h1{font-size:22px;letter-spacing:.06em}
+  .page-header .subtitle{font-size:11px}
+  .timeline-container{padding:0 12px 60px}
+  .timeline-trunk{padding-left:60px}
+  .timeline-trunk::before{left:44px;width:1.5px}
+  .tl-event{left:60px}
+  .tl-event::before{left:-22px;top:12px;width:8px;height:8px}
+  .year-marker{width:38px;font-size:9px}
+  .year-marker.century{font-size:10px}
+  .event-card{padding:12px 14px;border-radius:10px}
+  .event-title{font-size:13px}
+  .event-desc{font-size:11px;line-height:1.7}
+  .current-year-indicator{right:10px}
+  .current-year-indicator .year-display{font-size:28px}
+  .era-nav{gap:4px;padding:0 12px}
+  .era-btn{font-size:9px;padding:4px 8px}
+  .bottom-nav{padding:16px 12px 30px;flex-direction:column}
+  .nav-link{width:100%;justify-content:center}
+  .back-to-top{bottom:16px;right:16px;width:38px;height:38px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="current-year-indicator" id="yearIndicator">
+  <div class="year-display" id="yearDisplay">850</div>
+  <div class="era-display" id="eraDisplay"></div>
+</div>
+
+<nav class="breadcrumb">
+  <a href="index.html">赤澤一族 令和版</a><span>→</span>タイムライン
+</nav>
+
+<header class="page-header">
+  <h1>千年の軌跡</h1>
+  <p class="subtitle">清和天皇の治世から令和の現在まで、1176年の歴史を縦スクロールで体感する。スクロールの長さが、そのまま時間の重みになる。</p>
+  <div class="year-range">850 ― 2026</div>
+  <div class="header-line"></div>
+</header>
+
+<nav class="era-nav">
+  <a class="era-btn" href="#y850">平安</a>
+  <a class="era-btn" href="#y1185">鎌倉</a>
+  <a class="era-btn" href="#y1335">南北朝</a>
+  <a class="era-btn" href="#y1467">室町</a>
+  <a class="era-btn" href="#y1548">戦国</a>
+  <a class="era-btn" href="#y1600">江戸</a>
+  <a class="era-btn" href="#y1868">近代</a>
+  <a class="era-btn" href="#y1940">現代</a>
+</nav>
+
+<div class="timeline-container">
+  <div class="timeline-trunk" id="timelineTrunk">
+    <!-- Events are generated by JS -->
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a class="nav-link" href="stories.html">
+    <span class="arrow">&larr;</span>人物伝
+  </a>
+  <a class="nav-link" href="family-tree.html">
+    家系図<span class="arrow">&rarr;</span>
+  </a>
+</nav>
+
+<footer class="footer">赤澤一族 令和版 &mdash; 2026年編纂</footer>
+
+<div class="back-to-top" id="backToTop" title="トップへ戻る">&uarr;</div>
+
+<script>
+(function(){
+  // === Data ===
+  const PX_PER_YEAR = 6;
+  const START_YEAR = 850;
+  const END_YEAR = 2026;
+
+  const events = [
+    {year:850, title:"清和天皇の治世", desc:"源氏の祖。清和天皇の血統から、やがて武家源氏が生まれる。赤澤家1176年の物語はここから始まる。", type:"family"},
+    {year:914, title:"源経基（六孫王）誕生", desc:"清和天皇の孫。臣籍降下して「源」姓を賜り、武家源氏の祖となった。", type:"family"},
+    {year:938, title:"経基、武蔵介として赴任", desc:"武蔵国で平将門との紛争が勃発。将門の乱の端緒となり、経基は武人としての道を歩み始める。", type:"family"},
+    {year:969, title:"安和の変", desc:"源満仲が密告により藤原氏の政争に介入。摂津多田に拠点を築き、清和源氏の武門としての基盤を固めた。", type:"family"},
+    {year:997, title:"源満仲没", desc:"摂津源氏の祖。多田荘を本拠とし、清和源氏を武家棟梁の家柄に押し上げた。", type:"family"},
+    {year:1021, title:"源頼光没", desc:"酒呑童子退治の英雄として名高い。四天王を従え、摂津源氏の武名を天下に轟かせた。", type:"family"},
+    {year:1048, title:"源頼信没", desc:"河内源氏の祖。平忠常の乱を鎮圧し、東国武士団との絆を築いた。赤澤家に繋がる河内源氏の出発点。", type:"family"},
+    {year:1051, title:"前九年の役 開始", desc:"源頼義が陸奥国の安倍氏討伐に出陣。12年に及ぶ戦いで、源氏は東国の武家棟梁としての地位を確立する。", type:"family"},
+    {year:1083, title:"後三年の役", desc:"源義光、兄・義家の苦戦を聞いて官職を捨てて駆けつける。足柄山での兄弟の別れは後世に語り継がれた。甲斐源氏・小笠原氏の祖。", type:"family"},
+    {year:1127, title:"源義光没", desc:"新羅三郎義光。笙の秘曲を足柄山で豊原時秋に授けた逸話は有名。その血脈は甲斐へ、そして信州へ。", type:"family"},
+    {year:1162, title:"小笠原長清 誕生", desc:"弓馬術の名手。源平合戦で功を挙げ、信濃小笠原氏の祖となる。赤沢氏はこの小笠原家から分かれた。", type:"family"},
+    {year:1185, title:"壇ノ浦の戦い", desc:"源平合戦の最終決戦。平家滅亡。この勝利が鎌倉幕府への道を開いた。", type:"history"},
+    {year:1192, title:"鎌倉幕府成立", desc:"源頼朝が征夷大将軍に就任。武家政権の時代が始まる。", type:"history"},
+    {year:1205, title:"小笠原長清、信濃守護に", desc:"信濃国を治める守護に任じられ、小笠原氏は信州に深く根を下ろす。弓馬術礼法の家として武門の格式を確立。", type:"family"},
+    {year:1250, title:"赤沢清経、赤沢氏の誕生", desc:"小笠原氏の一族が信州赤沢の地名を名乗り、赤沢氏が誕生。ここから「赤沢」の名が歴史に刻まれ始める。", type:"family"},
+    {year:1335, title:"中先代の乱", desc:"赤沢常興が塩崎城を築城。北条氏残党の蜂起に際し、信州に独自の拠点を構えた。赤沢氏の武家としての自立。", type:"family"},
+    {year:1467, title:"応仁の乱 開始", desc:"京都を焼き尽くした11年の大乱。室町幕府の権威は地に落ち、下克上の戦国時代へと突入する。", type:"history"},
+    {year:1499, title:"赤沢朝経、比叡山を焼く", desc:"管領・細川政元の右腕として畿内を席巻。信長より72年も前に比叡山を焼き討ちした、赤沢家最大の英雄にして悪名高き武将。", type:"family"},
+    {year:1507, title:"赤沢朝経、丹後で自刃", desc:"享年57歳。永正の錯乱で主君・細川政元が暗殺された後、丹後で包囲され自刃。畿内に覇を唱えた男の最期。", type:"family"},
+    {year:1512, title:"赤沢政経、飯沼館で討死", desc:"朝経の死後、一族の再起を図るも飯沼館で討死。赤沢宗家の畿内での栄華はここで幕を閉じる。", type:"family"},
+    {year:1548, title:"塩尻峠の戦い", desc:"小笠原長時が武田信玄に大敗。信州小笠原氏は居城・林城を失い、一族は四散する。赤沢氏にとっても運命の分岐点。", type:"family"},
+    {year:1550, title:"赤沢経智、越後に逃亡", desc:"武田信玄の信州侵攻により故地を追われ、越後の上杉謙信のもとへ。故郷を失った一族の苦渋の選択。", type:"family"},
+    {year:1562, title:"小笠原流弓馬術道統の授与", desc:"戦乱の中でも弓馬術の伝統は途絶えなかった。小笠原一族の矜持を示す文化の継承。", type:"family"},
+    {year:1571, title:"信長の比叡山焼き討ち", desc:"織田信長が延暦寺を焼き討ち。赤沢朝経が72年前に同じことをしていた事実は、朝経の先見性と苛烈さを物語る。", type:"history"},
+    {year:1574, title:"赤沢経智没", desc:"越後の地で没す。故郷・信州に帰ることは叶わなかった。戦国の嵐に翻弄された一族の悲哀。", type:"family"},
+    {year:1582, title:"本能寺の変 / 中富川の合戦", desc:"本能寺で信長が倒れたその年、阿波では赤沢宗伝が合戦に臨む。出陣の際に草鞋の紐が切れ——不吉な予兆の通り、討死。", type:"family"},
+    {year:1600, title:"関ヶ原の戦い", desc:"天下分け目の合戦。備中赤澤氏は西軍に属し、鴨山城を失う。一族の命運を賭けた選択の結果。", type:"family"},
+    {year:1604, title:"小笠原貞経、徳川家康に仕える", desc:"500俵を拝領し、徳川の世で小笠原一族は新たな道を歩み始める。戦国の終わりと太平の始まり。", type:"family"},
+    {year:1615, title:"大坂の陣", desc:"備中赤澤氏の一族が真田隊に加わり討死。大坂城落城とともに、戦国最後の戦いに散った赤澤の血。", type:"family"},
+    {year:1724, title:"流鏑馬復興", desc:"8代将軍吉宗の命で流鏑馬が復興される。小笠原流弓馬術の伝統が太平の世に蘇る。", type:"family"},
+    {year:1841, title:"赤澤遠康が記録を残す", desc:"天保12年。源右衛門・遠康が一族の系譜を記録に残した。この記録がなければ、赤澤家のルーツは闇の中だった。", type:"family"},
+    {year:1868, title:"明治維新", desc:"武家の世が終わり、近代国家が始まる。260年の太平から激動の時代へ。", type:"history"},
+    {year:1940, title:"赤澤秀邦、東京から長野へ疎開", desc:"東京神田に生まれ育った秀邦が、戦時疎開で長野へ。東京の赤澤家が信州に「帰還」する不思議な巡り合わせ。", type:"family"},
+    {year:1988, title:"「赤澤一族」冊子発行", desc:"日本家系協会により限定300部が発行された。秀邦が赤ペンで書き込んだ調査メモは、孫の世代への無言のメッセージ。", type:"family"},
+    {year:2026, title:"「赤澤一族 令和版」編纂", desc:"1176年の時を超えて、祖父の遺志を継ぎ、AIの力も借りながら一族の歴史を紐解く。過去と未来を繋ぐ、令和の挑戦。", type:"family"}
+  ];
+
+  // === Calculate positions ===
+  const totalHeight = (END_YEAR - START_YEAR) * PX_PER_YEAR;
+  const trunk = document.getElementById('timelineTrunk');
+  trunk.style.height = totalHeight + 'px';
+
+  // Century markers
+  for(let c = 900; c <= 2000; c += 100){
+    const top = (c - START_YEAR) * PX_PER_YEAR;
+    // Divider line
+    const div = document.createElement('div');
+    div.className = 'century-divider';
+    div.style.top = top + 'px';
+    trunk.appendChild(div);
+    // Label
+    const lbl = document.createElement('div');
+    lbl.className = 'year-marker century';
+    lbl.style.top = top + 'px';
+    lbl.textContent = c + '年';
+    trunk.appendChild(lbl);
+  }
+
+  // Place events
+  // Track card positions to avoid overlap
+  const cardPositions = [];
+  const MIN_CARD_GAP = 100; // minimum px between cards
+
+  events.forEach(function(ev){
+    let top = (ev.year - START_YEAR) * PX_PER_YEAR;
+
+    // Avoid overlap: push down if too close to previous
+    for(let i = 0; i < cardPositions.length; i++){
+      if(Math.abs(top - cardPositions[i]) < MIN_CARD_GAP){
+        top = cardPositions[i] + MIN_CARD_GAP;
+      }
+    }
+    cardPositions.push(top);
+
+    // Year marker on left
+    const ym = document.createElement('div');
+    ym.className = 'year-marker';
+    ym.style.top = top + 14 + 'px'; // align with dot
+    ym.textContent = ev.year + (ev.year === 1250 ? '頃' : '');
+    ym.id = 'y' + ev.year;
+    trunk.appendChild(ym);
+
+    // Event card
+    const el = document.createElement('div');
+    el.className = 'tl-event ' + ev.type;
+    el.style.top = top + 'px';
+    el.dataset.year = ev.year;
+
+    const tagClass = ev.type === 'family' ? 'tag-family' : 'tag-history';
+    const tagText = ev.type === 'family' ? '赤澤家' : '日本史';
+
+    el.innerHTML =
+      '<div class="event-card">' +
+        '<div class="event-year">' + ev.year + '年' + (ev.year === 1250 ? '頃' : '') + '</div>' +
+        '<div class="event-title">' + ev.title + '</div>' +
+        '<div class="event-desc">' + ev.desc + '</div>' +
+        '<span class="event-tag ' + tagClass + '">' + tagText + '</span>' +
+      '</div>';
+
+    trunk.appendChild(el);
+  });
+
+  // === IntersectionObserver for fade-in ===
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {threshold:0.1, rootMargin:'0px 0px -60px 0px'});
+
+  document.querySelectorAll('.tl-event').forEach(function(el){
+    observer.observe(el);
+  });
+
+  // === Progress bar ===
+  const progressBar = document.getElementById('progressBar');
+  const yearDisplay = document.getElementById('yearDisplay');
+  const eraDisplay = document.getElementById('eraDisplay');
+  const yearIndicator = document.getElementById('yearIndicator');
+  const backToTop = document.getElementById('backToTop');
+
+  function getEra(y){
+    if(y < 1185) return '平安時代';
+    if(y < 1333) return '鎌倉時代';
+    if(y < 1392) return '南北朝時代';
+    if(y < 1467) return '室町時代';
+    if(y < 1573) return '戦国時代';
+    if(y < 1603) return '安土桃山';
+    if(y < 1868) return '江戸時代';
+    if(y < 1912) return '明治';
+    if(y < 1926) return '大正';
+    if(y < 1989) return '昭和';
+    if(y < 2019) return '平成';
+    return '令和';
+  }
+
+  function onScroll(){
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+
+    // Progress bar
+    progressBar.style.width = (scrollPercent * 100) + '%';
+
+    // Current year calculation based on timeline position
+    var trunkRect = trunk.getBoundingClientRect();
+    var trunkTop = trunkRect.top + scrollTop;
+    var relativeScroll = scrollTop - trunkTop + window.innerHeight * 0.5;
+    var yearProgress = relativeScroll / totalHeight;
+    yearProgress = Math.max(0, Math.min(1, yearProgress));
+    var currentYear = Math.round(START_YEAR + yearProgress * (END_YEAR - START_YEAR));
+
+    yearDisplay.textContent = currentYear;
+    eraDisplay.textContent = getEra(currentYear);
+
+    // Show/hide indicator
+    if(scrollTop > 300){
+      yearIndicator.style.opacity = '1';
+      backToTop.classList.add('show');
+    } else {
+      yearIndicator.style.opacity = '0';
+      backToTop.classList.remove('show');
+    }
+
+    // Update active era button
+    var btns = document.querySelectorAll('.era-btn');
+    btns.forEach(function(b){ b.classList.remove('active') });
+    var era = getEra(currentYear);
+    var eraMap = {'平安':0,'鎌倉':1,'南北朝':2,'室町':3,'戦国':4,'安土桃山':4,'江戸':5,'明治':6,'大正':6,'昭和':7,'平成':7,'令和':7};
+    var idx = eraMap[era.replace('時代','')];
+    if(idx !== undefined && btns[idx]) btns[idx].classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Back to top
+  backToTop.addEventListener('click', function(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // Smooth scroll for era nav
+  document.querySelectorAll('.era-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if(target){
+        var top = target.getBoundingClientRect().top + window.pageYOffset - 100;
+        window.scrollTo({top:top, behavior:'smooth'});
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

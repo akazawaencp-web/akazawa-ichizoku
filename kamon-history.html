@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家紋の変遷 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+.content-wrap{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:12px;color:#999;margin-bottom:30px}.breadcrumb a{color:#555;text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
+
+/* Chapter Header */
+.chapter-header{margin-bottom:40px;padding-bottom:16px}
+.chapter-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:#999;margin-bottom:6px}
+.chapter-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:#1a1a1a;letter-spacing:.1em}
+.chapter-subtitle{font-size:13px;color:#999;margin-top:6px}
+
+/* Main Text */
+.main-text{font-size:15px;line-height:2.2;color:#555;margin-bottom:28px}.main-text p{margin-bottom:18px;text-indent:1em}.main-text strong{color:#1a1a1a}
+
+/* Section Headers */
+.section-header{margin:50px 0 20px;padding-bottom:10px}
+.section-header h2{font-family:'Shippori Mincho',serif;font-size:21px;font-weight:500;color:#1a1a1a}
+.section-header .section-num{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.1em;margin-bottom:4px}
+
+/* Card */
+.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.card-title{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+.card p,.card li{font-size:14px;color:#555;line-height:1.9}.card ul{padding-left:18px}.card li{margin-bottom:6px}.card strong{color:#1a1a1a}
+
+/* Original Text */
+.original-text{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);padding:18px 22px;margin:20px 0;font-size:13px;color:#999;line-height:1.9;border-radius:10px}
+.original-text::before{content:'原文';display:block;font-size:9px;font-weight:600;color:#bbb;letter-spacing:.1em;margin-bottom:6px}
+
+/* AI Note */
+.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:20px 24px;margin:20px 0}
+.ai-note::before{content:'深掘り調査';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
+.ai-note p,.ai-note li{font-size:13px;color:#444;line-height:1.9}
+
+/* ===== Kamon Timeline ===== */
+.kamon-timeline{position:relative;padding:40px 0 20px}
+.kamon-timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#7a5a20,#c4a060,#8b6914);border-radius:2px;transform:translateX(-50%)}
+
+.kamon-node{position:relative;display:flex;align-items:flex-start;margin-bottom:60px;opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.kamon-node.visible{opacity:1;transform:translateY(0)}
+.kamon-node:nth-child(odd){flex-direction:row}
+.kamon-node:nth-child(even){flex-direction:row-reverse}
+
+.kamon-node::before{content:'';position:absolute;left:50%;top:24px;width:16px;height:16px;border-radius:50%;background:#8b6914;border:3px solid #f2f1ee;transform:translateX(-50%);z-index:2;box-shadow:0 0 0 4px rgba(139,105,20,.15)}
+
+.kamon-svg-wrap{flex:0 0 140px;display:flex;flex-direction:column;align-items:center;padding:0 20px}
+.kamon-svg-wrap svg{width:100px;height:100px;margin-bottom:8px}
+.kamon-label{font-family:'Shippori Mincho',serif;font-size:14px;font-weight:500;color:#1a1a1a;text-align:center;white-space:nowrap}
+
+.kamon-detail{flex:1;max-width:calc(50% - 90px);padding:16px 24px;background:#fff;border:1px solid rgba(0,0,0,.06);border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.kamon-detail h3{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:500;color:#1a1a1a;margin-bottom:6px}
+.kamon-era{font-size:11px;font-weight:600;color:#8b6914;letter-spacing:.04em;margin-bottom:8px}
+.kamon-detail p{font-size:13px;color:#555;line-height:1.9}
+.kamon-detail .kamon-meaning{margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06);font-size:12px;color:#888;line-height:1.8}
+.kamon-detail .kamon-meaning strong{color:#666}
+
+/* ===== Hero Kamon Display ===== */
+.hero-kamon{text-align:center;padding:40px 30px 50px;margin-bottom:10px}
+.hero-kamon-svg{width:200px;height:200px;margin:0 auto 20px}
+.hero-kamon-svg svg{width:100%;height:100%;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.5s cubic-bezier(.4,0,.2,1) .3s forwards}
+@keyframes draw{0%{stroke-dashoffset:1400}100%{stroke-dashoffset:0}}
+.hero-kamon-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;color:#1a1a1a;margin-bottom:8px}
+.hero-kamon-desc{font-size:14px;color:#888}
+
+/* ===== Flow Chart ===== */
+.flow-chart{display:flex;flex-direction:column;align-items:center;gap:0;margin:30px 0 40px}
+.flow-item{display:flex;align-items:center;gap:16px;padding:14px 24px;background:#fff;border:1px solid rgba(0,0,0,.06);width:100%;max-width:600px;transition:transform .2s,box-shadow .2s}
+.flow-item:hover{transform:translateX(4px);box-shadow:0 4px 16px rgba(40,30,20,.06)}
+.flow-item svg{flex-shrink:0;width:48px;height:48px}
+.flow-info{flex:1}
+.flow-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;color:#1a1a1a}
+.flow-desc{font-size:12px;color:#888;margin-top:2px}
+.flow-arrow{display:flex;justify-content:center;padding:4px 0}
+.flow-arrow svg{width:24px;height:24px}
+
+/* Kamon Grid */
+.kamon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin:24px 0 30px}
+.kamon-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:24px;box-shadow:0 4px 20px rgba(40,30,20,.04);transition:transform .2s,box-shadow .2s}
+.kamon-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(40,30,20,.08)}
+.kamon-card-svg{text-align:center;margin-bottom:14px}
+.kamon-card-svg svg{width:80px;height:80px}
+.kamon-card h3{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;color:#1a1a1a;margin-bottom:4px;text-align:center}
+.kamon-card .kamon-card-era{font-size:11px;color:#8b6914;font-weight:600;text-align:center;margin-bottom:10px}
+.kamon-card p{font-size:13px;color:#555;line-height:1.8}
+.kamon-card .card-meaning{font-size:12px;color:#888;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.06)}
+
+/* Page Nav */
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid rgba(0,0,0,.04)}
+.page-nav a{font-size:12px;color:#555;text-decoration:none}.page-nav a:hover{color:#1a1a1a}
+
+/* Footer */
+.site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:#bbb;margin-top:40px}
+
+/* ===== Responsive: Tablet ===== */
+@media(max-width:768px){
+  .content-wrap{padding:30px 16px 50px}
+  .chapter-title{font-size:26px}
+  .main-text{font-size:14px}
+  .card{padding:22px}
+  .section-header h2{font-size:19px}
+  .hero-kamon{padding:30px 20px 40px}
+  .hero-kamon-svg{width:170px;height:170px}
+
+  .kamon-timeline::before{left:20px}
+  .kamon-node{flex-direction:column!important;padding-left:50px}
+  .kamon-node::before{left:20px;top:16px}
+  .kamon-svg-wrap{flex-direction:row;gap:12px;padding:0;margin-bottom:12px}
+  .kamon-svg-wrap svg{width:60px;height:60px;margin-bottom:0}
+  .kamon-detail{max-width:100%;padding:14px 18px}
+  .kamon-detail h3{font-size:15px}
+
+  .flow-item{padding:12px 18px}
+  .flow-item svg{width:40px;height:40px}
+  .kamon-grid{grid-template-columns:1fr}
+}
+
+/* ===== Responsive: Mobile ===== */
+@media(max-width:480px){
+  .content-wrap{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .chapter-header{margin-bottom:30px}
+  .chapter-num{font-size:9px}
+  .chapter-title{font-size:22px;letter-spacing:.05em}
+  .chapter-subtitle{font-size:12px}
+  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
+  .main-text p{margin-bottom:14px}
+  .section-header{margin:36px 0 16px}
+  .section-header h2{font-size:18px}
+  .section-header .section-num{font-size:9px}
+  .hero-kamon{padding:24px 16px 30px;margin-bottom:0}
+  .hero-kamon-svg{width:140px;height:140px;margin-bottom:16px}
+  .hero-kamon-name{font-size:20px}
+  .hero-kamon-desc{font-size:12px}
+  .card{padding:16px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card-title{font-size:12px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p{font-size:12px}
+  .original-text{padding:14px 16px;margin:14px 0;font-size:12px}
+
+  .kamon-node{margin-bottom:40px;padding-left:40px}
+  .kamon-timeline::before{left:14px}
+  .kamon-node::before{left:14px;width:12px;height:12px;top:12px}
+  .kamon-svg-wrap svg{width:50px;height:50px}
+  .kamon-label{font-size:12px}
+  .kamon-detail{padding:12px 14px}
+  .kamon-detail h3{font-size:14px}
+  .kamon-era{font-size:10px}
+  .kamon-detail p{font-size:12px}
+  .kamon-detail .kamon-meaning{font-size:11px}
+
+  .flow-item{padding:10px 14px;gap:12px}
+  .flow-item svg{width:36px;height:36px}
+  .flow-name{font-size:13px}
+  .flow-desc{font-size:11px}
+  .kamon-card{padding:18px}
+  .kamon-card-svg svg{width:64px;height:64px}
+  .kamon-card h3{font-size:14px}
+  .kamon-card p{font-size:12px}
+
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .site-footer{font-size:10px;padding:24px 0 16px}
+}
+</style>
+</head>
+<body>
+<div class="content-wrap">
+
+<div class="breadcrumb"><a href="index.html">赤澤一族 令和版</a> → 家紋の変遷</div>
+
+<div class="chapter-header">
+  <div class="chapter-num">KAMON HISTORY</div>
+  <div class="chapter-title">家紋の変遷</div>
+  <div class="chapter-subtitle">七つの紋が語る、一族 1,100年の分岐と継承</div>
+</div>
+
+<!-- Hero: 主紋 -->
+<div class="hero-kamon">
+  <div class="hero-kamon-svg">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="#1e3a5f" stroke-width="2.5"/>
+      <g transform="translate(100,100)">
+        <polygon points="0,-55 25,-40 0,-25 -25,-40" fill="none" stroke="#1e3a5f" stroke-width="2.2"/>
+        <polygon points="0,-30 45,0 0,30 -45,0" fill="none" stroke="#1e3a5f" stroke-width="2.5"/>
+        <polygon points="0,25 25,40 0,55 -25,40" fill="none" stroke="#1e3a5f" stroke-width="2.2"/>
+      </g>
+      <line x1="100" y1="85" x2="100" y2="115" stroke="#1e3a5f" stroke-width="2"/>
+      <line x1="85" y1="100" x2="115" y2="100" stroke="#1e3a5f" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="hero-kamon-name">松皮菱に十文字</div>
+  <div class="hero-kamon-desc">赤沢氏の主紋 — 信濃から阿波、備中へと受け継がれた本流の紋章</div>
+</div>
+
+<div class="main-text">
+  <p>家紋は、単なるシンボルではない。<strong>一族がどこで分かれ、何を受け継ぎ、どう生き延びたか</strong>を語る「血脈の地図」だ。</p>
+  <p>赤沢氏には、少なくとも<strong>7つの家紋</strong>が確認されている。主紋である「松皮菱に十文字」から、地域や時代によって枝分かれした紋の数々。それぞれの紋には、一族の選択と運命が刻まれている。</p>
+</div>
+
+<!-- ===== SECTION 1: 系譜の起点 ===== -->
+<div class="section-header">
+  <div class="section-num">ORIGIN</div>
+  <h2>系譜の起点 — 三階菱から松皮菱へ</h2>
+</div>
+
+<div class="main-text">
+  <p>すべての始まりは、<strong>小笠原氏の三階菱</strong>にある。清和源氏の流れを汲む小笠原氏が本紋として用いた三階菱。赤沢氏はその小笠原氏から分かれた一族であり、家紋もまた三階菱をベースに独自の変形を遂げた。</p>
+</div>
+
+<!-- Flow Chart: 三階菱 → 松皮菱 -->
+<div class="flow-chart">
+  <div class="flow-item">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(40,40)">
+        <polygon points="0,-28 32,0 0,28 -32,0" fill="none" stroke="#1e3a5f" stroke-width="1.8"/>
+        <polygon points="0,-18 20,0 0,18 -20,0" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+        <polygon points="0,-9 10,0 0,9 -10,0" fill="none" stroke="#1e3a5f" stroke-width="1.2"/>
+      </g>
+    </svg>
+    <div class="flow-info">
+      <div class="flow-name">三階菱（小笠原氏）</div>
+      <div class="flow-desc">清和源氏義光流の本紋。甲斐源氏「菱」の系譜</div>
+    </div>
+  </div>
+  <div class="flow-arrow">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 4v14M7 13l5 5 5-5" fill="none" stroke="#8b6914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="flow-item">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(40,40)">
+        <polygon points="0,-22 10,-16 0,-10 -10,-16" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+        <polygon points="0,-12 18,0 0,12 -18,0" fill="none" stroke="#1e3a5f" stroke-width="1.8"/>
+        <polygon points="0,10 10,16 0,22 -10,16" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+      </g>
+    </svg>
+    <div class="flow-info">
+      <div class="flow-name">松皮菱（赤沢氏の基本形）</div>
+      <div class="flow-desc">松の樹皮を菱形に図案化。三階菱の変形</div>
+    </div>
+  </div>
+  <div class="flow-arrow">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 4v14M7 13l5 5 5-5" fill="none" stroke="#8b6914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="flow-item">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="30" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+      <g transform="translate(40,40)">
+        <polygon points="0,-18 8,-13 0,-8 -8,-13" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+        <polygon points="0,-10 15,0 0,10 -15,0" fill="none" stroke="#1e3a5f" stroke-width="1.6"/>
+        <polygon points="0,8 8,13 0,18 -8,13" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+      </g>
+      <line x1="40" y1="33" x2="40" y2="47" stroke="#1e3a5f" stroke-width="1.3"/>
+      <line x1="33" y1="40" x2="47" y2="40" stroke="#1e3a5f" stroke-width="1.3"/>
+    </svg>
+    <div class="flow-info">
+      <div class="flow-name">松皮菱に十文字（赤沢氏の主紋）</div>
+      <div class="flow-desc">松皮菱の中央に十文字を加えた、赤沢氏独自の紋</div>
+    </div>
+  </div>
+</div>
+
+<div class="ai-note">
+  <p><strong>「菱」は甲斐源氏のシンボル</strong>。武田氏の「割り菱」「四つ割り菱」と、小笠原氏の「三階菱」、赤沢氏の「松皮菱」は同じルーツを持つ。つまり家紋だけを見ても、赤沢氏が甲斐源氏の血を引く一族であることが読み取れる。</p>
+</div>
+
+<!-- ===== SECTION 2: 7つの家紋タイムライン ===== -->
+<div class="section-header">
+  <div class="section-num">TRANSITION</div>
+  <h2>七つの家紋 — 分岐と変遷の物語</h2>
+</div>
+
+<div class="main-text">
+  <p>一族が各地に散り、時代が移るにつれて、家紋もまた変遷した。ここでは7つの家紋を、本流から分岐した順に辿る。</p>
+</div>
+
+<!-- Kamon Grid -->
+<div class="kamon-grid">
+
+  <!-- 1. 松皮菱に十文字 -->
+  <div class="kamon-card">
+    <div class="kamon-card-svg">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+        <g transform="translate(50,50)">
+          <polygon points="0,-22 10,-16 0,-10 -10,-16" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+          <polygon points="0,-12 18,0 0,12 -18,0" fill="none" stroke="#1e3a5f" stroke-width="1.6"/>
+          <polygon points="0,10 10,16 0,22 -10,16" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+        </g>
+        <line x1="50" y1="42" x2="50" y2="58" stroke="#1e3a5f" stroke-width="1.3"/>
+        <line x1="42" y1="50" x2="58" y2="50" stroke="#1e3a5f" stroke-width="1.3"/>
+      </svg>
+    </div>
+    <h3>松皮菱の内に十文字</h3>
+    <div class="kamon-card-era">本流 / 信濃 → 阿波 → 備中</div>
+    <p>赤沢氏の<strong>主紋</strong>。小笠原氏の三階菱から派生し、松皮菱の中央に十文字を配した独自の紋。信濃から阿波、備中へと移った本流が使用した。</p>
+    <div class="card-meaning"><strong>紋の意味:</strong> 松の樹皮を菱形に図案化。「菱」は甲斐源氏のシンボルであり、十文字は赤沢氏の独自性を示す。</div>
+  </div>
+
+  <!-- 2. 五七桐 -->
+  <div class="kamon-card">
+    <div class="kamon-card-svg">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 五七桐の簡略化 -->
+        <g transform="translate(50,52)" stroke="#1e3a5f" fill="none" stroke-width="1.3">
+          <!-- 三つの花序 -->
+          <g transform="translate(-16,-20)">
+            <line x1="0" y1="0" x2="0" y2="-14"/>
+            <circle cx="0" cy="-16" r="2"/>
+            <circle cx="-3" cy="-12" r="1.5"/>
+            <circle cx="3" cy="-12" r="1.5"/>
+            <circle cx="-5" cy="-8" r="1.5"/>
+            <circle cx="5" cy="-8" r="1.5"/>
+          </g>
+          <g transform="translate(0,-24)">
+            <line x1="0" y1="0" x2="0" y2="-18"/>
+            <circle cx="0" cy="-20" r="2"/>
+            <circle cx="-3" cy="-16" r="1.5"/>
+            <circle cx="3" cy="-16" r="1.5"/>
+            <circle cx="-5.5" cy="-12" r="1.5"/>
+            <circle cx="5.5" cy="-12" r="1.5"/>
+            <circle cx="-7" cy="-8" r="1.5"/>
+            <circle cx="7" cy="-8" r="1.5"/>
+          </g>
+          <g transform="translate(16,-20)">
+            <line x1="0" y1="0" x2="0" y2="-14"/>
+            <circle cx="0" cy="-16" r="2"/>
+            <circle cx="-3" cy="-12" r="1.5"/>
+            <circle cx="3" cy="-12" r="1.5"/>
+            <circle cx="-5" cy="-8" r="1.5"/>
+            <circle cx="5" cy="-8" r="1.5"/>
+          </g>
+          <!-- 三枚の葉 -->
+          <path d="M-20,2 Q-10,-6 0,-2 Q10,-6 20,2" stroke-width="1.5"/>
+          <path d="M-16,6 Q-8,0 0,3 Q8,0 16,6" stroke-width="1.3"/>
+          <path d="M-12,10 Q-6,4 0,7 Q6,4 12,10" stroke-width="1.1"/>
+          <!-- 茎 -->
+          <line x1="0" y1="10" x2="0" y2="22" stroke-width="1.5"/>
+        </g>
+      </svg>
+    </div>
+    <h3>五七桐</h3>
+    <div class="kamon-card-era">副紋 / 将軍家からの賜紋</div>
+    <p>赤沢氏の<strong>副紋</strong>として使用。足利将軍から賜った可能性が高い。本流の松皮菱と併用され、正式な場では使い分けられた。</p>
+    <div class="card-meaning"><strong>紋の意味:</strong> 天皇から足利将軍へ、さらに臣下へと下賜される「賜紋」の典型。権威と忠誠の象徴。</div>
+  </div>
+
+  <!-- 3. 鷹の羽 -->
+  <div class="kamon-card">
+    <div class="kamon-card-svg">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50,50)" stroke="#1e3a5f" fill="none" stroke-width="1.4">
+          <!-- 違い鷹の羽 -->
+          <g transform="rotate(-15)">
+            <ellipse cx="-6" cy="0" rx="24" ry="10" stroke-width="1.5"/>
+            <line x1="-30" y1="0" x2="18" y2="0" stroke-width="1"/>
+            <line x1="-20" y1="-8" x2="-14" y2="8" stroke-width=".8"/>
+            <line x1="-10" y1="-10" x2="-4" y2="10" stroke-width=".8"/>
+            <line x1="0" y1="-9" x2="6" y2="9" stroke-width=".8"/>
+          </g>
+          <g transform="rotate(15)">
+            <ellipse cx="6" cy="0" rx="24" ry="10" stroke-width="1.5"/>
+            <line x1="-18" y1="0" x2="30" y2="0" stroke-width="1"/>
+            <line x1="0" y1="-9" x2="-6" y2="9" stroke-width=".8"/>
+            <line x1="10" y1="-10" x2="4" y2="10" stroke-width=".8"/>
+            <line x1="20" y1="-8" x2="14" y2="8" stroke-width=".8"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <h3>鷹の羽</h3>
+    <div class="kamon-card-era">讃岐系 / 与田川口 → 丹生・三本松・白鳥</div>
+    <p>讃岐（香川県）に逃れた赤沢氏の系統が使用。本流の松皮菱から完全に離れた独自の紋であり、<strong>讃岐での新たな出発</strong>を象徴する。</p>
+    <div class="card-meaning"><strong>紋の意味:</strong> 矢羽根に使う鷹の羽を図案化。武勇の象徴として武家に広く好まれた紋。</div>
+  </div>
+
+  <!-- 4. 立沢瀉 -->
+  <div class="kamon-card">
+    <div class="kamon-card-svg">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50,50)" stroke="#1e3a5f" fill="none" stroke-width="1.3">
+          <!-- オモダカ: 矢じり形の葉3枚 + 茎 -->
+          <path d="M0,-35 L-8,-18 L0,-22 L8,-18 Z" stroke-width="1.5"/>
+          <path d="M-20,-10 L-14,-28 L-10,-16 L-2,-22 Z" stroke-width="1.4" transform="rotate(-40,0,0)"/>
+          <path d="M20,-10 L14,-28 L10,-16 L2,-22 Z" stroke-width="1.4" transform="rotate(40,0,0)"/>
+          <line x1="0" y1="-18" x2="0" y2="24" stroke-width="1.6"/>
+          <line x1="-12" y1="-6" x2="-4" y2="6" stroke-width="1.2"/>
+          <line x1="12" y1="-6" x2="4" y2="6" stroke-width="1.2"/>
+          <!-- 花 -->
+          <circle cx="0" cy="-38" r="3" stroke-width="1.2"/>
+          <circle cx="-6" cy="-36" r="2"/>
+          <circle cx="6" cy="-36" r="2"/>
+        </g>
+      </svg>
+    </div>
+    <h3>立沢瀉（たちおもだか）</h3>
+    <div class="kamon-card-era">讃岐系 / 鷹の羽と併用</div>
+    <p>讃岐に逃れた赤沢氏が、鷹の羽と並んで使用した紋。水辺の植物オモダカを図案化したもの。</p>
+    <div class="card-meaning"><strong>紋の意味:</strong> オモダカは「面高」とも書き、「勝ち草」として武家に好まれた。葉の形が矢じりに似ることから武運の象徴。</div>
+  </div>
+
+  <!-- 5. 三階菱 -->
+  <div class="kamon-card">
+    <div class="kamon-card-svg">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50,50)">
+          <polygon points="0,-32 38,0 0,32 -38,0" fill="none" stroke="#1e3a5f" stroke-width="1.8"/>
+          <polygon points="0,-20 24,0 0,20 -24,0" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+          <polygon points="0,-10 12,0 0,10 -12,0" fill="none" stroke="#1e3a5f" stroke-width="1.2"/>
+        </g>
+      </svg>
+    </div>
+    <h3>三階菱</h3>
+    <div class="kamon-card-era">復姓系 / 赤沢 → 小笠原に復した貞経の家</div>
+    <p>赤沢氏から<strong>小笠原氏に復姓</strong>した貞経の系統が使用。つまり「赤沢」の名を捨て、本家の紋に戻ったことを意味する。</p>
+    <div class="card-meaning"><strong>紋の意味:</strong> 小笠原氏の本紋。三重の菱形は格式の高さを示す。復姓とともに家紋も本家に回帰した。</div>
+  </div>
+
+  <!-- 6. 三つ紅葉 -->
+  <div class="kamon-card">
+    <div class="kamon-card-svg">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50,48)" stroke="#1e3a5f" fill="none" stroke-width="1.3">
+          <!-- 三つの紅葉を円形に配置 -->
+          <g transform="translate(0,-16)">
+            <path d="M0,-12 L-3,-6 L-8,-8 L-5,-2 L-10,2 L-4,2 L0,8 L4,2 L10,2 L5,-2 L8,-8 L3,-6 Z" stroke-width="1.4"/>
+            <line x1="0" y1="8" x2="0" y2="14" stroke-width="1"/>
+          </g>
+          <g transform="translate(-14,10)">
+            <path d="M0,-10 L-2.5,-5 L-6.5,-6.5 L-4,-1.5 L-8,1.5 L-3,1.5 L0,6.5 L3,1.5 L8,1.5 L4,-1.5 L6.5,-6.5 L2.5,-5 Z" stroke-width="1.3"/>
+            <line x1="0" y1="6.5" x2="0" y2="12" stroke-width="1"/>
+          </g>
+          <g transform="translate(14,10)">
+            <path d="M0,-10 L-2.5,-5 L-6.5,-6.5 L-4,-1.5 L-8,1.5 L-3,1.5 L0,6.5 L3,1.5 L8,1.5 L4,-1.5 L6.5,-6.5 L2.5,-5 Z" stroke-width="1.3"/>
+            <line x1="0" y1="6.5" x2="0" y2="12" stroke-width="1"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <h3>三つ紅葉</h3>
+    <div class="kamon-card-era">勝覚寺（讃岐）/ 鷹司家からの下賜</div>
+    <p>讃岐の勝覚寺が、公家の鷹司家から下賜された紋。赤沢氏の菩提寺としての格式を示す。</p>
+    <div class="card-meaning"><strong>紋の意味:</strong> 紅葉は秋の風情を象徴し、平安貴族にも好まれた雅な紋。鷹司家からの下賜は寺院の格式の高さを物語る。</div>
+  </div>
+
+  <!-- 7. 菱紋 -->
+  <div class="kamon-card">
+    <div class="kamon-card-svg">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50,50)">
+          <polygon points="0,-28 36,0 0,28 -36,0" fill="none" stroke="#1e3a5f" stroke-width="1.8"/>
+        </g>
+      </svg>
+    </div>
+    <h3>菱紋</h3>
+    <div class="kamon-card-era">筑摩郡稲倉 / 武田氏に降伏した系統</div>
+    <p>信濃国筑摩郡稲倉の赤沢氏が使用。武田氏に降伏した系統であり、家紋もより素朴な<strong>単純菱</strong>に変わっている。</p>
+    <div class="card-meaning"><strong>紋の意味:</strong> 菱形は甲斐源氏の最も基本的な紋。武田氏への降伏後、本家の複雑な紋からシンプルな菱に回帰した可能性がある。</div>
+  </div>
+
+</div>
+
+<!-- ===== SECTION 3: 変遷のストーリー ===== -->
+<div class="section-header">
+  <div class="section-num">STORY</div>
+  <h2>変遷のストーリー — なぜ紋が分かれたのか</h2>
+</div>
+
+<div class="main-text">
+  <p>7つの家紋は、一族の歴史の「分岐点」そのものだ。なぜ同じ一族なのに異なる紋を使うようになったのか。その背景には、<strong>戦乱・逃亡・降伏・復姓</strong>という、武家の運命がある。</p>
+</div>
+
+<!-- タイムライン -->
+<div class="kamon-timeline" id="kamon-tl">
+
+  <!-- Node 1 -->
+  <div class="kamon-node">
+    <div class="kamon-svg-wrap">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(40,40)">
+          <polygon points="0,-28 32,0 0,28 -32,0" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+          <polygon points="0,-18 20,0 0,18 -20,0" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+          <polygon points="0,-9 10,0 0,9 -10,0" fill="none" stroke="#1e3a5f" stroke-width="1"/>
+        </g>
+      </svg>
+      <div class="kamon-label">三階菱</div>
+    </div>
+    <div class="kamon-detail">
+      <div class="kamon-era">鎌倉時代以前</div>
+      <h3>小笠原氏の三階菱から出発</h3>
+      <p>清和源氏義光流の小笠原氏が本紋として使用。赤沢氏が分家する前の、いわば「家紋のルーツ」。甲斐源氏の割り菱・四つ割り菱とも同根で、武田氏とは家紋でも「親戚」の関係にある。</p>
+    </div>
+  </div>
+
+  <!-- Node 2 -->
+  <div class="kamon-node">
+    <div class="kamon-svg-wrap">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="32" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+        <g transform="translate(40,40)">
+          <polygon points="0,-18 8,-13 0,-8 -8,-13" fill="none" stroke="#1e3a5f" stroke-width="1.2"/>
+          <polygon points="0,-10 15,0 0,10 -15,0" fill="none" stroke="#1e3a5f" stroke-width="1.4"/>
+          <polygon points="0,8 8,13 0,18 -8,13" fill="none" stroke="#1e3a5f" stroke-width="1.2"/>
+        </g>
+        <line x1="40" y1="33" x2="40" y2="47" stroke="#1e3a5f" stroke-width="1.2"/>
+        <line x1="33" y1="40" x2="47" y2="40" stroke="#1e3a5f" stroke-width="1.2"/>
+      </svg>
+      <div class="kamon-label">松皮菱に十文字</div>
+    </div>
+    <div class="kamon-detail">
+      <div class="kamon-era">鎌倉時代 — 赤沢氏の成立</div>
+      <h3>本流が松皮菱に十文字を定める</h3>
+      <p>小笠原長政の子・十郎長清が阿波国板野郡を領有し赤沢氏を称した時、三階菱を変形して松皮菱とし、十文字を加えた。これが赤沢氏の正紋となり、信濃→阿波→備中の本流が代々使用した。</p>
+    </div>
+  </div>
+
+  <!-- Node 3 -->
+  <div class="kamon-node">
+    <div class="kamon-svg-wrap">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(40,42)" stroke="#1e3a5f" fill="none" stroke-width="1.1">
+          <g transform="translate(-12,-16)">
+            <line x1="0" y1="0" x2="0" y2="-10"/>
+            <circle cx="0" cy="-12" r="1.5"/>
+            <circle cx="-2.5" cy="-9" r="1.2"/>
+            <circle cx="2.5" cy="-9" r="1.2"/>
+            <circle cx="-4" cy="-6" r="1.2"/>
+            <circle cx="4" cy="-6" r="1.2"/>
+          </g>
+          <g transform="translate(0,-20)">
+            <line x1="0" y1="0" x2="0" y2="-13"/>
+            <circle cx="0" cy="-15" r="1.5"/>
+            <circle cx="-2.5" cy="-12" r="1.2"/>
+            <circle cx="2.5" cy="-12" r="1.2"/>
+            <circle cx="-4.5" cy="-9" r="1.2"/>
+            <circle cx="4.5" cy="-9" r="1.2"/>
+            <circle cx="-5.5" cy="-6" r="1.2"/>
+            <circle cx="5.5" cy="-6" r="1.2"/>
+          </g>
+          <g transform="translate(12,-16)">
+            <line x1="0" y1="0" x2="0" y2="-10"/>
+            <circle cx="0" cy="-12" r="1.5"/>
+            <circle cx="-2.5" cy="-9" r="1.2"/>
+            <circle cx="2.5" cy="-9" r="1.2"/>
+            <circle cx="-4" cy="-6" r="1.2"/>
+            <circle cx="4" cy="-6" r="1.2"/>
+          </g>
+          <path d="M-15,0 Q-7.5,-5 0,-1.5 Q7.5,-5 15,0" stroke-width="1.3"/>
+          <path d="M-12,3 Q-6,-1 0,1.5 Q6,-1 12,3" stroke-width="1.1"/>
+          <line x1="0" y1="3" x2="0" y2="14" stroke-width="1.3"/>
+        </g>
+      </svg>
+      <div class="kamon-label">五七桐</div>
+    </div>
+    <div class="kamon-detail">
+      <div class="kamon-era">室町時代 — 将軍からの賜紋</div>
+      <h3>足利将軍から副紋を賜る</h3>
+      <p>五七桐は、天皇→将軍→臣下へと下賜される紋の典型。赤沢氏が室町幕府の有力武将として活躍した時期に賜った可能性が高く、主紋の松皮菱と併用して副紋として使用された。</p>
+    </div>
+  </div>
+
+  <!-- Node 4 -->
+  <div class="kamon-node">
+    <div class="kamon-svg-wrap">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(40,40)" stroke="#1e3a5f" fill="none" stroke-width="1.2">
+          <g transform="rotate(-15)">
+            <ellipse cx="-4" cy="0" rx="18" ry="8" stroke-width="1.3"/>
+            <line x1="-22" y1="0" x2="14" y2="0" stroke-width=".8"/>
+            <line x1="-14" y1="-6" x2="-10" y2="6" stroke-width=".6"/>
+            <line x1="-6" y1="-7.5" x2="-2" y2="7.5" stroke-width=".6"/>
+            <line x1="2" y1="-7" x2="6" y2="7" stroke-width=".6"/>
+          </g>
+          <g transform="rotate(15)">
+            <ellipse cx="4" cy="0" rx="18" ry="8" stroke-width="1.3"/>
+            <line x1="-14" y1="0" x2="22" y2="0" stroke-width=".8"/>
+            <line x1="-2" y1="-7" x2="-6" y2="7" stroke-width=".6"/>
+            <line x1="6" y1="-7.5" x2="2" y2="7.5" stroke-width=".6"/>
+            <line x1="14" y1="-6" x2="10" y2="6" stroke-width=".6"/>
+          </g>
+        </g>
+      </svg>
+      <div class="kamon-label">鷹の羽</div>
+    </div>
+    <div class="kamon-detail">
+      <div class="kamon-era">戦国時代 — 讃岐への逃亡</div>
+      <h3>讃岐に逃れた系統が新たな紋を採用</h3>
+      <p>戦乱に追われ讃岐（香川県）に逃れた赤沢氏は、与田川口に落ち延びた。その後、丹生・三本松・白鳥地方に広がったこの系統は、本流の松皮菱ではなく「鷹の羽」と「立沢瀉」を家紋とした。本流との決別か、あるいは身を隠すための選択だったか。</p>
+    </div>
+  </div>
+
+  <!-- Node 5 -->
+  <div class="kamon-node">
+    <div class="kamon-svg-wrap">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(40,42)" stroke="#1e3a5f" fill="none" stroke-width="1.2">
+          <path d="M0,-30 L-6,-16 L0,-20 L6,-16 Z" stroke-width="1.3"/>
+          <path d="M-16,-8 L-10,-24 L-7,-14 L-1,-18 Z" stroke-width="1.2" transform="rotate(-35,0,0)"/>
+          <path d="M16,-8 L10,-24 L7,-14 L1,-18 Z" stroke-width="1.2" transform="rotate(35,0,0)"/>
+          <line x1="0" y1="-14" x2="0" y2="16" stroke-width="1.4"/>
+          <line x1="-8" y1="-2" x2="-2" y2="6" stroke-width="1"/>
+          <line x1="8" y1="-2" x2="2" y2="6" stroke-width="1"/>
+          <circle cx="0" cy="-33" r="2.5" stroke-width="1"/>
+        </g>
+      </svg>
+      <div class="kamon-label">立沢瀉</div>
+    </div>
+    <div class="kamon-detail">
+      <div class="kamon-era">戦国時代 — 讃岐系の副紋</div>
+      <h3>「勝ち草」を紋に選んだ讃岐の赤沢氏</h3>
+      <p>鷹の羽と並んで讃岐系赤沢氏が使用。オモダカ（沢瀉）は水辺に育つ植物で、葉の形が矢じりに似ることから「勝ち草」と呼ばれ、武家に広く好まれた。逃亡先での再起を願う紋だったのかもしれない。</p>
+    </div>
+  </div>
+
+  <!-- Node 6 -->
+  <div class="kamon-node">
+    <div class="kamon-svg-wrap">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(40,40)">
+          <polygon points="0,-26 32,0 0,26 -32,0" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+        </g>
+      </svg>
+      <div class="kamon-label">菱紋</div>
+    </div>
+    <div class="kamon-detail">
+      <div class="kamon-era">戦国時代 — 武田氏への降伏</div>
+      <h3>武田氏に降った稲倉の赤沢氏</h3>
+      <p>信濃国筑摩郡稲倉の赤沢氏は、武田氏の侵攻に抵抗した後、降伏。家紋は松皮菱の複雑な紋から、単純な菱紋に変わった。武田氏の「割り菱」の系譜に組み込まれたことを示すのか、あるいは降伏による格下げの意味があるのか — 解釈は分かれる。</p>
+    </div>
+  </div>
+
+  <!-- Node 7 -->
+  <div class="kamon-node">
+    <div class="kamon-svg-wrap">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(40,40)">
+          <polygon points="0,-26 32,0 0,26 -32,0" fill="none" stroke="#1e3a5f" stroke-width="1.5"/>
+          <polygon points="0,-16 20,0 0,16 -20,0" fill="none" stroke="#1e3a5f" stroke-width="1.2"/>
+          <polygon points="0,-8 10,0 0,8 -10,0" fill="none" stroke="#1e3a5f" stroke-width="1"/>
+        </g>
+      </svg>
+      <div class="kamon-label">三階菱（復姓）</div>
+    </div>
+    <div class="kamon-detail">
+      <div class="kamon-era">復姓 — 赤沢から小笠原へ</div>
+      <h3>貞経の系統が小笠原に復姓し、本家の紋に戻る</h3>
+      <p>赤沢貞経が小笠原氏に復姓した際、家紋も三階菱に戻った。分家として独自の紋を掲げてきた赤沢氏の中で、唯一「本家の紋に回帰」した系統。名と紋が一体であることを物語るエピソードだ。</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== SECTION 4: 原文 ===== -->
+<div class="section-header">
+  <div class="section-num">SOURCE</div>
+  <h2>原文に見る家紋の記録</h2>
+</div>
+
+<div class="main-text">
+  <p>冊子には、赤沢氏の家紋と移動について直接言及した記述がいくつか残っている。</p>
+</div>
+
+<div class="original-text">
+一、板西城。赤沢信濃守、後剃髪して宗傳入道と称す。紋は松皮菱に十文字也。
+</div>
+
+<div class="main-text">
+  <p>板西城（阿波国）を拠点とした赤沢信濃守。出家して宗傳入道と名乗った人物の紋が、<strong>「松皮菱に十文字」</strong>であると明記されている。阿波の赤沢氏が本流の紋を使用していた直接的な証拠だ。</p>
+</div>
+
+<div class="original-text">
+人有尊に挟られて讃岐に逃れ、与田川口に赴きたりという。其の丹生三本松白鳥地方などの赤沢氏は、其の末裔と伝え、家紋を「鷹の羽」「立沢瀉」とす。
+</div>
+
+<div class="main-text">
+  <p>「人有尊に挟られて」 — 追い詰められて讃岐に逃れた、という記述。そしてその末裔は、<strong>鷹の羽と立沢瀉</strong>を家紋としたと記録されている。本流の松皮菱から完全に離れた家紋を使うようになった経緯が、ここに記されている。</p>
+</div>
+
+<div class="ai-note">
+  <p>家紋の「変更」は、武家社会では重大な意味を持った。主君から賜る（五七桐）、本家から分かれる（松皮菱→独自紋）、本家に戻る（三階菱への復帰）、降伏の証とする（菱紋） — いずれも<strong>一族のアイデンティティの転換点</strong>。家紋は「デザイン」ではなく「宣言」だった。</p>
+</div>
+
+<!-- ===== SECTION 5: chapter5との関係 ===== -->
+<div class="section-header">
+  <div class="section-num">RELATION</div>
+  <h2>このページと第5章の違い</h2>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>視点の違い</div>
+  <p><a href="chapter5-kamon.html" style="color:#555;text-decoration:underline">第5章「家紋と伝承」</a>は、松皮菱に十文字を中心に家紋の意味や文化的背景を解説するページ。このページは、<strong>7つの家紋がどのような歴史的経緯で分岐したか</strong>という「変遷」に焦点を当てている。</p>
+  <ul>
+    <li><strong>第5章</strong> — 家紋とは何か、松皮菱の由来、家紋文化の解説</li>
+    <li><strong>このページ</strong> — なぜ7つの紋に分かれたか、地域と時代による変遷の物語</li>
+  </ul>
+</div>
+
+<div class="page-nav">
+  <a href="chapter5-kamon.html">← 第5章 家紋と伝承</a>
+  <a href="index.html">トップページへ →</a>
+</div>
+
+<div class="site-footer"><p>赤澤一族 令和版 — 2026年編纂</p></div>
+</div>
+
+<script>
+// Scroll animation for timeline nodes
+(function(){
+  var nodes = document.querySelectorAll('.kamon-node');
+  if (!nodes.length) return;
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  nodes.forEach(function(node){
+    observer.observe(node);
+  });
+})();
+</script>
+</body>
+</html>

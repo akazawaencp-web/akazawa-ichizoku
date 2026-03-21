@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地図で見る移動 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--sh2:0 4px 20px rgba(0,0,0,.04);--ink-grad:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.05));--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40;--gold:#8b6914;--gold-light:#c4a060}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* Layout */
+.content{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:12px;color:var(--tx3);margin-bottom:30px}
+.breadcrumb a{color:var(--tx2);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.ch-header{margin-bottom:40px;padding-bottom:16px}
+.ch-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--tx3);margin-bottom:6px}
+.ch-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:var(--tx);letter-spacing:.1em}
+.ch-sub{font-size:13px;color:var(--tx3);margin-top:6px}
+.ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
+
+/* Intro text */
+.intro{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:40px}
+.intro p{margin-bottom:14px;text-indent:1em}
+
+/* Map container — sticky */
+.map-section{display:flex;gap:0;position:relative}
+.map-sticky{position:sticky;top:20px;width:420px;height:calc(100vh - 40px);flex-shrink:0;z-index:10}
+.map-wrap{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:16px;height:100%;display:flex;flex-direction:column}
+.map-title-bar{font-size:11px;font-weight:600;color:var(--tx3);letter-spacing:.08em;margin-bottom:8px;padding:0 4px}
+.map-svg-wrap{flex:1;position:relative;overflow:hidden;border-radius:10px;background:rgba(240,242,245,.5)}
+
+/* SVG styles */
+.map-svg{width:100%;height:100%}
+.prefecture{fill:rgba(200,205,210,.25);stroke:rgba(150,155,165,.3);stroke-width:.5;transition:fill .4s}
+.prefecture.highlighted{fill:rgba(180,170,140,.25)}
+.sea{fill:rgba(220,228,238,.3)}
+.route-line{fill:none;stroke:var(--gold-light);stroke-width:2;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 1.2s ease;opacity:.6}
+.route-line.active{stroke-dashoffset:0;opacity:1}
+.map-dot{r:5;fill:var(--gold);opacity:0;transition:opacity .5s,r .3s;cursor:pointer}
+.map-dot.active{opacity:1}
+.map-dot.current{r:8;fill:var(--gold);filter:drop-shadow(0 0 6px rgba(139,105,20,.5))}
+.map-dot:hover{r:9;filter:drop-shadow(0 0 8px rgba(139,105,20,.6))}
+.map-label{font-size:9px;fill:var(--tx2);opacity:0;transition:opacity .5s;pointer-events:none;font-family:'Noto Sans JP',sans-serif}
+.map-label.active{opacity:1}
+.map-year-label{font-size:8px;fill:var(--gold);opacity:0;transition:opacity .5s;pointer-events:none;font-family:'Noto Sans JP',sans-serif;font-weight:700}
+.map-year-label.active{opacity:.7}
+
+/* Tooltip */
+.map-tooltip{position:absolute;background:rgba(255,255,255,.95);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--tx2);line-height:1.6;box-shadow:var(--sh2);pointer-events:none;opacity:0;transition:opacity .3s;z-index:20;max-width:200px;backdrop-filter:var(--blur)}
+.map-tooltip.visible{opacity:1}
+.map-tooltip strong{color:var(--tx);display:block;margin-bottom:2px}
+
+/* Progress indicator */
+.map-progress{height:3px;background:rgba(0,0,0,.04);border-radius:2px;margin-top:8px;overflow:hidden}
+.map-progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;width:0%;transition:width .4s}
+
+/* Timeline column */
+.timeline-col{flex:1;min-width:0;padding-left:40px}
+.route-card{padding:40px 0;border-bottom:1px solid var(--bd2);opacity:.3;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.route-card.in-view{opacity:1;transform:translateY(0)}
+.route-card:last-child{border-bottom:none}
+.route-era{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--gold);margin-bottom:4px}
+.route-year{font-family:'Shippori Mincho',serif;font-size:13px;color:var(--tx3);margin-bottom:6px}
+.route-place{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:var(--tx);margin-bottom:10px;letter-spacing:.06em}
+.route-desc{font-size:14px;color:var(--tx2);line-height:2}
+.route-desc strong{color:var(--tx)}
+.route-person{display:inline-block;margin-top:10px;padding:4px 12px;background:rgba(139,105,20,.06);border:1px solid rgba(139,105,20,.12);border-radius:20px;font-size:11px;color:var(--gold);font-weight:500}
+
+/* Mobile: single column */
+.map-mobile{display:none}
+.map-mobile .map-wrap{height:300px;margin-bottom:30px;position:sticky;top:10px;z-index:10}
+
+/* Page nav */
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid var(--bd2)}
+.page-nav a{font-size:12px;color:var(--tx2);text-decoration:none}
+.page-nav a:hover{color:var(--tx)}
+.footer{text-align:center;padding:30px 0 20px;font-size:11px;color:var(--tx4);margin-top:40px}
+
+/* Legend */
+.map-legend{display:flex;gap:14px;align-items:center;margin-top:6px;padding:0 4px}
+.legend-item{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--tx3)}
+.legend-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.legend-line{width:16px;height:2px;background:var(--gold-light);border-radius:1px}
+.legend-dot-current{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 4px rgba(139,105,20,.5)}
+
+/* Responsive: Tablet */
+@media(max-width:900px){
+  .map-section{flex-direction:column}
+  .map-sticky{display:none}
+  .map-mobile{display:block}
+  .timeline-col{padding-left:0}
+}
+
+/* Responsive: Small tablet */
+@media(max-width:768px){
+  .content{padding:30px 16px 50px}
+  .ch-title{font-size:26px}
+  .intro{font-size:14px}
+  .route-place{font-size:20px}
+  .route-desc{font-size:13px}
+}
+
+/* Responsive: Mobile */
+@media(max-width:480px){
+  .content{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .ch-header{margin-bottom:30px}
+  .ch-num{font-size:9px}
+  .ch-title{font-size:22px;letter-spacing:.05em}
+  .ch-sub{font-size:12px}
+  .intro{font-size:13px;line-height:2;margin-bottom:24px}
+  .route-card{padding:28px 0}
+  .route-place{font-size:18px}
+  .route-desc{font-size:12px;line-height:1.9}
+  .route-person{font-size:10px}
+  .map-mobile .map-wrap{height:250px;border-radius:10px;padding:12px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .footer{font-size:10px;padding:24px 0 16px}
+}
+</style>
+</head>
+<body>
+<div class="content">
+
+<div class="breadcrumb"><a href="index.html">赤澤一族 令和版</a> → 地図で見る移動</div>
+
+<div class="ch-header">
+  <div class="ch-num">GEOGRAPHIC JOURNEY</div>
+  <div class="ch-title">地図で見る移動</div>
+  <div class="ch-sub">赤沢氏1200年の足跡 — 京都から東京まで、19の地を辿る</div>
+  <div class="ch-line"></div>
+</div>
+
+<div class="intro">
+  <p>清和天皇の血を引く源経基が京都に生まれてから約1100年。赤沢の一族は、時代の波に乗り、あるいは抗いながら、日本列島を縦横に移動してきた。</p>
+  <p>スクロールすると、地図上にその足跡が浮かび上がる。</p>
+</div>
+
+<!-- Mobile map (shown on narrow screens) -->
+<div class="map-mobile">
+  <div class="map-wrap" id="mapMobile">
+    <div class="map-title-bar">赤沢氏の移動ルート</div>
+    <div class="map-svg-wrap" id="mapSvgWrapMobile"></div>
+    <div class="map-progress"><div class="map-progress-bar" id="progressBarMobile"></div></div>
+    <div class="map-legend">
+      <span class="legend-item"><span class="legend-dot"></span>経由地</span>
+      <span class="legend-item"><span class="legend-dot-current"></span>現在地</span>
+      <span class="legend-item"><span class="legend-line"></span>移動ルート</span>
+    </div>
+  </div>
+  <div class="map-tooltip" id="tooltipMobile"></div>
+</div>
+
+<div class="map-section">
+  <!-- Sticky map (desktop) -->
+  <div class="map-sticky">
+    <div class="map-wrap" id="mapDesktop">
+      <div class="map-title-bar">赤沢氏の移動ルート</div>
+      <div class="map-svg-wrap" id="mapSvgWrapDesktop"></div>
+      <div class="map-progress"><div class="map-progress-bar" id="progressBarDesktop"></div></div>
+      <div class="map-legend">
+        <span class="legend-item"><span class="legend-dot"></span>経由地</span>
+        <span class="legend-item"><span class="legend-dot-current"></span>現在地</span>
+        <span class="legend-item"><span class="legend-line"></span>移動ルート</span>
+      </div>
+    </div>
+    <div class="map-tooltip" id="tooltipDesktop"></div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline-col">
+
+    <div class="route-card" data-index="0">
+      <div class="route-era">平安時代</div>
+      <div class="route-year">914年頃</div>
+      <div class="route-place">京都</div>
+      <div class="route-desc">清和天皇の孫・<strong>源経基</strong>が臣籍降下し、源氏の祖となる。六孫王神社（京都市南区）は経基を祀る。ここからすべてが始まった。</div>
+      <div class="route-person">源経基（六孫王）</div>
+    </div>
+
+    <div class="route-card" data-index="1">
+      <div class="route-era">平安時代</div>
+      <div class="route-year">970年頃</div>
+      <div class="route-place">摂津・多田</div>
+      <div class="route-desc">経基の子・<strong>源満仲</strong>が摂津国多田（現・川西市）に本拠を構える。多田庄を開き、多田源氏の祖となった。武士団としての源氏はここで産声を上げた。</div>
+      <div class="route-person">源満仲</div>
+    </div>
+
+    <div class="route-card" data-index="2">
+      <div class="route-era">平安時代</div>
+      <div class="route-year">1000年頃</div>
+      <div class="route-place">河内・大和</div>
+      <div class="route-desc">満仲の子・頼信から<strong>河内源氏</strong>が誕生。河内国壺井（現・羽曳野市）を本拠とし、源頼義・義家の代に東国で勢力を拡大。武家の棟梁への道が開けた。</div>
+      <div class="route-person">河内源氏</div>
+    </div>
+
+    <div class="route-card" data-index="3">
+      <div class="route-era">平安末期</div>
+      <div class="route-year">1100年頃</div>
+      <div class="route-place">甲斐</div>
+      <div class="route-desc"><strong>源清光</strong>が甲斐国に土着し、甲斐源氏の祖となる。その孫・<strong>加賀美遠光</strong>が信濃守を兼ね、一族は甲斐・信濃にまたがる勢力へ成長した。</div>
+      <div class="route-person">源清光 → 加賀美遠光</div>
+    </div>
+
+    <div class="route-card" data-index="4">
+      <div class="route-era">鎌倉時代</div>
+      <div class="route-year">1200年頃</div>
+      <div class="route-place">信濃</div>
+      <div class="route-desc">遠光の子・<strong>小笠原長清</strong>が信濃守護に任ぜられ、信濃に根を張る。弓馬の道に秀で、小笠原流礼法の祖ともなった。赤沢氏誕生の母体はここにある。</div>
+      <div class="route-person">小笠原長清</div>
+    </div>
+
+    <div class="route-card" data-index="5">
+      <div class="route-era">鎌倉時代</div>
+      <div class="route-year">1250年頃</div>
+      <div class="route-place">伊豆 → 信濃</div>
+      <div class="route-desc">長清の孫・<strong>赤沢清経</strong>が伊豆国田方郡赤沢郷を領し、「赤沢」を名乗る。<strong>赤沢氏の誕生</strong>。その後、信濃国埴科郡埴生（現・千曲市）に移住した。</div>
+      <div class="route-person">赤沢清経（赤沢氏の祖）</div>
+    </div>
+
+    <div class="route-card" data-index="6">
+      <div class="route-era">南北朝時代</div>
+      <div class="route-year">1335年</div>
+      <div class="route-place">信濃・塩崎城</div>
+      <div class="route-desc"><strong>赤沢常興</strong>が塩崎城（現・長野市篠ノ井）を築城。南北朝の動乱の中、北朝方として信濃の地盤を固めた。赤沢氏が戦国武将として歩み始める拠点となった。</div>
+      <div class="route-person">赤沢常興</div>
+    </div>
+
+    <div class="route-card" data-index="7">
+      <div class="route-era">戦国時代</div>
+      <div class="route-year">1490年代</div>
+      <div class="route-place">畿内（京都・大和・河内）</div>
+      <div class="route-desc">赤沢氏の最盛期。<strong>赤沢朝経</strong>が細川政元の右腕として畿内を席巻。比叡山を焼き討ちにし、大和・河内を制圧。「鬼のような強さ」と恐れられた。</div>
+      <div class="route-person">赤沢朝経</div>
+    </div>
+
+    <div class="route-card" data-index="8">
+      <div class="route-era">戦国時代</div>
+      <div class="route-year">1507年</div>
+      <div class="route-place">丹後・天橋立</div>
+      <div class="route-desc">永正の錯乱で主君・細川政元が暗殺される。丹後遠征中だった<strong>朝経</strong>は退路を断たれ、天橋立付近で自刃。赤沢氏の栄光が潰えた地。</div>
+      <div class="route-person">赤沢朝経（最期の地）</div>
+    </div>
+
+    <div class="route-card" data-index="9">
+      <div class="route-era">戦国時代</div>
+      <div class="route-year">1500年代</div>
+      <div class="route-place">阿波（徳島）</div>
+      <div class="route-desc"><strong>赤沢宗伝</strong>が阿波に渡り、板西城（現・板野町）を拠点とする。三好氏に従い、阿波の地で赤沢の名を繋いだ。</div>
+      <div class="route-person">赤沢宗伝</div>
+    </div>
+
+    <div class="route-card" data-index="10">
+      <div class="route-era">戦国時代</div>
+      <div class="route-year">1467年頃</div>
+      <div class="route-place">備中（岡山）</div>
+      <div class="route-desc"><strong>備中赤澤氏</strong>が鴨山城（現・浅口市）を拠点に勢力を築く。細川典厩家・野州家に仕え、備中南部で独自の歴史を刻んだ。</div>
+      <div class="route-person">備中赤澤氏</div>
+    </div>
+
+    <div class="route-card" data-index="11">
+      <div class="route-era">戦国時代</div>
+      <div class="route-year">1550年</div>
+      <div class="route-place">越後</div>
+      <div class="route-desc"><strong>赤沢経智</strong>が武田信玄の信濃侵攻から逃れ、越後へ落ち延びた。上杉氏を頼り、故郷を追われた信濃赤沢氏の生き残りの一人。</div>
+      <div class="route-person">赤沢経智</div>
+    </div>
+
+    <div class="route-card" data-index="12">
+      <div class="route-era">戦国末期</div>
+      <div class="route-year">1570年頃</div>
+      <div class="route-place">陸奥（福島・宮城）</div>
+      <div class="route-desc"><strong>小笠原貞経</strong>が奥州に移り、相馬氏に仕える。信濃を失った小笠原一族の中で、東北の地に新たな活路を見出した。</div>
+      <div class="route-person">小笠原貞経</div>
+    </div>
+
+    <div class="route-card" data-index="13">
+      <div class="route-era">江戸時代初期</div>
+      <div class="route-year">1614-15年</div>
+      <div class="route-place">大坂</div>
+      <div class="route-desc">備中赤澤氏が<strong>大坂の陣</strong>に参陣。戦国最後の大戦に赤澤の名が記録されている。武家としての最後の戦場。</div>
+      <div class="route-person">備中赤澤氏</div>
+    </div>
+
+    <div class="route-card" data-index="14">
+      <div class="route-era">江戸時代</div>
+      <div class="route-year">1604年</div>
+      <div class="route-place">江戸</div>
+      <div class="route-desc"><strong>貞経</strong>が徳川家康に仕え、江戸へ。武家から幕臣へ。戦の時代が終わり、赤沢氏は新しい時代の中で生き方を変えていく。</div>
+      <div class="route-person">小笠原貞経</div>
+    </div>
+
+    <div class="route-card" data-index="15">
+      <div class="route-era">江戸時代</div>
+      <div class="route-year">江戸中期〜後期</div>
+      <div class="route-place">信州・松代</div>
+      <div class="route-desc">松代藩（真田家）の家臣として赤沢氏が記録に残る。<strong>赤澤遠康</strong>（天保12年/1841年に記録を残した人物）を含む、信州に根を張り続けた一族。</div>
+      <div class="route-person">赤澤遠康</div>
+    </div>
+
+    <div class="route-card" data-index="16">
+      <div class="route-era">昭和</div>
+      <div class="route-year">昭和初期</div>
+      <div class="route-place">東京・神田</div>
+      <div class="route-desc"><strong>赤澤秀邦</strong>（RIOの祖父）は東京神田の出身。都会で生まれ育ち、やがて戦争の時代に巻き込まれていく。</div>
+      <div class="route-person">赤澤秀邦</div>
+    </div>
+
+    <div class="route-card" data-index="17">
+      <div class="route-era">昭和</div>
+      <div class="route-year">1940年代</div>
+      <div class="route-place">長野</div>
+      <div class="route-desc">戦時疎開で秀邦は<strong>長野</strong>へ。奇しくも赤沢氏のルーツである信州の地へ、700年の時を経て戻ることになった。</div>
+      <div class="route-person">赤澤秀邦（疎開）</div>
+    </div>
+
+    <div class="route-card" data-index="18">
+      <div class="route-era">現代</div>
+      <div class="route-year">令和</div>
+      <div class="route-place">東京</div>
+      <div class="route-desc">秀邦の孫・<strong>RIO</strong>が東京に暮らす。1100年前に源経基が京で源氏の名を得てから、赤沢の血脈は今も続いている。</div>
+      <div class="route-person">RIO（現在）</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="page-nav">
+  <a href="stories.html">← 人物伝</a>
+  <a href="index.html">トップページ →</a>
+</div>
+
+<div class="footer">赤澤一族 令和版 — 2026年編纂</div>
+
+</div>
+
+<script>
+(function(){
+  // ============================================================
+  // Japan SVG map data (simplified outline + major regions)
+  // Coordinates: viewBox 0 0 500 700, approximate lat/long mapping
+  // ============================================================
+
+  // Simplified Japan map paths (main islands outline)
+  const japanPaths = {
+    // Hokkaido (simplified)
+    hokkaido: "M350,55 L370,40 L400,35 L430,45 L440,65 L435,85 L420,95 L395,100 L375,95 L355,80 L345,65 Z",
+    // Honshu (simplified)
+    honshu: "M340,110 L360,105 L380,108 L395,115 L400,130 L395,145 L405,160 L410,180 L400,200 L390,215 L380,230 L370,245 L375,260 L380,280 L370,300 L360,315 L350,330 L345,345 L335,360 L320,370 L305,365 L290,355 L275,345 L265,330 L260,315 L265,300 L275,285 L270,270 L260,260 L250,250 L245,235 L250,220 L260,210 L275,200 L290,195 L300,185 L305,170 L310,155 L315,140 L325,125 Z",
+    // Shikoku
+    shikoku: "M260,370 L280,365 L300,370 L310,380 L300,395 L280,400 L260,395 L250,385 Z",
+    // Kyushu
+    kyushu: "M215,360 L235,350 L250,355 L255,370 L250,390 L245,410 L235,430 L220,440 L205,435 L195,420 L190,400 L195,380 L205,370 Z",
+  };
+
+  // Point coordinates on the SVG map [x, y]
+  const points = [
+    { x: 300, y: 290, name: "京都",              year: "914" },      // 0
+    { x: 285, y: 300, name: "摂津・多田",         year: "970" },      // 1
+    { x: 290, y: 310, name: "河内・大和",         year: "1000" },     // 2
+    { x: 355, y: 245, name: "甲斐",              year: "1100" },     // 3
+    { x: 340, y: 220, name: "信濃",              year: "1200" },     // 4
+    { x: 370, y: 260, name: "伊豆",              year: "1250" },     // 5 (伊豆→信濃)
+    { x: 335, y: 225, name: "塩崎城",            year: "1335" },     // 6
+    { x: 305, y: 295, name: "畿内",              year: "1490" },     // 7
+    { x: 280, y: 270, name: "丹後",              year: "1507" },     // 8
+    { x: 270, y: 385, name: "阿波",              year: "1500s" },    // 9
+    { x: 250, y: 345, name: "備中",              year: "1467" },     // 10
+    { x: 350, y: 175, name: "越後",              year: "1550" },     // 11
+    { x: 385, y: 155, name: "陸奥",              year: "1570" },     // 12
+    { x: 290, y: 320, name: "大坂",              year: "1614" },     // 13
+    { x: 370, y: 240, name: "江戸",              year: "1604" },     // 14
+    { x: 330, y: 215, name: "松代",              year: "江戸" },     // 15
+    { x: 375, y: 238, name: "神田",              year: "昭和" },     // 16
+    { x: 335, y: 218, name: "長野",              year: "1940s" },    // 17
+    { x: 372, y: 242, name: "東京",              year: "現代" },     // 18
+  ];
+
+  // Route connections [from, to]
+  const routes = [
+    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6],
+    [6, 7], [7, 8], [7, 9], [7, 10], [6, 11], [11, 12],
+    [10, 13], [12, 14], [6, 15], [15, 16], [16, 17], [17, 18]
+  ];
+
+  function buildSVG() {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "170 20 290 440");
+    svg.setAttribute("class", "map-svg");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+    // Sea background
+    const sea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    sea.setAttribute("x", "170"); sea.setAttribute("y", "20");
+    sea.setAttribute("width", "290"); sea.setAttribute("height", "440");
+    sea.setAttribute("class", "sea");
+    svg.appendChild(sea);
+
+    // Japan islands
+    Object.entries(japanPaths).forEach(([name, d]) => {
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", d);
+      path.setAttribute("class", "prefecture");
+      path.dataset.island = name;
+      svg.appendChild(path);
+    });
+
+    // Route lines (drawn as individual segments)
+    routes.forEach((r, i) => {
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", points[r[0]].x);
+      line.setAttribute("y1", points[r[0]].y);
+      line.setAttribute("x2", points[r[1]].x);
+      line.setAttribute("y2", points[r[1]].y);
+      line.setAttribute("class", "route-line");
+      // Calculate actual length for dash
+      const dx = points[r[1]].x - points[r[0]].x;
+      const dy = points[r[1]].y - points[r[0]].y;
+      const len = Math.sqrt(dx*dx + dy*dy);
+      line.style.strokeDasharray = len;
+      line.style.strokeDashoffset = len;
+      line.dataset.routeIndex = i;
+      svg.appendChild(line);
+    });
+
+    // Dots and labels
+    points.forEach((p, i) => {
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", p.x);
+      circle.setAttribute("cy", p.y);
+      circle.setAttribute("class", "map-dot");
+      circle.dataset.pointIndex = i;
+      svg.appendChild(circle);
+
+      // Name label
+      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.setAttribute("x", p.x + 10);
+      text.setAttribute("y", p.y + 3);
+      text.setAttribute("class", "map-label");
+      text.textContent = p.name;
+      text.dataset.pointIndex = i;
+      svg.appendChild(text);
+
+      // Year label
+      const yearText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      yearText.setAttribute("x", p.x + 10);
+      yearText.setAttribute("y", p.y + 13);
+      yearText.setAttribute("class", "map-year-label");
+      yearText.textContent = p.year;
+      yearText.dataset.pointIndex = i;
+      svg.appendChild(yearText);
+    });
+
+    return svg;
+  }
+
+  // Build SVG for both desktop and mobile containers
+  const desktopWrap = document.getElementById("mapSvgWrapDesktop");
+  const mobileWrap = document.getElementById("mapSvgWrapMobile");
+  if (desktopWrap) desktopWrap.appendChild(buildSVG());
+  if (mobileWrap) mobileWrap.appendChild(buildSVG());
+
+  // ============================================================
+  // Scroll-driven animation with IntersectionObserver
+  // ============================================================
+  const routeCards = document.querySelectorAll(".route-card");
+  const totalCards = routeCards.length;
+
+  // Map from card index to which routes/points to activate
+  // Each card activates its own point + the route leading to it
+  function getRouteIndicesForCard(cardIdx) {
+    // Routes that end at this card's point
+    const result = [];
+    routes.forEach((r, i) => {
+      if (r[1] === cardIdx) result.push(i);
+    });
+    return result;
+  }
+
+  let activeCardIndex = -1;
+
+  function updateMap(currentIndex) {
+    if (currentIndex === activeCardIndex) return;
+    activeCardIndex = currentIndex;
+
+    document.querySelectorAll(".map-svg").forEach(svg => {
+      // Activate all points and routes up to current
+      const allDots = svg.querySelectorAll(".map-dot");
+      const allLabels = svg.querySelectorAll(".map-label");
+      const allYearLabels = svg.querySelectorAll(".map-year-label");
+      const allRoutes = svg.querySelectorAll(".route-line");
+
+      // Determine which points should be visible (all up to and including current)
+      const visiblePoints = new Set();
+      for (let i = 0; i <= currentIndex; i++) visiblePoints.add(i);
+
+      // Determine which routes should be visible
+      const visibleRoutes = new Set();
+      for (let i = 0; i <= currentIndex; i++) {
+        routes.forEach((r, ri) => {
+          if (r[1] === i && visiblePoints.has(r[0])) {
+            visibleRoutes.add(ri);
+          }
+        });
+      }
+
+      allDots.forEach(dot => {
+        const idx = parseInt(dot.dataset.pointIndex);
+        if (visiblePoints.has(idx)) {
+          dot.classList.add("active");
+          dot.classList.toggle("current", idx === currentIndex);
+        } else {
+          dot.classList.remove("active", "current");
+        }
+      });
+
+      allLabels.forEach(label => {
+        const idx = parseInt(label.dataset.pointIndex);
+        label.classList.toggle("active", visiblePoints.has(idx));
+      });
+
+      allYearLabels.forEach(label => {
+        const idx = parseInt(label.dataset.pointIndex);
+        label.classList.toggle("active", visiblePoints.has(idx));
+      });
+
+      allRoutes.forEach(route => {
+        const idx = parseInt(route.dataset.routeIndex);
+        if (visibleRoutes.has(idx)) {
+          route.classList.add("active");
+          route.style.strokeDashoffset = "0";
+        } else {
+          route.classList.remove("active");
+          const r = routes[idx];
+          const dx = points[r[1]].x - points[r[0]].x;
+          const dy = points[r[1]].y - points[r[0]].y;
+          route.style.strokeDashoffset = Math.sqrt(dx*dx + dy*dy);
+        }
+      });
+    });
+
+    // Update progress bars
+    const progress = ((currentIndex + 1) / totalCards) * 100;
+    const pDesktop = document.getElementById("progressBarDesktop");
+    const pMobile = document.getElementById("progressBarMobile");
+    if (pDesktop) pDesktop.style.width = progress + "%";
+    if (pMobile) pMobile.style.width = progress + "%";
+  }
+
+  // Intersection Observer for route cards
+  const observer = new IntersectionObserver((entries) => {
+    let maxVisibleIndex = -1;
+    routeCards.forEach((card, idx) => {
+      const rect = card.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      // Consider a card "active" when its top third is in the viewport
+      if (rect.top < windowH * 0.6 && rect.bottom > windowH * 0.2) {
+        card.classList.add("in-view");
+        if (idx > maxVisibleIndex) maxVisibleIndex = idx;
+      }
+    });
+    if (maxVisibleIndex >= 0) updateMap(maxVisibleIndex);
+  }, {
+    threshold: [0, 0.1, 0.3, 0.5, 0.7, 1]
+  });
+
+  routeCards.forEach(card => observer.observe(card));
+
+  // Also update on scroll for more responsive feel
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        let maxIdx = -1;
+        routeCards.forEach((card, idx) => {
+          const rect = card.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.1) {
+            card.classList.add("in-view");
+            if (idx > maxIdx) maxIdx = idx;
+          }
+        });
+        // find the most centered card
+        let bestIdx = maxIdx;
+        let bestDist = Infinity;
+        routeCards.forEach((card, idx) => {
+          const rect = card.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const viewCenter = window.innerHeight / 2;
+          const dist = Math.abs(center - viewCenter);
+          if (dist < bestDist && rect.top < window.innerHeight && rect.bottom > 0) {
+            bestDist = dist;
+            bestIdx = idx;
+          }
+        });
+        if (bestIdx >= 0) updateMap(bestIdx);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // ============================================================
+  // Tooltip on hover/tap for map dots
+  // ============================================================
+  const cardDescs = [];
+  routeCards.forEach(card => {
+    const place = card.querySelector(".route-place").textContent;
+    const year = card.querySelector(".route-year").textContent;
+    const person = card.querySelector(".route-person").textContent;
+    cardDescs.push({ place, year, person });
+  });
+
+  function setupTooltip(svgWrap, tooltipEl) {
+    if (!svgWrap || !tooltipEl) return;
+    const dots = svgWrap.querySelectorAll(".map-dot");
+    dots.forEach(dot => {
+      const idx = parseInt(dot.dataset.pointIndex);
+      const info = cardDescs[idx];
+      if (!info) return;
+
+      function showTip(e) {
+        tooltipEl.innerHTML = "<strong>" + info.place + "（" + info.year + "）</strong>" + info.person;
+        tooltipEl.classList.add("visible");
+        // Position near the cursor/touch
+        const parentRect = svgWrap.closest(".map-wrap").getBoundingClientRect();
+        const svgRect = svgWrap.getBoundingClientRect();
+        // Use SVG coordinate mapping
+        const svg = svgWrap.querySelector("svg");
+        const pt = svg.createSVGPoint();
+        pt.x = parseFloat(dot.getAttribute("cx"));
+        pt.y = parseFloat(dot.getAttribute("cy"));
+        const ctm = svg.getScreenCTM();
+        const screenPt = pt.matrixTransform(ctm);
+        tooltipEl.style.left = (screenPt.x - parentRect.left + 12) + "px";
+        tooltipEl.style.top = (screenPt.y - parentRect.top - 10) + "px";
+      }
+      function hideTip() {
+        tooltipEl.classList.remove("visible");
+      }
+      dot.addEventListener("mouseenter", showTip);
+      dot.addEventListener("mouseleave", hideTip);
+      dot.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        showTip(e);
+        setTimeout(hideTip, 2500);
+      });
+
+      // Click to scroll to corresponding card
+      dot.addEventListener("click", () => {
+        routeCards[idx]?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+  }
+
+  setupTooltip(document.getElementById("mapSvgWrapDesktop"), document.getElementById("tooltipDesktop"));
+  setupTooltip(document.getElementById("mapSvgWrapMobile"), document.getElementById("tooltipMobile"));
+
+  // Initial state: show first point
+  updateMap(0);
+  routeCards[0]?.classList.add("in-view");
+
+})();
+</script>
+</body>
+</html>
