@@ -57,13 +57,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 /* Lineage Flow — 石庭 */
 .lineage-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:30px 0}
 .lf-person{background:#fff;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;padding:12px 24px;text-align:center;min-width:200px;transition:all .2s;box-shadow:0 1px 6px rgba(0,0,0,.03)}
-.lf-person{cursor:pointer}
 .lf-person:hover{border-color:rgba(0,0,0,.12);box-shadow:0 4px 16px rgba(0,0,0,.05)}
-.lf-person.active{border-color:rgba(139,105,20,.3);background:rgba(139,105,20,.03)}
-.tab-content{margin-top:30px;min-height:200px}
-.tab-panel{display:none;animation:tabFadeIn .35s ease}
-.tab-panel.show{display:block}
-@keyframes tabFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .lf-person.lf-highlight{border-color:#8b6914;border-width:2px;background:#faf8f0}
 .lf-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;color:#1a1a1a}
 .lf-desc{font-size:11px;color:#999;margin-top:2px}
@@ -73,66 +67,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 .page-nav a{font-size:12px;color:#555;text-decoration:none}
 .page-nav a:hover{color:#1a1a1a}
 .site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:#bbb;margin-top:40px}
-/* ===== 原本ギャラリー ===== */
-.genpon-section{margin-top:50px}
-.genpon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
-.genpon-item{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.03);transition:all .25s;background:#fff}
-.genpon-item:hover{box-shadow:0 4px 20px rgba(0,0,0,.06);transform:translateY(-2px)}
-.genpon-item img{width:100%;height:auto;display:block}
-.genpon-cap{padding:8px 12px;font-size:11px;color:#999;line-height:1.5}
-.genpon-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out}
-.genpon-modal.active{display:flex}
-.genpon-modal img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
-.genpon-modal-close{position:fixed;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;z-index:10000;background:none;border:none;font-family:inherit;transition:color .2s}
-.genpon-modal-close:hover{color:#fff}
-.sec-head-g{margin:60px 0 20px}
-.sec-num-g{font-size:10px;font-weight:600;letter-spacing:.15em;color:#999;margin-bottom:4px}
-.sec-title-g{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:#1a1a1a;letter-spacing:.06em}
-.sec-line-g{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.03));margin-top:10px}
-/* === Responsive: Tablet === */
-@media(max-width:768px){
-  .content-wrap{padding:30px 16px 50px}
-  .chapter-title{font-size:26px}
-  .main-text{font-size:14px}
-  .card,.person-card{padding:22px}
-  .lf-person{min-width:160px;padding:10px 16px}
-  .person-name{font-size:20px}
-}
-
-/* === Responsive: Mobile === */
-@media(max-width:480px){
-  .content-wrap{padding:24px 12px 40px}
-  .breadcrumb{font-size:11px;margin-bottom:20px}
-  .chapter-header{margin-bottom:30px}
-  .chapter-num{font-size:9px}
-  .chapter-title{font-size:22px;letter-spacing:.05em}
-  .chapter-subtitle{font-size:12px}
-  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
-  .main-text p{margin-bottom:14px}
-  .card,.person-card{padding:16px}
-  .card p,.card li{font-size:13px;line-height:1.8}
-  .card ul{padding-left:14px}
-  .card-title{font-size:12px}
-  .person-name{font-size:18px}
-  .person-reading{font-size:11px}
-  .person-tags{gap:4px;margin-bottom:10px}
-  .person-tag{font-size:8px;padding:3px 8px}
-  .person-body{font-size:13px;line-height:1.9}
-  .person-relation{font-size:11px}
-  .lineage-flow{margin:20px 0}
-  .lf-person{min-width:auto;width:100%;max-width:280px;padding:10px 16px}
-  .lf-name{font-size:14px}
-  .lf-desc{font-size:10px}
-  .tab-content{margin-top:20px}
-  .grandpa-note{padding:14px 16px;margin:14px 0}
-  .grandpa-note p{font-size:12px}
-  .ai-note{padding:14px 16px;margin:14px 0}
-  .ai-note p,.ai-note li{font-size:12px}
-  .original-text{padding:14px 16px;margin:14px 0;font-size:12px}
-  .page-nav{margin-top:36px;padding-top:14px}
-  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
-  .site-footer{font-size:10px;padding:24px 0 16px}
-}
+@media(max-width:600px){.chapter-title{font-size:24px}.card,.person-card{padding:18px 20px}.lf-person{min-width:160px;padding:10px 16px}}
 </style>
 </head>
 <body>
@@ -161,32 +96,30 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 
 <!-- ===== 系譜の流れ ===== -->
 <div class="lineage-flow">
-  <div class="lf-person active" data-tab="tab-seiwa"><div class="lf-name">清和天皇</div><div class="lf-desc">第56代天皇（850-881）</div></div>
+  <div class="lf-person"><div class="lf-name">清和天皇</div><div class="lf-desc">第56代天皇（850-881）</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person" data-tab="tab-sadazumi"><div class="lf-name">貞純親王</div><div class="lf-desc">清和天皇の第六皇子</div></div>
+  <div class="lf-person"><div class="lf-name">貞純親王</div><div class="lf-desc">清和天皇の第六皇子</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person" data-tab="tab-tsunemoto"><div class="lf-name">源経基</div><div class="lf-desc">六孫王 — 臣籍降下して「源」姓に</div></div>
+  <div class="lf-person"><div class="lf-name">源経基</div><div class="lf-desc">六孫王 — 臣籍降下して「源」姓に</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person" data-tab="tab-mitsunaka"><div class="lf-name">源満仲</div><div class="lf-desc">多田源氏の祖 — 摂津国多田</div></div>
+  <div class="lf-person"><div class="lf-name">源満仲</div><div class="lf-desc">多田源氏の祖 — 摂津国多田</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person" data-tab="tab-yorinobu"><div class="lf-name">源頼信</div><div class="lf-desc">河内源氏の祖</div></div>
+  <div class="lf-person"><div class="lf-name">源頼信</div><div class="lf-desc">河内源氏の祖</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person" data-tab="tab-yoriyoshi"><div class="lf-name">源頼義</div><div class="lf-desc">前九年の役の英雄</div></div>
+  <div class="lf-person"><div class="lf-name">源頼義</div><div class="lf-desc">前九年の役の英雄</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person" data-tab="tab-yoshimitsu"><div class="lf-name">源義光</div><div class="lf-desc">新羅三郎 — 甲斐源氏の祖</div></div>
+  <div class="lf-person"><div class="lf-name">源義光</div><div class="lf-desc">新羅三郎 — 甲斐源氏の祖</div></div>
   <div class="lf-arrow">↓ （数代）</div>
-  <div class="lf-person" data-tab="tab-nagakiyo"><div class="lf-name">小笠原長清</div><div class="lf-desc">信濃守護 — 弓馬術礼法の祖</div></div>
+  <div class="lf-person"><div class="lf-name">小笠原長清</div><div class="lf-desc">信濃守護 — 弓馬術礼法の祖</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person" data-tab="tab-nagatsune"><div class="lf-name">小笠原長経</div><div class="lf-desc">長清の嫡男</div></div>
+  <div class="lf-person"><div class="lf-name">小笠原長経</div><div class="lf-desc">長清の嫡男</div></div>
   <div class="lf-arrow">↓</div>
-  <div class="lf-person lf-highlight" data-tab="tab-kiyotsune"><div class="lf-name">赤沢清経</div><div class="lf-desc">赤沢氏の祖 — 伊豆守</div></div>
+  <div class="lf-person lf-highlight"><div class="lf-name">赤沢清経</div><div class="lf-desc">赤沢氏の祖 — 伊豆守</div></div>
 </div>
 
-<!-- ===== 各人物の詳細（タブ切り替え） ===== -->
-<div class="tab-content">
+<!-- ===== 各人物の詳細 ===== -->
 
 <!-- 清和天皇 -->
-<div class="tab-panel show" id="tab-seiwa">
 <div class="person-card">
   <div class="person-name">清和天皇</div>
   <div class="person-reading">せいわてんのう — 第56代天皇</div>
@@ -201,10 +134,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
     <p>この天皇の皇子たちが「源」の姓を賜って臣下に下り（臣籍降下）、<strong>清和源氏</strong>と呼ばれる武家の名門を形成した。赤澤家を含む日本の武門の大半は、この天皇に遡る。</p>
   </div>
 </div>
-</div>
 
 <!-- 貞純親王 -->
-<div class="tab-panel" id="tab-sadazumi">
 <div class="person-card">
   <div class="person-name">貞純親王</div>
   <div class="person-reading">さだずみしんのう — 清和天皇の第六皇子</div>
@@ -218,10 +149,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
   </div>
   <div class="person-relation">父：清和天皇 → 子：源経基（六孫王）</div>
 </div>
-</div>
 
 <!-- 源経基 -->
-<div class="tab-panel" id="tab-tsunemoto">
 <div class="person-card">
   <div class="person-name">源経基（六孫王）</div>
   <div class="person-reading">みなもとのつねもと — 清和源氏の始祖</div>
@@ -242,10 +171,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 <div class="ai-note">
   <p><strong>「臣籍降下」とは？</strong> — 皇族が天皇の姓から離れて臣下（一般人）の身分になること。平安時代には皇族の数が増えすぎたため、一部の皇子・皇孫に「源」や「平」の姓を与えて臣下とした。源経基の場合は「源」姓を賜り、これが後の清和源氏となった。</p>
 </div>
-</div>
 
 <!-- 源満仲 -->
-<div class="tab-panel" id="tab-mitsunaka">
 <div class="person-card">
   <div class="person-name">源満仲</div>
   <div class="person-reading">みなもとのみつなか — 多田源氏の祖</div>
@@ -262,29 +189,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
   </div>
   <div class="person-relation">父：源経基 → 子：源頼光（摂津源氏）、源頼信（河内源氏）ほか</div>
 </div>
-</div>
-
-<!-- 源頼信（個別カードなし） -->
-<div class="tab-panel" id="tab-yorinobu">
-<div class="person-card">
-  <div class="person-name">源頼信</div>
-  <div class="person-reading">みなもとのよりのぶ — 河内源氏の祖</div>
-  <div class="person-tags">
-    <span class="person-tag tag-era">平安時代中期</span>
-    <span class="person-tag tag-role">武将</span>
-    <span class="person-tag tag-place">河内国（大阪府）</span>
-  </div>
-  <div class="person-body">
-    <p>968年生まれ、1048年没。源満仲の三男。</p>
-    <p>河内国壷井（現在の大阪府羽曳野市）を本拠として<strong>河内源氏</strong>の祖となった。平忠常の乱（1028年）を鎮圧し、東国武士団との結びつきを強めた。</p>
-    <p>この河内源氏の系統から、源頼義・源義家を経て鎌倉幕府を開いた源頼朝が生まれ、また赤澤一族へとつながる源義光の父・源頼義も頼信の子にあたる。</p>
-  </div>
-  <div class="person-relation">父：源満仲 → 子：源頼義</div>
-</div>
-</div>
 
 <!-- 源頼義 -->
-<div class="tab-panel" id="tab-yoriyoshi">
 <div class="person-card">
   <div class="person-name">源頼義</div>
   <div class="person-reading">みなもとのよりよし — 前九年の役の英雄</div>
@@ -300,10 +206,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
   </div>
   <div class="person-relation">父：源頼信 → 子：源義家（八幡太郎）、源義光（新羅三郎）ほか</div>
 </div>
-</div>
 
 <!-- 源義光 — ここが分岐点 -->
-<div class="tab-panel" id="tab-yoshimitsu">
 <div class="person-card highlight">
   <div class="person-name">源義光（新羅三郎）</div>
   <div class="person-reading">みなもとのよしみつ — 甲斐源氏の祖・赤澤家への分岐点</div>
@@ -325,10 +229,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 <div class="ai-note">
   <p><strong>後三年の役のエピソード</strong> — 義光は京都で官職に就いていたが、奥州で苦戦する兄・義家の知らせを受けると、官職を辞して単身奥州へ向かった。「弟として兄を助けるのは当然」という義侠心から。このとき、逢坂山の関で笙（しょう、雅楽の楽器）の秘曲を後輩に伝授したという「逢坂の関の笙の秘曲」の逸話は有名。</p>
 </div>
-</div>
 
 <!-- 小笠原長清 -->
-<div class="tab-panel" id="tab-nagakiyo">
 <div class="person-card highlight">
   <div class="person-name">小笠原長清</div>
   <div class="person-reading">おがさわら ながきよ — 信濃守護・弓馬術礼法の祖</div>
@@ -349,28 +251,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 <div class="grandpa-note">
   <p>冊子の家系図ページに、おじいちゃん（秀邦）が赤ペンで「加賀美遠光（小笠原の祖）？ 安治元年8月16日 清和源氏八代目 いしはしの合戦 武田氏と同祖（別17了）」と書き込んでいる。加賀美遠光が小笠原氏の始祖であることを確認し、武田氏と同じルーツであることを自分で調べてメモしていた痕跡。</p>
 </div>
-</div>
-
-<!-- 小笠原長経（個別カードなし） -->
-<div class="tab-panel" id="tab-nagatsune">
-<div class="person-card">
-  <div class="person-name">小笠原長経</div>
-  <div class="person-reading">おがさわら ながつね — 小笠原長清の嫡男</div>
-  <div class="person-tags">
-    <span class="person-tag tag-era">鎌倉時代</span>
-    <span class="person-tag tag-role">武将</span>
-    <span class="person-tag tag-place">信濃国（長野県）</span>
-  </div>
-  <div class="person-body">
-    <p>小笠原長清の嫡男（長男）。父の後を継いで小笠原氏を率いた。</p>
-    <p>長経の長男が小笠原氏の本家を継ぎ、次男の<strong>清経</strong>が伊豆国赤沢郷を領して「赤沢」を名乗った。つまり、赤沢氏の直接の父にあたる人物。</p>
-  </div>
-  <div class="person-relation">父：小笠原長清 → 子：小笠原氏本家（長男）、赤沢清経（次男）</div>
-</div>
-</div>
 
 <!-- 赤沢清経 -->
-<div class="tab-panel" id="tab-kiyotsune">
 <div class="person-card highlight" style="border-left-color:var(--vermillion);border-left-width:6px">
   <div class="person-name">赤沢清経</div>
   <div class="person-reading">あかざわ きよつね — 赤沢氏の始祖</div>
@@ -391,9 +273,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 <div class="ai-note">
   <p><strong>なぜ「次男」が新しい氏を名乗ったのか？</strong> — 鎌倉時代の武家社会では、長男が家督（本家）を継ぎ、次男以下は新たな領地を得て別の苗字を名乗ることが一般的だった。長経の長男は小笠原氏を継ぎ、次男の清経は伊豆の赤沢を領して赤沢を名乗った。これは「分家」であると同時に、一族の勢力を各地に広げる戦略でもあった。</p>
 </div>
-</div>
-
-</div><!-- /.tab-content -->
 
 <!-- ===== まとめ ===== -->
 <div class="card card-gold">
@@ -414,21 +293,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
   <p>次章では、赤沢清経以降の家系図を詳しく見ていく。塩崎城を拠点に信濃で活躍した赤沢氏の歴代当主たち、そして室町時代に将軍の弓道師範を務めた赤沢朝経の物語へ。</p>
 </div>
 
-<!-- 原本ギャラリー -->
-<div class="genpon-section">
-  <div class="sec-head-g">
-    <div class="sec-num-g">ORIGINAL</div>
-    <div class="sec-title-g">原本写真 ― 第2章</div>
-    <div class="sec-line-g"></div>
-  </div>
-  <p style="font-size:13px;color:#999;margin-bottom:16px">「清和源氏と赤沢氏」に該当する原本ページ。クリックで拡大表示。</p>
-  <div class="genpon-grid">
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9929.jpg" alt="清和源氏と赤沢氏 冒頭"><div class="genpon-cap">「一、清和源氏と赤沢氏」冒頭</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9930.jpg" alt="系譜 清和天皇〜源満仲"><div class="genpon-cap">系譜：清和天皇 ～ 源満仲 ～ 源頼清</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9931.jpg" alt="系譜 頼清〜長清"><div class="genpon-cap">系譜：頼清 ～ 義業 ～ 光行 ～ 長清</div></div>
-  </div>
-</div>
-
 <!-- Page navigation -->
 <div class="page-nav">
   <a href="chapter1-origins.html">← 第1章 赤沢の起源</a>
@@ -441,39 +305,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 
 </div>
 
-<!-- 原本拡大モーダル -->
-<div class="genpon-modal" id="genponModal" onclick="closeGenpon()">
-  <button class="genpon-modal-close" onclick="closeGenpon()">&#x2715;</button>
-  <img id="genponModalImg" src="" alt="原本拡大">
-</div>
-
-<script>
-function openGenpon(el){var img=el.querySelector('img');var m=document.getElementById('genponModal');document.getElementById('genponModalImg').src=img.src;m.classList.add('active');document.body.style.overflow='hidden'}
-function closeGenpon(){document.getElementById('genponModal').classList.remove('active');document.body.style.overflow=''}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenpon()});
-</script>
-<script>
-// タブ切り替え機能
-document.querySelectorAll('.lf-person').forEach(function(node) {
-  node.addEventListener('click', function() {
-    var tabId = this.getAttribute('data-tab');
-    if (!tabId) return;
-    // アクティブ状態の切り替え
-    document.querySelectorAll('.lf-person').forEach(function(n) { n.classList.remove('active'); });
-    this.classList.add('active');
-    // パネルの切り替え
-    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('show'); });
-    var panel = document.getElementById(tabId);
-    if (panel) {
-      panel.classList.add('show');
-      // パネル表示後、少し遅延してスクロール
-      setTimeout(function() {
-        var y = panel.getBoundingClientRect().top + window.pageYOffset - 80;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }, 100);
-    }
-  });
-});
-</script>
+<script>/* no canvas needed for stone garden style */</script>
 </body>
 </html>
