@@ -73,18 +73,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 .page-nav a{font-size:12px;color:#555;text-decoration:none}
 .page-nav a:hover{color:#1a1a1a}
 .site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:#bbb;margin-top:40px}
-/* ===== 原本ギャラリー ===== */
-.genpon-section{margin-top:50px}
-.genpon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
-.genpon-item{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.03);transition:all .25s;background:#fff}
-.genpon-item:hover{box-shadow:0 4px 20px rgba(0,0,0,.06);transform:translateY(-2px)}
-.genpon-item img{width:100%;height:auto;display:block}
-.genpon-cap{padding:8px 12px;font-size:11px;color:#999;line-height:1.5}
-.genpon-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out}
-.genpon-modal.active{display:flex}
-.genpon-modal img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
-.genpon-modal-close{position:fixed;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;z-index:10000;background:none;border:none;font-family:inherit;transition:color .2s}
-.genpon-modal-close:hover{color:#fff}
 .sec-head-g{margin:60px 0 20px}
 .sec-num-g{font-size:10px;font-weight:600;letter-spacing:.15em;color:#999;margin-bottom:4px}
 .sec-title-g{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:#1a1a1a;letter-spacing:.06em}
@@ -414,20 +402,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
   <p>次章では、赤沢清経以降の家系図を詳しく見ていく。塩崎城を拠点に信濃で活躍した赤沢氏の歴代当主たち、そして室町時代に将軍の弓道師範を務めた赤沢朝経の物語へ。</p>
 </div>
 
-<!-- 原本ギャラリー -->
-<div class="genpon-section">
-  <div class="sec-head-g">
-    <div class="sec-num-g">ORIGINAL</div>
-    <div class="sec-title-g">原本写真 ― 第2章</div>
-    <div class="sec-line-g"></div>
-  </div>
-  <p style="font-size:13px;color:#999;margin-bottom:16px">「清和源氏と赤沢氏」に該当する原本ページ。クリックで拡大表示。</p>
-  <div class="genpon-grid">
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9929.jpg" alt="清和源氏と赤沢氏 冒頭"><div class="genpon-cap">「一、清和源氏と赤沢氏」冒頭</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9930.jpg" alt="系譜 清和天皇〜源満仲"><div class="genpon-cap">系譜：清和天皇 ～ 源満仲 ～ 源頼清</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9931.jpg" alt="系譜 頼清〜長清"><div class="genpon-cap">系譜：頼清 ～ 義業 ～ 光行 ～ 長清</div></div>
-  </div>
-</div>
 
 <!-- Page navigation -->
 <div class="page-nav">
@@ -440,18 +414,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4
 </div>
 
 </div>
-
-<!-- 原本拡大モーダル -->
-<div class="genpon-modal" id="genponModal" onclick="closeGenpon()">
-  <button class="genpon-modal-close" onclick="closeGenpon()">&#x2715;</button>
-  <img id="genponModalImg" src="" alt="原本拡大">
-</div>
-
-<script>
-function openGenpon(el){var img=el.querySelector('img');var m=document.getElementById('genponModal');document.getElementById('genponModalImg').src=img.src;m.classList.add('active');document.body.style.overflow='hidden'}
-function closeGenpon(){document.getElementById('genponModal').classList.remove('active');document.body.style.overflow=''}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenpon()});
-</script>
 <script>
 // タブ切り替え機能
 document.querySelectorAll('.lf-person').forEach(function(node) {
