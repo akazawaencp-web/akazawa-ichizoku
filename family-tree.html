@@ -150,7 +150,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
   .top-bar h1{font-size:14px}
   .legend{padding:10px 16px;gap:10px;font-size:10px}
   .tree-wrap{padding:20px 12px 40px}
-  .tree{min-width:500px;padding:8px}
+  .tree-scroll{display:block}
+  .tree{min-width:500px;padding:8px;overflow-x:auto}
   .nd{padding:12px 18px;min-width:100px}
   .nd-name{font-size:14px}
   .nd-name.imp{font-size:15px}
@@ -160,8 +161,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
   .detail-box{max-width:90%;padding:26px}
   .d-name{font-size:22px}
   .d-body{font-size:13px}
-  .tree-section-label{font-size:12px;margin:30px 0 10px;position:sticky;left:0;max-width:calc(100vw - 24px)}
-  .branch-label{font-size:12px;margin:30px 0 10px;position:sticky;left:0;max-width:calc(100vw - 24px)}
+  .tree-section-label{font-size:12px;margin:30px 0 10px;width:100%;text-align:center}
+  .branch-label{font-size:12px;margin:30px 0 10px;width:100%;text-align:center}
 }
 
 /* === Responsive: Mobile === */
@@ -172,8 +173,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
   .legend{padding:8px 12px;gap:8px;font-size:9px;flex-wrap:wrap}
   .leg-dot{width:10px;height:10px}
   .tree-wrap{padding:16px 8px 40px}
-  .tree-scroll{text-align:left}
-  .tree{min-width:420px;padding:6px}
+  .tree-scroll{display:block;text-align:left}
+  .tree{min-width:420px;padding:6px;overflow-x:auto}
   .nd{padding:8px 12px;min-width:80px;border-radius:8px}
   .nd-name{font-size:12px}
   .nd-name.imp{font-size:13px}
@@ -181,9 +182,9 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
   .nd-role{font-size:9px}
   .kids{gap:8px}
   .v-down,.v-up{height:22px}
-  .tree-section-label{font-size:11px;margin:24px 0 8px;position:sticky;left:0;max-width:calc(100vw - 16px);padding-left:8px;padding-right:8px}
+  .tree-section-label{font-size:11px;margin:24px 0 8px;width:100%;text-align:center;padding-left:8px;padding-right:8px}
   .tree-section-label span{font-size:9px}
-  .branch-label{font-size:11px;margin:24px 0 8px;position:sticky;left:0;max-width:calc(100vw - 16px);padding-left:8px;padding-right:8px}
+  .branch-label{font-size:11px;margin:24px 0 8px;width:100%;text-align:center;padding-left:8px;padding-right:8px}
   .branch-label span{font-size:9px}
   .tree-legend{gap:14px;margin-top:20px;padding-top:14px}
   .tree-legend-item{font-size:10px;gap:6px}
