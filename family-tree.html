@@ -8,23 +8,55 @@
 <style>
 :root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--sh2:0 4px 20px rgba(0,0,0,.04);--ink-grad:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.05));--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40;--accent:rgba(0,0,0,.08);--accent2:rgba(0,0,0,.12)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ===== 背景: 歴史絵画11枚ドリフト ===== */
+.bg-canvas{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg-img{position:absolute;background-size:cover;background-position:center;opacity:.32;filter:brightness(.5) saturate(.5) blur(0px);-webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%);mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%)}
+
+.bg-img:nth-child(1){top:-10%;left:-5%;width:60%;height:55%;background-image:url('bg-images/01_kawanakajima.jpg');animation:mv1 20s ease-in-out infinite alternate}
+.bg-img:nth-child(2){top:-5%;right:-10%;width:55%;height:50%;background-image:url('bg-images/02_rakuchu_rakugai.jpg');animation:mv2 24s ease-in-out infinite alternate}
+.bg-img:nth-child(3){top:20%;left:15%;width:50%;height:45%;background-image:url('bg-images/03_fujin_raijin.jpg');animation:mv3 18s ease-in-out infinite alternate}
+.bg-img:nth-child(4){top:10%;right:5%;width:55%;height:50%;background-image:url('bg-images/04_sekigahara.jpg');animation:mv4 22s ease-in-out infinite alternate}
+.bg-img:nth-child(5){top:35%;left:-8%;width:50%;height:45%;background-image:url('bg-images/05_mongol_invasion.jpg');animation:mv5 19s ease-in-out infinite alternate}
+.bg-img:nth-child(6){top:40%;left:30%;width:45%;height:40%;background-image:url('bg-images/06_genji_emaki.jpg');animation:mv6 23s ease-in-out infinite alternate}
+.bg-img:nth-child(7){top:50%;right:-5%;width:55%;height:45%;background-image:url('bg-images/07_ishiyamadera.jpg');animation:mv7 17s ease-in-out infinite alternate}
+.bg-img:nth-child(8){top:60%;left:5%;width:50%;height:45%;background-image:url('bg-images/08_genji_yadorigi.jpg');animation:mv8 21s ease-in-out infinite alternate}
+.bg-img:nth-child(9){display:none}
+.bg-img:nth-child(10){bottom:-5%;left:10%;width:55%;height:50%;background-image:url('bg-images/10_kasuga_gongen.jpg');animation:mv10 25s ease-in-out infinite alternate}
+.bg-img:nth-child(11){display:none}
+
+@keyframes mv1{from{transform:translate(0,0) scale(1)}to{transform:translate(5%,4%) scale(1.1)}}
+@keyframes mv2{from{transform:translate(0,0) scale(1.05)}to{transform:translate(-5%,3%) scale(1)}}
+@keyframes mv3{from{transform:translate(-3%,0) scale(1)}to{transform:translate(4%,5%) scale(1.08)}}
+@keyframes mv4{from{transform:translate(3%,-2%) scale(1.04)}to{transform:translate(-4%,3%) scale(1)}}
+@keyframes mv5{from{transform:translate(0,2%) scale(1)}to{transform:translate(5%,-3%) scale(1.07)}}
+@keyframes mv6{from{transform:translate(-2%,-2%) scale(1.03)}to{transform:translate(3%,4%) scale(1)}}
+@keyframes mv7{from{transform:translate(2%,0) scale(1)}to{transform:translate(-5%,2%) scale(1.08)}}
+@keyframes mv8{from{transform:translate(-3%,2%) scale(1.04)}to{transform:translate(2%,-4%) scale(1)}}
+@keyframes mv9{from{transform:translate(0,-2%) scale(1)}to{transform:translate(-4%,3%) scale(1.06)}}
+@keyframes mv10{from{transform:translate(2%,2%) scale(1.03)}to{transform:translate(-3%,-2%) scale(1)}}
+
+/* オーバーレイ */
+.ov{position:fixed;inset:0}
+.ov-white{background:rgba(244,244,242,.54);z-index:1}
+.ov-grain{opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:2}
 
 /* Top bar */
-.top-bar{background:var(--glass2);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.04);box-shadow:0 1px 0 rgba(139,105,20,.1);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.top-bar{background:rgba(255,255,255,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.04);box-shadow:0 1px 0 rgba(139,105,20,.1);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .top-bar a{color:var(--tx3);text-decoration:none;font-size:12px;transition:color .2s}
 .top-bar a:hover{color:#8b6914}
 .top-bar h1{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:500;letter-spacing:.1em;color:var(--tx)}
 
 /* Legend */
-.legend{padding:14px 24px;background:var(--glass);backdrop-filter:var(--blur);border-bottom:1px solid var(--bd2);display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:11px;color:var(--tx3)}
+.legend{padding:14px 24px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.04);display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:11px;color:#888;position:relative;z-index:100}
 .leg-item{display:flex;align-items:center;gap:5px}
 .leg-dot{width:12px;height:12px;border-radius:4px;border:1.5px solid}
 
 /* Tree */
-.tree-wrap{margin:0 auto;padding:30px 20px 60px;overflow-x:auto}
-.tree-section-label{font-family:'Shippori Mincho',serif;font-size:13px;font-weight:500;color:var(--tx3);letter-spacing:.08em;margin:40px 0 14px 0;padding-left:2px;text-align:center}
-.tree-section-label span{font-size:10px;letter-spacing:.15em;color:var(--tx4);display:block;margin-bottom:2px}
+.tree-wrap{margin:0 auto;padding:30px 20px 60px;overflow-x:auto;position:relative;z-index:3}
+.tree-section-label{font-family:'Shippori Mincho',serif;font-size:13px;font-weight:500;color:#fff;letter-spacing:.08em;margin:40px 0 14px 0;padding-left:2px;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.tree-section-label span{font-size:10px;letter-spacing:.15em;color:rgba(255,255,255,.6);display:block;margin-bottom:2px}
 
 /* ===== Tree structure ===== */
 .tree{display:flex;flex-direction:column;align-items:center;min-width:600px;padding:10px}
@@ -33,8 +65,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 .person{display:flex;flex-direction:column;align-items:center;position:relative}
 
 /* ノード（カード） */
-.nd{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);padding:14px 22px;text-align:center;min-width:120px;transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative;z-index:2}
-.nd:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.1)}
+.nd{background:rgba(255,255,255,.92);border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.2);padding:14px 22px;text-align:center;min-width:120px;transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative;z-index:2;backdrop-filter:blur(4px)}
+.nd:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(0,0,0,.25)}
 .nd-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;line-height:1.4}
 .nd-name.imp{color:#8b6914;font-size:16px;font-weight:600}
 .nd-name.dir{color:#1a1a1a;font-weight:600}
@@ -44,27 +76,27 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 .nd-role{font-size:11px;color:#999;margin-top:3px}
 
 /* 親から子への縦線（ノードの下から伸びる） */
-.v-down{width:2px;height:35px;margin:0 auto;background:linear-gradient(180deg,#a0a5b0,#c8cdd8)}
+.v-down{width:2px;height:35px;margin:0 auto;background:rgba(255,255,255,.5)}
 
 /* 子グループ: 横線 + person群 */
 .children-group{display:flex;flex-direction:column;align-items:center;position:relative}
 
 /* 横線: 子person群の上に重ねて表示 */
-.h-bar{height:2px;position:absolute;top:0;z-index:1;background:linear-gradient(90deg,#a0a5b0,#c8cdd8)}
+.h-bar{height:2px;position:absolute;top:0;z-index:1;background:rgba(255,255,255,.5)}
 
 /* 子person群（横並び） */
 .kids{display:flex;justify-content:center;align-items:flex-start;gap:20px}
 
 /* 子personの上から降りてくる線 */
-.v-up{width:2px;height:35px;margin:0 auto;background:linear-gradient(180deg,#a0a5b0,#c8cdd8)}
+.v-up{width:2px;height:35px;margin:0 auto;background:rgba(255,255,255,.5)}
 
 /* Branch label */
-.branch-label{font-family:'Shippori Mincho',serif;font-size:13px;font-weight:500;color:var(--tx3);letter-spacing:.08em;margin:40px 0 14px 0;text-align:center}
-.branch-label span{font-size:10px;letter-spacing:.15em;color:var(--tx4);display:block;margin-bottom:2px}
+.branch-label{font-family:'Shippori Mincho',serif;font-size:13px;font-weight:500;color:#fff;letter-spacing:.08em;margin:40px 0 14px 0;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.branch-label span{font-size:10px;letter-spacing:.15em;color:rgba(255,255,255,.6);display:block;margin-bottom:2px}
 
 /* 凡例（ツリー下部） */
-.tree-legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:30px;padding-top:20px;border-top:1px solid #eee;justify-content:center}
-.tree-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
+.tree-legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);justify-content:center}
+.tree-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,.6)}
 .tree-legend-line{width:30px;height:2px}
 .tree-legend-txt{font-family:'Shippori Mincho',serif;font-size:12px}
 .tree-legend-txt.g{color:#8b6914;font-weight:600}
@@ -73,22 +105,21 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 /* Detail overlay */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(6px)}
 .overlay.show{display:flex}
-.detail-box{background:rgba(255,255,255,.75);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.5);border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.08);max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative}
-.detail-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--tx4);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.detail-box{background:#fff;border-radius:0 18px 18px 0;box-shadow:0 4px 30px rgba(0,0,0,.07);border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative}
+.detail-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#ccc;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .detail-close:hover{background:rgba(0,0,0,.04)}
 
 /* Detail content */
-.d-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;color:var(--tx);margin-bottom:4px}
-.d-reading{font-size:12px;color:var(--tx3);margin-bottom:14px}
+.d-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;color:#1a1a1a;margin-bottom:4px}
+.d-reading{font-size:12px;color:#aaa;margin-bottom:14px}
 .d-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
 .d-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(0,0,0,.04);color:#666}
-.d-tag-line{background:rgba(0,0,0,.06);color:#444}
-.d-body{font-size:14px;color:var(--tx2);line-height:2}
+.d-body{font-size:14px;color:#444;line-height:2}
 .d-body p{margin-bottom:12px}
 .d-body h3{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;color:var(--tx);margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid rgba(0,0,0,.04)}
 .d-body ul{padding-left:18px;margin-bottom:10px}
 .d-body li{margin-bottom:4px}
-.d-relation{font-size:12px;color:var(--tx3);margin-top:16px;padding-top:12px;border-top:1px solid rgba(0,0,0,.04)}
+.d-relation{font-size:12px;color:#999;margin-top:16px;padding-top:12px;border-top:1px solid rgba(0,0,0,.06)}
 
 /* Detail timeline */
 .d-tl{position:relative;padding-left:20px;margin:12px 0}
@@ -106,7 +137,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 .d-ai{background:rgba(240,242,248,.5);border:1px solid rgba(0,0,0,.04);border-radius:10px;padding:14px 18px;margin:12px 0;font-size:12px;color:#3a3a50;line-height:1.8}
 .d-ai::before{content:'深掘り調査';display:block;font-size:10px;font-weight:600;color:var(--tx3);margin-bottom:5px;letter-spacing:.04em}
 
-.footer{text-align:center;padding:30px 20px;font-size:11px;color:var(--tx4);border-top:1px solid var(--bd2)}
+.footer{text-align:center;padding:30px 20px;font-size:11px;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.08);position:relative;z-index:3}
 
 @media(max-width:600px){
   .top-bar h1{font-size:13px}
@@ -120,6 +151,23 @@ body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var
 </style>
 </head>
 <body>
+
+<!-- 背景: 歴史絵画11枚を重ね合わせドリフト -->
+<div class="bg-canvas">
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+</div>
+<div class="ov ov-white"></div>
+<div class="ov ov-grain"></div>
 
 <div class="top-bar">
   <a href="index.html">← トップ</a>
