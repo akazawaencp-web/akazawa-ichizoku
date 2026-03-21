@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>モーダルデザイン 10パターン比較</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;padding:40px 20px}
+
+.page-title{font-family:'Shippori Mincho',serif;font-size:28px;font-weight:500;text-align:center;margin-bottom:8px;color:#1a1a1a}
+.page-sub{text-align:center;font-size:13px;color:#999;margin-bottom:50px}
+
+.pattern-section{max-width:700px;margin:0 auto 60px}
+.pattern-label{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:500;color:#1a1a1a;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.pattern-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#1a1a1a;color:#fff;font-size:12px;font-weight:600;font-family:'Noto Sans JP',sans-serif}
+.pattern-desc{font-size:12px;color:#999;margin-bottom:16px}
+
+/* ===== 共通モーダル内部構造 ===== */
+.modal-card{max-width:640px;width:100%;padding:32px;position:relative}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:22px;cursor:default;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.d-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;margin-bottom:4px}
+.d-reading{font-size:12px;margin-bottom:14px}
+.d-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+.d-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:99px}
+.d-body{font-size:14px;line-height:2;margin-bottom:12px}
+.d-gp{border-radius:0 0 10px 10px;padding:14px 18px;margin:12px 0;font-size:12px;line-height:1.8}
+.d-gp-label{font-size:10px;font-weight:600;margin-bottom:5px;letter-spacing:.04em}
+.d-relation{font-size:12px;margin-top:16px;padding-top:12px}
+
+/* ============================================================
+   Pattern 1: 現在のガラス（明るく調整）
+   ============================================================ */
+.p1 .modal-card{
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.6);
+  border-radius:18px;
+  box-shadow:0 8px 40px rgba(0,0,0,.08);
+}
+.p1 .modal-close{color:#bbb}
+.p1 .modal-close:hover{background:rgba(0,0,0,.04)}
+.p1 .d-name{color:#1a1a1a}
+.p1 .d-reading{color:#999}
+.p1 .d-tag{background:rgba(0,0,0,.05);color:#555}
+.p1 .d-body{color:#444}
+.p1 .d-gp{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.1);border-top:2px solid #8b6914;color:#6a5a40}
+.p1 .d-gp-label{color:#998a70}
+.p1 .d-relation{color:#999;border-top:1px solid rgba(0,0,0,.06)}
+
+/* ============================================================
+   Pattern 2: 白背景+金アクセント
+   ============================================================ */
+.p2 .modal-card{
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 4px 30px rgba(0,0,0,.07);
+  border-top:3px solid #8b6914;
+}
+.p2 .modal-close{color:#ccc}
+.p2 .d-name{color:#8b6914}
+.p2 .d-reading{color:#aaa}
+.p2 .d-tag{background:rgba(139,105,20,.08);color:#8b6914}
+.p2 .d-body{color:#444}
+.p2 .d-gp{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.1);border-top:2px solid #8b6914;color:#6a5a40}
+.p2 .d-gp-label{color:#998a70}
+.p2 .d-relation{color:#999;border-top:1px solid rgba(0,0,0,.06)}
+
+/* ============================================================
+   Pattern 3: 白背景+銀アクセント
+   ============================================================ */
+.p3 .modal-card{
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 4px 30px rgba(0,0,0,.07);
+  border-left:3px solid;
+  border-image:linear-gradient(180deg,#b0b5bd,#d8dce4) 1;
+}
+.p3 .modal-close{color:#ccc}
+.p3 .d-name{color:#1a1a1a}
+.p3 .d-reading{color:#aaa}
+.p3 .d-tag{background:rgba(0,0,0,.04);color:#666}
+.p3 .d-body{color:#444}
+.p3 .d-gp{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.1);border-top:2px solid #8b6914;color:#6a5a40}
+.p3 .d-gp-label{color:#998a70}
+.p3 .d-relation{color:#999;border-top:1px solid rgba(0,0,0,.06)}
+
+/* ============================================================
+   Pattern 4: 生成り背景（和風）
+   ============================================================ */
+.p4 .modal-card{
+  background:#faf8f4;
+  border-radius:14px;
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+  border:1px solid rgba(180,160,120,.12);
+  background-image:url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+}
+.p4 .modal-close{color:#c8b890}
+.p4 .d-name{color:#2a2520}
+.p4 .d-reading{color:#8a7a60}
+.p4 .d-tag{background:rgba(139,105,20,.08);color:#8b6914;border:1px solid rgba(139,105,20,.12)}
+.p4 .d-body{color:#3a352e}
+.p4 .d-gp{background:rgba(235,228,215,.5);border:1px solid rgba(140,120,80,.15);border-top:2px solid #8b6914;color:#6a5a40}
+.p4 .d-gp-label{color:#998a70}
+.p4 .d-relation{color:#8a7a60;border-top:1px solid rgba(140,120,80,.1)}
+
+/* ============================================================
+   Pattern 5: 明るいガラス+影強め
+   ============================================================ */
+.p5 .modal-card{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:18px;
+  box-shadow:0 12px 48px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.04);
+}
+.p5 .modal-close{color:#bbb}
+.p5 .d-name{color:#1a1a1a}
+.p5 .d-reading{color:#999}
+.p5 .d-tag{background:rgba(0,0,0,.04);color:#666}
+.p5 .d-body{color:#444}
+.p5 .d-gp{background:rgba(245,242,235,.6);border:1px solid rgba(140,120,80,.1);border-top:2px solid #8b6914;color:#6a5a40}
+.p5 .d-gp-label{color:#998a70}
+.p5 .d-relation{color:#999;border-top:1px solid rgba(0,0,0,.06)}
+
+/* ============================================================
+   Pattern 6: 白+上部にグラデーション帯
+   ============================================================ */
+.p6 .modal-card{
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 6px 36px rgba(0,0,0,.08);
+  overflow:hidden;
+  padding-top:0;
+}
+.p6 .modal-header-bar{
+  height:6px;
+  background:linear-gradient(90deg,#8b6914,#b8a060,#c8cdd8);
+}
+.p6 .modal-inner{padding:28px 32px 32px}
+.p6 .modal-close{color:#ccc;top:20px}
+.p6 .d-name{color:#1a1a1a}
+.p6 .d-reading{color:#aaa}
+.p6 .d-tag{background:rgba(139,105,20,.06);color:#8b6914}
+.p6 .d-body{color:#444}
+.p6 .d-gp{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.1);border-top:2px solid #8b6914;color:#6a5a40}
+.p6 .d-gp-label{color:#998a70}
+.p6 .d-relation{color:#999;border-top:1px solid rgba(0,0,0,.06)}
+
+/* ============================================================
+   Pattern 7: カード風（角丸大きめ）
+   ============================================================ */
+.p7 .modal-card{
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 6px 32px rgba(0,0,0,.06);
+  border:1px solid rgba(0,0,0,.04);
+}
+.p7 .modal-close{color:#ccc;border-radius:12px}
+.p7 .modal-close:hover{background:rgba(0,0,0,.04)}
+.p7 .d-name{color:#1a1a1a}
+.p7 .d-name::after{content:'';display:block;width:6px;height:6px;border-radius:50%;background:#8b6914;margin-top:6px}
+.p7 .d-reading{color:#aaa}
+.p7 .d-tag{background:#f5f5f3;color:#666;border-radius:8px}
+.p7 .d-body{color:#444}
+.p7 .d-gp{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.1);border-top:2px solid #8b6914;border-radius:12px;color:#6a5a40}
+.p7 .d-gp-label{color:#998a70}
+.p7 .d-relation{color:#999;border-top:1px solid rgba(0,0,0,.04)}
+
+/* ============================================================
+   Pattern 8: ダーク反転
+   ============================================================ */
+.p8 .modal-card{
+  background:#1a1a1a;
+  border-radius:18px;
+  box-shadow:0 8px 40px rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.06);
+}
+.p8 .modal-close{color:rgba(255,255,255,.4)}
+.p8 .modal-close:hover{background:rgba(255,255,255,.06)}
+.p8 .d-name{color:#d4b96a}
+.p8 .d-reading{color:rgba(255,255,255,.4)}
+.p8 .d-tag{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6)}
+.p8 .d-body{color:rgba(255,255,255,.75)}
+.p8 .d-gp{background:rgba(139,105,20,.12);border:1px solid rgba(139,105,20,.2);border-top:2px solid #8b6914;color:#c8b070}
+.p8 .d-gp-label{color:#998a70}
+.p8 .d-relation{color:rgba(255,255,255,.35);border-top:1px solid rgba(255,255,255,.06)}
+
+/* ============================================================
+   Pattern 9: 枠線+四隅アクセント
+   ============================================================ */
+.p9 .modal-card{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+  border:1px solid rgba(0,0,0,.08);
+  position:relative;
+}
+.p9 .corner{position:absolute;width:18px;height:18px;border-color:#8b6914;border-style:solid;border-width:0}
+.p9 .corner-tl{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px;border-radius:12px 0 0 0}
+.p9 .corner-tr{top:-1px;right:-1px;border-top-width:2px;border-right-width:2px;border-radius:0 12px 0 0}
+.p9 .corner-bl{bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px;border-radius:0 0 0 12px}
+.p9 .corner-br{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px;border-radius:0 0 12px 0}
+.p9 .modal-close{color:#ccc}
+.p9 .d-name{color:#1a1a1a}
+.p9 .d-reading{color:#aaa}
+.p9 .d-tag{background:rgba(0,0,0,.04);color:#666}
+.p9 .d-body{color:#444}
+.p9 .d-gp{background:rgba(245,242,235,.5);border:1px solid rgba(140,120,80,.1);border-top:2px solid #8b6914;color:#6a5a40}
+.p9 .d-gp-label{color:#998a70}
+.p9 .d-relation{color:#999;border-top:1px solid rgba(0,0,0,.06)}
+
+/* ============================================================
+   Pattern 10: ミニマル白
+   ============================================================ */
+.p10 .modal-card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+.p10 .modal-close{color:#ddd}
+.p10 .modal-close:hover{background:rgba(0,0,0,.03)}
+.p10 .d-name{color:#1a1a1a;font-weight:600}
+.p10 .d-reading{color:#bbb}
+.p10 .d-tag{background:transparent;color:#aaa;border:1px solid rgba(0,0,0,.08);font-weight:400}
+.p10 .d-body{color:#555}
+.p10 .d-gp{background:#fafaf8;border:none;border-left:3px solid #8b6914;border-radius:0 8px 8px 0;color:#6a5a40}
+.p10 .d-gp-label{color:#998a70}
+.p10 .d-relation{color:#bbb;border-top:1px solid rgba(0,0,0,.04)}
+
+@media(max-width:600px){
+  body{padding:20px 12px}
+  .modal-card{padding:22px!important}
+  .d-name{font-size:20px!important}
+  .page-title{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="page-title">モーダルデザイン 10パターン比較</div>
+<div class="page-sub">人物クリック時に表示される詳細カードのデザイン案</div>
+
+<!-- ===== Pattern 1 ===== -->
+<div class="pattern-section p1">
+  <div class="pattern-label"><span class="pattern-num">1</span>現在のガラス（明るく調整）</div>
+  <div class="pattern-desc">現在のガラスモーフィズムベースで、背景をより明るく、テキストをより濃く</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 2 ===== -->
+<div class="pattern-section p2">
+  <div class="pattern-label"><span class="pattern-num">2</span>白背景+金アクセント</div>
+  <div class="pattern-desc">純白背景 + 上部に金ライン + 名前が金色</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 3 ===== -->
+<div class="pattern-section p3">
+  <div class="pattern-label"><span class="pattern-num">3</span>白背景+銀アクセント</div>
+  <div class="pattern-desc">純白背景 + 左に銀グラデライン</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 4 ===== -->
+<div class="pattern-section p4">
+  <div class="pattern-label"><span class="pattern-num">4</span>生成り背景（和風）</div>
+  <div class="pattern-desc">薄いベージュ背景 + 和紙テクスチャ + 墨色テキスト</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 5 ===== -->
+<div class="pattern-section p5">
+  <div class="pattern-label"><span class="pattern-num">5</span>明るいガラス+影強め</div>
+  <div class="pattern-desc">ガラスをより明るく（rgba 255,255,255,.92）+ 影を強めて浮き上がり感</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 6 ===== -->
+<div class="pattern-section p6">
+  <div class="pattern-label"><span class="pattern-num">6</span>白+上部にグラデーション帯</div>
+  <div class="pattern-desc">上部に金→銀のグラデーション帯 + その下に内容</div>
+  <div class="modal-card">
+    <div class="modal-header-bar"></div>
+    <div class="modal-inner">
+      <div class="modal-close">×</div>
+      <div class="d-name">源義家（八幡太郎）</div>
+      <div class="d-reading">みなもとのよしいえ</div>
+      <div class="d-tags">
+        <span class="d-tag">平安後期</span>
+        <span class="d-tag">鎮守府将軍</span>
+      </div>
+      <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+      <div class="d-gp">
+        <div class="d-gp-label">秀邦の調査メモ</div>
+        「八幡太郎は武門の棟梁として後世に語り継がれた」
+      </div>
+      <div class="d-relation">弟：源義光（新羅三郎）</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Pattern 7 ===== -->
+<div class="pattern-section p7">
+  <div class="pattern-label"><span class="pattern-num">7</span>カード風（角丸大きめ）</div>
+  <div class="pattern-desc">白背景 + 角丸24px + ソフトな影 + 金のドットアクセント</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 8 ===== -->
+<div class="pattern-section p8">
+  <div class="pattern-label"><span class="pattern-num">8</span>ダーク反転</div>
+  <div class="pattern-desc">暗い背景(#1a1a1a) + 白文字 + 金アクセント（ヒーローとの統一感）</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 9 ===== -->
+<div class="pattern-section p9">
+  <div class="pattern-label"><span class="pattern-num">9</span>枠線+四隅アクセント</div>
+  <div class="pattern-desc">白背景 + 細い枠線 + 四隅に金のL字</div>
+  <div class="modal-card">
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 10 ===== -->
+<div class="pattern-section p10">
+  <div class="pattern-label"><span class="pattern-num">10</span>ミニマル白</div>
+  <div class="pattern-desc">純白 + 影のみ + テキストの色味でメリハリ（装飾最小限）</div>
+  <div class="modal-card">
+    <div class="modal-close">×</div>
+    <div class="d-name">源義家（八幡太郎）</div>
+    <div class="d-reading">みなもとのよしいえ</div>
+    <div class="d-tags">
+      <span class="d-tag">平安後期</span>
+      <span class="d-tag">鎮守府将軍</span>
+    </div>
+    <div class="d-body">源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</div>
+    <div class="d-gp">
+      <div class="d-gp-label">秀邦の調査メモ</div>
+      「八幡太郎は武門の棟梁として後世に語り継がれた」
+    </div>
+    <div class="d-relation">弟：源義光（新羅三郎）</div>
+  </div>
+</div>
+
+</body>
+</html>

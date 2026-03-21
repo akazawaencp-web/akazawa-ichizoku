@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赤澤一族 家系図 — 背景デザイン10パターン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#e8e6e0;font-family:'Noto Sans JP',sans-serif;color:#2c2c2c;line-height:1.6;padding:40px 20px}
+
+.page-title{text-align:center;font-family:'Shippori Mincho',serif;font-size:2rem;font-weight:700;letter-spacing:.15em;margin-bottom:8px;color:#1a1a1a}
+.page-subtitle{text-align:center;font-size:.85rem;color:#888;margin-bottom:50px}
+
+/* ===== パターンカード ===== */
+.pattern-card{max-width:1000px;margin:0 auto 60px;border-radius:16px;padding:40px;overflow-x:auto;position:relative}
+.pattern-label{font-family:'Shippori Mincho',serif;font-size:1.2rem;font-weight:600;color:#1a1a1a;margin-bottom:6px}
+.pattern-desc{font-size:.8rem;color:#999;margin-bottom:30px}
+
+/* ===== ツリー構造 ===== */
+.tree{display:flex;flex-direction:column;align-items:center;min-width:600px;padding:10px}
+.person{display:flex;flex-direction:column;align-items:center;position:relative}
+.nd{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);padding:14px 22px;text-align:center;min-width:120px;transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative;z-index:2}
+.nd:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.1)}
+.nd-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;line-height:1.4}
+.nd-name.imp{color:#8b6914;font-size:16px;font-weight:600}
+.nd-name.dir{color:#1a1a1a;font-weight:600}
+.nd-name.nor{color:#555}
+.nd-role{font-size:11px;color:#999;margin-top:3px}
+.v-down{width:2px;height:35px;margin:0 auto;background:linear-gradient(180deg,#a0a5b0,#c8cdd8)}
+.children-group{display:flex;flex-direction:column;align-items:center;position:relative}
+.h-bar{height:2px;position:absolute;top:0;z-index:1;background:linear-gradient(90deg,#a0a5b0,#c8cdd8)}
+.kids{display:flex;justify-content:center;align-items:flex-start;gap:20px}
+.v-up{width:2px;height:35px;margin:0 auto;background:linear-gradient(180deg,#a0a5b0,#c8cdd8)}
+
+/* 凡例 */
+.legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:30px;padding-top:20px;border-top:1px solid rgba(0,0,0,.1)}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
+.legend-line{width:30px;height:2px}
+.legend-txt{font-family:'Shippori Mincho',serif;font-size:12px}
+.legend-txt.g{color:#8b6914;font-weight:600}
+.legend-txt.d{color:#1a1a1a;font-weight:600}
+
+/* ===== SVGノイズフィルタ（共通） ===== */
+/* 和紙テクスチャ用のSVGノイズ */
+
+/* ===== Pattern 1: 和紙テクスチャ ===== */
+.bg1{
+  background-color:#f5f0e8;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+.bg1 .pattern-label{color:#3a3530}
+.bg1 .pattern-desc{color:#8a8070}
+
+/* ===== Pattern 2: 巻物風 ===== */
+.bg2{
+  background:#f2ece0;
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+  border:1px solid #e0d8c8;
+  position:relative;
+}
+.bg2::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:30px;
+  background:linear-gradient(180deg,rgba(180,165,140,.25),transparent);
+  border-radius:16px 16px 0 0;
+  pointer-events:none;
+}
+.bg2::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:30px;
+  background:linear-gradient(0deg,rgba(180,165,140,.25),transparent);
+  border-radius:0 0 16px 16px;
+  pointer-events:none;
+}
+.bg2 .pattern-label{color:#4a3f30}
+.bg2 .pattern-desc{color:#8a7d6a}
+/* 巻物の端のカール */
+.scroll-edge-top,.scroll-edge-bottom{
+  position:absolute;left:20px;right:20px;height:16px;z-index:5;pointer-events:none;
+}
+.scroll-edge-top{
+  top:-4px;
+  background:linear-gradient(180deg,#c8bda8,#ddd4c4 40%,#f2ece0);
+  border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+.scroll-edge-bottom{
+  bottom:-4px;
+  background:linear-gradient(0deg,#c8bda8,#ddd4c4 40%,#f2ece0);
+  border-radius:0 0 50% 50% / 0 0 100% 100%;
+  box-shadow:0 -2px 6px rgba(0,0,0,.08);
+}
+
+/* ===== Pattern 3: 水墨画背景 ===== */
+.bg3{
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 30%, rgba(60,60,70,.06), transparent),
+    radial-gradient(ellipse 60% 40% at 75% 70%, rgba(50,50,60,.05), transparent),
+    radial-gradient(ellipse 90% 60% at 50% 50%, rgba(70,70,80,.03), transparent),
+    linear-gradient(180deg,#f8f7f5,#f0efed,#f5f4f2);
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+.bg3 .pattern-label{color:#2a2a30}
+.bg3 .pattern-desc{color:#8a8a90}
+
+/* ===== Pattern 4: 金箔散らし ===== */
+.bg4{
+  background-color:#faf8f4;
+  background-image:
+    radial-gradient(1.5px 1.5px at 15% 20%, rgba(180,150,60,.35), transparent),
+    radial-gradient(1px 1px at 35% 45%, rgba(200,170,80,.25), transparent),
+    radial-gradient(2px 2px at 55% 15%, rgba(180,150,60,.3), transparent),
+    radial-gradient(1px 1px at 75% 55%, rgba(200,170,80,.2), transparent),
+    radial-gradient(1.5px 1.5px at 90% 30%, rgba(180,150,60,.25), transparent),
+    radial-gradient(1px 1px at 10% 70%, rgba(200,170,80,.2), transparent),
+    radial-gradient(2px 2px at 40% 80%, rgba(180,150,60,.3), transparent),
+    radial-gradient(1px 1px at 65% 90%, rgba(200,170,80,.25), transparent),
+    radial-gradient(1.5px 1.5px at 85% 75%, rgba(180,150,60,.2), transparent),
+    radial-gradient(1px 1px at 25% 95%, rgba(200,170,80,.3), transparent),
+    radial-gradient(2px 2px at 50% 50%, rgba(190,160,70,.15), transparent),
+    radial-gradient(1px 1px at 5% 40%, rgba(200,170,80,.2), transparent),
+    radial-gradient(1.5px 1.5px at 95% 60%, rgba(180,150,60,.25), transparent),
+    radial-gradient(1px 1px at 30% 10%, rgba(200,170,80,.2), transparent),
+    radial-gradient(2px 2px at 70% 35%, rgba(180,150,60,.2), transparent),
+    radial-gradient(1px 1px at 20% 60%, rgba(200,170,80,.3), transparent),
+    radial-gradient(1.5px 1.5px at 80% 85%, rgba(180,150,60,.25), transparent),
+    radial-gradient(1px 1px at 45% 25%, rgba(200,170,80,.2), transparent),
+    radial-gradient(2px 2px at 60% 65%, rgba(180,150,60,.15), transparent),
+    radial-gradient(1px 1px at 12% 88%, rgba(200,170,80,.25), transparent);
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+.bg4 .pattern-label{color:#3a3520}
+.bg4 .pattern-desc{color:#9a9070}
+
+/* ===== Pattern 5: 藍色グラデーション ===== */
+.bg5{
+  background:linear-gradient(180deg,#e8edf4 0%,#eef1f6 30%,#f6f7f9 60%,#ffffff 100%);
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+  border:1px solid #dde3ed;
+}
+.bg5 .pattern-label{color:#1a2540}
+.bg5 .pattern-desc{color:#7080a0}
+
+/* ===== Pattern 6: 雲文様 ===== */
+.bg6{
+  background-color:#f8f7f4;
+  background-image:
+    radial-gradient(ellipse 120px 50px at 15% 25%, rgba(200,195,180,.25), transparent),
+    radial-gradient(ellipse 80px 35px at 25% 22%, rgba(200,195,180,.2), transparent),
+    radial-gradient(ellipse 100px 40px at 70% 40%, rgba(200,195,180,.2), transparent),
+    radial-gradient(ellipse 60px 30px at 80% 38%, rgba(200,195,180,.15), transparent),
+    radial-gradient(ellipse 130px 45px at 40% 65%, rgba(200,195,180,.18), transparent),
+    radial-gradient(ellipse 70px 30px at 50% 62%, rgba(200,195,180,.15), transparent),
+    radial-gradient(ellipse 90px 40px at 85% 80%, rgba(200,195,180,.22), transparent),
+    radial-gradient(ellipse 110px 50px at 20% 85%, rgba(200,195,180,.18), transparent);
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+.bg6 .pattern-label{color:#2a2820}
+.bg6 .pattern-desc{color:#8a8878}
+
+/* ===== Pattern 7: 原本ページ透かし ===== */
+.bg7{
+  background-color:#f5f3ee;
+  background-image:url("../jpeg/IMG_9925.jpg");
+  background-size:cover;
+  background-position:center;
+  background-blend-mode:soft-light;
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+  position:relative;
+}
+.bg7::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(245,243,238,.88);
+  border-radius:16px;
+  pointer-events:none;
+}
+.bg7 .pattern-label,.bg7 .pattern-desc,.bg7 .tree,.bg7 .legend{position:relative;z-index:2}
+.bg7 .pattern-label{color:#3a3530}
+.bg7 .pattern-desc{color:#8a8070}
+
+/* ===== Pattern 8: 石庭 ===== */
+.bg8{
+  background-color:#f4f1ea;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(180,170,150,.08) 11px, rgba(180,170,150,.08) 12px),
+    repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(180,170,150,.05) 23px, rgba(180,170,150,.05) 24px),
+    repeating-linear-gradient(0deg, transparent, transparent 37px, rgba(180,170,150,.04) 37px, rgba(180,170,150,.04) 38px);
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+.bg8 .pattern-label{color:#3a3830}
+.bg8 .pattern-desc{color:#8a8678}
+
+/* ===== Pattern 9: 金銀グラデーション帯 ===== */
+.bg9{
+  background:
+    linear-gradient(180deg, rgba(200,180,120,.12) 0%, rgba(200,180,120,.04) 15%, transparent 25%,
+      transparent 75%, rgba(180,185,200,.04) 85%, rgba(180,185,200,.12) 100%),
+    #faf9f6;
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+  border:1px solid #e8e4da;
+}
+.bg9 .pattern-label{color:#3a3520}
+.bg9 .pattern-desc{color:#9a9070}
+
+/* ===== Pattern 10: 暗め和風 ===== */
+.bg10{
+  background-color:#0c0b09;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  box-shadow:0 2px 30px rgba(0,0,0,.3);
+}
+.bg10 .pattern-label{color:#d4c8a0;font-weight:600}
+.bg10 .pattern-desc{color:#7a756a}
+.bg10 .nd{
+  background:rgba(20,18,14,.9);
+  border:1px solid rgba(180,160,100,.2);
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
+.bg10 .nd:hover{box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.bg10 .nd-name.imp{color:#c4a860}
+.bg10 .nd-name.dir{color:#e8e4d8}
+.bg10 .nd-name.nor{color:#a0998a}
+.bg10 .nd-role{color:#6a655a}
+.bg10 .v-down,.bg10 .v-up{background:linear-gradient(180deg,#6a6050,#8a7d60)}
+.bg10 .h-bar{background:linear-gradient(90deg,#6a6050,#8a7d60)}
+.bg10 .legend{border-top-color:rgba(255,255,255,.08)}
+.bg10 .legend-item{color:#7a756a}
+.bg10 .legend-txt.g{color:#c4a860}
+.bg10 .legend-txt.d{color:#e8e4d8}
+</style>
+</head>
+<body>
+
+<div class="page-title">赤澤一族 家系図</div>
+<div class="page-subtitle">背景デザイン10パターン — Pattern 1（銀グラデ線）ベース</div>
+
+<script>
+function fixBars() {
+  document.querySelectorAll('.children-group').forEach(cg => {
+    const kids = cg.querySelector('.kids');
+    const hbar = cg.querySelector('.h-bar');
+    if (!kids || !hbar) return;
+    const persons = kids.children;
+    if (persons.length < 2) { hbar.style.display = 'none'; return; }
+    const first = persons[0];
+    const last = persons[persons.length - 1];
+    const kidsRect = kids.getBoundingClientRect();
+    const firstCenter = first.getBoundingClientRect().left + first.getBoundingClientRect().width / 2 - kidsRect.left;
+    const lastCenter = last.getBoundingClientRect().left + last.getBoundingClientRect().width / 2 - kidsRect.left;
+    hbar.style.left = firstCenter + 'px';
+    hbar.style.width = (lastCenter - firstCenter) + 'px';
+  });
+}
+window.addEventListener('load', fixBars);
+window.addEventListener('resize', fixBars);
+</script>
+
+<!-- ===== Pattern 1: 和紙テクスチャ ===== -->
+<div class="pattern-card bg1">
+  <div class="pattern-label">BG 1 — 和紙テクスチャ</div>
+  <div class="pattern-desc">薄い和紙風のノイズテクスチャ + 生成り色背景。繊維の質感で歴史的な温かみ</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+    <div class="legend-item"><span class="legend-txt d">太字テキスト</span> = 直系</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 2: 巻物風 ===== -->
+<div class="pattern-card bg2" style="overflow:visible">
+  <div class="scroll-edge-top"></div>
+  <div class="scroll-edge-bottom"></div>
+  <div class="pattern-label">BG 2 — 巻物風</div>
+  <div class="pattern-desc">巻物の端がカールしたCSS演出 + 古紙色背景。絵巻物のような雰囲気</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 3: 水墨画背景 ===== -->
+<div class="pattern-card bg3">
+  <div class="pattern-label">BG 3 — 水墨画背景</div>
+  <div class="pattern-desc">薄い墨色のグラデーションがうっすら流れる。水墨画の余白のような静謐さ</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 4: 金箔散らし ===== -->
+<div class="pattern-card bg4">
+  <div class="pattern-label">BG 4 — 金箔散らし</div>
+  <div class="pattern-desc">極薄い金色のドットがランダムに散りばめられる。屏風絵のような贅沢感</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 5: 藍色グラデーション ===== -->
+<div class="pattern-card bg5">
+  <div class="pattern-label">BG 5 — 藍色グラデーション</div>
+  <div class="pattern-desc">上から下に薄い藍色から白へ。表紙の藍色との統一感を演出</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 6: 雲文様 ===== -->
+<div class="pattern-card bg6">
+  <div class="pattern-label">BG 6 — 雲文様</div>
+  <div class="pattern-desc">背景に薄い雲の模様。radial-gradientで和の雲文様を表現</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 7: 原本ページ透かし ===== -->
+<div class="pattern-card bg7">
+  <div class="pattern-label">BG 7 — 原本ページ透かし</div>
+  <div class="pattern-desc">原本の写真を極薄く背景に敷く。ヒーローエリアと似た手法で歴史の重みを表現</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 8: 石庭 ===== -->
+<div class="pattern-card bg8">
+  <div class="pattern-label">BG 8 — 石庭</div>
+  <div class="pattern-desc">横方向の極薄いライン（砂紋を表現）+ 生成り背景。枯山水の静けさ</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 9: 金銀グラデーション帯 ===== -->
+<div class="pattern-card bg9">
+  <div class="pattern-label">BG 9 — 金銀グラデーション帯</div>
+  <div class="pattern-desc">上部に薄い金帯、下部に薄い銀帯。格式高い装飾感</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+  </div>
+</div>
+
+<!-- ===== Pattern 10: 暗め和風 ===== -->
+<div class="pattern-card bg10">
+  <div class="pattern-label">BG 10 — 暗め和風</div>
+  <div class="pattern-desc">ダーク背景 + 和紙テクスチャ + 白/金のノード。ヒーローエリアとの統一感</div>
+  <div class="tree">
+    <div class="person">
+      <div class="nd"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護</div></div>
+      <div class="v-down"></div>
+      <div class="children-group">
+        <div class="h-bar"></div>
+        <div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name dir">小笠原長経</div><div class="nd-role">長男・嫡流</div></div>
+            <div class="v-down"></div>
+            <div class="children-group">
+              <div class="h-bar"></div>
+              <div class="kids">
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">小笠原長政</div><div class="nd-role">長男・本家</div></div></div>
+                <div class="person">
+                  <div class="v-up"></div>
+                  <div class="nd"><div class="nd-name imp">赤沢清経</div><div class="nd-role">次男・赤沢氏の祖</div></div>
+                  <div class="v-down"></div>
+                  <div class="children-group">
+                    <div class="h-bar"></div>
+                    <div class="kids">
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name dir">赤沢常興</div><div class="nd-role">塩崎城主</div></div></div>
+                      <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">赤沢経康</div><div class="nd-role"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="person"><div class="v-up"></div><div class="nd"><div class="nd-name nor">伴野長房</div><div class="nd-role">三男</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">小笠原長忠</div><div class="nd-role">次男</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#6a6050,#8a7d60)"></div>接続線（金/暗）</div>
+    <div class="legend-item"><span class="legend-txt g">金色テキスト</span> = 重要人物</div>
+    <div class="legend-item"><span class="legend-txt d" style="color:#e8e4d8">白テキスト</span> = 直系</div>
+  </div>
+</div>
+
+</body>
+</html>
