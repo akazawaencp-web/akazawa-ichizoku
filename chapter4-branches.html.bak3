@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第4章 全国に広がる赤沢氏 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,#f4f4f2,#f8f8f6,#f2f2f0);color:#1a1a1a;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+.content-wrap{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:12px;color:#999;margin-bottom:30px}.breadcrumb a{color:#555;text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
+.chapter-header{margin-bottom:40px;padding-bottom:16px}
+.chapter-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:#999;margin-bottom:6px}
+.chapter-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:#1a1a1a;letter-spacing:.1em}
+.chapter-subtitle{font-size:13px;color:#999;margin-top:6px}
+.ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
+.main-text{font-size:15px;line-height:2.2;color:#555;margin-bottom:28px}.main-text p{margin-bottom:18px;text-indent:1em}.main-text strong{color:#1a1a1a}
+.section-header{margin:50px 0 20px;padding-bottom:10px}
+.section-header h2{font-family:'Shippori Mincho',serif;font-size:21px;font-weight:500;color:#1a1a1a}
+.section-header .section-num{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.1em;margin-bottom:4px}
+.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.card::before{display:none}
+.card-indigo,.card-gold,.card-vermillion{}
+.card-title{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+.card p,.card li{font-size:14px;color:#555;line-height:1.9}.card ul{padding-left:18px}.card li{margin-bottom:6px}.card strong{color:#1a1a1a}
+.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:20px 24px;margin:20px 0}
+.ai-note::before{content:'深掘り調査';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
+.ai-note p,.ai-note li{font-size:13px;color:#444;line-height:1.9}.ai-note ul{padding-left:18px}.ai-note li{margin-bottom:4px}
+.region-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:30px;margin-bottom:28px;box-shadow:0 4px 20px rgba(40,30,20,.04)}
+.region-name{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:4px}
+.region-modern{font-size:12px;color:#999;margin-bottom:16px}
+.region-body{font-size:14px;color:#555;line-height:2}
+.region-body p{margin-bottom:14px}
+.region-body h3{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;color:#1a1a1a;margin:20px 0 10px}
+.region-body ul{padding-left:18px;margin-bottom:12px}
+.region-body li{margin-bottom:6px}
+.pd-timeline{position:relative;padding-left:28px;margin:16px 0}
+.pd-timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#7a5a20,#c4a060);border-radius:0}
+.pdt-item{position:relative;padding-bottom:18px}
+.pdt-item::before{content:'';position:absolute;left:-25px;top:6px;width:10px;height:10px;border-radius:50%;background:#8b6914;border:3px solid #f2f1ee}
+.pdt-year{font-size:12px;font-weight:700;color:#8b6914}
+.pdt-text{font-size:13px;color:#666;line-height:1.8}
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid rgba(0,0,0,.04)}
+.page-nav a{font-size:12px;color:#555;text-decoration:none}.page-nav a:hover{color:#1a1a1a}
+.site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:#bbb;margin-top:40px}
+.original-text{border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:18px 22px;margin:20px 0;font-size:13px;color:#999;line-height:1.9}
+.original-text::before{content:'原文';display:block;font-size:9px;font-weight:600;color:#bbb;letter-spacing:.1em;margin-bottom:6px}
+/* ===== 原本ギャラリー ===== */
+.genpon-section{margin-top:50px}
+.genpon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:16px}
+.genpon-item{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.03);transition:all .25s;background:#fff}
+.genpon-item:hover{box-shadow:0 4px 20px rgba(0,0,0,.06);transform:translateY(-2px)}
+.genpon-item img{width:100%;height:auto;display:block}
+.genpon-cap{padding:8px 12px;font-size:11px;color:#999;line-height:1.5}
+.genpon-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out}
+.genpon-modal.active{display:flex}
+.genpon-modal img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.genpon-modal-close{position:fixed;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;z-index:10000;background:none;border:none;font-family:inherit;transition:color .2s}
+.genpon-modal-close:hover{color:#fff}
+.sec-head-g{margin:60px 0 20px}
+.sec-num-g{font-size:10px;font-weight:600;letter-spacing:.15em;color:#999;margin-bottom:4px}
+.sec-title-g{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:#1a1a1a;letter-spacing:.06em}
+.sec-line-g{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.03));margin-top:10px}
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content-wrap{padding:30px 16px 50px}
+  .chapter-title{font-size:26px}
+  .main-text{font-size:14px}
+  .card,.region-card{padding:22px}
+  .section-header h2{font-size:19px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content-wrap{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .chapter-header{margin-bottom:30px}
+  .chapter-num{font-size:9px}
+  .chapter-title{font-size:22px;letter-spacing:.05em}
+  .chapter-subtitle{font-size:12px}
+  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
+  .main-text p{margin-bottom:14px}
+  .section-header{margin:36px 0 16px}
+  .section-header h2{font-size:18px}
+  .section-header .section-num{font-size:9px}
+  .card{padding:16px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .card-title{font-size:12px}
+  .region-card{padding:18px;margin-bottom:20px}
+  .region-name{font-size:19px}
+  .region-modern{font-size:11px}
+  .region-body{font-size:13px;line-height:1.9}
+  .region-body h3{font-size:14px}
+  .region-body ul{padding-left:14px}
+  .pd-timeline{padding-left:22px}
+  .pdt-item::before{left:-19px;width:8px;height:8px}
+  .pdt-year{font-size:11px}
+  .pdt-text{font-size:12px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p,.ai-note li{font-size:12px}
+  .original-text{padding:14px 16px;margin:14px 0;font-size:12px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .site-footer{font-size:10px;padding:24px 0 16px}
+}
+</style>
+</head>
+<body>
+<div class="content-wrap">
+
+<div class="breadcrumb"><a href="index.html">赤澤一族 令和版</a> → 第4章 全国に広がる赤沢氏</div>
+
+<div class="chapter-header">
+  <div class="chapter-num">CHAPTER 04</div>
+  <div class="chapter-title">全国に広がる赤沢氏</div>
+  <div class="chapter-subtitle">阿波、備中、奥州、越後… 一族はなぜ各地に散ったのか</div>
+</div>
+
+<div class="main-text">
+  <p>信濃を本拠としていた赤沢氏は、歴史の大きな波の中で<strong>全国各地に散らばっていった</strong>。冊子によれば、氏族が祖宗の地を離れて他国に移住するに至った背景には、大きく5つの時期がある。</p>
+</div>
+
+<div class="original-text">
+一、源姓赤沢氏の裔孫。信州松代の真田藩中の記録によれば、赤沢氏は、信州松代の真田藩中にありし赤沢氏は、けだし前に見ゆる信州赤沢氏の族なるべし。此の一族の世系は左の如くに見ゆ。八世孫経満（志守）。孫経定、赤沢氏。経満は武田氏に仕え真田氏に、前稿を、有重兵部にて真田氏に仕え、武田伝々に見ゆ。安経、代部たる内、百五十石。嘉兵衛、三百石。
+</div>
+
+<div class="original-text">
+甲斐武田氏家臣の古伝「誠忠旧家録」の義の巻に、赤沢次郎左衞門安榮、入戸野村。赤沢次郎左衞門頼奉安榮。安榮は天保十二年に現存の人なるも、先祖の頼奉が系は不明なり。光永（藤兵衛、白三千石）—安賓（七枚目前大道、四百石、松代藩家老、明治十六年松代にあり、末孫は松代にあり）。
+</div>
+
+<div class="card card-indigo">
+  <div class="card-title"><span class="card-dot" style="background:var(--indigo)"></span>苗字（一族）が全国に広がった5つの時期</div>
+  <ul>
+    <li><strong>第一：鎌倉幕府の草創と承久の乱</strong> — 御家人が奥州・東国・九州・中国へ移動</li>
+    <li><strong>第二：元弘・建武以来の南北朝動乱</strong> — 足利尊氏の挙兵に伴い、一族が東西に分かれて各地へ</li>
+    <li><strong>第三：応仁の乱〜戦国時代</strong> — 下剋上により氏族は各地に頻出。新主に服したり、隣国・遠国に赴く</li>
+    <li><strong>第四：豊臣政権以後・徳川時代</strong> — 大名の改易・転封・国替に伴い、家臣も移動</li>
+    <li><strong>第五：明治維新以後</strong> — 領地・領民という仕組みが消滅。各氏各様に移動が活発化</li>
+  </ul>
+</div>
+
+<div class="original-text">
+一、苗字の移動と家紋の変遷。古き氏族が次第に繁衍し、多くの苗字に分れて各地に居住せしは、多くの安時代後期以後のことに属せり。凡そ平の武士団の発生も、此の時代のことに属し、領有する土地を相伝して、他に移動することは極めて少なかりき。武家政治の始まりて以来、各地の氏
+</div>
+
+<!-- ===== 阿波の赤沢氏 ===== -->
+<div class="section-header">
+  <div class="section-num">AWA — 阿波</div>
+  <h2>阿波の赤沢氏 — 板西城の城主</h2>
+</div>
+
+<div class="region-card" style="border-top-color:var(--vermillion)">
+  <div class="region-name">阿波国 板西城</div>
+  <div class="region-modern">現在の徳島県板野郡板野町</div>
+  <div class="region-body">
+    <p>赤沢氏の分流の中で、もっとも劇的な歴史を持つのが<strong>阿波（徳島県）の赤沢氏</strong>。信濃から遠く離れた四国で、一国の城主として活躍した。</p>
+
+    <h3>板西城の歴史</h3>
+    <p>板西城は1177年頃、平安時代末期に近藤六親家によって築かれた平城。近藤親家に子がなかったため、赤沢氏から<strong>赤沢宗定</strong>（兵庫頭）を養子として迎え、城主が赤沢氏に移った。</p>
+
+    <div class="original-text">
+阿波の板西城主信濃守入道宗傳の名は敬見、前の章に見えし人なり。長治と戦い、後、天正十年八月二十八日に收められて、土佐の長曾我部元親に討死せり。其の法名は、慈雲院浅庵。宗典（宗傳）と見ゆ。此の頃の郷土史料「古城諸将記」に記録せられたり。宗栄（兵庫助）—左兵衞—左右衞門（四代目、柏島の山崎に住す）。宗台（阿彦殿と討死）—久助（海徳寺）—僧、福寿院—小右衞門—九兵衞（西家を相続）。宗連、修理進、細川元通に居して長州に移る、慶長中に死す。
+    </div>
+
+    <h3>赤沢宗伝 — 阿波の猛将</h3>
+    <p>戦国時代、<strong>赤沢宗伝（信濃守）</strong>は三好実休の婿として板西城主となり、<strong>3,000貫</strong>という大きな領地を持つ一大勢力を築いた。</p>
+    <p>宗伝の配下には<strong>「赤沢家十二人衆」</strong>と呼ばれる有力家臣がおり、特に重要な3名は<strong>「板西城三人衆」</strong>と称された：</p>
+    <ul>
+      <li>安芸飛騨守</li>
+      <li>赤沢出羽守</li>
+      <li>坂上備前守</li>
+    </ul>
+
+    <h3>壮絶な最期 — 中富川の合戦</h3>
+    <div class="pd-timeline">
+      <div class="pdt-item">
+        <div class="pdt-year">1562年（永禄5年）</div>
+        <div class="pdt-text">久米田の戦いで主君・三好実休が狙撃されて討死。宗伝は出家し、三好長治の補佐役に。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1573年（天正元年）</div>
+        <div class="pdt-text">篠原長房が自刃。板西城も攻撃を受け、宗伝は高野山に3年間篭る。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1576年</div>
+        <div class="pdt-text">三好長治の討死後、板西城に復帰。</div>
+      </div>
+      <div class="pdt-item">
+        <div class="pdt-year">1582年（天正10年）</div>
+        <div class="pdt-text"><strong>中富川の合戦</strong>。長宗我部元親の大軍を相手に、宗伝は2,000の兵を率いて奮戦。しかし「<strong>草鞋の紐が切れたところを敵に討たれた</strong>」と伝わり、十二人衆筆頭の赤沢鹿之丞らと共に討死。板西城は落城。</div>
+      </div>
+    </div>
+
+    <p>討死した赤沢信濃守と将兵は、板野町の<strong>愛染院</strong>に祀られている。安芸飛騨守は板野町犬伏にて帰農した。</p>
+
+    <div class="original-text">
+一、板西城。赤沢信濃守、後剃髪して宗傳入道と称す。紋は松皮菱に十文字也。小笠原氏、傳入道と称す。紋は松皮菱に十文字也。（中略）赤沢出羽守、坂上備前守。右三人、称板西城三人衆。土州安藝郡、松城主也。安藝飛騨守、摂州平野田村家婿流、紋松皮菱。大寺松太輔、赤沢鹿之丞、犬伏左近、阿部采女、赤沢美濃守、七條孫四郎、新開右近、板東紀伊守、三好田右衞門。右の諸将は、皆赤沢家一族なり。板西を領して、上の三人衆と合して、拾六村之内に分居す。赤沢家の十二人衆と称す。
+    </div>
+
+    <div class="original-text">
+一、矢武の上荘。赤沢美濃守五十貫。蜂川氏、五条記。（此のことは後の章に記す）長曾我部氏との合戦は、「阿陽三好記」なとに詳しく見ゆ。鹿之丞は共に討死。信濃守と其の子の赤沢敬見、信濃守、板西城主。赤沢敬見は敬見と戦いし後、土佐の長曾我部元親に收められて、天正十年八月二十八日に討死せり。其の法名は、慈雲院浅庵。宗典（宗傳）と見ゆ。此の頃の郷土史料「古城諸将記」には、左の如くに記録せられたり。
+    </div>
+
+    <div class="original-text">
+右のほか、阿波勝浦郡にも赤沢氏がありて、新居野三村城主たりし由、阿波城記に見ゆ。「松皮菱に十文字」を家紋とせり。
+    </div>
+
+    <div class="original-text">
+人有尊に挟られて讃岐に逃れ、与田川口に赴きたりという。其の丹生三本松白鳥地方などの赤沢氏は、其の末裔と伝え、家紋を「鷹の羽」「立沢瀉」とす。
+    </div>
+  </div>
+</div>
+
+<div class="ai-note">
+  <p><strong>板西城の現在</strong> — 板野町の市街地に位置し、宅地化・農地化で遺構はほぼ消滅しているが、「古城」「城ノ内」「城ノ西」という地名が今も残る。JR高徳線板野駅から徒歩圏内。</p>
+  <p>赤沢宗伝の菩提を弔うために建てられた<strong>勝覚寺</strong>（香川県東かがわ市）は四国屈指の名刹として現存しており、訪問可能。</p>
+</div>
+
+<div class="original-text">
+小笠原氏に仕えしまま、その転封に伴ないて豊前に仕えしまま、その転封にもあり。其の先来の小倉藩士となり、流れ信州赤沢氏の後なるべし。家紋は「松皮菱に十文字」にて、左の世系が伝えらる。徳島市内、或は阿波町の西林地方などにも、赤沢氏の裔孫が繁栄しあり。信濃守の遺子は、極養森の八幡宮の
+</div>
+
+<!-- ===== 備中の赤沢氏 ===== -->
+<div class="section-header">
+  <div class="section-num">BITCHU — 備中</div>
+  <h2>備中の赤沢氏</h2>
+</div>
+
+<div class="region-card">
+  <div class="region-name">備中国</div>
+  <div class="region-modern">現在の岡山県西部</div>
+  <div class="region-body">
+    <p>冊子によれば、信州の赤沢氏が<strong>備中国の浅口郡</strong>にも一族を広げた。戦の後、細川氏の被官となり、関ヶ原の後に毛利氏に属し、長州（山口県）の地に移った者もいる。</p>
+    <p><strong>赤沢宗春</strong>は浅口郡山の城主として記録されており、中国地方にも赤沢氏の足跡がある。</p>
+    <p>赤沢氏は旧のまま備中の地に留まり、中国に留住し繁栄したという。</p>
+
+    <div class="original-text">
+恐らくは信州の赤沢氏が一族ならん。備中の浅口郡にありし赤沢氏は、代々細川氏の被官たりし家なり。戦の後、毛利氏に属せし細川氏は、関ヶ原の後、長州の地に移る。赤沢氏は旧のままに備中に留住し、中国に留住し、赤沢宗春、浅口郡山の城主、庄鳥卿。左の系を伝えて繁栄す。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 奥州の赤沢氏 ===== -->
+<div class="section-header">
+  <div class="section-num">OSHU — 奥州</div>
+  <h2>奥州・越後・出羽の赤沢氏</h2>
+</div>
+
+<div class="region-card">
+  <div class="region-name">奥州（岩手県）</div>
+  <div class="region-modern">現在の岩手県紫波郡</div>
+  <div class="region-body">
+    <p>陸中紫波郡に「赤沢邑」の地名があり、南北朝時代に赤沢氏と小笠原氏が協同して南部氏を応援していたことが記録されている。源姓小笠原流の赤沢氏がこの地にいたことが確認されている。</p>
+
+    <div class="original-text">
+一、其他諸國の赤沢氏。奥州は陸中地方に赤沢氏の流れあり。紫波郡赤沢邑の地名に由来する氏号と見ゆ。南北朝時代に、赤沢氏と小笠原氏とが協同して、足利方の南部氏を応援せり。その居城は盛岡郊外の赤沢城なりという。小笠原流の赤沢氏がこの説も見ゆ。以て、源姓小笠原氏と協力せしを、源姓小笠原流の赤沢氏がその説なりという。
+    </div>
+  </div>
+</div>
+
+<div class="region-card">
+  <div class="region-name">越後国（新潟県）</div>
+  <div class="region-modern">稲倉（比奈倉）</div>
+  <div class="region-body">
+    <p>越後の赤沢氏は、武田信玄に敗れて<strong>信濃より逃れ来たりし</strong>一族。天正2年（1574年）に経智が越後に到着し、その子の貞経は後に奥州に赴いた。</p>
+    <p>武田氏に帰依し、稲倉（比奈倉）などの地に居住した。</p>
+
+    <div class="original-text">
+越後の赤沢氏は、武田信玄に敗れて信濃より逃れ来りしなりという。天正二年に経智が後孫、伊豆守経智が越後に稲倉（比奈倉）などに居りし人を、赤沢左衞門尉、後に武田氏に帰狭し、稲倉（比奈倉）なとに居りし人を。
+    </div>
+  </div>
+</div>
+
+<div class="region-card">
+  <div class="region-name">出羽国（山形県・秋田県）</div>
+  <div class="region-modern">出羽庄内 / 酒井藩</div>
+  <div class="region-body">
+    <p>近世、出羽庄内の酒井藩の中に赤沢氏があった。幕末より明治維新の頃、源兵衛の子の源也、勇三郎の子の年之助などの名が郷土史料に記録されている。</p>
+
+    <div class="original-text">
+近世、出羽庄内の酒井藩中に赤沢氏があり。幕末より明治維新の頃、源兵衛の子の源也、勇三郎の子の年之助なと、郷土史料に名を遺したり。
+    </div>
+  </div>
+</div>
+
+<div class="region-card">
+  <div class="region-name">常陸国（茨城県）</div>
+  <div class="region-modern">佐竹氏の家中</div>
+  <div class="region-body">
+    <p>常陸国の佐竹氏が家中に赤沢庄右衛門なる人物がおり、佐竹義宣の秋田転封に従い出羽に移った。赤沢氏は式部少輔の子孫であり、世系は不明の部分が多い。</p>
+
+    <div class="original-text">
+常陸の佐竹氏が家中に、赤沢庄右衞門なる人あり。佐竹義宣の転封に従いて、門亀信あり。常陸の佐竹氏が家宣の転封に従いて出羽仙北の六郷に移り、後に川和野に居住せり。その子け左衞門亀考なり。小田原の北條氏が家中にも、赤沢左衞門、御馬廻衆があり。拾五貫えの地を領し、その子を千壽という。こと、永禄年中の記録に見ゆ。このほか、越後新発田藩中、溝口藩中、美作津山の松平藩中などにも、赤沢氏の流れが見ゆ。輔清純も式部少輔にて、深志城に招かれし経智も式部少輔清純の精しき世系は不明の如し。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>小田原北條氏の家中の赤沢氏</div>
+  <p style="text-indent:1em">小田原の北條氏の家中にも赤沢氏がいた。<strong>赤沢左衛門</strong>は御馬廻衆（主君の護衛騎馬隊）として仕え、<strong>十五貫</strong>の領地を与えられていた。永禄年間（1558〜1570年）の記録に名前が見える。</p>
+</div>
+<div class="original-text">
+小田原の北條氏が家中にも、赤沢左衞門、御馬廻衆があり。拾五貫えの地を領し、その子を千壽という。こと、永禄年中の記録に見ゆ。
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>越後新発田藩・美作津山藩の赤沢氏</div>
+  <p style="text-indent:1em">このほか、<strong>越後新発田</strong>（新潟県新発田市）の溝口藩中や、<strong>美作津山</strong>（岡山県津山市）の松平藩中にも赤沢氏の流れが見える。各地の大名家に仕えた赤沢氏が、広く存在していたことがわかる。</p>
+</div>
+<div class="original-text">
+このほか、越後新発田藩中、溝口藩中、美作津山の松平藩中などにも、赤沢氏の流れが見ゆ。
+</div>
+
+<div class="region-card">
+  <div class="region-name">肥後国（熊本県）</div>
+  <div class="region-modern">熊本県葦北郡</div>
+  <div class="region-body">
+    <p>肥後國葦北郡にも赤沢氏の流れが見える。湯浦の手永庄屋に赤沢庄右衛門がいた。郷土開発に努力し、文化・文政年中の人にて、子孫は計石に移った。</p>
+
+    <div class="original-text">
+肥後國葦北郡にては、湯浦の手永庄屋に赤沢庄右衞門があり。郷土開発に努力せし人なり。文化文政年中の人にて、子孫は計石に移したり。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 別流：諏訪神氏系 ===== -->
+<div class="section-header">
+  <div class="section-num">OTHER LINEAGES</div>
+  <h2>別流の赤沢氏</h2>
+</div>
+
+<div class="region-card" style="border-top-color:var(--gold)">
+  <div class="region-name">諏訪神氏系の赤沢氏</div>
+  <div class="region-modern">信濃国諏訪郡</div>
+  <div class="region-body">
+    <p>信濃国諏訪郡に住んでいた赤沢氏で、<strong>清和源氏とは別の系統</strong>。諏訪大社の神官の一族の流れ。</p>
+    <p>冊子の記述によれば、「古き系図に見ゆ。赤沢山城守の嗣となりし、ここを小笠原系よりも古き赤沢氏が居りしことを知るべし」。つまり、小笠原流の赤沢氏よりも前から諏訪に赤沢氏がいた可能性がある。</p>
+
+    <div class="original-text">
+一、別流諸系の赤沢氏。信濃國諏訪郡に居りし赤沢氏は、清和源氏の流れとは異りて、諏訪神氏の族なりという。源姓赤沢氏の祖の清経は、赤沢山城守の嗣となりし、古き系図に見ゆ。即ち小笠原系よりも古き赤沢氏が居りしことを知るべし。
+    </div>
+
+    <div class="original-text">
+筑摩郡稲倉（前の系図には伊那郡稲倉）と見ゆ。には、甲斐の武田氏に降伏せりという。子孫の代が来任し、城を築きし、大永二年に赤沢但馬守が来任して城を築き、浅間の茶臼山城、三才山岩もまた此の赤沢氏の持城にて、「菱」の紋を用いるという。赤沢氏は四宮地頭系の式部少輔が居りして伝えらる。此の人は四宮地頭系の式部少輔清純なり。川谷原の鷹住根城には荒神屋城にて、赤沢式部少輔清純なり。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>赤沢重勝 — 信州伊那郡の赤沢氏</div>
+  <p style="text-indent:1em"><strong>赤沢重勝</strong>は信州伊那郡（長野県南部）に拠った赤沢氏の一人で、<strong>小笠原長時</strong>の家臣として仕えた。鎌倉七廟（かまくらしちびょう）の地を領していたと伝えられる。</p>
+</div>
+<div class="original-text">
+赤沢重勝は小笠原長時家臣。信州伊那郡。鎌倉七廟を領す。
+</div>
+
+<div class="region-card" style="border-top-color:var(--gold)">
+  <div class="region-name">桓武平氏・千葉流の赤沢氏</div>
+  <div class="region-modern">山城国（京都府）</div>
+  <div class="region-body">
+    <p>清和源氏ではなく<strong>桓武平氏</strong>の千葉氏の流れ。山城国の赤沢の地に由来する。大須賀氏の族と言われ、室町幕府の奉行人も輩出した。</p>
+    <p>「阿波政城諸将記」にも赤沢美濃守（五十貫）の名があり、足利氏の奉行人として赤沢氏が活動していたことが確認できる。</p>
+
+    <div class="original-text">
+や、武は別人なりや、詳しきことを知らず。（此のこと、後の章にもいうべし。）その先系は桓武平氏、千葉流の大須賀氏なりという。山城に殷祥せし赤沢氏は、見ゆという。伝系の次第は左の如くに。桓武天皇の第三子下純竹良兼の曽孫、従五位下上総介平高望の第二子下総介平良兼の曽孫を左に。忠頼の曽孫、千葉太郎常永の男、下総行常兼の孫、その第四子大須賀四郎信に至り。別に家を興して大須賀氏の族、世の大須賀氏の族人、太郎通信が八郎良大の第二子が大須賀氏の族人。此の正良大は平高望の第五子村岡五衞門尉改經とす。其の次子は彦三郎敏氏、此を氏号とす。其の子は源二兵衞教氏、領畠山氏に仕えたり。代々氏利草府の営。右の説は、豊前小倉藩中の赤沢氏を、「一に渡来の百済氏族多々良氏なり」と伝え、傍証の得難き所伝なり。見ゆ、多々良氏とは周防の大内氏がこの族に赤沢氏がありしものとして。
+    </div>
+
+    <div class="original-text">
+なりや。「阿波政城諸将記」の中に、赤沢美濃守五十貫、蜂川氏。「矢武の上荘、赤沢美濃守五十貫。蜂川氏、松皮菱。」とあり。足利氏の奉行人たりし人にて、赤沢氏の系を継ぎし人がありしものなるべし。但し実名なと詳しきことを欠きたり。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>豊前小倉藩の赤沢氏 — 百済氏族・多々良氏の伝承</div>
+  <p style="text-indent:1em"><strong>豊前小倉藩</strong>（福岡県北九州市）の赤沢氏については、「渡来系の百済氏族・<strong>多々良氏</strong>である」という別の伝承も残されている。多々良氏とは周防国（山口県）の大内氏の一族であり、この大内氏の一族の中に赤沢氏があったものと考えられる。ただし、確かな傍証を得ることは難しい所伝である。</p>
+</div>
+<div class="original-text">
+右の説は、豊前小倉藩中の赤沢氏を、「一に渡来の百済氏族多々良氏なり」と伝え、傍証の得難き所伝なり。見ゆ、多々良氏とは周防の大内氏がこの族に赤沢氏がありしものとして。
+</div>
+
+<div class="card card-gold">
+  <div class="card-title"><span class="card-dot" style="background:var(--gold)"></span>この章のまとめ</div>
+  <p>赤沢氏は信濃を出発点として、鎌倉時代から明治維新に至るまでの約700年間で、<strong>阿波・備中・奥州・越後・出羽・常陸・肥後</strong>と、日本全国に足跡を残した。</p>
+  <p>特に阿波の赤沢宗伝は、板西城主として3,000貫の大領を持ち、十二人衆を従えた一大勢力だった。中富川の合戦での壮絶な最期は、赤沢一族の武勇を象徴するエピソード。</p>
+</div>
+
+<!-- 原本ギャラリー -->
+<div class="genpon-section">
+  <div class="sec-head-g">
+    <div class="sec-num-g">ORIGINAL</div>
+    <div class="sec-title-g">原本写真 ― 第4章</div>
+    <div class="sec-line-g"></div>
+  </div>
+  <p style="font-size:13px;color:#999;margin-bottom:16px">「全国に広がる赤沢氏」に該当する原本ページ。クリックで拡大表示。</p>
+  <div class="genpon-grid">
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9940.jpg" alt="板西城 冒頭"><div class="genpon-cap">板西城の記述冒頭</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9941.jpg" alt="矢武の上荘"><div class="genpon-cap">赤沢美濃守 ～ 矢武の上荘</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9942.jpg" alt="小笠原流〜赤沢重勝"><div class="genpon-cap">小笠原流 ～ 赤沢重勝</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9943.jpg" alt="別流諸系"><div class="genpon-cap">別流諸系の赤沢氏（亀廣 ～ 昌宗 ～ 昌信）</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9944.jpg" alt="摂摩郡稲倉"><div class="genpon-cap">摂摩郡稲倉（伊那の赤沢氏）</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9945.jpg" alt="全国の赤沢氏"><div class="genpon-cap">備前・大須賀・山城国の赤沢氏</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9946.jpg" alt="其他諸國"><div class="genpon-cap">其他諸國の赤沢氏（奥州・南北朝）</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9947.jpg" alt="越後の赤沢氏"><div class="genpon-cap">越後の赤沢氏、武田信玄との関係</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9948.jpg" alt="出羽の赤沢氏"><div class="genpon-cap">出羽の赤沢氏、遠江守、佐竹氏</div></div>
+  </div>
+</div>
+
+<div class="page-nav">
+  <a href="chapter3-family-tree.html">← 第3章 家系図と人物録</a>
+  <a href="chapter5-kamon.html">第5章 家紋と伝承 →</a>
+</div>
+
+<div class="site-footer"><p>赤澤一族 令和版 — 2026年編纂</p></div>
+</div>
+
+<!-- 原本拡大モーダル -->
+<div class="genpon-modal" id="genponModal" onclick="closeGenpon()">
+  <button class="genpon-modal-close" onclick="closeGenpon()">&#x2715;</button>
+  <img id="genponModalImg" src="" alt="原本拡大">
+</div>
+
+<script>
+function openGenpon(el){var img=el.querySelector('img');var m=document.getElementById('genponModal');document.getElementById('genponModalImg').src=img.src;m.classList.add('active');document.body.style.overflow='hidden'}
+function closeGenpon(){document.getElementById('genponModal').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenpon()});
+</script>
+</body>
+</html>

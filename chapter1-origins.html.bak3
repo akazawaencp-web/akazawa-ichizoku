@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第1章 赤沢の起源 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--ink-grad:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.05));--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+.content{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:12px;color:var(--tx3);margin-bottom:30px}
+.breadcrumb a{color:var(--tx2);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.ch-header{margin-bottom:40px;padding-bottom:16px}
+.ch-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--tx3);margin-bottom:6px}
+.ch-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:var(--tx);letter-spacing:.1em}
+.ch-sub{font-size:13px;color:var(--tx3);margin-top:6px}
+.ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
+.main-text{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:28px}
+.main-text p{margin-bottom:18px;text-indent:1em}
+.main-text strong{color:var(--tx)}
+.card{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:24px 28px;margin-bottom:18px}
+.card-ink{border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;border-radius:0}
+.card p,.card li{font-size:14px;color:var(--tx2);line-height:1.9}
+.card ul{padding-left:18px;margin-top:8px}
+.card li{margin-bottom:6px}
+.card strong{color:var(--tx)}
+.card-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+.ai-note{background:rgba(240,242,248,.5);border:1px solid var(--bd2);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:18px 22px;margin:18px 0;backdrop-filter:var(--blur)}
+.ai-label{font-size:10px;font-weight:600;color:var(--tx3);letter-spacing:.04em;margin-bottom:6px}
+.ai-note p{font-size:13px;color:#3a3a50;line-height:1.9}
+.original{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:18px 22px;margin:18px 0}
+.original-label{font-size:9px;font-weight:600;color:var(--tx4);letter-spacing:.1em;margin-bottom:6px}
+.original p{font-size:13px;color:var(--tx3);line-height:1.9}
+.toggle{background:transparent;border:none;border-bottom:1px solid rgba(0,0,0,.06);border-radius:0;overflow:hidden;margin-bottom:14px}
+.toggle-btn{width:100%;padding:14px 0;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:inherit;font-size:13px;font-weight:500;color:var(--tx);text-align:left}
+.toggle-btn:hover{background:rgba(0,0,0,.01)}
+.toggle-btn .arr{font-size:11px;color:var(--tx4);transition:transform .3s}
+.toggle-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.toggle-inner{padding:0 0 18px;font-size:14px;color:var(--tx2);line-height:2}
+.toggle-body.open{max-height:3000px}
+.toggle-btn.active .arr{transform:rotate(180deg)}
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid var(--bd2)}
+.page-nav a{font-size:12px;color:var(--tx2);text-decoration:none}
+.page-nav a:hover{color:var(--tx)}
+.footer{text-align:center;padding:30px 0 20px;font-size:11px;color:var(--tx4);margin-top:40px}
+/* ===== 原本ギャラリー ===== */
+.genpon-section{margin-top:50px}
+.genpon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.genpon-item{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid var(--bd2);box-shadow:var(--sh);transition:all .25s;background:#fff}
+.genpon-item:hover{box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateY(-2px)}
+.genpon-item img{width:100%;height:auto;display:block}
+.genpon-cap{padding:8px 12px;font-size:11px;color:var(--tx3);line-height:1.5}
+.genpon-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out}
+.genpon-modal.active{display:flex}
+.genpon-modal img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.genpon-modal-close{position:fixed;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;z-index:10000;background:none;border:none;font-family:inherit;transition:color .2s}
+.genpon-modal-close:hover{color:#fff}
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content{padding:30px 16px 50px}
+  .ch-title{font-size:26px}
+  .main-text{font-size:14px}
+  .card{padding:20px 22px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .ch-header{margin-bottom:30px}
+  .ch-num{font-size:9px}
+  .ch-title{font-size:22px;letter-spacing:.05em}
+  .ch-sub{font-size:12px}
+  .main-text{font-size:13px;line-height:2;margin-bottom:20px}
+  .main-text p{margin-bottom:14px}
+  .card{padding:16px;border-radius:10px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .card-title{font-size:12px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p{font-size:12px}
+  .ai-label{font-size:9px}
+  .original{padding:14px 16px;margin:14px 0}
+  .original p{font-size:12px;line-height:1.8}
+  .original-label{font-size:8px}
+  .toggle-btn{padding:12px 0;font-size:12px}
+  .toggle-inner{font-size:13px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .footer{font-size:10px;padding:24px 0 16px}
+}
+</style>
+</head>
+<body>
+<div class="content">
+
+<div class="breadcrumb"><a href="index.html">赤澤一族 令和版</a> → 第1章</div>
+
+<div class="ch-header">
+  <div class="ch-num">CHAPTER 01</div>
+  <div class="ch-title">赤沢の起源</div>
+  <div class="ch-sub">「赤沢」という名前はどこから来たのか — 地名から姓へ</div>
+  <div class="ch-line"></div>
+</div>
+
+<div class="main-text">
+  <p>「赤沢」という苗字は、<strong>先祖の誰かが領有し、あるいは住んでいた土地の名前</strong>に由来する。これは日本の多くの苗字に共通するパターンで、「田中」さんが田んぼの真ん中に住んでいた、「山田」さんが山の田に住んでいた、というのと同じ原理だ。</p>
+  <p>では、「赤沢」という地名はどこにあるのか？</p>
+  <p>もっとも有力な説は、<strong>伊豆国田方郡の赤沢</strong>（現在の静岡県伊東市赤沢）。清和源氏・小笠原氏の流れをくむ赤沢氏は、この伊豆の赤沢が発祥の地と伝えられている。</p>
+</div>
+
+<div class="ai-note">
+  <div class="ai-label">深掘り調査</div>
+  <p><strong>伊東市赤沢</strong>は、伊豆半島の東海岸に位置する小さな集落。現在は「赤沢温泉」で知られるリゾート地。鎌倉時代には源氏ゆかりの武士たちが領有していた土地だった。</p>
+  <p>赤沢という地名の由来は「赤い色の沢（渓流）」。伊豆半島は火山性の地質で、鉄分を含む赤い土壌が多く、赤みがかった渓流があったことは十分にあり得る。</p>
+</div>
+
+<div class="main-text">
+  <p>ただし、<strong>異説も古くからある</strong>。甲斐国巨摩郡（現在の山梨県南部）にも「赤沢」の地名があり、こちらが赤沢一族の氏号の元だという説も見える。</p>
+  <p>さらに、<strong>山城国</strong>（京都府南部）にも赤沢の地があり、桓武平氏千葉氏系の赤沢氏はこの地に由来する。また、<strong>奥州の陸中紫波郡</strong>（岩手県）にも赤沢邑があり、信濃から来た源姓小笠原流の一族とも言われている。</p>
+</div>
+
+<div class="original">
+  <div class="original-label">原文</div>
+  <p>山城國にも赤沢の地がありて、桓武平氏千葉氏系の赤沢氏は此の地に由来するという。此の赤沢の地は、何れの郡内にありしや、詳細に欠くるものあり。<br>奥川の陸中紫波郡に赤沢邑あり、此の地名を号せし流れは、信濃より来りし記録に伝えらる、源姓小笠原流の族とも言われたり。<br>右の如く、清和源氏系の赤沢氏のは、前記の桓武平氏流、又は室町幕府奉行、或は渡来系の多々良氏族にも、赤沢氏の伝承が見ゆ。</p>
+</div>
+
+<div class="original">
+  <div class="original-label">原文</div>
+  <p>赤沢の氏号は、他の多くの実例に見るが如くに、先祖の誰人かが領有し、又は居住せし地名に由来するものなり。此の地名は、伊豆國田方郡にあるを以て、源姓小笠原流の赤沢氏は、伊豆赤沢が発祥の地と伝えらる。但し異説は早くよりありて、甲斐國巨摩郡の赤沢が、此の一族の氏号の地なりとも見えたり。</p>
+</div>
+
+<div class="card card-ink">
+  <div class="card-title"><span class="card-dot"></span>全国の「赤沢」地名まとめ</div>
+  <ul>
+    <li><strong>伊豆国田方郡 赤沢</strong>（静岡県伊東市）— 源姓小笠原流の発祥地（有力説）</li>
+    <li><strong>甲斐国巨摩郡 赤沢</strong>（山梨県）— 異説の発祥地候補</li>
+    <li><strong>山城国 赤沢</strong>（京都府）— 桓武平氏千葉氏系の由来地</li>
+    <li><strong>陸中紫波郡 赤沢邑</strong>（岩手県）— 信濃から移住した源姓赤沢氏</li>
+  </ul>
+</div>
+
+<div class="card card-ink">
+  <div class="card-title"><span class="card-dot"></span>赤沢氏の主な系統</div>
+  <ul>
+    <li><strong>① 清和源氏・小笠原流</strong> — 本書の主役。信濃→阿波→備中にも分流。<strong>RIOの直系。</strong></li>
+    <li><strong>② 桓武平氏・千葉流</strong> — 山城国の赤沢に由来</li>
+    <li><strong>③ 蜷川氏系</strong> — 室町幕府の実務官僚</li>
+    <li><strong>④ 諏訪神氏系</strong> — 諏訪郡。諏訪大社の神官の一族</li>
+    <li><strong>⑤ その他各地</strong> — 奥州、越後、出羽、肥後など</li>
+  </ul>
+</div>
+
+<div class="main-text">
+  <p>同じ「赤沢」でも、実はルーツが全く違う家系が複数存在する。ただし<strong>清和源氏・小笠原流</strong>がもっとも大きな一族であり、歴史的にも多くの記録が残っている。</p>
+  <p>次章では、この清和源氏・小笠原流の赤沢氏がどのように誕生したのかを、清和天皇から順に辿っていく。</p>
+</div>
+
+<div class="toggle">
+  <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+    信州における赤沢氏の補足<span class="arr">▼</span>
+  </button>
+  <div class="toggle-body">
+    <div class="toggle-inner">
+      <p>信州には<strong>諏訪神氏系の赤沢氏</strong>も存在した。諏訪大社の神官の一族の系統で、清和源氏の流れとは異なる。冊子によれば「古き赤沢氏の如くにも見えたり」と記され、小笠原流より前から諏訪に赤沢氏がいた可能性がある。</p>
+      <div class="original">
+        <div class="original-label">原文</div>
+        <p>信州には、諏訪神家の族の方が、より古き赤沢氏の如くにも見えたり。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toggle">
+  <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+    伊豆の赤沢 — 現在の静岡県伊東市赤沢<span class="arr">▼</span>
+  </button>
+  <div class="toggle-body">
+    <div class="toggle-inner">
+      <p>伊豆国田方郡赤沢郷は、現在の<strong>静岡県伊東市赤沢</strong>。伊豆半島東海岸、相模灘に面した集落。鎌倉時代、源頼朝が挙兵した伊豆の一部で、源氏ゆかりの武士たちが土着していた。</p>
+      <p>小笠原長経の次男・清経が伊豆守となってこの赤沢郷を領し、赤沢を名乗ったのが赤沢氏の始まり。清経はその後、信濃国埴科郡埴生（現在の長野県千曲市）へ移住。</p>
+      <div class="original">
+        <div class="original-label">原文</div>
+        <p>小笠原流弓道の家として、此の赤沢氏が名を挙げたり。日本弓道史、中嶋次太郎氏の著書などに詳しく見ゆ。<br>伊豆守経直の子孫は、氏号を小笠原に改めて、徳川氏に臣事せり。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 原本ギャラリー -->
+<div class="genpon-section">
+  <div class="sec-head" style="margin:60px 0 20px">
+    <div class="sec-num" style="font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--tx3);margin-bottom:4px">ORIGINAL</div>
+    <div class="sec-title" style="font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:var(--tx);letter-spacing:.06em">原本写真 ― 第1章</div>
+    <div class="sec-line" style="width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.03));margin-top:10px"></div>
+  </div>
+  <p style="font-size:13px;color:var(--tx3);margin-bottom:16px">「赤沢の氏号と概要」に該当する原本ページ。クリックで拡大表示。</p>
+  <div class="genpon-grid">
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9927.jpg" alt="赤沢の氏号と概要 冒頭"><div class="genpon-cap">「一、赤沢の氏号と概要」冒頭</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9928.jpg" alt="赤沢の氏号と概要 続き"><div class="genpon-cap">甲斐国・山城国・奥州の赤沢地名</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9929.jpg" alt="第1章末〜第2章冒頭"><div class="genpon-cap">第1章末尾 ～ 第2章冒頭「清和源氏と赤沢氏」</div></div>
+  </div>
+</div>
+
+<div class="page-nav">
+  <a href="index.html">← トップページ</a>
+  <a href="chapter2-seiwa-genji.html">第2章 清和源氏と赤沢氏 →</a>
+</div>
+
+<div class="footer">赤澤一族 令和版 — 2026年編纂</div>
+</div>
+
+<!-- 原本拡大モーダル -->
+<div class="genpon-modal" id="genponModal" onclick="closeGenpon()">
+  <button class="genpon-modal-close" onclick="closeGenpon()">&#x2715;</button>
+  <img id="genponModalImg" src="" alt="原本拡大">
+</div>
+
+<script>
+function openGenpon(el){var img=el.querySelector('img');var m=document.getElementById('genponModal');document.getElementById('genponModalImg').src=img.src;m.classList.add('active');document.body.style.overflow='hidden'}
+function closeGenpon(){document.getElementById('genponModal').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenpon()});
+</script>
+</body>
+</html>

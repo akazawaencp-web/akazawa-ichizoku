@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赤澤一族 ― 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;
+  --tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;
+  --bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);
+  --glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);
+  --blur:blur(12px);
+  --sh:0 2px 12px rgba(0,0,0,.03);
+  --sh2:0 4px 20px rgba(0,0,0,.04);
+  --ink-grad:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.05));
+  --warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* Hero — Silver Bright (hero8) */
+.hero{min-height:100vh;position:relative;overflow:hidden}
+
+/* 背景: Soft多重透過（4枚soft-light、ダイナミックドリフト） */
+.layers{position:absolute;inset:0;z-index:1}
+.ly{position:absolute;inset:-12%;background-size:cover;background-position:center;filter:brightness(.45) saturate(.5)}
+.l1{background-image:url('../jpeg/IMG_9925.jpg');opacity:.5;animation:bgA 14s ease-in-out infinite alternate}
+.l2{background-image:url('../jpeg/IMG_9935.jpg');opacity:.35;mix-blend-mode:soft-light;animation:bgB 16s ease-in-out infinite alternate}
+.l3{background-image:url('../jpeg/IMG_9927.jpg');opacity:.3;mix-blend-mode:soft-light;animation:bgC 12s ease-in-out infinite alternate}
+.l4{background-image:url('../jpeg/IMG_9940.jpg');opacity:.25;mix-blend-mode:soft-light;animation:bgD 15s ease-in-out infinite alternate}
+
+@keyframes bgA{0%{transform:scale(1.02) translate(1.5%,-1%)}100%{transform:scale(1.12) translate(-2%,1.5%)}}
+@keyframes bgB{0%{transform:scale(1.1) translate(-1.5%,1%)}100%{transform:scale(1.02) translate(2%,-1.5%)}}
+@keyframes bgC{0%{transform:scale(1.05) translate(2%,1.5%)}100%{transform:scale(1.14) translate(-1.5%,-1%)}}
+@keyframes bgD{0%{transform:scale(1.08) translate(-1%,-1.5%)}100%{transform:scale(1.15) translate(1.5%,2%)}}
+
+.ov{position:absolute;inset:0}
+.ov-m{background:radial-gradient(ellipse at 50% 45%,rgba(10,10,10,.35) 0%,rgba(10,10,10,.6) 100%);z-index:2}
+.ov-g{opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:3}
+
+/* 中央コンテンツ */
+.cc{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:60px 24px}
+
+/* 家紋: 浮遊 + なぞり + グロー */
+.km-float{animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.glow-wrap{animation:glowS 4s ease-in-out infinite 3s}
+@keyframes glowS{0%,100%{filter:drop-shadow(0 0 12px rgba(200,205,215,.06))}50%{filter:drop-shadow(0 0 30px rgba(200,205,215,.18))}}
+.p-km{width:280px;height:280px;margin-bottom:44px}
+.p-km svg{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.5s cubic-bezier(.4,0,.2,1) .3s forwards}
+@keyframes draw{0%{stroke-dashoffset:1400}100%{stroke-dashoffset:0}}
+
+/* テキスト */
+.p-en{font-size:9px;letter-spacing:.5em;color:rgba(200,205,215,.25);margin-bottom:20px;animation:fi 2s ease .1s both}
+@keyframes fi{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+.p-t{font-family:'Shippori Mincho',serif;font-size:68px;font-weight:400;letter-spacing:.4em;color:rgba(235,238,245,.85);text-shadow:0 0 60px rgba(200,205,215,.1);animation:fi 2.5s ease 2s both;opacity:0}
+.p-gline{width:80px;height:2px;background:linear-gradient(90deg,transparent,rgba(180,185,200,.35),rgba(220,225,240,.6),rgba(180,185,200,.35),transparent);margin:22px auto;animation:fi 2s ease 2.8s both}
+.p-sub{font-size:10px;letter-spacing:.2em;color:rgba(200,205,215,.3);animation:fi 2s ease 3.2s both;line-height:2}
+.scue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.06em;animation:bn 2.5s infinite;z-index:10}
+@keyframes bn{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
+
+/* Content */
+.content{max-width:1000px;margin:0 auto;padding:0 20px 80px}
+
+/* Section headers */
+.sec-head{margin:60px 0 20px}
+.sec-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--tx3);margin-bottom:4px}
+.sec-title{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:var(--tx);letter-spacing:.06em}
+.sec-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.03));margin-top:10px}
+
+/* Card */
+.card{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:24px 28px;margin-bottom:16px;position:relative;overflow:hidden}
+.card-ink{border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;border-radius:0}
+.card p{font-size:14px;color:var(--tx2);line-height:2}
+.card ul{padding-left:18px;margin-top:8px}
+.card li{font-size:14px;color:var(--tx2);margin-bottom:6px;line-height:1.8}
+.card strong{color:var(--tx)}
+
+/* Timeline */
+.tl{position:relative;padding-left:30px;margin:20px 0}
+.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#7a5a20,#c4a060);border-radius:2px}
+.tl-item{position:relative;padding-bottom:22px}
+.tl-item::before{content:'';position:absolute;left:-28px;top:7px;width:10px;height:10px;border-radius:50%;background:#8b6914;border:3px solid #f2f1ee}
+.tl-year{font-size:11px;font-weight:700;color:#8b6914;letter-spacing:.02em}
+.tl-title{font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:600;color:var(--tx);margin:2px 0}
+.tl-desc{font-size:13px;color:var(--tx2);line-height:1.8}
+
+/* Nav grid */
+.nav-grid{display:flex;flex-direction:column;gap:0;margin-top:20px}
+.nav-card{display:flex;align-items:center;gap:20px;background:var(--glass);border:1px solid var(--bd2);border-radius:0;backdrop-filter:var(--blur);box-shadow:none;padding:16px 24px;text-decoration:none;color:var(--tx);transition:all .25s;position:relative;overflow:hidden;border-bottom:none}
+.nav-card:first-child{border-radius:14px 14px 0 0}
+.nav-card:last-child{border-radius:0 0 14px 14px;border-bottom:1px solid var(--bd2)}
+.nav-card:hover{padding:20px 24px;background:var(--glass2);box-shadow:var(--sh2);transform:translateX(4px)}
+.nav-card::after{content:'→';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--tx4);transition:all .2s}
+.nav-card:hover::after{right:20px;color:var(--tx3)}
+.nav-num{font-family:'Shippori Mincho',serif;font-size:20px;font-weight:400;color:var(--tx4);flex-shrink:0;min-width:40px}
+.nav-title{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;margin-bottom:2px}
+.nav-body{flex:1;min-width:0}
+.nav-desc{font-size:11px;color:var(--tx2);line-height:1.6;padding-right:30px}
+
+/* Grandpa note */
+.gp-note{background:rgba(245,242,235,.4);border:1px solid var(--warm-bd);border-top:2px solid #8b6914;border-radius:0 0 12px 12px;padding:18px 22px;margin:16px 0;backdrop-filter:var(--blur)}
+.gp-label{font-size:10px;font-weight:600;color:#8b6914;letter-spacing:.05em;margin-bottom:6px}
+.gp-note p{font-size:13px;color:var(--warm-tx);line-height:1.8}
+
+/* Source info */
+.source-card{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:24px 28px;margin-bottom:16px}
+.source-card .s-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.source-card .s-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+.source-card ul{padding-left:18px}
+.source-card li{font-size:13px;color:var(--tx2);margin-bottom:5px}
+
+/* Footer */
+.footer{text-align:center;padding:40px 0 24px;font-size:11px;color:var(--tx4);border-top:1px solid var(--bd2);margin-top:60px}
+
+/* ===== 原本ギャラリー ===== */
+.genpon-section{margin-top:60px}
+.genpon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.genpon-item{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid var(--bd2);box-shadow:var(--sh);transition:all .25s;background:#fff}
+.genpon-item:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.genpon-item img{width:100%;height:auto;display:block}
+.genpon-cap{padding:8px 12px;font-size:11px;color:var(--tx3);line-height:1.5}
+.genpon-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out}
+.genpon-modal.active{display:flex}
+.genpon-modal img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.genpon-modal-close{position:fixed;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;z-index:10000;background:none;border:none;font-family:inherit;transition:color .2s}
+.genpon-modal-close:hover{color:#fff}
+
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .p-t{font-size:44px !important;letter-spacing:.25em !important}
+  .p-km{width:200px;height:200px;margin-bottom:30px}
+  .content{padding:0 16px 60px}
+  .card{padding:20px 22px}
+  .nav-card{padding:14px 20px;gap:14px}
+  .nav-desc{padding-right:24px}
+  .sec-title{font-size:20px}
+  .tl-desc{font-size:12px}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .p-t{font-size:32px !important;letter-spacing:.15em !important}
+  .p-km{width:160px;height:160px;margin-bottom:24px}
+  .p-en{font-size:8px;letter-spacing:.3em}
+  .p-sub{font-size:9px}
+  .cc{padding:40px 16px}
+  .scue{bottom:24px}
+  .content{padding:0 12px 40px}
+  .sec-head{margin:40px 0 16px}
+  .sec-title{font-size:18px}
+  .sec-num{font-size:9px}
+  .card{padding:16px;border-radius:10px}
+  .card p{font-size:13px;line-height:1.9}
+  .card li{font-size:13px}
+  .tl{padding-left:24px;margin:16px 0}
+  .tl::before{left:5px;width:2px}
+  .tl-item::before{left:-22px;top:6px;width:8px;height:8px}
+  .tl-year{font-size:10px}
+  .tl-title{font-size:13px}
+  .tl-desc{font-size:12px;line-height:1.7}
+  .nav-card{padding:14px 16px;gap:12px}
+  .nav-card::after{right:16px;font-size:14px}
+  .nav-card:hover::after{right:14px}
+  .nav-num{font-size:16px;min-width:32px}
+  .nav-title{font-size:14px}
+  .nav-desc{font-size:10px;padding-right:20px}
+  .gp-note{padding:14px 16px}
+  .gp-note p{font-size:12px}
+  .source-card{padding:18px 16px;border-radius:10px}
+  .source-card li{font-size:12px}
+  .footer{font-size:10px;padding:30px 0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="layers">
+    <div class="ly l1"></div>
+    <div class="ly l2"></div>
+    <div class="ly l3"></div>
+    <div class="ly l4"></div>
+  </div>
+  <div class="ov ov-m"></div>
+  <div class="ov ov-g"></div>
+
+  <div class="cc">
+    <div class="p-en">AKAZAWA ICHIZOKU</div>
+    <div class="km-float">
+      <div class="glow-wrap">
+        <div class="p-km">
+          <svg viewBox="0 0 200 200" fill="none" stroke="rgba(200,205,215,.5)" stroke-width="1.5">
+            <circle cx="100" cy="100" r="90"/>
+            <g transform="translate(100,100)">
+              <polygon points="0,-55 25,-40 0,-25 -25,-40"/>
+              <polygon points="0,-30 45,0 0,30 -45,0" stroke-width="2"/>
+              <polygon points="0,25 25,40 0,55 -25,40"/>
+            </g>
+            <line x1="100" y1="88" x2="100" y2="112" stroke-width="1.2"/>
+            <line x1="88" y1="100" x2="112" y2="100" stroke-width="1.2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="p-t">赤澤一族</div>
+    <div class="p-gline"></div>
+    <div class="p-sub">Since 850 — Reiwa Edition<br>千年の血脈を、いま紐解く</div>
+  </div>
+
+  <div class="scue">↓ scroll</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- Intro -->
+  <div class="sec-head">
+    <div class="sec-num">INTRODUCTION</div>
+    <div class="sec-title">この本について</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card card-ink">
+    <p>この「赤澤一族 令和版」は、昭和63年（1988年）に日本家系家紋研究所から限定300部で発行された冊子「赤澤一族」を、現代の言葉で読み解き、AIによる調査で情報を補完したデジタルブック。</p>
+    <br>
+    <p>原本には、赤澤秀邦（編者の祖父）が生前に各地のお寺を巡り、独自に調査した手書きのメモが多数残されている。そのメモも本文中に注釈として織り込んだ。</p>
+    <br>
+    <p>赤澤家の血を引く者が、自らのルーツを知り、先祖たちがどんな時代にどんな人生を歩んだのかを感じ取れる — そんな一冊を目指している。</p>
+  </div>
+
+  <!-- Overview -->
+  <div class="sec-head">
+    <div class="sec-num">OVERVIEW</div>
+    <div class="sec-title">赤澤一族とは</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card card-ink">
+    <p><strong>赤澤（赤沢）氏</strong>は、日本の武門の頂点・<strong>清和源氏</strong>の流れをくむ名族。第56代清和天皇の血を引き、源氏→小笠原氏→赤沢氏と分かれた。</p>
+    <br>
+    <p>源頼朝、足利将軍家、武田信玄 — これらの武将たちと同じ清和源氏に連なる血脈を持つ。</p>
+    <br>
+    <p>鎌倉時代に信濃国（現在の長野県）の<strong>塩崎城</strong>を拠点とし、室町時代には足利将軍の弓道師範を務め、戦国時代には阿波（徳島県）の板西城主として三好氏を支えた。全国各地に子孫が広がり、それぞれの土地で歴史を刻んでいる。</p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="sec-head">
+    <div class="sec-num">TIMELINE</div>
+    <div class="sec-title">赤澤一族 千年の歩み</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="tl">
+    <div class="tl-item"><div class="tl-year">850年頃</div><div class="tl-title">清和天皇の治世</div><div class="tl-desc">赤澤一族のルーツ。第56代天皇の皇子・貞純親王の子孫が「源」の姓を名乗り、武門の名族「清和源氏」が始まる。</div></div>
+    <div class="tl-item"><div class="tl-year">1205年頃</div><div class="tl-title">小笠原長清 — 信濃守護に</div><div class="tl-desc">清和源氏の子孫・小笠原長清が信濃の守護に。弓馬術礼法の祖。赤澤氏の直接の先祖。</div></div>
+    <div class="tl-item"><div class="tl-year">1250年頃</div><div class="tl-title">赤沢清経 — 赤沢氏の誕生</div><div class="tl-desc">小笠原長経の次男・清経が伊豆国赤沢郷を領有し「赤沢」を名乗る。その後、信濃国へ移住。</div></div>
+    <div class="tl-item"><div class="tl-year">1335年</div><div class="tl-title">塩崎城の築城</div><div class="tl-desc">中先代の乱で武功を挙げた赤沢常興が塩崎城を築いて居城に。善光寺平の軍事要衝。</div></div>
+    <div class="tl-item"><div class="tl-year">1490年代</div><div class="tl-title">赤沢朝経 — 将軍の弓道師範</div><div class="tl-desc">管領細川政元に仕え、足利義政の弓道師範に。比叡山焼き討ち（信長より72年前）、大和国を軍事制圧。1507年、丹後にて自刃。享年57。</div></div>
+    <div class="tl-item"><div class="tl-year">1550年</div><div class="tl-title">武田信玄の信濃侵攻</div><div class="tl-desc">小笠原氏の没落と共に赤沢氏も信濃を失う。経智は越後に逃れるが、小笠原流弓馬術礼法の正統継承を託される。</div></div>
+    <div class="tl-item"><div class="tl-year">1582年</div><div class="tl-title">板西城の落城</div><div class="tl-desc">阿波の赤沢宗伝が長宗我部元親との中富川の合戦で壮絶な最期。「草鞋の紐が切れたところを敵に討たれた」。</div></div>
+    <div class="tl-item"><div class="tl-year">1605年</div><div class="tl-title">徳川家康に召し出される</div><div class="tl-desc">赤沢貞経が500俵で召し出され小笠原に復姓。子孫は弓馬術礼法宗家を明治まで継承。</div></div>
+    <div class="tl-item"><div class="tl-year">1841年</div><div class="tl-title">赤澤遠康が記録を残す</div><div class="tl-desc">天保12年。源右衛門。信州の赤澤一族の記録を書き残した。RIOの直系先祖。</div></div>
+    <div class="tl-item"><div class="tl-year">1940年代</div><div class="tl-title">赤澤秀邦 — 神田から長野へ疎開</div><div class="tl-desc">戦時疎開で東京・神田から長野県へ。晩年、お寺を巡って赤澤家のルーツを調査。</div></div>
+    <div class="tl-item"><div class="tl-year">1988年</div><div class="tl-title">「赤澤一族」冊子の発行</div><div class="tl-desc">日本家系家紋研究所から限定300部で発行。秀邦が手書きメモを残す。</div></div>
+    <div class="tl-item"><div class="tl-year">2026年</div><div class="tl-title">「赤澤一族 令和版」の編纂</div><div class="tl-desc">秀邦の孫の世代が、AIの力を借りて冊子を現代語に翻訳し、深掘り調査を加えてデジタルブックとして再編纂。</div></div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="sec-head">
+    <div class="sec-num">CHAPTERS</div>
+    <div class="sec-title">目次</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="nav-grid">
+    <a class="nav-card" href="chapter1-origins.html">
+      <div class="nav-num">01</div>
+      <div class="nav-body"><div class="nav-title">赤沢の起源</div><div class="nav-desc">「赤沢」という名前はどこから来たのか。</div></div>
+    </a>
+    <a class="nav-card" href="chapter2-seiwa-genji.html">
+      <div class="nav-num">02</div>
+      <div class="nav-body"><div class="nav-title">清和源氏と赤沢氏</div><div class="nav-desc">天皇から武門の頂点へ。</div></div>
+    </a>
+    <a class="nav-card" href="family-tree.html">
+      <div class="nav-num">系</div>
+      <div class="nav-body"><div class="nav-title">家系図</div><div class="nav-desc">清和天皇から現代まで。クリックで詳細表示。</div></div>
+    </a>
+    <a class="nav-card" href="chapter4-branches.html">
+      <div class="nav-num">04</div>
+      <div class="nav-body"><div class="nav-title">全国に広がる赤沢氏</div><div class="nav-desc">阿波、備中、奥州…一族の足跡。</div></div>
+    </a>
+    <a class="nav-card" href="chapter5-kamon.html">
+      <div class="nav-num">05</div>
+      <div class="nav-body"><div class="nav-title">家紋と伝承</div><div class="nav-desc">松皮菱の由来。</div></div>
+    </a>
+    <a class="nav-card" href="grandpa-notes.html">
+      <div class="nav-num">附</div>
+      <div class="nav-body"><div class="nav-title">秀邦の手書きメモ</div><div class="nav-desc">祖父が冊子に残した調査の痕跡。全46ページの写真。</div></div>
+    </a>
+  </div>
+
+  <!-- Source -->
+  <div class="sec-head">
+    <div class="sec-num">SOURCE</div>
+    <div class="sec-title">原本「赤澤一族」について</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="source-card">
+    <div class="s-title"><span class="s-dot"></span>書誌情報</div>
+    <ul>
+      <li><strong>書名</strong>：赤沢一族（限定300部 第52号）</li>
+      <li><strong>発行</strong>：昭和六十三年（1988年）四月吉日</li>
+      <li><strong>編纂人</strong>：武田光弘</li>
+      <li><strong>発行所</strong>：日本家系家紋研究所</li>
+      <li><strong>発売元</strong>：日本家系協会（東京都中央区銀座六-八-四）</li>
+    </ul>
+  </div>
+
+  <div class="gp-note">
+    <div class="gp-label">秀邦の調査メモ</div>
+    <p>原本には、赤澤秀邦による赤ペンの書き込みが随所に見られる。年号一覧表、家系図の人物名の横、資料ページの記入欄 — お寺を巡って自ら調べた情報を丁寧に書き加えていた。この令和版では、その手書きメモを注釈として織り込んでいる。</p>
+  </div>
+
+  <!-- Bodaiji -->
+  <div class="source-card">
+    <div class="s-title"><span class="s-dot"></span>赤澤家の菩提寺</div>
+    <ul>
+      <li><strong>寺名</strong>：遍照寺（へんしょうじ）</li>
+      <li><strong>宗派</strong>：浄土宗</li>
+      <li><strong>所在地</strong>：東京都港区南麻布三丁目四番六号</li>
+      <li><strong>創建</strong>：寛永元年（1624年）霞ヶ関に創建、後に現在地へ移転</li>
+    </ul>
+  </div>
+
+  <!-- 原本ギャラリー -->
+  <div class="genpon-section">
+    <div class="sec-head">
+      <div class="sec-num">ORIGINAL</div>
+      <div class="sec-title">原本写真</div>
+      <div class="sec-line"></div>
+    </div>
+    <p style="font-size:13px;color:var(--tx3);margin-bottom:16px">昭和63年発行「赤澤一族」冊子の原本写真。クリックで拡大表示。</p>
+    <div class="genpon-grid">
+      <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9925.jpg" alt="原本表紙"><div class="genpon-cap">表紙（藍色和紙綴じ）</div></div>
+      <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9926.jpg" alt="目次"><div class="genpon-cap">目次</div></div>
+      <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9968.jpg" alt="奥付"><div class="genpon-cap">奥付（昭和63年4月発行、限定300部 第52号）</div></div>
+      <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9969.jpg" alt="裏表紙"><div class="genpon-cap">裏表紙</div></div>
+      <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9970.jpg" alt="出版案内"><div class="genpon-cap">出版案内チラシ</div></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>赤澤一族 令和版 — 2026年編纂</p>
+    <p style="margin-top:4px">昭和63年「赤澤一族」を基に現代語で再編纂。100年後の赤澤家へ届けるために。</p>
+  </div>
+
+</div>
+
+<!-- 原本拡大モーダル -->
+<div class="genpon-modal" id="genponModal" onclick="closeGenpon()">
+  <button class="genpon-modal-close" onclick="closeGenpon()">&#x2715;</button>
+  <img id="genponModalImg" src="" alt="原本拡大">
+</div>
+
+<script>
+function openGenpon(el){var img=el.querySelector('img');var m=document.getElementById('genponModal');document.getElementById('genponModalImg').src=img.src;m.classList.add('active');document.body.style.overflow='hidden'}
+function closeGenpon(){document.getElementById('genponModal').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenpon()});
+</script>
+</body>
+</html>

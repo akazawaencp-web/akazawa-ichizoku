@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家系図 ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--sh2:0 4px 20px rgba(0,0,0,.04);--ink-grad:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.05));--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40;--accent:rgba(0,0,0,.08);--accent2:rgba(0,0,0,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ===== 背景: 歴史絵画11枚ドリフト ===== */
+.bg-canvas{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg-img{position:absolute;background-size:cover;background-position:center;opacity:.32;filter:brightness(.5) saturate(.5) blur(0px);-webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%);mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%)}
+
+.bg-img:nth-child(1){top:-10%;left:-5%;width:60%;height:55%;background-image:url('bg-images/01_kawanakajima.jpg');animation:mv1 20s ease-in-out infinite alternate}
+.bg-img:nth-child(2){top:-5%;right:-10%;width:55%;height:50%;background-image:url('bg-images/02_rakuchu_rakugai.jpg');animation:mv2 24s ease-in-out infinite alternate}
+.bg-img:nth-child(3){top:20%;left:15%;width:50%;height:45%;background-image:url('bg-images/03_fujin_raijin.jpg');animation:mv3 18s ease-in-out infinite alternate}
+.bg-img:nth-child(4){top:10%;right:5%;width:55%;height:50%;background-image:url('bg-images/04_sekigahara.jpg');animation:mv4 22s ease-in-out infinite alternate}
+.bg-img:nth-child(5){top:35%;left:-8%;width:50%;height:45%;background-image:url('bg-images/05_mongol_invasion.jpg');animation:mv5 19s ease-in-out infinite alternate}
+.bg-img:nth-child(6){top:40%;left:30%;width:45%;height:40%;background-image:url('bg-images/06_genji_emaki.jpg');animation:mv6 23s ease-in-out infinite alternate}
+.bg-img:nth-child(7){top:50%;right:-5%;width:55%;height:45%;background-image:url('bg-images/07_ishiyamadera.jpg');animation:mv7 17s ease-in-out infinite alternate}
+.bg-img:nth-child(8){top:60%;left:5%;width:50%;height:45%;background-image:url('bg-images/08_genji_yadorigi.jpg');animation:mv8 21s ease-in-out infinite alternate}
+.bg-img:nth-child(9){display:none}
+.bg-img:nth-child(10){bottom:-5%;left:10%;width:55%;height:50%;background-image:url('bg-images/10_kasuga_gongen.jpg');animation:mv10 25s ease-in-out infinite alternate}
+.bg-img:nth-child(11){display:none}
+
+@keyframes mv1{from{transform:translate(0,0) scale(1)}to{transform:translate(5%,4%) scale(1.1)}}
+@keyframes mv2{from{transform:translate(0,0) scale(1.05)}to{transform:translate(-5%,3%) scale(1)}}
+@keyframes mv3{from{transform:translate(-3%,0) scale(1)}to{transform:translate(4%,5%) scale(1.08)}}
+@keyframes mv4{from{transform:translate(3%,-2%) scale(1.04)}to{transform:translate(-4%,3%) scale(1)}}
+@keyframes mv5{from{transform:translate(0,2%) scale(1)}to{transform:translate(5%,-3%) scale(1.07)}}
+@keyframes mv6{from{transform:translate(-2%,-2%) scale(1.03)}to{transform:translate(3%,4%) scale(1)}}
+@keyframes mv7{from{transform:translate(2%,0) scale(1)}to{transform:translate(-5%,2%) scale(1.08)}}
+@keyframes mv8{from{transform:translate(-3%,2%) scale(1.04)}to{transform:translate(2%,-4%) scale(1)}}
+@keyframes mv9{from{transform:translate(0,-2%) scale(1)}to{transform:translate(-4%,3%) scale(1.06)}}
+@keyframes mv10{from{transform:translate(2%,2%) scale(1.03)}to{transform:translate(-3%,-2%) scale(1)}}
+
+/* オーバーレイ */
+.ov{position:fixed;inset:0}
+.ov-white{background:rgba(244,244,242,.54);z-index:1}
+.ov-grain{opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:2}
+
+/* Top bar */
+.top-bar{background:rgba(255,255,255,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.04);box-shadow:0 1px 0 rgba(139,105,20,.1);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.top-bar a{color:var(--tx3);text-decoration:none;font-size:12px;transition:color .2s}
+.top-bar a:hover{color:#8b6914}
+.top-bar h1{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:500;letter-spacing:.1em;color:var(--tx)}
+
+/* Legend */
+.legend{padding:14px 24px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.04);display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:11px;color:#888;position:relative;z-index:100}
+.leg-item{display:flex;align-items:center;gap:5px}
+.leg-dot{width:12px;height:12px;border-radius:4px;border:1.5px solid}
+
+/* Tree */
+.tree-wrap{padding:30px 20px 60px;overflow-x:auto;position:relative;z-index:3}
+.tree-scroll{display:inline-block;min-width:100%;text-align:center}
+.tree-section-label{font-family:'Shippori Mincho',serif;font-size:13px;font-weight:500;color:#fff;letter-spacing:.08em;margin:40px 0 14px 0;padding-left:2px;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.tree-section-label span{font-size:10px;letter-spacing:.15em;color:rgba(255,255,255,.6);display:block;margin-bottom:2px}
+
+/* ===== Tree structure ===== */
+.tree{display:inline-flex;flex-direction:column;align-items:center;min-width:600px;padding:10px}
+
+/* person: 1人分の縦の塊 */
+.person{display:flex;flex-direction:column;align-items:center;position:relative}
+
+/* ノード（カード） */
+.nd{background:rgba(255,255,255,.92);border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.2);padding:14px 22px;text-align:center;min-width:120px;transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative;z-index:2;backdrop-filter:blur(4px)}
+.nd:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(0,0,0,.25)}
+.nd-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;line-height:1.4}
+.nd-name.imp{color:#8b6914;font-size:16px;font-weight:600}
+.nd-name.dir{color:#1a1a1a;font-weight:600}
+.nd-name.nor{color:#555}
+.nd-name.rio{color:#6a5a40;font-weight:600}
+.nd-name.rio-main{color:#6a5a40;font-size:16px;font-weight:600}
+.nd-role{font-size:11px;color:#999;margin-top:3px}
+
+/* 親から子への縦線（ノードの下から伸びる） */
+.v-down{width:2px;height:35px;margin:0 auto;background:rgba(255,255,255,.5)}
+
+/* 子グループ: 横線 + person群 */
+.children-group{display:flex;flex-direction:column;align-items:center;position:relative}
+
+/* 横線: 子person群の上に重ねて表示 */
+.h-bar{height:2px;position:absolute;top:0;z-index:1;background:rgba(255,255,255,.5)}
+
+/* 子person群（横並び） */
+.kids{display:flex;justify-content:center;align-items:flex-start;gap:20px}
+
+/* 子personの上から降りてくる線 */
+.v-up{width:2px;height:35px;margin:0 auto;background:rgba(255,255,255,.5)}
+
+/* Branch label */
+.branch-label{font-family:'Shippori Mincho',serif;font-size:13px;font-weight:500;color:#fff;letter-spacing:.08em;margin:40px 0 14px 0;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.branch-label span{font-size:10px;letter-spacing:.15em;color:rgba(255,255,255,.6);display:block;margin-bottom:2px}
+
+/* 凡例（ツリー下部） */
+.tree-legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);justify-content:center}
+.tree-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,.6)}
+.tree-legend-line{width:30px;height:2px}
+.tree-legend-txt{font-family:'Shippori Mincho',serif;font-size:12px}
+.tree-legend-txt.g{color:#8b6914;font-weight:600}
+.tree-legend-txt.d{color:#1a1a1a;font-weight:600}
+
+/* Detail overlay */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(6px)}
+.overlay.show{display:flex}
+.detail-box{background:#fff;border-radius:0 18px 18px 0;box-shadow:0 4px 30px rgba(0,0,0,.07);border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative}
+.detail-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#ccc;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.detail-close:hover{background:rgba(0,0,0,.04)}
+
+/* Detail content */
+.d-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;color:#1a1a1a;margin-bottom:4px}
+.d-reading{font-size:12px;color:#aaa;margin-bottom:14px}
+.d-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+.d-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(0,0,0,.04);color:#666}
+.d-body{font-size:14px;color:#444;line-height:2}
+.d-body p{margin-bottom:12px}
+.d-body h3{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;color:var(--tx);margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid rgba(0,0,0,.04)}
+.d-body ul{padding-left:18px;margin-bottom:10px}
+.d-body li{margin-bottom:4px}
+.d-relation{font-size:12px;color:#999;margin-top:16px;padding-top:12px;border-top:1px solid rgba(0,0,0,.06)}
+
+/* Detail timeline */
+.d-tl{position:relative;padding-left:20px;margin:12px 0}
+.d-tl::before{content:'';position:absolute;left:4px;top:0;bottom:0;width:1.5px;background:linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.03))}
+.d-tl-item{position:relative;padding-bottom:12px}
+.d-tl-item::before{content:'';position:absolute;left:-20px;top:5px;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.12);border:2px solid #fff}
+.d-tl-year{font-size:10px;font-weight:600;color:var(--tx3)}
+.d-tl-text{font-size:12px;color:var(--tx2);line-height:1.7}
+
+/* Detail grandpa */
+.d-gp{background:rgba(245,242,235,.4);border:1px solid var(--warm-bd);border-top:2px solid #8b6914;border-radius:0 0 10px 10px;padding:14px 18px;margin:12px 0;font-size:12px;color:var(--warm-tx);line-height:1.8;backdrop-filter:var(--blur)}
+.d-gp::before{content:'秀邦の調査メモ';display:block;font-size:10px;font-weight:600;color:#998a70;margin-bottom:5px;letter-spacing:.04em}
+
+/* Detail AI */
+.d-ai{background:rgba(240,242,248,.5);border:1px solid rgba(0,0,0,.04);border-radius:10px;padding:14px 18px;margin:12px 0;font-size:12px;color:#3a3a50;line-height:1.8}
+.d-ai::before{content:'深掘り調査';display:block;font-size:10px;font-weight:600;color:var(--tx3);margin-bottom:5px;letter-spacing:.04em}
+
+.footer{text-align:center;padding:30px 20px;font-size:11px;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.08);position:relative;z-index:3}
+/* ===== 原本ギャラリー ===== */
+.genpon-section{position:relative;z-index:3;max-width:1000px;margin:40px auto 0;padding:0 20px}
+.genpon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:16px}
+.genpon-item{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.15);box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .25s;background:rgba(255,255,255,.92)}
+.genpon-item:hover{box-shadow:0 8px 30px rgba(0,0,0,.3);transform:translateY(-2px)}
+.genpon-item img{width:100%;height:auto;display:block}
+.genpon-cap{padding:8px 12px;font-size:11px;color:#888;line-height:1.5}
+.genpon-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out}
+.genpon-modal.active{display:flex}
+.genpon-modal img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.genpon-modal-close{position:fixed;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;z-index:10000;background:none;border:none;font-family:inherit;transition:color .2s}
+.genpon-modal-close:hover{color:#fff}
+.sec-head-g{margin:0 0 20px}
+.sec-num-g{font-size:10px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.5);margin-bottom:4px}
+.sec-title-g{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:rgba(255,255,255,.8);letter-spacing:.06em;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.sec-line-g{width:100%;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.03));margin-top:10px}
+
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .top-bar{padding:10px 16px}
+  .top-bar h1{font-size:14px}
+  .legend{padding:10px 16px;gap:10px;font-size:10px}
+  .tree-wrap{padding:20px 12px 40px}
+  .tree{min-width:500px;padding:8px}
+  .nd{padding:12px 18px;min-width:100px}
+  .nd-name{font-size:14px}
+  .nd-name.imp{font-size:15px}
+  .nd-role{font-size:10px}
+  .kids{gap:14px}
+  .v-down,.v-up{height:28px}
+  .detail-box{max-width:90%;padding:26px}
+  .d-name{font-size:22px}
+  .d-body{font-size:13px}
+  .tree-section-label{font-size:12px;margin:30px 0 10px;position:sticky;left:0;max-width:calc(100vw - 24px)}
+  .branch-label{font-size:12px;margin:30px 0 10px;position:sticky;left:0;max-width:calc(100vw - 24px)}
+}
+
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .top-bar{padding:10px 12px}
+  .top-bar h1{font-size:12px;letter-spacing:.05em}
+  .top-bar a{font-size:11px;min-height:44px;display:flex;align-items:center}
+  .legend{padding:8px 12px;gap:8px;font-size:9px;flex-wrap:wrap}
+  .leg-dot{width:10px;height:10px}
+  .tree-wrap{padding:16px 8px 40px}
+  .tree-scroll{text-align:left}
+  .tree{min-width:420px;padding:6px}
+  .nd{padding:8px 12px;min-width:80px;border-radius:8px}
+  .nd-name{font-size:12px}
+  .nd-name.imp{font-size:13px}
+  .nd-name.rio-main{font-size:13px}
+  .nd-role{font-size:9px}
+  .kids{gap:8px}
+  .v-down,.v-up{height:22px}
+  .tree-section-label{font-size:11px;margin:24px 0 8px;position:sticky;left:0;max-width:calc(100vw - 16px);padding-left:8px;padding-right:8px}
+  .tree-section-label span{font-size:9px}
+  .branch-label{font-size:11px;margin:24px 0 8px;position:sticky;left:0;max-width:calc(100vw - 16px);padding-left:8px;padding-right:8px}
+  .branch-label span{font-size:9px}
+  .tree-legend{gap:14px;margin-top:20px;padding-top:14px}
+  .tree-legend-item{font-size:10px;gap:6px}
+  .tree-legend-line{width:20px}
+  .tree-legend-txt{font-size:10px}
+  /* Detail overlay - full screen on mobile */
+  .overlay{padding:10px}
+  .detail-box{max-width:100%;max-height:90vh;padding:20px 16px;border-radius:12px}
+  .detail-close{top:10px;right:12px;width:40px;height:40px;font-size:24px}
+  .d-name{font-size:18px;padding-right:36px}
+  .d-reading{font-size:11px;margin-bottom:10px}
+  .d-tags{gap:4px;margin-bottom:12px}
+  .d-tag{font-size:8px;padding:3px 8px}
+  .d-body{font-size:13px;line-height:1.9}
+  .d-body h3{font-size:14px}
+  .d-body ul{padding-left:14px}
+  .d-relation{font-size:11px}
+  .d-tl{padding-left:16px}
+  .d-tl-item::before{left:-16px;width:6px;height:6px}
+  .d-tl-year{font-size:9px}
+  .d-tl-text{font-size:11px}
+  .d-gp{padding:12px 14px;font-size:11px}
+  .d-ai{padding:12px 14px;font-size:11px}
+  .footer{font-size:10px;padding:24px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- 背景: 歴史絵画11枚を重ね合わせドリフト -->
+<div class="bg-canvas">
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+</div>
+<div class="ov ov-white"></div>
+<div class="ov ov-grain"></div>
+
+<div class="top-bar">
+  <a href="index.html">← トップ</a>
+  <h1>家系図</h1>
+  <a href="chapter2-seiwa-genji.html">清和源氏 →</a>
+</div>
+
+<div class="legend">
+  <span style="font-weight:500;color:var(--tx2)">凡例</span>
+  <div class="leg-item"><span style="font-family:'Shippori Mincho',serif;font-size:12px;color:#8b6914;font-weight:600">金色テキスト</span> = 重要人物</div>
+  <div class="leg-item"><span style="font-family:'Shippori Mincho',serif;font-size:12px;color:#1a1a1a;font-weight:600">太字テキスト</span> = 直系</div>
+  <div class="leg-item"><span style="font-family:'Shippori Mincho',serif;font-size:12px;color:#555">通常テキスト</span> = 一般</div>
+  <div class="leg-item"><div style="width:30px;height:2px;background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+</div>
+
+<div class="tree-wrap">
+<div class="tree-scroll">
+
+<!-- ===== 清和源氏 ===== -->
+<div class="tree-section-label"><span>SEIWA GENJI</span>清和源氏の系譜</div>
+
+<div class="tree">
+  <!-- 清和天皇 -->
+  <div class="person">
+    <div class="nd" onclick="show('seiwa')"><div class="nd-name dir">清和天皇</div><div class="nd-role">第56代天皇（850-881）</div></div>
+    <div class="v-down"></div>
+    <div class="children-group"><div class="h-bar"></div><div class="kids">
+      <!-- 貞純親王 -->
+      <div class="person">
+        <div class="v-up"></div>
+        <div class="nd" onclick="show('sadazumi')"><div class="nd-name dir">貞純親王</div><div class="nd-role">第六皇子</div></div>
+        <div class="v-down"></div>
+        <div class="children-group"><div class="h-bar"></div><div class="kids">
+          <!-- 源経基 -->
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd" onclick="show('tsunemoto')"><div class="nd-name dir">源経基</div><div class="nd-role">六孫王 — 清和源氏の祖</div></div>
+            <div class="v-down"></div>
+            <div class="children-group"><div class="h-bar"></div><div class="kids">
+              <!-- 源満仲 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd" onclick="show('mitsunaka')"><div class="nd-name dir">源満仲</div><div class="nd-role">多田源氏の祖</div></div>
+                <div class="v-down"></div>
+                <div class="children-group"><div class="h-bar"></div><div class="kids">
+                  <!-- 源頼光 -->
+                  <div class="person">
+                    <div class="v-up"></div>
+                    <div class="nd" onclick="show('yorimitsu')"><div class="nd-name nor">源頼光</div><div class="nd-role">酒呑童子退治</div></div>
+                  </div>
+                  <!-- 源頼信 -->
+                  <div class="person">
+                    <div class="v-up"></div>
+                    <div class="nd" onclick="show('yorinobu')"><div class="nd-name dir">源頼信</div><div class="nd-role">河内源氏の祖</div></div>
+                    <div class="v-down"></div>
+                    <div class="children-group"><div class="h-bar"></div><div class="kids">
+                      <!-- 源頼義 -->
+                      <div class="person">
+                        <div class="v-up"></div>
+                        <div class="nd" onclick="show('yoriyoshi')"><div class="nd-name dir">源頼義</div><div class="nd-role">前九年の役</div></div>
+                        <div class="v-down"></div>
+                        <div class="children-group"><div class="h-bar"></div><div class="kids">
+                          <!-- 源義家 -->
+                          <div class="person">
+                            <div class="v-up"></div>
+                            <div class="nd" onclick="show('yoshiie')"><div class="nd-name imp">源義家</div><div class="nd-role">八幡太郎</div></div>
+                          </div>
+                          <!-- 源義光 -->
+                          <div class="person">
+                            <div class="v-up"></div>
+                            <div class="nd" onclick="show('yoshimitsu')"><div class="nd-name imp">源義光</div><div class="nd-role">新羅三郎 — 甲斐源氏の祖</div></div>
+                          </div>
+                        </div></div>
+                      </div>
+                    </div></div>
+                  </div>
+                </div></div>
+              </div>
+            </div></div>
+          </div>
+        </div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== 甲斐源氏→小笠原 ===== -->
+<div class="tree-section-label"><span>OGASAWARA</span>甲斐源氏 → 小笠原氏</div>
+
+<div class="tree">
+  <!-- 義光の子孫: 加賀美遠光と源信義 -->
+  <div class="person">
+    <div class="nd" onclick="show('yoshimitsu')"><div class="nd-name imp">源義光</div><div class="nd-role">新羅三郎 — 甲斐源氏の祖</div></div>
+    <div class="v-down"></div>
+    <div class="children-group"><div class="h-bar"></div><div class="kids">
+      <!-- 加賀美遠光 -->
+      <div class="person">
+        <div class="v-up"></div>
+        <div class="nd" onclick="show('tomitsu')"><div class="nd-name dir">加賀美遠光</div><div class="nd-role">小笠原氏の父</div></div>
+        <div class="v-down"></div>
+        <div class="children-group"><div class="h-bar"></div><div class="kids">
+          <!-- 小笠原長清 -->
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd" onclick="show('nagakiyo')"><div class="nd-name imp">小笠原長清</div><div class="nd-role">信濃守護 — 弓馬術礼法の祖</div></div>
+            <div class="v-down"></div>
+            <div class="children-group"><div class="h-bar"></div><div class="kids">
+              <!-- 小笠原長経 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd" onclick="show('nagatsune')"><div class="nd-name dir">小笠原長経</div><div class="nd-role">遠江守</div></div>
+              </div>
+              <!-- 長房 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">長房</div><div class="nd-role">阿波守護</div></div>
+              </div>
+            </div></div>
+          </div>
+        </div></div>
+      </div>
+      <!-- 源信義 -->
+      <div class="person">
+        <div class="v-up"></div>
+        <div class="nd" onclick="show('nobuyoshi')"><div class="nd-name nor">源信義</div><div class="nd-role">武田太郎 — 武田氏の祖</div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== 赤沢氏 ===== -->
+<div class="tree-section-label"><span>AKAZAWA</span>赤沢氏の誕生と信州本流</div>
+
+<div class="tree">
+  <!-- 赤沢清経 -->
+  <div class="person">
+    <div class="nd" onclick="show('kiyotsune')"><div class="nd-name imp">赤沢清経</div><div class="nd-role">初代 — 伊豆守・赤沢氏の祖</div></div>
+    <div class="v-down"></div>
+    <div class="children-group"><div class="h-bar"></div><div class="kids">
+      <!-- 長忠（直系） -->
+      <div class="person">
+        <div class="v-up"></div>
+        <div class="nd"><div class="nd-name dir">長忠</div><div class="nd-role">大蔵少輔</div></div>
+        <div class="v-down"></div>
+        <div class="children-group"><div class="h-bar"></div><div class="kids">
+          <!-- 長澄 -->
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">長澄</div><div class="nd-role">赤澤</div></div>
+            <div class="v-down"></div>
+            <div class="children-group"><div class="h-bar"></div><div class="kids">
+              <!-- 尊重 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">尊重</div></div>
+              </div>
+              <!-- 長照 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">長照</div><div class="nd-role">上野六郎</div></div>
+              </div>
+              <!-- 盛長 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">盛長</div><div class="nd-role">治部少輔</div></div>
+              </div>
+              <!-- 長村 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">長村</div><div class="nd-role">七郎</div></div>
+              </div>
+            </div></div>
+            <div class="v-down"></div>
+            <div class="children-group"><div class="h-bar"></div><div class="kids">
+              <!-- 経廉 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd" onclick="show('tsunekado')"><div class="nd-name imp">経廉</div><div class="nd-role">伊豆守・弾正忠</div></div>
+              </div>
+              <!-- 氏常 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">氏常</div><div class="nd-role">赤沢山城</div></div>
+              </div>
+            </div></div>
+            <div class="v-down"></div>
+            <div class="children-group"><div class="h-bar"></div><div class="kids">
+              <!-- 常興（重要人物） -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd" onclick="show('tsuneoki')"><div class="nd-name imp">常興</div><div class="nd-role">伊豆守 — 塩崎城を築く</div></div>
+                <div class="v-down"></div>
+                <div class="children-group"><div class="h-bar"></div><div class="kids">
+                  <!-- 経光（直系） -->
+                  <div class="person">
+                    <div class="v-up"></div>
+                    <div class="nd" onclick="show('tsunemitsu')"><div class="nd-name dir">経光</div><div class="nd-role">治部少輔・伊豆守</div></div>
+                    <div class="v-down"></div>
+                    <div class="children-group"><div class="h-bar"></div><div class="kids">
+                      <!-- 武経 -->
+                      <div class="person">
+                        <div class="v-up"></div>
+                        <div class="nd"><div class="nd-name nor">武経</div><div class="nd-role">伊豆守</div></div>
+                      </div>
+                      <!-- 経家 -->
+                      <div class="person">
+                        <div class="v-up"></div>
+                        <div class="nd"><div class="nd-name nor">経家</div><div class="nd-role">左京</div></div>
+                      </div>
+                      <!-- 光景 -->
+                      <div class="person">
+                        <div class="v-up"></div>
+                        <div class="nd"><div class="nd-name nor">光景</div><div class="nd-role">左衛門</div></div>
+                      </div>
+                    </div></div>
+                    <div class="v-down"></div>
+                    <div class="children-group"><div class="h-bar"></div><div class="kids">
+                      <!-- 満経 -->
+                      <div class="person">
+                        <div class="v-up"></div>
+                        <div class="nd" onclick="show('mantsune')"><div class="nd-name imp">満経</div><div class="nd-role">但馬守</div></div>
+                      </div>
+                      <!-- 教経 -->
+                      <div class="person">
+                        <div class="v-up"></div>
+                        <div class="nd" onclick="show('noritsune')"><div class="nd-name imp">教経</div><div class="nd-role">鎌倉公方に仕え・戦死</div></div>
+                      </div>
+                      <!-- 経隆（直系） -->
+                      <div class="person">
+                        <div class="v-up"></div>
+                        <div class="nd" onclick="show('tsunetaka')"><div class="nd-name dir">経隆</div><div class="nd-role">伊豆守 — 畿内進出の転換点</div></div>
+                        <div class="v-down"></div>
+                        <div class="children-group"><div class="h-bar"></div><div class="kids">
+                          <!-- 赤沢朝経 -->
+                          <div class="person">
+                            <div class="v-up"></div>
+                            <div class="nd" onclick="show('tomotsune')"><div class="nd-name imp">赤沢朝経</div><div class="nd-role">澤蔵軒宗益 — 将軍弓道師範・畿内の猛将</div></div>
+                            <div class="v-down"></div>
+                            <div class="children-group"><div class="h-bar"></div><div class="kids">
+                              <!-- 秀國 -->
+                              <div class="person">
+                                <div class="v-up"></div>
+                                <div class="nd"><div class="nd-name nor">秀國</div><div class="nd-role">対馬守</div></div>
+                              </div>
+                              <!-- 康俊 -->
+                              <div class="person">
+                                <div class="v-up"></div>
+                                <div class="nd"><div class="nd-name nor">康俊</div><div class="nd-role">刑部少輔</div></div>
+                              </div>
+                              <!-- 政経（直系） -->
+                              <div class="person">
+                                <div class="v-up"></div>
+                                <div class="nd" onclick="show('masatsune')"><div class="nd-name dir">政経</div><div class="nd-role">朝経の嫡子 — 飯沼館で討死</div></div>
+                                <div class="v-down"></div>
+                                <div class="children-group"><div class="h-bar"></div><div class="kids">
+                                  <!-- 経智 -->
+                                  <div class="person">
+                                    <div class="v-up"></div>
+                                    <div class="nd" onclick="show('tsunetomo')"><div class="nd-name imp">経智</div><div class="nd-role">武田信玄に敗れ越後へ</div></div>
+                                    <div class="v-down"></div>
+                                    <div class="children-group"><div class="h-bar"></div><div class="kids">
+                                      <!-- 貞経 -->
+                                      <div class="person">
+                                        <div class="v-up"></div>
+                                        <div class="nd" onclick="show('sadatsune')"><div class="nd-name imp">貞経</div><div class="nd-role">小笠原に復姓 — 家康に召し出される</div></div>
+                                        <div class="v-down"></div>
+                                        <div class="children-group"><div class="h-bar"></div><div class="kids">
+                                          <!-- 安経 -->
+                                          <div class="person">
+                                            <div class="v-up"></div>
+                                            <div class="nd" onclick="show('yasutsuneedo')"><div class="nd-name dir">安経</div><div class="nd-role">松代藩・百五十石</div></div>
+                                          </div>
+                                          <!-- 経満 -->
+                                          <div class="person">
+                                            <div class="v-up"></div>
+                                            <div class="nd"><div class="nd-name nor">経満</div><div class="nd-role">志摩守</div></div>
+                                          </div>
+                                          <!-- 経定 -->
+                                          <div class="person">
+                                            <div class="v-up"></div>
+                                            <div class="nd" onclick="show('tsunesada')"><div class="nd-name imp">経定</div><div class="nd-role">嘉兵衛・三百石</div></div>
+                                          </div>
+                                        </div></div>
+                                      </div>
+                                    </div></div>
+                                  </div>
+                                  <!-- 経康 -->
+                                  <div class="person">
+                                    <div class="v-up"></div>
+                                    <div class="nd"><div class="nd-name nor">経康</div><div class="nd-role">伊豆守</div></div>
+                                  </div>
+                                  <!-- 頼経 -->
+                                  <div class="person">
+                                    <div class="v-up"></div>
+                                    <div class="nd"><div class="nd-name nor">頼経</div><div class="nd-role">三好氏</div></div>
+                                  </div>
+                                  <!-- 信基 -->
+                                  <div class="person">
+                                    <div class="v-up"></div>
+                                    <div class="nd"><div class="nd-name nor">信基</div><div class="nd-role">武部少輔</div></div>
+                                  </div>
+                                  <!-- 清純 -->
+                                  <div class="person">
+                                    <div class="v-up"></div>
+                                    <div class="nd"><div class="nd-name nor">清純</div><div class="nd-role">武部少輔</div></div>
+                                  </div>
+                                </div></div>
+                              </div>
+                            </div></div>
+                          </div>
+                        </div></div>
+                      </div>
+                    </div></div>
+                  </div>
+                  <!-- 常親 -->
+                  <div class="person">
+                    <div class="v-up"></div>
+                    <div class="nd"><div class="nd-name nor">常親</div><div class="nd-role">彦三郎</div></div>
+                  </div>
+                </div></div>
+              </div>
+              <!-- 常遠 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">常遠</div><div class="nd-role">伊豆司</div></div>
+              </div>
+              <!-- 常晴 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">常晴</div><div class="nd-role">太郎四郎</div></div>
+              </div>
+              <!-- 経茂 -->
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">経茂</div><div class="nd-role">源二郎</div></div>
+              </div>
+            </div></div>
+          </div>
+          <!-- 長次 -->
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">長次</div><div class="nd-role">信州箱屋城主</div></div>
+          </div>
+        </div></div>
+      </div>
+      <!-- 清時 -->
+      <div class="person">
+        <div class="v-up"></div>
+        <div class="nd"><div class="nd-name nor">清時</div><div class="nd-role">鳴海</div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== RIOの直系 ===== -->
+<div class="tree-section-label"><span>MODERN</span>RIOの直系（幕末〜現代）</div>
+
+<div class="tree">
+  <div class="person">
+    <div class="nd" onclick="show('toyasu')"><div class="nd-name rio">赤澤遠康</div><div class="nd-role">源右衛門 — 天保12年(1841)記録者</div></div>
+    <div class="v-down"></div>
+    <div class="children-group"><div class="h-bar"></div><div class="kids">
+      <div class="person">
+        <div class="v-up"></div>
+        <div class="nd" onclick="show('hidekuni')"><div class="nd-name rio">赤澤秀邦</div><div class="nd-role">祖父 — 神田→長野疎開</div></div>
+        <div class="v-down"></div>
+        <div class="children-group"><div class="h-bar"></div><div class="kids">
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name rio">RIOの父</div><div class="nd-role">長野県</div></div>
+            <div class="v-down"></div>
+            <div class="children-group"><div class="h-bar"></div><div class="kids">
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name rio-main">RIO</div><div class="nd-role">令和版 編纂者（32歳）</div></div>
+              </div>
+            </div></div>
+          </div>
+        </div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== 分流: 阿波系 ===== -->
+<div class="tree-section-label"><span>BRANCHES</span>阿波系（板西城）</div>
+
+<div class="tree">
+  <div class="person">
+    <div class="nd" onclick="show('sadakiyo')"><div class="nd-name imp">貞清</div><div class="nd-role">兵庫頭 — 備中赤沢氏</div></div>
+    <div class="v-down"></div>
+    <div class="children-group"><div class="h-bar"></div><div class="kids">
+      <div class="person">
+        <div class="v-up"></div>
+        <div class="nd"><div class="nd-name nor">致見</div><div class="nd-role">信濃守</div></div>
+        <div class="v-down"></div>
+        <div class="children-group"><div class="h-bar"></div><div class="kids">
+          <!-- 赤沢宗伝 -->
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd" onclick="show('souden')"><div class="nd-name imp">赤沢宗伝</div><div class="nd-role">板西城主 — 3000貫</div></div>
+            <div class="v-down"></div>
+            <div class="children-group"><div class="h-bar"></div><div class="kids">
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">鹿之丞</div><div class="nd-role">十二人衆筆頭</div></div>
+              </div>
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">赤沢出羽守</div><div class="nd-role">三人衆</div></div>
+              </div>
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">坂上備前守</div><div class="nd-role">三人衆</div></div>
+              </div>
+              <div class="person">
+                <div class="v-up"></div>
+                <div class="nd"><div class="nd-name nor">安芸飛騨守</div><div class="nd-role">三人衆</div></div>
+              </div>
+            </div></div>
+          </div>
+          <!-- 重清 -->
+          <div class="person">
+            <div class="v-up"></div>
+            <div class="nd"><div class="nd-name nor">重清</div><div class="nd-role">出羽守</div></div>
+          </div>
+        </div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== 分流: 備中・長州系 ===== -->
+<div class="tree-section-label">備中・長州系</div>
+
+<div class="tree">
+  <div class="person">
+    <div class="nd" onclick="show('muneharu')"><div class="nd-name imp">宗春</div><div class="nd-role">備中森本松山城主 — 桂川で戦死</div></div>
+  </div>
+  <div style="display:flex;justify-content:center;gap:20px;margin-top:10px">
+    <div class="person">
+      <div class="nd" onclick="show('muneteru')"><div class="nd-name imp">宗照</div><div class="nd-role">第2代城主 — 柏島で討死</div></div>
+    </div>
+    <div class="person">
+      <div class="nd" onclick="show('muneshige')"><div class="nd-name imp">宗栄</div><div class="nd-role">第3代城主 — 朝鮮渡海</div></div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:center;gap:20px;margin-top:10px">
+    <div class="person">
+      <div class="nd"><div class="nd-name nor">宗台</div><div class="nd-role">関ヶ原で討死</div></div>
+    </div>
+    <div class="person">
+      <div class="nd" onclick="show('munetsu')"><div class="nd-name imp">宗連</div><div class="nd-role">修理進 — 長州に移る</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 分流: 織田〜徳川期 ===== -->
+<div class="tree-section-label">織田〜徳川期</div>
+
+<div class="tree">
+  <div style="display:flex;justify-content:center;gap:20px">
+    <div class="person">
+      <div class="nd"><div class="nd-name nor">重廣</div><div class="nd-role">織田信長に仕う</div></div>
+    </div>
+    <div class="person">
+      <div class="nd"><div class="nd-name nor">重政</div><div class="nd-role">秀政に三百石</div></div>
+    </div>
+    <div class="person">
+      <div class="nd"><div class="nd-name nor">昌信</div><div class="nd-role">小倉藩</div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- tree-scroll -->
+</div><!-- tree-wrap -->
+
+<!-- Overlay -->
+<div class="overlay" id="ov" onclick="if(event.target===this)closePop()">
+  <div class="detail-box">
+    <button class="detail-close" onclick="closePop()">×</button>
+    <div id="dc"></div>
+  </div>
+</div>
+
+<!-- 原本ギャラリー -->
+<div class="genpon-section">
+  <div class="sec-head-g">
+    <div class="sec-num-g">ORIGINAL</div>
+    <div class="sec-title-g">原本の家系図写真</div>
+    <div class="sec-line-g"></div>
+  </div>
+  <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px">冊子に掲載されている手書き家系図の原本写真。赤ペンの書き込みは秀邦による補足。クリックで拡大表示。</p>
+  <div class="genpon-grid">
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9930.jpg" alt="系譜 清和天皇〜源満仲"><div class="genpon-cap">清和天皇 ～ 源満仲 ～ 源頼清</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9931.jpg" alt="系譜 頼清〜長清"><div class="genpon-cap">頼清 ～ 義業 ～ 光行 ～ 長清</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9932.jpg" alt="系譜 長房〜清時"><div class="genpon-cap">長房 ～ 長忠 ～ 清時 ～ 清澤</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9933.jpg" alt="系譜 尊重〜経顕"><div class="genpon-cap">尊重 ～ 長照 ～ 経廉 ～ 経顕</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9934.jpg" alt="系譜 経光〜経隆"><div class="genpon-cap">経光 ～ 常親 ～ 常能 ～ 教経 ～ 経隆</div></div>
+    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9935.jpg" alt="系譜 秀國〜経智"><div class="genpon-cap">秀國 ～ 康俊 ～ 朝経 ～ 政治 ～ 経智</div></div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>赤澤一族 令和版 家系図 — 2026年編纂</p>
+</div>
+
+<!-- 原本拡大モーダル -->
+<div class="genpon-modal" id="genponModal" onclick="closeGenpon()">
+  <button class="genpon-modal-close" onclick="closeGenpon()">&#x2715;</button>
+  <img id="genponModalImg" src="" alt="原本拡大">
+</div>
+
+<script>
+function openGenpon(el){var img=el.querySelector('img');var m=document.getElementById('genponModal');document.getElementById('genponModalImg').src=img.src;m.classList.add('active');document.body.style.overflow='hidden'}
+function closeGenpon(){document.getElementById('genponModal').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenpon()});
+</script>
+<script>
+// 横線の幅を動的に計算して、最初の子の中央から最後の子の中央までカバーする
+function fixBars() {
+  document.querySelectorAll('.children-group').forEach(cg => {
+    const kids = cg.querySelector('.kids');
+    const hbar = cg.querySelector('.h-bar');
+    if (!kids || !hbar) return;
+    const persons = kids.children;
+    if (persons.length < 2) { hbar.style.display = 'none'; return; }
+    const first = persons[0];
+    const last = persons[persons.length - 1];
+    const kidsRect = kids.getBoundingClientRect();
+    const firstCenter = first.getBoundingClientRect().left + first.getBoundingClientRect().width / 2 - kidsRect.left;
+    const lastCenter = last.getBoundingClientRect().left + last.getBoundingClientRect().width / 2 - kidsRect.left;
+    hbar.style.left = firstCenter + 'px';
+    hbar.style.width = (lastCenter - firstCenter) + 'px';
+  });
+}
+window.addEventListener('load', fixBars);
+window.addEventListener('resize', fixBars);
+
+const P={
+yorimitsu:{n:'源頼光',r:'みなもとのよりみつ（948-1021）',t:['平安中期','摂津源氏の祖'],b:`<p>源満仲の長男。摂津守。大江山の<strong>酒呑童子退治</strong>の伝説で知られる。頼光四天王（渡辺綱・坂田金時・碓井貞光・卜部季武）を従えた。</p><p>頼光の系統は<strong>摂津源氏</strong>として発展。赤澤一族のラインは弟・頼信（河内源氏）から続く。</p>`,rel:'父：源満仲 / 弟：源頼信（河内源氏の祖）'},
+yorinobu:{n:'源頼信',r:'みなもとのよりのぶ（968-1048）',t:['平安中期','河内源氏の祖'],b:`<p>源満仲の三男。河内守・大和守・甲斐守を歴任。<strong>河内源氏</strong>の祖。平忠常の乱（1028年）を鎮圧し、関東の武士団を組織。</p><p>子孫から源頼義・源義家（八幡太郎）・源義光（新羅三郎）が出て、赤澤一族のラインへとつながる。</p>`,rel:'父：源満仲 / 子：源頼義'},
+yoriyoshi:{n:'源頼義',r:'みなもとのよりよし（988-1075）',t:['平安後期','鎮守府将軍','前九年の役'],b:`<p>源頼信の嫡男。陸奥守・鎮守府将軍・伊予守を歴任。<strong>前九年の役（1051-1062）</strong>で安倍氏を滅ぼし、東北の武士団を源氏の傘下に組み込んだ。</p><p>長男・義家（八幡太郎）と三男・義光（新羅三郎）がそれぞれ源氏の主要な流れを形成。赤澤一族は義光の系統に属する。</p>`,rel:'父：源頼信 / 子：義家（八幡太郎）・義光（新羅三郎）'},
+nagatsune:{n:'小笠原長経',r:'おがさわら ながつね',t:['鎌倉時代','遠江守'],b:`<p>小笠原長清の嫡男。遠江守。父の弓馬術の伝統を受け継いだ。</p><p>次男の<strong>清経</strong>が伊豆国赤沢郷を領有して「赤沢」を名乗り、<strong>赤沢氏の祖</strong>となった。長経こそが赤澤一族の直接のルーツを生んだ人物。</p>`,rel:'父：小笠原長清 / 次男：赤沢清経（赤沢氏の祖）'},
+nobuyoshi:{n:'源信義（武田太郎）',r:'みなもとののぶよし',t:['平安末期','武田氏の祖'],b:`<p>甲斐源氏の一族。<strong>武田太郎</strong>と称し、<strong>武田氏の祖</strong>。赤澤一族とは同じ甲斐源氏の同族であり、武田信玄は赤沢氏と「いとこ」の関係にあたる。</p>`,rel:'武田信玄の先祖'},
+seiwa:{n:'清和天皇',r:'せいわてんのう — 第56代天皇',t:['平安時代','天皇','京都'],b:`<p><strong>850年生まれ、881年崩御。在位858-876年。</strong></p><p>9歳で即位。外祖父の藤原良房が日本初の摂政として政務を執った。穏やかな性格で仏教に深く帰依し、退位後は出家して「清和院」と号した。</p><p>この天皇の第六皇子・貞純親王の子孫が「源」姓を賜り<strong>清和源氏</strong>を形成。源頼朝、足利尊氏、武田信玄、そして赤澤一族はすべてこの天皇の血を引く。</p>`,rel:'子：貞純親王'},
+sadazumi:{n:'貞純親王',r:'さだずみしんのう',t:['平安時代','皇族'],b:`<p>清和天皇の第六皇子。子の源経基が清和源氏の直接の起点となった。</p>`,rel:'父：清和天皇 → 子：源経基'},
+tsunemoto:{n:'源経基（六孫王）',r:'みなもとのつねもと',t:['平安時代','武将'],b:`<p>清和天皇の孫＝<strong>「六孫王」</strong>。皇族から「源」姓に臣籍降下し、武家・清和源氏が始まる。平将門の反乱を朝廷に報告し武家としての地位を確立。</p>`,rel:'父：貞純親王 → 子：源満仲'},
+mitsunaka:{n:'源満仲',r:'みなもとのみつなか（912-997）',t:['平安中期','多田荘主'],b:`<p>摂津国多田荘に居館を構え武士団を組織。<strong>清和源氏の最初の本拠地</strong>。987年に出家。子の頼光（酒呑童子退治）、頼信（赤澤家のライン）など主要な流れがすべてここから分かれた。</p>`,rel:'子：頼光（摂津源氏）、頼信（河内源氏）'},
+yoshiie:{n:'源義家（八幡太郎）',r:'みなもとのよしいえ',t:['平安後期','鎮守府将軍'],b:`<p>源頼義の長男。後三年の役で名を馳せた英雄。鎌倉幕府を開く源頼朝の直系先祖。弟の義光（新羅三郎）が甲斐源氏の祖となり、赤澤家のラインにつながる。</p>`,rel:'弟：源義光（新羅三郎）'},
+yoshimitsu:{n:'源義光（新羅三郎）',r:'みなもとのよしみつ（1045-1127）享年83歳',t:['平安後期','武将','甲斐源氏の祖'],b:`<p>源頼義の三男。近江の<strong>新羅明神</strong>（大津三井寺新羅善神堂）で元服し「新羅三郎」と呼ばれた。<strong>1045年生〜1127年11月25日没、83歳。</strong></p><h3>後三年の役（1083-1087年）</h3><p>兄・義家が苦戦する知らせを受け、<strong>官職を辞して単身奥州へ駆けつけた</strong>。このとき足柄峠で笙の宗家道統を弟子の豊原時秋に伝授。秘曲「大食調入調」を託した。</p><div class="d-ai">この笙の秘曲伝授は、現代でも<strong>足柄峠笛まつり</strong>（毎年9月第2日曜日）として400年以上続いている。静岡県小山町で開催。</div><h3>甲斐源氏の祖</h3><p>弓馬の達人かつ音律にも通じた文武両道の人物。子孫から<strong>武田氏・小笠原氏・佐竹氏・南部氏</strong>が生まれた。赤澤一族はこの義光→小笠原氏→赤沢氏のラインに属する。武田信玄とは「いとこ」関係。</p>`,rel:'父：源頼義 → 子孫：武田氏・小笠原氏・佐竹氏・南部氏'},
+tomitsu:{n:'加賀美遠光',r:'かがみ とおみつ',t:['平安末期','甲斐源氏'],b:`<p>義光の子孫。次男の小笠原長清が小笠原氏の祖となる。</p>`,rel:'子：小笠原長清'},
+nagakiyo:{n:'小笠原長清',r:'おがさわら ながきよ（1162-1242）',t:['鎌倉時代','信濃守護','弓馬四天王'],b:`<p>加賀美遠光の次男。源頼朝に仕え26歳で弓馬師範に。<strong>「弓馬の四天王」</strong>の一人。</p><p>信濃国の守護に任じられ、<strong>小笠原流</strong>（流鏑馬・馬術・礼法）を確立。現在も伝統文化として受け継がれている。赤澤氏の直接の先祖。</p>`,rel:'子：長経 → 孫：赤沢清経'},
+kiyotsune:{n:'赤沢清経',r:'あかざわ きよつね — 赤沢氏の始祖',t:['鎌倉時代','伊豆守','赤沢氏の祖'],b:`<p>小笠原長経の次男。<strong>伊豆国田方郡赤沢郷</strong>（現・静岡県伊東市赤沢）を領有し「赤沢」を名乗る。嘉元元年（1303年）9月死去。</p><p>その後<strong>信濃国埴科郡埴生</strong>（現・長野県千曲市）に移住。天皇→源氏→小笠原氏→赤沢氏という約400年の血脈が一つの苗字として結実した。</p>`,rel:'父：小笠原長経'},
+tsuneoki:{n:'赤沢常興',r:'あかざわ つねおき — 塩崎城の築城者',t:['南北朝時代','伊豆守','塩崎城'],b:`<p><strong>1335年（建武2年）中先代の乱</strong>で小笠原貞宗に従い武功。信濃筑摩郡浅間郷と更級郡四宮荘を与えられ<strong>塩崎城</strong>を築城。善光寺平最南端、千曲川西岸の軍事要衝。</p><div class="d-ai">塩崎城跡は現在も長野市篠ノ井塩崎に残り、段郭と石垣が見られる。JR篠ノ井駅から徒歩圏内。</div>`,rel:'→ 以降200年、赤沢氏の居城'},
+tomotsune:{n:'赤沢朝経（澤蔵軒宗益）',r:'あかざわ ともつね｜宝徳3年(1451)〜永正4年6月26日(1507) 享年57',t:['室町後期〜戦国','将軍弓道師範','畿内の猛将','異名「悪太郎」'],b:`<p>赤沢一族の歴史で<strong>もっとも劇的な人生</strong>を送った男。幼名は<strong>愛王丸</strong>、通称は加三・源次郎。異名は<strong>「悪太郎」</strong>。信濃守。</p><h3>出自と上洛</h3><p>父は赤沢経隆（伊豆守）。兄弟に経堅・幸純（福王寺、大和守）・義経・長経。家督を嫡子の政経に譲り、父・弟とともに京都へ上洛。小笠原流の「糾法（弓法）的伝」を管領・<strong>細川政元</strong>に伝授したことで、足利義政の弓道師範＋武者所を兼任するに至る。</p><h3>細川政元政権での地位</h3><p><strong>「外様の内衆」</strong>として京兆家の中核に。以下の要職を兼任：</p><ul><li>山城上三郡守護代（葛野郡・愛宕郡・紀伊郡の実質的統治者）</li><li>幕府料所・河内十七ヵ所給人</li><li>妙法院領河内八ヵ所代官</li><li>武者所（将軍直属の武官）</li><li>山城国槙島の統治者</li></ul><p>学習院大学の家永遵嗣教授は朝経を<strong>「北条早雲を圧迫した立役者」</strong>と評価。</p><h3>戦歴タイムライン</h3><div class="d-tl"><div class="d-tl-item"><div class="d-tl-year">1491年（延徳3年）</div><div class="d-tl-text">六角高頼征伐に従軍。鷹狩の技能で政元に認められ正式に被官に。</div></div><div class="d-tl-item"><div class="d-tl-year">1499年7月11日</div><div class="d-tl-text"><strong>比叡山延暦寺を焼き討ち</strong>。波々伯部宗量と共に早朝から攻め上り、根本中堂・大講堂・常行堂・法華堂・延命院・四王院・経蔵・鐘楼を全焼。信長より<strong>72年早い</strong>。門跡の尋尊は「先代未聞沙汰也」と記録。</div></div><div class="d-tl-item"><div class="d-tl-year">1499年9月26日</div><div class="d-tl-text">山城南部へ急行。御牧城・水主城・槇島城を次々に陥落。「早朝より宗益、御牧城を攻め落とし放火す。首9つ討ち取る」。</div></div><div class="d-tl-item"><div class="d-tl-year">1499年12月18日</div><div class="d-tl-text"><strong>第一次大和侵攻</strong>。歌姫街道から大和へ侵入。超昇寺城の戦い（約6時間、午前10時〜午後4時）で筒井党を圧倒。法華寺・海龍王寺・西大寺を破壊、喜光寺を放火し全堂塔焼失。古市澄胤の手引きで興福寺・春日大社まで略奪。</div></div><div class="d-tl-item"><div class="d-tl-year">1503年3月</div><div class="d-tl-text">近江にも出兵。六角高頼が籠城した音羽城を攻撃。活動範囲が大和・河内・近江にまで拡大。</div></div><div class="d-tl-item"><div class="d-tl-year">1504年9月</div><div class="d-tl-text"><strong>政元に対して反乱</strong>。摂津守護代・薬師寺元一と共謀し政権奪取を図るが失敗。捕らえられるも<strong>「その豪勇を惜しまれて助命」</strong>。翌年復帰。</div></div><div class="d-tl-item"><div class="d-tl-year">1505年2月</div><div class="d-tl-text">朝経の脅威に対し、積年の対立を超えた筒井氏と越智氏が初めて和睦。春日社頭で起請文を捧げ<strong>大和国人一揆</strong>を結成。</div></div><div class="d-tl-item"><div class="d-tl-year">1506年1月</div><div class="d-tl-text">河内で畠山義英・畠山尚順を撃破。高屋城を占領。</div></div><div class="d-tl-item"><div class="d-tl-year">1506年8月</div><div class="d-tl-text"><strong>第二次大和侵攻</strong>。わずか1日で秋篠・宝来・郡山を陥落。8月24日布留郷の決戦で筒井順賢を大敗させ有力家臣数十人を喪失させた。9月5日多武峰→吉野まで侵攻。<strong>首級131を京都へ送った</strong>。大和国中が朝経の支配下に。</div></div><div class="d-tl-item"><div class="d-tl-year">1507年6月23日</div><div class="d-tl-text">丹後国で一色義有を攻撃中、<strong>主君・細川政元が家臣の薬師寺長忠・香西元長・竹田孫七に暗殺される</strong>（永正の錯乱）。</div></div><div class="d-tl-item"><div class="d-tl-year">1507年6月26日</div><div class="d-tl-text">京都への撤退を試みるも一色義有・石川直経ら丹後国人衆の反撃を受け、<strong>丹後九世戸の文殊堂（智恩寺）にて自刃</strong>。享年57。</div></div></div><div class="d-ai">CiNiiに「細川政元政権と内衆赤沢朝経」（CRID: 1520853832269358720）の学術論文あり。反乱を起こしても助命されるほど政元に不可欠だった軍事的柱石。信濃の一地方武士から幕府の実力者へ駆け上がり、比叡山焼き討ち・大和制圧・河内制覇と畿内を席巻した、戦国時代の幕開けを象徴する人物。</div>`,rel:'父：経隆 / 子：政経（永正9年飯沼館で討死）/ 養子：長経 / 弟：幸純（福王寺）・経堅・義経・長経'},
+tsunetomo:{n:'赤沢経智',r:'あかざわ つねとも｜永正8年(1511)〜天正2年(1574) 享年64',t:['戦国時代','式部少輔','小笠原流継承者'],b:`<p>赤沢氏が信濃を失い、小笠原流弓馬術の文化を託された転換期の人物。別名・赤沢経直。</p><h3>父・政経の戦死</h3><p><strong>永正9年（1512年）</strong>、父・赤沢政経が<strong>飯沼館で討死</strong>。経智はわずか<strong>1歳で父を失った</strong>。</p><h3>塩尻峠の戦い（1548年7月19日）</h3><p>武田晴信との決戦で小笠原軍は<strong>約1,000人が戦死する壊滅的大敗</strong>。経智もこの戦いに参戦したと推定。</p><h3>林城の陥落と越後への逃亡（1550年7月）</h3><p>小笠原長時の居城・<strong>林城</strong>が武田軍に攻略。経智は主君・長時、嫡男・長勝、三男・貞経とともに<strong>越後国へ逃亡</strong>し上杉謙信のもとに身を寄せた。推定逃亡ルート：松本→犀川・千曲川沿い→善光寺平→信越国境→越後。</p><h3>三好長慶を頼り上洛（1555年）</h3><p>越後滞在後、三好長慶（小笠原氏の同族）を頼って上洛。芥川城に滞在。</p><h3>長男・長勝の戦死（1558年）</h3><p>長男が<strong>京都・北白川の戦い</strong>で討死。嫡男を失い、後継者は三男の貞経のみに。</p><h3>小笠原流の道統を託される（1562年）</h3><p>小笠原長時が経智の三男・貞経に<strong>糾法的伝</strong>（弓馬術の核心的秘伝）、<strong>系図</strong>、<strong>記録</strong>を正式に託した。元亀3年（1572年）6月2日に内伝・外伝の伝授、天正3年（1575年）8月12日に師範の許状が授与された。</p><p>これにより小笠原総領家と弓馬礼法の家が正式に分離。</p><h3>最期</h3><p>天正2年（1574年）7月没。享年64歳。</p>`,rel:'父：政経（飯沼館で討死）/ 長男：長勝（北白川で討死）/ 三男：小笠原貞経'},
+sadatsune:{n:'小笠原貞経（赤沢貞経）',r:'おがさわら さだつね｜天文12年(1543)〜慶長19年4月27日(1614) 享年72',t:['安土桃山〜江戸初期','弓馬術礼法宗家','徳川幕府師範'],b:`<p>赤沢経智の三男。赤沢氏から小笠原に復姓し、<strong>弓馬術礼法の正統継承者</strong>となった。</p><h3>弓馬術の継承</h3><ul><li>1562年：小笠原長時から道統を託される</li><li>1572年6月2日：内伝・外伝の伝授</li><li>1575年8月12日：師範の許状を授与</li></ul><h3>徳川家康に召し出される</h3><p><strong>慶長9年（1604年）</strong>、徳川家康に拝謁。<strong>500俵で召し出され</strong>小笠原に復姓を許された。二代将軍・<strong>徳川秀忠の弓馬術礼法師範</strong>に。</p><p>子孫は「平兵衛家」として<strong>明治維新まで幕府の弓馬術礼法師範を世襲</strong>。</p><div class="d-ai">現在も<strong>弓馬術礼法小笠原教場</strong>として活動を続けており、<strong>31世宗家・小笠原清基</strong>氏が門下生約700名を指導。赤沢→小笠原貞経の弓馬術は、550年以上の時を経て今も生きている。</div><p><strong>慶長19年（1614年）4月27日没。享年72歳。</strong></p>`,rel:'父：赤沢経智 / 赤沢氏から小笠原氏に復姓 / 子孫：小笠原流弓馬術礼法宗家（現31世）'},
+toyasu:{n:'赤澤遠康',r:'あかざわ とおやす — 源右衛門',t:['江戸後期','記録者','RIOの直系'],b:`<p><strong>天保12年（1841年）</strong>に赤澤家の記録を残した人物。RIOが「自分と同じことをしている」と感じた先祖。</p><p>遠康→...→秀邦（祖父）→父→RIO。<strong>三世代にわたって同じ衝動</strong>に駆られてルーツを辿っている。</p>`,rel:'→ 赤澤秀邦 → 父 → RIO'},
+hidekuni:{n:'赤澤秀邦',r:'あかざわ ひでくに — RIOの祖父',t:['昭和〜平成','ルーツ調査者','東京→長野'],b:`<p>東京・神田生まれ。戦時疎開で長野県に移住。晩年、各地のお寺を巡って赤澤家のルーツを探り、冊子「赤澤一族」に赤ペンで多数のメモを残した。</p><div class="d-gp">「松本市島立区新村 二七七田 赤澤清次宅近くに墓地あり」<br>「東京都港区南麻布 三-四-六 遍照寺」</div>`,rel:'→ 子：RIOの父 → 孫：RIO'},
+souden:{n:'赤沢宗伝（信濃守）',r:'あかざわ そうでん｜?〜天正10年(1582)',t:['戦国〜安土桃山','板西城主','阿波国'],b:`<p>阿波国板野郡板西城主。三好実休の婿として<strong>3,000貫</strong>（= <strong>6,000〜15,000石</strong>相当、阿波国の3〜8%）の大領を持つ一大勢力。</p><h3>赤沢家十二人衆</h3><p>以下の有力家臣を近隣に配置：</p><ul><li><strong>板西城三人衆</strong>：赤沢出羽守・坂上備前守・安芸飛騨守</li><li>鹿之丞（嫡子）、阿部采女正、坂東紀伊守、大寺松太輔、赤沢美濃守、新開右近、犬伏左近、七条孫四郎（兼仲）、高輪幸内</li></ul><div class="d-tl"><div class="d-tl-item"><div class="d-tl-year">1562年3月</div><div class="d-tl-text">久米田の戦いで三好実休が狙撃され討死。宗伝は篠原長房・篠原自遁と共に出家し三好長治の補佐役に。</div></div><div class="d-tl-item"><div class="d-tl-year">1573年</div><div class="d-tl-text">篠原長房自刃。板西城も攻撃を受け、宗伝は高野山に3年間篭る。</div></div><div class="d-tl-item"><div class="d-tl-year">1576年</div><div class="d-tl-text">三好長治討死後、板西城に復帰。</div></div><div class="d-tl-item"><div class="d-tl-year">1582年9月</div><div class="d-tl-text"><strong>中富川の合戦</strong>（約20日間の攻防戦）。長宗我部元親の大軍に対し2,000の兵で奮戦。「<strong>草鞋の紐が切れたところを敵に討たれた</strong>」と伝わる壮絶な最期。鹿之丞・犬伏左近・坂東紀伊守・七条孫四郎らと共に討死。</div></div></div><div class="d-ai">板野町の<strong>愛染院</strong>に祀られ、「足腰の病に霊験あらたか」と信仰されている。一子・正本法師が菩提を弔うため得度し、香川県東かがわ市に<strong>勝覚寺</strong>を開基（四国屈指の名刹、現存）。</div><p>なお、十二人衆の一人・<strong>七条孫四郎（兼仲）</strong>は<strong>怪力無双の勇将</strong>として伝承が残り、大山寺への祈願に由来する「<strong>力餅</strong>」（約169kgの鍋餅を持ち歩く距離を競う）は<strong>400年以上続く現存の祭り</strong>。</p>`,rel:'嫡子：鹿之丞（討死）/ 一子：正本法師（勝覚寺開基）'},
+tsunekado:{n:'赤沢経廉',r:'あかざわ つねかど',t:['鎌倉時代','伊豆守','弾正忠'],b:`<p>通称・三郎。実父は小笠原本家当主の<strong>小笠原長氏</strong>。赤沢氏へ養子に入り、赤沢氏を継承した。</p><h3>小笠原本家との結びつき</h3><p>小笠原本家の血統を赤沢氏に導入し、本家との結びつきを強化した。赤沢氏は初代清経以来「伊豆守」を代々の通称としており、経廉もこれを継承。さらに弾正忠（監察機関・弾正台の官職）も兼ねた。</p><div class="d-ai">『甲斐信濃源氏綱要』に長氏の子として「赤沢二郎、弾正忠」の記載があり、赤沢4代目の<strong>長興</strong>と同一人物の可能性がある。「経」は赤沢氏の通字であるため、赤沢家を継いだ後に「経廉」と改名した可能性がある。</div>`,rel:'実父：小笠原長氏（本家当主）'},
+tsunemitsu:{n:'赤沢経光',r:'あかざわ つねみつ — 孫太郎',t:['南北朝〜室町初期','治部少輔','伊豆守'],b:`<p>通称・孫太郎。父・<strong>常興</strong>から塩崎城を引き継ぎ、赤沢氏本流の当主として信濃国塩崎城を拠点に活動。</p><p>「伊豆守」の官位は赤沢氏の祖・清経以来の伝統。子の<strong>武経</strong>は明徳の乱（1391年）で将軍足利義満から感状と太刀を拝領した。</p>`,rel:'父：常興 / 子：武経・常親・経家・光景ほか'},
+mantsune:{n:'赤沢満経',r:'あかざわ みつつね',t:['室町時代','但馬守'],b:`<p>赤沢氏本流の当主。父・<strong>武経</strong>と子・<strong>経隆</strong>の間に位置し、朝経の<strong>祖父</strong>にあたる人物。</p><h3>小笠原本家との婚姻</h3><p>娘が<strong>小笠原持長</strong>に嫁いだとの記録があり、本家小笠原氏との婚姻関係を通じて一族の結束を維持した。赤沢氏としては珍しく「但馬守」と伊豆守以外の受領名を持つ。</p>`,rel:'父：武経 / 子：経隆 / 孫：朝経（畿内の猛将）'},
+noritsune:{n:'赤沢教経',r:'あかざわ のりつね — 二郎',t:['室町時代','式部少輔','鎌倉公方に仕える'],b:`<p>通称・二郎。<strong>鎌倉府（鎌倉公方）</strong>に出仕し、関東における赤沢氏の活動を示す重要な人物。</p><h3>漆田原の戦いとの関連</h3><p>小笠原政康の死後に起きた信濃守護職をめぐる内紛（<strong>文安年間/1440年代</strong>、小笠原宗康vs小笠原持長）に巻き込まれ<strong>戦死</strong>。</p><p>教経の戦死後、その跡を継いだ系統から<strong>赤沢朝経</strong>が出て、赤沢氏は畿内での活動へと大きく転換していく。</p>`,rel:'→ 朝経（畿内の猛将）へとつながる系譜'},
+tsunetaka:{n:'赤沢経隆',r:'あかざわ つねたか — 天真郎',t:['室町後期','伊豆守'],b:`<p>通称・天真郎。赤沢氏本流の当主。小笠原姓を併称し、本家との密接な関係を示す。</p><h3>畿内進出の転換点</h3><p>嫡子・<strong>朝経</strong>とともに京都に上洛し、赤沢氏の活動の場を信濃から畿内へと広げた。朝経が管領・細川政元の内衆として台頭するきっかけとなった<strong>小笠原流弓馬術（糾法的伝）</strong>の伝授にも関わった人物。</p><p>赤沢氏が信濃の地方武士から幕府の実力者へと飛躍する、まさにその転換期の当主。</p>`,rel:'父：満経 / 子：朝経（畿内の猛将）・幸純（福王寺）'},
+masatsune:{n:'赤沢政経',r:'あかざわ まさつね｜応仁元年(1467)〜永正9年8月5日(1512) 享年46',t:['戦国時代','伊豆守','朝経の嫡子'],b:`<p>通称・三郎左衛門尉。<strong>赤沢朝経</strong>の嫡子。朝経が入道して澤蔵軒宗益と号した際に家督を相続。</p><h3>永正の錯乱とその後</h3><div class="d-tl"><div class="d-tl-item"><div class="d-tl-year">1507年6月</div><div class="d-tl-text">永正の錯乱で父・朝経が丹後で自刃。政経は<strong>河内の小野上城・高屋城</strong>の防衛にあたる。</div></div><div class="d-tl-item"><div class="d-tl-year">1508年8月12日</div><div class="d-tl-text">小野上城・高屋城が陥落。畠山義英が高屋城を奪回。</div></div><div class="d-tl-item"><div class="d-tl-year">1509年</div><div class="d-tl-text">畿内での基盤を完全に失い、<strong>信濃に帰還</strong>。</div></div><div class="d-tl-item"><div class="d-tl-year">1512年8月5日</div><div class="d-tl-text"><strong>飯沼館で討死</strong>。享年46。</div></div></div><p>朝経が築いた畿内の赤沢氏の勢力は、永正の錯乱後わずか1年で崩壊。政経の信濃帰還と討死は、赤沢氏の活動の中心が畿内から再び信濃に回帰したことを意味する。</p>`,rel:'父：赤沢朝経 / 子：赤沢経智'},
+sadakiyo:{n:'赤沢貞清',r:'あかざわ さだきよ',t:['戦国時代','兵庫頭','備中赤沢氏'],b:`<p>通称・赤沢太郎。備中赤沢氏の系譜において、<strong>宗春</strong>の父にあたる。</p><p>官位「兵庫頭」から、赤沢氏の嫡流的立場にあったと推定される。備中赤沢氏では「<strong>兵庫</strong>」の官職名が代々使われ（兵庫頭→兵庫助→兵庫助）、貞清はその初代にあたる。</p><div class="d-ai">岡山県立図書館に「赤沢兵庫助政定の一門と備中赤沢氏」という学術論文が所蔵されており、備中赤沢氏の細川典厩家・野州家との関わりが研究されている。</div>`,rel:'子：宗春（備中浅口郡森本松山城主）'},
+muneharu:{n:'赤沢宗春',r:'あかざわ むねはる｜?〜大永7年(1527)',t:['戦国時代','備中松山城主','桂川合戦で戦死'],b:`<p>通称・左馬助。官位・兵庫卿。備中浅口郡<strong>森本松山城</strong>の初代城主。</p><h3>備中での活動</h3><p>細川高国（京兆家当主）に従い、将軍<strong>足利義晴</strong>を擁して活動。備中浅口郡を支配し、鴨山城（鴨方細川氏の本城）の支城として森本松山城を拠点とした。</p><h3>桂川合戦での戦死</h3><p><strong>大永7年（1527年）</strong>、桂川合戦（桂川の戦い）で戦死。備中赤沢氏の礎を築いた人物。</p>`,rel:'父：貞清 / 子：宗照（第2代城主）'},
+muneteru:{n:'赤沢宗照',r:'あかざわ むねてる｜?〜元亀元年(1570)頃',t:['戦国時代','森本松山城主','兵庫助'],b:`<p>通称・五郎四郎/松山王城四郎/太郎四郎。森本松山城の<strong>第2代城主</strong>。</p><p>細川通政に仕え、鴨山城の支城である森本松山城（現・倉敷市玉島柏島）を拠点に活動。この「松山城」は備中高梁市の備中松山城ではなく、浅口郡南部の海上交通を押さえる要衝であった。</p><p><strong>元亀元年（1570年）頃</strong>、柏島にて討死したとされる。</p>`,rel:'父：宗春 / 子：宗栄（第3代城主）'},
+muneshige:{n:'赤沢宗栄',r:'あかざわ むねしげ',t:['戦国〜安土桃山','森本松山城主','朝鮮渡海'],b:`<p>通称・兵庫助/左兵衛。森本松山城の<strong>第3代城主</strong>。宗春→宗照→宗栄と3代にわたり城主を務めた。</p><p>細川通董・細川元通に仕え、<strong>文禄元年（1592年）</strong>には元通に従い朝鮮に渡海（文禄・慶長の役）。蔚山などの戦いに参加した。</p>`,rel:'父：宗照 / 弟（？）：宗台（関ヶ原で討死）'},
+munetsu:{n:'赤沢宗連',r:'あかざわ むねつら',t:['安土桃山〜江戸初期','修理進','長州への移住'],b:`<p>通称・修理進。細川元通に仕え、<strong>関ヶ原の戦い後</strong>に元通とともに<strong>長州（長門・周防）に移住</strong>。</p><h3>長州への移動</h3><p>関ヶ原で西軍に属した毛利氏が周防・長門の2ヶ国に減封。細川元通は備中の鴨山城を失い、毛利秀元のもとに身を寄せた。宗連はこれに従い備中から長州へ。赤沢氏の<strong>長州展開の端緒</strong>となった人物。</p><div class="d-ai">応仁期（1467〜1477年）には「赤澤修理亮」が鴨山城の重臣として森本松山城に在城した記録があり、「修理」の官職名が備中赤沢氏で代々使われていた可能性がある。</div>`,rel:'主君：細川元通'},
+yasutsuneedo:{n:'赤沢安経（江戸期）',r:'あかざわ やすつね — 松代藩士',t:['江戸時代','松代藩','百五十石'],b:`<p>通称・大郎（太郎）。<strong>松代藩（真田藩）</strong>に仕えた赤沢氏。知行<strong>百五十石</strong>は中級武士の上位で、番頭・組頭などの役職を務める階層。</p><p>赤沢氏は元来信濃の名族であり、武田氏滅亡後の混乱を経て真田家に仕えた。名前は赤沢氏本流初期の「安経（三郎）」から継承したもの。</p>`,rel:'→ 経満 → 経定 → 光永 → 安實'},
+tsunesada:{n:'赤沢経定',r:'あかざわ つねさだ — 嘉兵衛',t:['江戸時代','松代藩','三百石'],b:`<p>通称・嘉兵衛。松代藩の<strong>上級家臣</strong>で知行<strong>三百石</strong>。安経の150石から倍増しており、赤沢家が藩内で地位を向上させたことを示す。300石は「用人」「郡奉行」「目付」などの要職を担う階層。</p><div class="d-ai">岸本良信氏の松代藩士名簿に「赤沢加兵衛経定（清和源氏）」として記載が確認されている。</div>`,rel:'→ 光永 → 安實 → 赤澤遠康（RIOの直系）'},
+yasuzane:{n:'赤沢安實',r:'あかざわ やすざね — 明治16年(1883)没',t:['幕末〜明治','松代城下','最後の武士世代'],b:`<p>松代城下「七枚目南大道」に在住。<strong>明治16年（1883年）</strong>に死去。廃藩置県（1871年）を経て旧藩士は「士族」の身分を与えられ、安實は明治維新の激動を生き延びた最後の世代の一人。</p><p>明治9年（1876年）の秩禄処分で士族への禄が廃止され、多くの旧武士が困窮した時代に明治16年まで存命であった。</p>`,rel:'→ 赤澤遠康 → 赤澤秀邦 → 父 → RIO'}
+};
+
+function show(id){const p=P[id];if(!p)return;let tg=p.t.map(t=>`<span class="d-tag">${t}</span>`).join('');let h=`<div class="d-name">${p.n}</div><div class="d-reading">${p.r}</div><div class="d-tags">${tg}</div><div class="d-body">${p.b}</div>`;if(p.rel)h+=`<div class="d-relation">${p.rel}</div>`;document.getElementById('dc').innerHTML=h;document.getElementById('ov').classList.add('show');document.body.style.overflow='hidden'}
+function closePop(){document.getElementById('ov').classList.remove('show');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePop()});
+</script>
+</body>
+</html>
