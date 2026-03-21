@@ -139,18 +139,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
 .d-ai::before{content:'深掘り調査';display:block;font-size:10px;font-weight:600;color:var(--tx3);margin-bottom:5px;letter-spacing:.04em}
 
 .footer{text-align:center;padding:30px 20px;font-size:11px;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.08);position:relative;z-index:3}
-/* ===== 原本ギャラリー ===== */
-.genpon-section{position:relative;z-index:3;max-width:1000px;margin:40px auto 0;padding:0 20px}
-.genpon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:16px}
-.genpon-item{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.15);box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .25s;background:rgba(255,255,255,.92)}
-.genpon-item:hover{box-shadow:0 8px 30px rgba(0,0,0,.3);transform:translateY(-2px)}
-.genpon-item img{width:100%;height:auto;display:block}
-.genpon-cap{padding:8px 12px;font-size:11px;color:#888;line-height:1.5}
-.genpon-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out}
-.genpon-modal.active{display:flex}
-.genpon-modal img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
-.genpon-modal-close{position:fixed;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;z-index:10000;background:none;border:none;font-family:inherit;transition:color .2s}
-.genpon-modal-close:hover{color:#fff}
 .sec-head-g{margin:0 0 20px}
 .sec-num-g{font-size:10px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.5);margin-bottom:4px}
 .sec-title-g{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:500;color:rgba(255,255,255,.8);letter-spacing:.06em;text-shadow:0 2px 10px rgba(0,0,0,.3)}
@@ -172,8 +160,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
   .detail-box{max-width:90%;padding:26px}
   .d-name{font-size:22px}
   .d-body{font-size:13px}
-  .tree-section-label{font-size:12px;margin:30px 0 10px}
-  .branch-label{font-size:12px;margin:30px 0 10px}
+  .tree-section-label{font-size:12px;margin:30px 0 10px;position:sticky;left:0;max-width:calc(100vw - 24px)}
+  .branch-label{font-size:12px;margin:30px 0 10px;position:sticky;left:0;max-width:calc(100vw - 24px)}
 }
 
 /* === Responsive: Mobile === */
@@ -193,9 +181,9 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
   .nd-role{font-size:9px}
   .kids{gap:8px}
   .v-down,.v-up{height:22px}
-  .tree-section-label{font-size:11px;margin:24px 0 8px}
+  .tree-section-label{font-size:11px;margin:24px 0 8px;position:sticky;left:0;max-width:calc(100vw - 16px);padding-left:8px;padding-right:8px}
   .tree-section-label span{font-size:9px}
-  .branch-label{font-size:11px;margin:24px 0 8px}
+  .branch-label{font-size:11px;margin:24px 0 8px;position:sticky;left:0;max-width:calc(100vw - 16px);padding-left:8px;padding-right:8px}
   .branch-label span{font-size:9px}
   .tree-legend{gap:14px;margin-top:20px;padding-top:14px}
   .tree-legend-item{font-size:10px;gap:6px}
@@ -726,39 +714,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
   </div>
 </div>
 
-<!-- 原本ギャラリー -->
-<div class="genpon-section">
-  <div class="sec-head-g">
-    <div class="sec-num-g">ORIGINAL</div>
-    <div class="sec-title-g">原本の家系図写真</div>
-    <div class="sec-line-g"></div>
-  </div>
-  <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px">冊子に掲載されている手書き家系図の原本写真。赤ペンの書き込みは秀邦による補足。クリックで拡大表示。</p>
-  <div class="genpon-grid">
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9930.jpg" alt="系譜 清和天皇〜源満仲"><div class="genpon-cap">清和天皇 ～ 源満仲 ～ 源頼清</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9931.jpg" alt="系譜 頼清〜長清"><div class="genpon-cap">頼清 ～ 義業 ～ 光行 ～ 長清</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9932.jpg" alt="系譜 長房〜清時"><div class="genpon-cap">長房 ～ 長忠 ～ 清時 ～ 清澤</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9933.jpg" alt="系譜 尊重〜経顕"><div class="genpon-cap">尊重 ～ 長照 ～ 経廉 ～ 経顕</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9934.jpg" alt="系譜 経光〜経隆"><div class="genpon-cap">経光 ～ 常親 ～ 常能 ～ 教経 ～ 経隆</div></div>
-    <div class="genpon-item" onclick="openGenpon(this)"><img src="../jpeg/IMG_9935.jpg" alt="系譜 秀國〜経智"><div class="genpon-cap">秀國 ～ 康俊 ～ 朝経 ～ 政治 ～ 経智</div></div>
-  </div>
-</div>
 
 <div class="footer">
   <p>赤澤一族 令和版 家系図 — 2026年編纂</p>
 </div>
-
-<!-- 原本拡大モーダル -->
-<div class="genpon-modal" id="genponModal" onclick="closeGenpon()">
-  <button class="genpon-modal-close" onclick="closeGenpon()">&#x2715;</button>
-  <img id="genponModalImg" src="" alt="原本拡大">
-</div>
-
-<script>
-function openGenpon(el){var img=el.querySelector('img');var m=document.getElementById('genponModal');document.getElementById('genponModalImg').src=img.src;m.classList.add('active');document.body.style.overflow='hidden'}
-function closeGenpon(){document.getElementById('genponModal').classList.remove('active');document.body.style.overflow=''}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenpon()});
-</script>
 <script>
 // 横線の幅を動的に計算して、最初の子の中央から最後の子の中央までカバーする
 function fixBars() {
