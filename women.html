@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赤沢の女性たち ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--sh2:0 4px 20px rgba(0,0,0,.04);--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+.content-wrap{max-width:1000px;margin:0 auto;padding:40px 20px 80px}
+.breadcrumb{font-size:12px;color:var(--tx3);margin-bottom:30px}.breadcrumb a{color:var(--tx2);text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
+.chapter-header{margin-bottom:40px;padding-bottom:16px}
+.chapter-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--tx3);margin-bottom:6px}
+.chapter-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:var(--tx);letter-spacing:.1em}
+.chapter-subtitle{font-size:13px;color:var(--tx3);margin-top:6px}
+.ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
+
+/* Lead */
+.lead{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:50px}
+.lead p{margin-bottom:18px;text-indent:1em}
+.lead p:first-child{text-indent:0}
+.lead strong{color:var(--tx)}
+
+/* TOC */
+.toc{background:var(--glass);border:1px solid var(--bd2);border-radius:14px;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:12px;font-weight:600;color:var(--tx3);letter-spacing:.1em;margin-bottom:12px}
+.toc-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.toc-list a{font-size:13px;color:var(--tx2);text-decoration:none;display:flex;align-items:baseline;gap:8px;padding:4px 0;transition:color .2s}
+.toc-list a:hover{color:var(--tx)}
+.toc-era{font-size:10px;color:var(--tx4);min-width:48px}
+
+/* Story sections */
+.story{margin-bottom:60px;scroll-margin-top:20px}
+.story-header{margin-bottom:24px;position:relative}
+.story-era{font-size:10px;font-weight:600;letter-spacing:.15em;color:#8b6914;margin-bottom:4px}
+.story-name{font-family:'Shippori Mincho',serif;font-size:24px;font-weight:500;color:var(--tx);letter-spacing:.06em}
+.story-reading{font-size:12px;color:var(--tx4);margin-top:2px}
+.story-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.story-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(0,0,0,.04);color:#666}
+.story-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.03));margin-top:14px}
+
+/* Narrative text */
+.narrative{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:20px}
+.narrative p{margin-bottom:18px;text-indent:1em}
+.narrative p:first-child{text-indent:0}
+.narrative strong{color:var(--tx)}
+.narrative .first-line{font-size:17px;color:var(--tx);font-weight:500}
+
+/* Cards */
+.card{background:#fff;border:1px solid var(--bd);border-radius:0;border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;padding:24px 28px;margin-bottom:18px;box-shadow:var(--sh2)}
+.card-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.15)}
+.card p,.card li{font-size:14px;color:var(--tx2);line-height:1.9}.card ul{padding-left:18px}.card li{margin-bottom:6px}.card strong{color:var(--tx)}
+
+/* AI note */
+.ai-note{background:rgba(240,242,248,.6);border:1px solid rgba(0,0,0,.04);border-top:3px solid #b0b5c0;border-radius:0 0 14px 14px;padding:20px 24px;margin:20px 0}
+.ai-note::before{content:'史料と出典';display:block;font-size:10px;font-weight:600;color:#666;letter-spacing:.04em;margin-bottom:8px}
+.ai-note p{font-size:13px;color:#444;line-height:1.9}
+
+/* Grandpa note */
+.gp-note{background:rgba(245,242,235,.4);border:1px solid var(--warm-bd);border-top:2px solid #8b6914;border-radius:0 0 10px 10px;padding:14px 18px;margin:12px 0;font-size:12px;color:var(--warm-tx);line-height:1.8;backdrop-filter:var(--blur)}
+.gp-note::before{content:'調査メモ';display:block;font-size:10px;font-weight:600;color:#998a70;margin-bottom:5px;letter-spacing:.04em}
+
+/* Separator */
+.story-sep{text-align:center;margin:50px 0;color:var(--tx4);font-size:11px;letter-spacing:.3em}
+
+/* Epilogue */
+.epilogue{background:rgba(245,242,235,.3);border:1px solid var(--warm-bd);border-radius:14px;padding:30px 32px;margin:50px 0}
+.epilogue-title{font-family:'Shippori Mincho',serif;font-size:20px;font-weight:500;color:var(--tx);margin-bottom:16px;letter-spacing:.06em}
+.epilogue p{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:16px;text-indent:1em}
+.epilogue p:first-child{text-indent:0}
+.epilogue strong{color:var(--tx)}
+
+/* Nav */
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid rgba(0,0,0,.04)}
+.page-nav a{font-size:12px;color:var(--tx2);text-decoration:none}.page-nav a:hover{color:var(--tx)}
+.site-footer{text-align:center;padding:30px 0 20px;font-size:11px;color:var(--tx4);margin-top:40px}
+
+/* === Responsive: Tablet === */
+@media(max-width:768px){
+  .content-wrap{padding:30px 16px 50px}
+  .chapter-title{font-size:26px}
+  .narrative{font-size:14px}
+  .lead{font-size:14px}
+  .card{padding:22px}
+  .story-name{font-size:21px}
+  .toc-list{grid-template-columns:1fr}
+  .epilogue{padding:24px}
+  .epilogue-title{font-size:18px}
+}
+/* === Responsive: Mobile === */
+@media(max-width:480px){
+  .content-wrap{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .chapter-header{margin-bottom:30px}
+  .chapter-num{font-size:9px}
+  .chapter-title{font-size:22px;letter-spacing:.05em}
+  .chapter-subtitle{font-size:12px}
+  .narrative{font-size:13px;line-height:2;margin-bottom:16px}
+  .narrative p{margin-bottom:14px}
+  .narrative .first-line{font-size:15px}
+  .lead{font-size:13px;line-height:2;margin-bottom:36px}
+  .lead p{margin-bottom:14px}
+  .story-header{margin-bottom:18px}
+  .story-era{font-size:9px}
+  .story-name{font-size:19px}
+  .story-reading{font-size:11px}
+  .story-tags{gap:4px;margin-top:8px}
+  .story-tag{font-size:8px;padding:3px 8px}
+  .card{padding:16px}
+  .card p,.card li{font-size:13px;line-height:1.8}
+  .card ul{padding-left:14px}
+  .card-title{font-size:12px}
+  .ai-note{padding:14px 16px;margin:14px 0}
+  .ai-note p{font-size:12px}
+  .gp-note{padding:12px 14px;font-size:11px}
+  .toc{padding:18px}
+  .toc-list{gap:4px}
+  .toc-list a{font-size:12px}
+  .epilogue{padding:18px;margin:36px 0}
+  .epilogue-title{font-size:17px}
+  .epilogue p{font-size:13px;line-height:2}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .site-footer{font-size:10px;padding:24px 0 16px}
+}
+</style>
+</head>
+<body>
+<div class="content-wrap">
+
+<div class="breadcrumb"><a href="index.html">赤澤一族 令和版</a> → <a href="stories.html">人物伝</a> → 赤沢の女性たち</div>
+
+<div class="chapter-header">
+  <div class="chapter-num">WOMEN OF AKASAWA</div>
+  <div class="chapter-title">赤沢の女性たち ― 名前のない歴史の半分</div>
+  <div class="chapter-subtitle">770年の歴史には、必ず女性がいた。名前が残った者はほんのわずか。それでも、確かにそこに生きていた。</div>
+  <div class="ch-line"></div>
+</div>
+
+<div class="lead">
+  <p><span class="first-line">冊子「赤澤一族」は、男たちの記録だ。</span></p>
+  <p>清経、朝経、宗伝、遠康――。系図に刻まれた名前は、ほぼすべて男性のものである。しかし770年にわたる一族の歴史に、女性がいなかったはずがない。彼女たちは子を産み、家を守り、一族の血脈を次の世代に繋いだ。戦に出ることはなくとも、戦国を生き抜いたのは彼女たちも同じだ。</p>
+  <p>けれど系図は、その多くを<strong>「室」</strong>の一文字で済ませてしまう。「赤沢○○の室」。名前すらない。誰の娘であるかは記されても、本人が何を考え、どう生きたかは、どこにも書かれていない。</p>
+  <p>ここでは、数少ない記録の断片を拾い集め、赤沢氏の歴史に確かに存在した女性たちの姿を浮かび上がらせたい。</p>
+</div>
+
+<div class="toc">
+  <div class="toc-title">INDEX</div>
+  <ul class="toc-list">
+    <li><a href="#kiyotsune-mother"><span class="toc-era">1200頃</span>清経の母 ― 源平の血が交わった女</a></li>
+    <li><a href="#masatsune-daughter"><span class="toc-era">1280頃</span>政常の娘 ― 皇室に繋がる血</a></li>
+    <li><a href="#mitsunori-daughter"><span class="toc-era">1420頃</span>満経の娘 ― 宗家を支えた姻戚</a></li>
+    <li><a href="#souden-wife"><span class="toc-era">戦国</span>宗伝の妻 ― 三好の姪</a></li>
+    <li><a href="#bikuni"><span class="toc-era">室町後期</span>赤澤比丘尼 ― 備中に残る名</a></li>
+    <li><a href="#unnamed-women"><span class="toc-era">770年</span>記録に残らなかった女性たち</a></li>
+  </ul>
+</div>
+
+<!-- ========================================== -->
+<!-- 清経の母 -->
+<!-- ========================================== -->
+<div class="story" id="kiyotsune-mother">
+<div class="story-header">
+  <div class="story-era">KAMAKURA ― 1200年頃</div>
+  <div class="story-name">清経の母 ― 源平の血が交わった女</div>
+  <div class="story-reading">平重衡の娘 / 小笠原長経の妻</div>
+  <div class="story-tags"><span class="story-tag">赤沢氏の始まり</span><span class="story-tag">平清盛の孫</span><span class="story-tag">源平両家の血統</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤沢氏の歴史は、一人の女性の存在から始まる。</span></p>
+  <p>『姓氏家系大辞典』は、赤沢氏の祖・清経の母を<strong>「本三位中将・平重衡の娘」</strong>と記している。平重衡――平清盛の五男にして、南都焼討の実行者として歴史に名を残す平家の猛将。治承4年（1180年）、重衡は東大寺と興福寺を焼き払い、仏敵として永遠に記憶されることになった。</p>
+  <p>その重衡の娘が、源氏の名門・小笠原長経に嫁いだというのだ。</p>
+  <p>元暦2年（1185年）、一ノ谷の戦いで捕虜となった重衡は鎌倉に送られ、やがて南都の僧兵たちの手で斬首された。28歳。妻の大納言佐局（藤原輔子）は壇ノ浦で生き延び、処刑前の重衡と再会したと伝わる。</p>
+  <p>もし系図の記載が事実なら、重衡の遺児が――おそらく平家滅亡後の混乱の中で――源氏の武家に引き取られ、やがて小笠原家に嫁いだことになる。源氏の嫡流に、<strong>平清盛の血が入った</strong>。赤沢氏は、源平両家の血統を併せ持つ一族として始まったのだ。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>系図上の位置</div>
+  <ul>
+    <li><strong>夫</strong>: 小笠原長経（小笠原氏第2代当主）</li>
+    <li><strong>子</strong>: 赤沢清経（赤沢氏初代。伊豆国田方郡赤沢郷を本貫とし、赤沢を称す）</li>
+    <li><strong>父</strong>: 平重衡（本三位中将。平清盛の五男）</li>
+  </ul>
+</div>
+
+<div class="ai-note">
+  <p><strong>信憑性について</strong> ― 重衡の処刑は1185年、清経の推定生年は1200年前後。重衡の遺児が15年後に小笠原家に嫁ぐことは時間的に不可能ではないが、「娘」が実子なのか養女なのかは不明。系図に貴種の血統を書き加える「箔付け」の慣行もあり、事実かどうかは確定していない。しかし『姓氏家系大辞典』『寛政重修諸家譜』という二つの大系図が記載しており、完全な虚構と断じることもできない。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢政常の娘 -->
+<!-- ========================================== -->
+<div class="story" id="masatsune-daughter">
+<div class="story-header">
+  <div class="story-era">KAMAKURA ― 1280年頃</div>
+  <div class="story-name">政常の娘 ― 皇室に繋がる血</div>
+  <div class="story-reading">赤沢伊豆守政常の娘 / 小笠原宗長の妻</div>
+  <div class="story-tags"><span class="story-tag">今上天皇の直系祖先</span><span class="story-tag">小笠原貞宗の母</span><span class="story-tag">赤沢氏と宗家の紐帯</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤沢氏の全歴史の中で、最も「遠く」まで血が届いた女性がいる。</span></p>
+  <p>赤沢伊豆守政常の娘。名前は伝わらない。彼女は小笠原氏の当主・<strong>小笠原宗長</strong>に嫁ぎ、やがて一人の息子を産んだ。</p>
+  <p>その息子の名は、<strong>小笠原貞宗</strong>。</p>
+  <p>正応5年（1292年）に生まれた貞宗は、後醍醐天皇の建武政権下で信濃守護に任じられ、弓馬の名手として朝廷にも幕府にも重用された。足利尊氏の旗揚げに従い、南北朝の動乱を武功で駆け抜け、小笠原氏を信濃の守護大名の地位に押し上げた人物だ。「小笠原礼法」の中興の祖ともされる。</p>
+  <p>そして貞宗の子孫は、数百年の歳月を経て、近世大名として、さらに明治以降の華族として存続し、その血脈は<strong>今上天皇の直系祖先</strong>へと繋がっている。</p>
+  <p>歴史ディレクトリは、この女性を「赤沢政常の娘【今上天皇の直系祖先】」と記録している。赤沢という庶流の家から嫁いだ名もなき女性の血が、750年の時を超えて令和の皇室にまで流れている。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>系譜の流れ</div>
+  <ul>
+    <li><strong>赤沢政常</strong>（伊豆守） → 娘 → <strong>小笠原宗長</strong>（夫）</li>
+    <li>→ <strong>小笠原貞宗</strong>（信濃守護、弓馬の名手）</li>
+    <li>→ 小笠原氏歴代 → ...... → 今上天皇の直系</li>
+  </ul>
+</div>
+
+<div class="ai-note">
+  <p><strong>出典</strong> ― 歴史ディレクトリ「赤沢政常の娘【今上天皇の直系祖先】」。コトバンク「小笠原貞宗」にも母が赤沢氏であることが記載。Reichsarchiv世界帝王事典の小笠原氏（府中小笠原家）系図にも「室：（父：赤沢政常）」として確認。なお『寛政重修諸家譜』巻194（赤沢氏）には政常への直接の言及が確認できていないが、巻187（小笠原諸流系図）の宗長の項に記載されている可能性が高い。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢満経の娘 -->
+<!-- ========================================== -->
+<div class="story" id="mitsunori-daughter">
+<div class="story-header">
+  <div class="story-era">MUROMACHI ― 応永年間（1420年頃）</div>
+  <div class="story-name">満経の娘 ― 宗家と庶流を繋いだ婚姻</div>
+  <div class="story-reading">赤沢但馬守満経の娘 / 小笠原持長の正室</div>
+  <div class="story-tags"><span class="story-tag">赤沢8代</span><span class="story-tag">小笠原宗家との姻戚</span><span class="story-tag">室町幕府の時代</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">政常の娘から約140年。赤沢氏は再び、同じことをした。</span></p>
+  <p>赤沢氏8代・満経（但馬守）の娘が、小笠原宗家の当主・<strong>小笠原持長</strong>に嫁いだのだ。Reichsarchiv世界帝王事典の系図は、持長の正室を「父：赤沢不説斎」と記録している。「不説斎」は満経の法名と考えられる。</p>
+  <p>庶流の赤沢氏が本家の小笠原宗家に娘を嫁がせる――これは「格下の家が嫁を差し出した」という一方的な関係ではない。むしろ赤沢氏が、小笠原氏の中で<strong>無視できない実力を持っていたことの証</strong>だ。</p>
+  <p>満経の時代、赤沢氏は信濃塩崎を拠点に、小笠原氏の有力庶流として確固たる地位を築いていた。明徳の乱（1391年）では将軍から感状を拝領し、幕府からも認知された武家であった。そのような家の娘を正室に迎えることは、小笠原宗家にとっても一族の結束を強める重要な選択だった。</p>
+  <p>小笠原持長は応永3年（1396年）に生まれ、信濃守護として一族を率いた。彼の妻となったこの女性が、持長の政治的判断や一族運営にどのような影響を与えたかは記録に残っていない。しかし、赤沢と小笠原の結びつきは、政常の娘の代から二度繰り返されたことになる。偶然ではなく、両家の間には世代を超えた信頼関係があったのだ。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>二度の婚姻関係</div>
+  <ul>
+    <li><strong>1回目</strong>（鎌倉時代）: 赤沢政常の娘 → 小笠原宗長に嫁ぐ → 貞宗を産む</li>
+    <li><strong>2回目</strong>（室町時代）: 赤沢満経の娘 → 小笠原持長に嫁ぐ</li>
+    <li>約140年の間隔を置いて、赤沢氏は二度、小笠原宗家の正室を出した</li>
+  </ul>
+</div>
+
+<div class="ai-note">
+  <p><strong>出典</strong> ― Reichsarchiv世界帝王事典「小笠原氏（府中小笠原家）」に「正室：（父：赤沢不説斎）」と記載。赤沢氏Wikipedia「8代満経の娘は小笠原持長に嫁す」。赤沢満経の官位「但馬守」は赤沢氏としては珍しく「伊豆守」以外の受領名。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤沢宗伝の妻 -->
+<!-- ========================================== -->
+<div class="story" id="souden-wife">
+<div class="story-header">
+  <div class="story-era">SENGOKU ― 16世紀後半</div>
+  <div class="story-name">宗伝の妻 ― 三好の姪、阿波に嫁いだ女</div>
+  <div class="story-reading">三好実休の姪 / 赤沢信濃守宗伝の妻</div>
+  <div class="story-tags"><span class="story-tag">三好一族</span><span class="story-tag">板西城</span><span class="story-tag">中富川の戦い</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">天正10年（1582年）9月。阿波国中富川。</span></p>
+  <p>長宗我部元親の大軍が三好方の勝瑞城に迫ったとき、板西城主・赤沢宗伝は一族郎党を率いて出陣した。「赤沢家十二人衆」と呼ばれた精鋭を従え、圧倒的な兵力差の中で奮戦し、そして討死した。</p>
+  <p>その宗伝の妻は、<strong>三好実休の姪</strong>だった。</p>
+  <p>三好実休は三好長慶の弟にして、阿波・讃岐を支配した戦国武将である。宗伝がこの姪を妻に迎えたということは、赤沢氏が三好一族の中で相当の地位を占めていたことを意味する。実休が久米田の戦い（永禄5年/1562年）で討死すると、宗伝は出家し、実休の子・三好長治の重臣として一族を支え続けた。</p>
+  <p>宗伝が中富川で命を散らしたとき、この女性はどこにいたのか。板西城で、あるいはどこかの寺で、夫の帰りを待っていたのか。</p>
+  <p>記録は何も語らない。</p>
+  <p>ただ、一つだけ分かっていることがある。宗伝と彼女の間には嫡子・鹿之丞がおり、そして正本法師と呼ばれることになるもう一人の子がいた。正本は父の菩提を弔うため出家し、大坂天満の興正寺で得度した後、香川県東かがわ市に<strong>勝覚寺</strong>を開基した。四国屈指の名刹として、その寺は今も残っている。</p>
+  <p>三好の姪として生まれ、赤沢に嫁ぎ、夫を戦で失い、息子が建てた寺に一族の記憶を残した。名前は分からない。しかし、その人生の輪郭だけは、ぼんやりと見える。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>関連する人物</div>
+  <ul>
+    <li><strong>夫</strong>: 赤沢信濃守宗伝（板西城主。天正10年中富川の戦いで討死）</li>
+    <li><strong>伯父</strong>: 三好実休（三好長慶の弟。阿波・讃岐を支配。永禄5年久米田の戦いで討死）</li>
+    <li><strong>子</strong>: 鹿之丞（嫡子。父と共に討死か）、正本法師（出家して勝覚寺を開基）</li>
+  </ul>
+</div>
+
+<div class="ai-note">
+  <p><strong>出典</strong> ― Wikipedia「赤沢宗伝」。BIZCONSUL「阿波の戦国武将 赤沢信濃守宗伝の末裔とは？」。城旅「板西城と赤沢宗伝」。正本法師は勝覚寺（香川県東かがわ市三本松）を開基。貞享元年（1684年）に九代願故法師が小砂村から三本松村に移転し「海暁山勝覚寺」と号した。</p>
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 赤澤比丘尼 -->
+<!-- ========================================== -->
+<div class="story" id="bikuni">
+<div class="story-header">
+  <div class="story-era">MUROMACHI ― 室町後期</div>
+  <div class="story-name">赤澤比丘尼 ― 備中に残された名前</div>
+  <div class="story-reading">あかざわ びくに / 浅口郡畑山城付近に居住</div>
+  <div class="story-tags"><span class="story-tag">備中赤澤氏</span><span class="story-tag">浅口郡誌</span><span class="story-tag">出家した女性</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">「赤澤比丘尼」。</span></p>
+  <p>大正14年（1925年）に刊行された『浅口郡誌』の一節に、この名前がぽつりと現れる。第三〇六節「畑山城さ森本松山城」の項。備中国浅口郡の畑山城周辺に、<strong>赤澤比丘尼が住んでいた</strong>と記されている。</p>
+  <p>「比丘尼」とは出家した女性のことだ。夫に先立たれた武家の女性が、髪を下ろして仏門に入ることは珍しくなかった。あるいは最初から尼として生きた女性だったのかもしれない。</p>
+  <p>備中赤澤氏は、信濃から畿内を経て備中に移り住んだ一族だ。細川氏の被官として鴨山城を拠点に活動し、浅口郡誌には赤澤兵庫（100石）、赤澤修理亮（20石）、赤澤四郎（15石）といった男性の名が家臣リストに並ぶ。その一族の中に、「比丘尼」として記録された女性がいた。</p>
+  <p>彼女が誰の妻だったのか、誰の母だったのか、なぜ出家したのか。畑山城のどのあたりに庵を結んでいたのか。浅口郡誌はそれ以上を語らない。ただ、<strong>「赤澤比丘尼」という四文字</strong>が、備中の地方史料に確かに刻まれている。</p>
+  <p>赤沢氏の歴史770年の中で、唯一、女性個人として名前（呼称）が残った存在かもしれない。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>浅口郡誌の記載</div>
+  <p>コマ0270（p387相当）、第三〇六節「畑山城さ森本松山城」の項に「赤澤比丘尼さ住す」と記載。畑山城は備中国浅口郡に位置し、細川氏の支城として機能していた。</p>
+</div>
+
+<div class="gp-note">
+備中赤澤氏の家臣リスト（浅口郡誌コマ0060）には赤澤兵庫（100石）、赤澤修理亮（20石）、赤澤四郎（15石）の三名が確認できる。赤澤比丘尼はこれらの男性家臣の縁者と推定されるが、具体的な続柄は不明。
+</div>
+</div>
+
+<div class="story-sep">- - -</div>
+
+<!-- ========================================== -->
+<!-- 記録に残らなかった女性たち -->
+<!-- ========================================== -->
+<div class="story" id="unnamed-women">
+<div class="story-header">
+  <div class="story-era">770年</div>
+  <div class="story-name">記録に残らなかった女性たち</div>
+  <div class="story-reading">系図に「室」とだけ記された人々</div>
+  <div class="story-tags"><span class="story-tag">朝経の妻</span><span class="story-tag">遠康の妻</span><span class="story-tag">秀邦の妻</span><span class="story-tag">全ての赤沢の女性</span></div>
+  <div class="story-line"></div>
+</div>
+
+<div class="narrative">
+  <p><span class="first-line">赤沢朝経の妻が誰だったのか、記録はない。</span></p>
+  <p>朝経は赤沢氏の歴史で最も名を轟かせた男だ。細川政元の腹心として畿内に覇を唱え、比叡山を焼き、大和を制圧し、信長より72年も早く天下人の片腕として日本史に名を刻んだ。嫡子・政経に家督を譲った後も「澤蔵軒宗益」と号して第一線に立ち続けた。</p>
+  <p>その朝経に、妻がいたはずだ。政経という跡取りがいる以上、妻は確実に存在した。しかし、現存するどの史料にも、朝経の妻の名前も出自も記されていない。</p>
+  <p>同じことは、他の多くの赤沢氏当主にも言える。</p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="card-dot"></span>系図に「室」とだけ記された女性たち</div>
+  <ul>
+    <li><strong>赤沢朝経の妻</strong> ― 畿内の大物武将の妻。政経の母。名も出自も不明</li>
+    <li><strong>赤沢経智の妻</strong> ― 弓の達人の妻。小笠原流弓術を継いだ家の女性</li>
+    <li><strong>赤沢清純の妻</strong> ― 城代から「謀反人」に転落した男の妻。夫の最期をどう見たか</li>
+    <li><strong>赤沢遠康の妻</strong> ― 天保12年に記録を残した遠康を支えた女性</li>
+    <li><strong>赤沢秀邦の妻</strong> ― お寺を巡って家系図を調査した祖父を支えた祖母</li>
+    <li><strong>全ての「室」</strong> ― 770年、30世代以上にわたる女性たちの名前は、ほぼ失われている</li>
+  </ul>
+</div>
+
+<div class="narrative">
+  <p>戦国時代の武家の女性は、ただ家にいたわけではない。夫が戦場に出れば城を守り、領内の訴訟を裁き、家臣団の統率にも関わった。宗伝が中富川で討死したとき、板西城に残された一族の安全を図ったのは、おそらく彼の妻だっただろう。清純が天正10年に謀反人として追われたとき、その妻は子供たちを連れてどこへ逃げたのか。</p>
+  <p>江戸時代に入れば、赤沢家の女性たちは家政を切り盛りし、子供たちに読み書きを教え、冠婚葬祭を取り仕切った。祖父・秀邦が全国のお寺を巡って家系図調査をしていたとき、留守を守っていた祖母がいたはずだ。</p>
+  <p>彼女たちの名前は、もう分からない。しかし、<strong>彼女たちがいなければ赤沢氏は一代で終わっていた</strong>。系図に「室」とだけ書かれた一文字の向こう側に、一人ひとりの人生がある。</p>
+</div>
+</div>
+
+<!-- ========================================== -->
+<!-- エピローグ -->
+<!-- ========================================== -->
+<div class="epilogue">
+  <div class="epilogue-title">あとがき ― 歴史の半分を想像する</div>
+  <p>冊子「赤澤一族」を読み返すと、登場するのはほぼ全員が男性である。戦った、築いた、治めた、死んだ。それが武家の歴史の語り方だった。</p>
+  <p>しかし歴史の半分は、記録されなかった側にある。</p>
+  <p>清経の母がいなければ赤沢氏は始まらず、政常の娘がいなければ小笠原貞宗は生まれず、満経の娘がいなければ宗家との絆は薄れ、宗伝の妻がいなければ正本法師は勝覚寺を建てなかった。赤澤比丘尼は備中の地に赤沢の名を残し、名もなき「室」たちは770年の血脈を途切れさせなかった。</p>
+  <p>このページに書けたのは、ほんの断片だ。しかし、<strong>「名前がない」ということと「存在しなかった」ということは、まったく違う</strong>。</p>
+  <p>彼女たちは確かにそこにいた。赤沢の歴史の、静かで確かな半分として。</p>
+</div>
+
+<!-- ========================================== -->
+<!-- ページナビ -->
+<!-- ========================================== -->
+<div class="page-nav">
+  <a href="stories.html">&larr; 人物伝</a>
+  <a href="index.html">トップへ &rarr;</a>
+</div>
+
+<div class="site-footer"><p>赤澤一族 令和版 &mdash; 2026年編纂</p></div>
+</div>
+</body>
+</html>
