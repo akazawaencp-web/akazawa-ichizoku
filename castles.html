@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>城郭データベース ― 赤澤一族 令和版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#f4f4f2;--bg2:#f8f8f6;--bg3:#f2f2f0;--tx:#1a1a1a;--tx2:#555;--tx3:#999;--tx4:#bbb;--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.6);--glass2:rgba(255,255,255,.7);--blur:blur(12px);--sh:0 2px 12px rgba(0,0,0,.03);--warm:rgba(245,242,235,.5);--warm-bd:rgba(140,120,80,.08);--warm-tx:#6a5a40;--gold:#8b6914;--gold-light:#c9a84c;--gold-dark:#6b5010}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--tx);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}
+.content{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:12px;color:var(--tx3);margin-bottom:30px}
+.breadcrumb a{color:var(--tx2);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.ch-header{margin-bottom:40px;padding-bottom:16px}
+.ch-num{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--tx3);margin-bottom:6px}
+.ch-title{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:500;color:var(--tx);letter-spacing:.1em}
+.ch-sub{font-size:13px;color:var(--tx3);margin-top:6px}
+.ch-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.03));margin-top:14px}
+
+/* Intro text */
+.intro{font-size:15px;line-height:2.2;color:var(--tx2);margin-bottom:36px}
+.intro p{margin-bottom:14px;text-indent:1em}
+.intro strong{color:var(--tx)}
+
+/* Region label */
+.region-label{font-family:'Shippori Mincho',serif;font-size:18px;font-weight:500;color:var(--tx);margin:40px 0 20px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+
+/* Castle card */
+.castle-card{background:var(--glass);border:1px solid var(--bd2);border-left:4px solid transparent;border-image:linear-gradient(180deg,#a0a5b0,#c8cdd8,#a0a5b0) 1;border-radius:0;backdrop-filter:var(--blur);box-shadow:var(--sh);padding:28px 28px 24px;margin-bottom:24px;border-radius:0 14px 14px 0}
+.castle-name{font-family:'Shippori Mincho',serif;font-size:20px;font-weight:600;color:var(--tx);margin-bottom:4px}
+.castle-alias{font-size:12px;color:var(--tx3);margin-bottom:14px}
+
+/* Info table */
+.info-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+.info-table th{text-align:left;font-size:11px;font-weight:600;color:var(--tx3);letter-spacing:.03em;padding:6px 12px 6px 0;width:100px;vertical-align:top;white-space:nowrap}
+.info-table td{font-size:13px;color:var(--tx2);padding:6px 0;border-bottom:1px solid var(--bd2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table strong{color:var(--tx)}
+
+/* Section inside castle card */
+.castle-section{margin-top:16px}
+.castle-section-title{font-size:12px;font-weight:600;color:var(--tx);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.section-dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.castle-section p{font-size:13px;color:var(--tx2);line-height:1.9;margin-bottom:8px}
+.castle-section ul{padding-left:18px;margin-top:4px;margin-bottom:8px}
+.castle-section li{font-size:13px;color:var(--tx2);line-height:1.8;margin-bottom:4px}
+.castle-section strong{color:var(--tx)}
+
+/* Toggle */
+.toggle{background:transparent;border:none;border-bottom:1px solid rgba(0,0,0,.06);overflow:hidden;margin-top:12px}
+.toggle-btn{width:100%;padding:10px 0;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:inherit;font-size:12px;font-weight:500;color:var(--tx2);text-align:left}
+.toggle-btn:hover{color:var(--tx)}
+.toggle-btn .arr{font-size:10px;color:var(--tx4);transition:transform .3s}
+.toggle-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.toggle-inner{padding:0 0 14px;font-size:13px;color:var(--tx2);line-height:1.9}
+.toggle-body.open{max-height:3000px}
+.toggle-btn.active .arr{transform:rotate(180deg)}
+
+/* Timeline */
+.timeline{position:relative;margin:40px 0 30px;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold-light),var(--gold),var(--gold-dark),var(--gold-light))}
+.tl-item{position:relative;margin-bottom:20px;padding-left:20px}
+.tl-item::before{content:'';position:absolute;left:-24px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--bg1);box-shadow:0 0 0 2px var(--gold-light)}
+.tl-year{font-family:'Shippori Mincho',serif;font-size:14px;font-weight:600;color:var(--gold-dark);margin-bottom:2px}
+.tl-text{font-size:13px;color:var(--tx2);line-height:1.8}
+.tl-text strong{color:var(--tx)}
+.tl-castle{font-size:11px;color:var(--tx3);margin-top:2px}
+
+/* Summary card */
+.summary-card{background:rgba(139,105,20,.04);border:1px solid rgba(139,105,20,.12);border-radius:14px;padding:24px 28px;margin:30px 0}
+.summary-title{font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:12px}
+.summary-card p{font-size:13px;color:var(--tx2);line-height:1.9}
+
+/* Nav */
+.page-nav{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid var(--bd2)}
+.page-nav a{font-size:12px;color:var(--tx2);text-decoration:none}
+.page-nav a:hover{color:var(--tx)}
+.footer{text-align:center;padding:30px 0 20px;font-size:11px;color:var(--tx4);margin-top:40px}
+
+/* Map legend */
+.map-legend{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 30px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx2)}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+.dot-shinano{background:#5a7a4a}
+.dot-bicchu{background:#6a5a8a}
+.dot-awa{background:#8a5a4a}
+
+/* Responsive: Tablet */
+@media(max-width:768px){
+  .content{padding:30px 16px 50px}
+  .ch-title{font-size:26px}
+  .intro{font-size:14px}
+  .castle-card{padding:22px 20px 20px}
+  .castle-name{font-size:18px}
+  .region-label{font-size:16px}
+  .info-table th{width:80px;font-size:10px}
+  .info-table td{font-size:12px}
+}
+
+/* Responsive: Mobile */
+@media(max-width:480px){
+  .content{padding:24px 12px 40px}
+  .breadcrumb{font-size:11px;margin-bottom:20px}
+  .ch-header{margin-bottom:30px}
+  .ch-num{font-size:9px}
+  .ch-title{font-size:22px;letter-spacing:.05em}
+  .ch-sub{font-size:12px}
+  .intro{font-size:13px;line-height:2}
+  .region-label{font-size:15px;margin:30px 0 14px}
+  .castle-card{padding:16px 14px;border-radius:0 10px 10px 0}
+  .castle-name{font-size:17px}
+  .castle-alias{font-size:11px}
+  .info-table th{font-size:10px;padding:5px 8px 5px 0;width:70px}
+  .info-table td{font-size:12px;padding:5px 0}
+  .castle-section-title{font-size:11px}
+  .castle-section p,.castle-section li{font-size:12px;line-height:1.8}
+  .castle-section ul{padding-left:14px}
+  .toggle-btn{font-size:11px;padding:8px 0}
+  .toggle-inner{font-size:12px}
+  .timeline{padding-left:22px;margin:30px 0 24px}
+  .tl-item{padding-left:16px}
+  .tl-year{font-size:13px}
+  .tl-text{font-size:12px}
+  .summary-card{padding:18px 16px}
+  .summary-title{font-size:12px}
+  .summary-card p{font-size:12px}
+  .map-legend{gap:8px}
+  .legend-item{font-size:11px}
+  .page-nav{margin-top:36px;padding-top:14px}
+  .page-nav a{font-size:12px;padding:8px 0;min-height:44px;display:flex;align-items:center}
+  .footer{font-size:10px;padding:24px 0 16px}
+}
+</style>
+</head>
+<body>
+<div class="content">
+
+<div class="breadcrumb"><a href="index.html">赤澤一族 令和版</a> → 城郭データベース</div>
+
+<div class="ch-header">
+  <div class="ch-num">CASTLE DATABASE</div>
+  <div class="ch-title">城郭データベース</div>
+  <div class="ch-sub">赤沢氏が築き、守り、散った七つの城</div>
+  <div class="ch-line"></div>
+</div>
+
+<div class="intro">
+  <p>赤沢氏は鎌倉時代末期から戦国時代にかけて、<strong>信濃</strong>（長野県）、<strong>備中</strong>（岡山県）、<strong>阿波</strong>（徳島県）の三国に勢力を展開した。各地に築かれた城は、一族の栄枯盛衰を今に伝える。</p>
+  <p>このページでは、赤沢氏が城主・城代として関わった七つの城を地域ごとに紹介する。</p>
+</div>
+
+<div class="map-legend">
+  <div class="legend-item"><span class="legend-dot dot-shinano"></span>信濃（長野県）</div>
+  <div class="legend-item"><span class="legend-dot dot-bicchu"></span>備中（岡山県）</div>
+  <div class="legend-item"><span class="legend-dot dot-awa"></span>阿波（徳島県）</div>
+</div>
+
+<!-- ========== 信濃 ========== -->
+<div class="region-label">信濃国の城</div>
+
+<!-- 塩崎城 -->
+<div class="castle-card" id="shiozaki">
+  <div class="castle-name">塩崎城</div>
+  <div class="castle-alias">別名：五万長者城（ごまんちょうじゃじょう）、白助城</div>
+  <table class="info-table">
+    <tr><th>所在地</th><td>長野県長野市篠ノ井塩崎</td></tr>
+    <tr><th>標高</th><td>560m（比高190m）</td></tr>
+    <tr><th>築城年</th><td>建武2年（1335年）</td></tr>
+    <tr><th>築城者</th><td><strong>赤沢常興</strong>（伊豆守）</td></tr>
+    <tr><th>廃城年</th><td>慶長3年（1598年）</td></tr>
+    <tr><th>城郭形態</th><td>山城</td></tr>
+  </table>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢氏との関係</div>
+    <p>赤沢常興は、建武2年（1335年）の<strong>中先代の乱</strong>で信濃守護・小笠原貞宗に従い北条残党の鎮圧に武功を挙げ、恩賞として信濃国更級郡四宮荘北条（塩崎）を与えられた。この地に築いたのが塩崎城である。</p>
+    <p>常興の後、赤沢氏本家は信濃府中（松本）へ本拠を移し、塩崎城には代官として千田氏を配置。のちに桑原氏が城を奪取し「塩崎氏」を名乗った。戦国時代には武田信玄が川中島の戦いの前線基地として使用した。</p>
+  </div>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>城の構造</div>
+    <ul>
+      <li><strong>曲輪</strong>：4つの主要曲輪と10の段郭（テラス状の防御区画）</li>
+      <li><strong>遺構</strong>：石垣、土塁、郭、堀切、竪堀、井戸が現存</li>
+      <li>善光寺平の最南端、千曲川西岸に位置し、対岸の屋代城と共に狭隘部を押さえる戦略的要衝</li>
+    </ul>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      現在の状態・アクセス<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>トレッキングコースとして整備されており、一般の訪問者が登城可能。</p>
+        <ul>
+          <li><strong>電車</strong>：JR篠ノ井線 篠ノ井駅から徒歩約30分で登山口</li>
+          <li><strong>車</strong>：長野自動車道 更埴ICから約15分</li>
+          <li><strong>見学時間</strong>：山麓から本丸まで徒歩約30分</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 稲倉城 -->
+<div class="castle-card" id="inagura">
+  <div class="castle-name">稲倉城</div>
+  <div class="castle-alias">信濃赤沢氏本家の居城</div>
+  <table class="info-table">
+    <tr><th>所在地</th><td>長野県松本市浅間温泉</td></tr>
+    <tr><th>築城年</th><td>大永2年（1522年）頃</td></tr>
+    <tr><th>築城者</th><td><strong>赤沢但馬守</strong>（満経の系統）</td></tr>
+    <tr><th>廃城年</th><td>天文19年（1550年）頃</td></tr>
+    <tr><th>城郭形態</th><td>山城</td></tr>
+  </table>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢氏との関係</div>
+    <p>常興が塩崎城を築いた後、赤沢氏本家は松本（信濃府中）に本拠を移した。赤沢但馬守が稲倉城を築き、浅間温泉一帯を領した。赤沢氏館は本郷小学校一帯に所在したと伝わる。</p>
+    <p>天文年間（1530年代〜）に武田信玄の信濃侵攻が本格化すると、城主・<strong>赤沢経康</strong>（伊豆守）は天文19年（1550年）頃に武田氏に降伏。赤沢氏は武田家臣（信州先方衆）に編入され、40騎を率いたと武田分限帳に記される。</p>
+  </div>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢式部少輔の謀反</div>
+    <p>天正10年（1582年）に武田氏が滅亡した後、小笠原貞慶が松本城を回復。<strong>赤沢式部少輔</strong>は刈谷原城の城代に任命されたが、<strong>謀反を企てて切腹を命じられた</strong>。この事件は信濃における赤沢氏の衰亡を象徴する出来事となった。</p>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      現在の状態・アクセス<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>城跡は松本市浅間温泉の裏山に位置する。遺構は残りにくい地形だが、曲輪跡が一部確認できる。</p>
+        <ul>
+          <li><strong>電車</strong>：JR松本駅からバスで浅間温泉方面約20分</li>
+          <li><strong>車</strong>：長野自動車道 松本ICから約25分</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 刈谷原城 -->
+<div class="castle-card" id="kariyahara">
+  <div class="castle-name">刈谷原城</div>
+  <div class="castle-alias">赤沢式部少輔が城代を務めた城</div>
+  <table class="info-table">
+    <tr><th>所在地</th><td>長野県松本市刈谷原町</td></tr>
+    <tr><th>築城年</th><td>不詳</td></tr>
+    <tr><th>城代</th><td><strong>赤沢式部少輔</strong>（天正11年/1583年頃任命）</td></tr>
+    <tr><th>城郭形態</th><td>山城</td></tr>
+  </table>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢氏との関係</div>
+    <p>天正11年（1583年）、小笠原貞慶が松本城を回復した後、<strong>赤沢式部少輔</strong>が刈谷原城の城代に任命された。「式部少輔」は赤沢氏で代々用いられた官職名であり、赤沢経智もこの官名を称している。</p>
+    <p>しかし赤沢式部少輔は謀反を企て、切腹を命じられた。経智の次男が「式部少輔」を継承した人物とする説と、経康などの別系統（伊豆守系）の人物とする説があり、確定的な結論には至っていない。</p>
+  </div>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>城の構造</div>
+    <p>松本平東部の山中に築かれた山城。小笠原氏の支城網の一つとして、松本と善光寺平を結ぶ街道の要衝を押さえる役割を果たした。</p>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      現在の状態・アクセス<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>山城跡として曲輪・堀切などの遺構が残る。</p>
+        <ul>
+          <li><strong>車</strong>：長野自動車道 松本ICから約30分</li>
+          <li>登城には山道を徒歩で登る必要がある</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 備中 ========== -->
+<div class="region-label">備中国の城</div>
+
+<!-- 鴨山城 -->
+<div class="castle-card" id="kamoyama">
+  <div class="castle-name">鴨山城</div>
+  <div class="castle-alias">細川野州家の本拠。赤澤氏が重臣として仕えた城</div>
+  <table class="info-table">
+    <tr><th>所在地</th><td>岡山県浅口市鴨方町鴨方</td></tr>
+    <tr><th>標高</th><td>168.2m（比高140m）</td></tr>
+    <tr><th>築城年</th><td>応永14年（1407年）</td></tr>
+    <tr><th>築城者</th><td>細川満国（野州家初代）</td></tr>
+    <tr><th>廃城年</th><td>慶長5年（1600年）</td></tr>
+    <tr><th>城郭形態</th><td>山城・連郭式</td></tr>
+  </table>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢氏との関係</div>
+    <p>赤沢氏は細川野州家の<strong>最上級の重臣</strong>として鴨山城に仕えた。浅口郡誌の家臣リストには<strong>赤澤兵庫</strong>（100石）、<strong>赤澤修理亮</strong>（20石）、<strong>赤澤四郎</strong>（15石）の三名が確認できる。</p>
+    <p>赤沢氏は独立した支城（森本松山城）の城主を任され、3代にわたり世襲した。『備中集成誌』には「応仁年中鴨方細川氏の重臣、赤澤修理亮住す。<strong>その本国は信州なり</strong>」と記されており、信濃赤沢氏との同族関係が明記されている。</p>
+  </div>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>城の構造</div>
+    <ul>
+      <li>南北に細長い尾根を利用した山城。全長約300m、平均幅20m</li>
+      <li>北端から南へ「一ノ壇」「二ノ壇」「三ノ壇」「四ノ壇」「五ノ壇」「陽の郭」が連なる</li>
+      <li>二ノ壇（幅12m x 長さ30m余り）が事実上の主郭</li>
+      <li>磨崖仏が彫られた巨石が点在。切岸・堀切・石垣・土塁の遺構が残る</li>
+    </ul>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      現在の状態・アクセス<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>遺構良好。登城道が整備されており、見学しやすい。</p>
+        <ul>
+          <li><strong>電車</strong>：JR山陽本線 鴨方駅より徒歩約40分</li>
+          <li><strong>車</strong>：山陽自動車道 鴨方ICから約6分</li>
+          <li><strong>駐車場</strong>：登城口前に無料（約5台）</li>
+          <li>麓の長川寺（赤澤氏ゆかりの寺）から登城路あり</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 森本松山城 -->
+<div class="castle-card" id="morimoto">
+  <div class="castle-name">森本松山城</div>
+  <div class="castle-alias">備中赤澤氏の居城。鴨山城の支城</div>
+  <table class="info-table">
+    <tr><th>所在地</th><td>岡山県倉敷市玉島柏島字溝所</td></tr>
+    <tr><th>築城年</th><td>不詳（寿永2年/1183年には存在）</td></tr>
+    <tr><th>城主</th><td><strong>赤澤宗春 → 赤澤宗照 → 赤澤宗栄</strong>（3代）</td></tr>
+    <tr><th>城郭形態</th><td>支城・海上監視拠点</td></tr>
+  </table>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢氏との関係</div>
+    <p>赤澤修理亮が応仁年間（1467〜69年）に在城したのが最古の記録。以降、<strong>赤澤宗春</strong>（大永7年/1527年、桂川合戦で戦死）、<strong>赤澤宗照</strong>（元亀2年頃没）、<strong>赤澤宗栄</strong>の3代が城主を世襲した。</p>
+    <p>浅口郡誌に記された「赤尾氏系圖」（赤尾は赤澤の別表記）には、忠説 → 政定（宗春）→ 宗榮 → 久助 → 宗照 → 連定と続く系譜が確認できる。</p>
+    <p>関ヶ原の戦い（1600年）で細川元通が西軍に属して敗北すると、赤澤宗連（修理進）は主家に従い長州へ移住。備中に残った一族は、大坂の陣（1614〜15年）で<strong>真田隊に属して多くが討死した</strong>と家伝に伝わる。</p>
+  </div>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>城の構造</div>
+    <ul>
+      <li>柏島の頂上に位置。頂上部分が主郭で、腰曲輪がめぐる</li>
+      <li>鴨山城の支城として海上交通（玉島湾）の監視を担った</li>
+      <li>寿永2年（1183年）の<strong>水島合戦</strong>では平家が本陣として使用。皆既日食が発生した世界的にも稀な戦いの舞台</li>
+    </ul>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      現在の状態・アクセス<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>「源平合戦水島古戦場」の碑が城の一角に建てられている（昭和58年、源平水島合戦800年祭で建立）。城跡からの眺望は良好。</p>
+        <ul>
+          <li><strong>車</strong>：玉島ICから南へ約20分</li>
+          <li>専用駐車場はなし</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 加茂山城/井山城 -->
+<div class="castle-card" id="kamoyama-castle">
+  <div class="castle-name">加茂山城（井山城）</div>
+  <div class="castle-alias">「修理殿」 ― 赤澤修理亮の居城として知られる</div>
+  <table class="info-table">
+    <tr><th>所在地</th><td>岡山県浅口市鴨方町（鴨方の東、石井山）</td></tr>
+    <tr><th>築城年</th><td>不詳（応仁年間/1467〜69年頃に赤澤氏が入城）</td></tr>
+    <tr><th>城主</th><td><strong>赤澤修理亮</strong></td></tr>
+    <tr><th>城郭形態</th><td>山城</td></tr>
+  </table>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢氏との関係</div>
+    <p>浅口郡誌の「第三四九節 加茂山城さ修理殿」の項に詳述される。城跡の通称が<strong>「修理殿」</strong>であること自体が、赤澤修理亮がこの城の主であった証拠である。</p>
+    <p>「修理亮」（しゅりのすけ）は従五位下に相当する格式高い官途名。赤澤氏では「修理」の官職名が代々使われた形跡があり（修理亮 → 後年の宗連が「修理進」を称す）、赤澤氏の一系統を示す可能性がある。</p>
+  </div>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>城の構造</div>
+    <ul>
+      <li>鴨方の東にある井山（石井山）に築かれた城</li>
+      <li>一の丸、二の丸、三の丸が配置され、北方に横約50間の削平地</li>
+      <li>鴨山城との連携で鴨方一帯を防衛する役割を担った</li>
+    </ul>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      現在の状態・アクセス<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>鴨方町内の井山（石井山）に遺構が残る。鴨山城と合わせて訪問するのがおすすめ。</p>
+        <ul>
+          <li><strong>電車</strong>：JR山陽本線 鴨方駅から徒歩圏内</li>
+          <li><strong>車</strong>：鴨方IC付近</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 阿波 ========== -->
+<div class="region-label">阿波国の城</div>
+
+<!-- 板西城 -->
+<div class="castle-card" id="banzai">
+  <div class="castle-name">板西城</div>
+  <div class="castle-alias">阿波赤沢氏の本拠。3,000貫の大勢力</div>
+  <table class="info-table">
+    <tr><th>所在地</th><td>徳島県板野郡板野町古城</td></tr>
+    <tr><th>築城年</th><td>平安時代末期（12世紀後半）</td></tr>
+    <tr><th>築城者</th><td>近藤六親家</td></tr>
+    <tr><th>城主</th><td>近藤氏 → 赤沢兵庫頭宗定 → <strong>赤沢宗伝</strong>（信濃守）</td></tr>
+    <tr><th>落城年</th><td>天正10年（1582年）9月</td></tr>
+    <tr><th>知行</th><td>3,000貫（三好家臣団で最大級）</td></tr>
+  </table>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>赤沢氏との関係</div>
+    <p>鎌倉時代初期に近藤六親家が築城。親家には子がなく、<strong>赤沢兵庫頭宗定</strong>を養子に迎えて城を譲った。宗定にも子がなくその後断絶したが、戦国時代に阿波小笠原氏の<strong>小笠原宗伝</strong>が入城し、断絶していた赤沢姓を復興して「<strong>赤沢信濃守宗伝</strong>」と名乗った。</p>
+    <p>宗伝は三好実休の姪を室に迎え、「<strong>板西城三人衆</strong>」（赤沢出羽守、坂上備前守、安芸飛騨守）と「<strong>赤沢家十二人衆</strong>」を組織して板野郡一帯を統治した。</p>
+  </div>
+
+  <div class="castle-section">
+    <div class="castle-section-title"><span class="section-dot"></span>中富川の戦いと落城</div>
+    <p>天正10年（1582年）8月28日、長宗我部元親軍（約23,000人）と十河存保軍（約5,000人）が中富川で激突。宗伝は約2,000の兵を率いて奮戦したが、壊滅的敗北を喫した。</p>
+    <p>伝承では、宗伝は敵将と組み合って奮戦していたが、<strong>草鞋の紐が切れた</strong>ところを逆転され討ち取られたという。嫡子・赤沢鹿之丞をはじめ、十二人衆の主要メンバーが討死。三好方全体で名のある武将54人、兵800余が戦死した。</p>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      宗伝の死後と勝覚寺<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>宗伝の一子・<strong>正本法師</strong>は大坂天満の興正寺で得度し、讃岐国に「小砂坊」を開基。これが後の<strong>勝覚寺</strong>（香川県東かがわ市三本松、真宗興正派）となった。</p>
+        <p>四国八十八箇所霊場・第三番札所金泉寺の奥の院「<strong>愛染院</strong>」（板野町）に宗伝の廟が祀られ、「足腰の病に霊験がある」と信仰されている。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-btn" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open')">
+      現在の状態・アクセス<span class="arr">▼</span>
+    </button>
+    <div class="toggle-body">
+      <div class="toggle-inner">
+        <p>宅地・田畑に埋没し、遺構は残っていない。説明板と石碑のみ。昭和30年（1955年）板野町史跡指定。</p>
+        <ul>
+          <li><strong>電車</strong>：JR高徳線 板野駅から徒歩約15分</li>
+          <li><strong>車</strong>：板野ICから約5分</li>
+          <li>愛染院（宗伝の廟）も合わせて訪問可能</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== タイムライン ========== -->
+<div class="region-label">年表：赤沢氏と城の歴史</div>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-year">1183年（寿永2年）</div>
+    <div class="tl-text">水島合戦で平家が<strong>森本松山城</strong>を本陣に使用。皆既日食の中の戦い</div>
+    <div class="tl-castle">森本松山城（備中）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1335年（建武2年）</div>
+    <div class="tl-text"><strong>赤沢常興</strong>が中先代の乱で武功を挙げ、<strong>塩崎城</strong>を築城</div>
+    <div class="tl-castle">塩崎城（信濃）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1407年（応永14年）</div>
+    <div class="tl-text">細川満国が<strong>鴨山城</strong>を築城。赤沢氏が追従して備中に入国か</div>
+    <div class="tl-castle">鴨山城（備中）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1467年頃（応仁年間）</div>
+    <div class="tl-text"><strong>赤澤修理亮</strong>が森本松山城に在城。加茂山城も居城とする</div>
+    <div class="tl-castle">森本松山城・加茂山城（備中）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1522年頃（大永2年）</div>
+    <div class="tl-text"><strong>赤沢但馬守</strong>が<strong>稲倉城</strong>を築城。赤沢氏本家は松本を本拠に</div>
+    <div class="tl-castle">稲倉城（信濃）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1527年（大永7年）</div>
+    <div class="tl-text"><strong>赤澤宗春</strong>が桂川合戦で戦死</div>
+    <div class="tl-castle">森本松山城（備中）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1548年（天文17年）</div>
+    <div class="tl-text">塩尻峠の戦いで小笠原長時が大敗。赤沢経智も参戦か</div>
+    <div class="tl-castle">塩崎城（信濃）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1550年（天文19年）</div>
+    <div class="tl-text">武田信玄の侵攻で林城が陥落。赤沢経康が武田に降伏。経智は越後へ逃亡</div>
+    <div class="tl-castle">稲倉城（信濃）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1571年（元亀2年）</div>
+    <div class="tl-text">玉島合戦。<strong>赤澤宗照</strong>が戦死か</div>
+    <div class="tl-castle">森本松山城（備中）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1582年（天正10年）</div>
+    <div class="tl-text">中富川の戦いで<strong>赤沢宗伝</strong>以下、一族が壮絶な討死。<strong>板西城</strong>落城</div>
+    <div class="tl-castle">板西城（阿波）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1583年（天正11年）</div>
+    <div class="tl-text"><strong>赤沢式部少輔</strong>が<strong>刈谷原城</strong>の城代に任命。のち謀反を企て切腹</div>
+    <div class="tl-castle">刈谷原城（信濃）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1598年（慶長3年）</div>
+    <div class="tl-text">上杉氏の会津転封に伴い<strong>塩崎城</strong>が廃城</div>
+    <div class="tl-castle">塩崎城（信濃）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1600年（慶長5年）</div>
+    <div class="tl-text">関ヶ原の戦いで細川元通が敗北。<strong>鴨山城</strong>を喪失。赤澤氏は離散</div>
+    <div class="tl-castle">鴨山城・森本松山城（備中）</div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-year">1614〜15年（慶長19〜20年）</div>
+    <div class="tl-text">大坂の陣。備中に残った赤澤一族が真田隊に属し、多くが討死（家伝）</div>
+    <div class="tl-castle">（備中赤澤氏の最期）</div>
+  </div>
+</div>
+
+<!-- Summary -->
+<div class="summary-card">
+  <div class="summary-title">七つの城が語る赤沢氏の歴史</div>
+  <p>1335年に常興が塩崎城を築いてから、1600年に鴨山城が失われるまで約265年間 ― 赤沢氏は信濃・備中・阿波の三国にわたって城を築き、守り、そして散っていった。信濃では武田信玄の侵攻に呑まれ、阿波では長宗我部元親に壊滅させられ、備中では関ヶ原の敗戦で全てを失った。しかし、それぞれの城跡は今も赤沢氏の足跡を静かに伝えている。</p>
+</div>
+
+<div class="page-nav">
+  <a href="index.html">← トップページ</a>
+  <a href="map.html">地図で見る →</a>
+</div>
+
+<div class="footer">赤澤一族 令和版 — 2026年編纂</div>
+</div>
+</body>
+</html>
