@@ -66,15 +66,23 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
 .person{display:flex;flex-direction:column;align-items:center;position:relative}
 
 /* ノード（カード） */
-.nd{background:rgba(255,255,255,.92);border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.2);padding:14px 22px;text-align:center;min-width:120px;transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative;z-index:2;backdrop-filter:blur(4px)}
-.nd:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(0,0,0,.25)}
+.nd{background:rgba(255,255,255,.92);border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.2);padding:14px 22px;text-align:center;min-width:120px;transition:transform .2s,box-shadow .2s;position:relative;z-index:2;backdrop-filter:blur(4px)}
+.nd[onclick]{cursor:pointer}
+.nd:not([onclick]){cursor:default}
+.nd[onclick]:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(0,0,0,.25)}
 .nd-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:500;line-height:1.4}
-.nd-name.imp{color:#8b6914;font-size:16px;font-weight:600}
+.nd-name.imp{color:#1a1a1a;font-size:16px;font-weight:600}
 .nd-name.dir{color:#1a1a1a;font-weight:600}
-.nd-name.nor{color:#555}
+.nd-name.nor{color:#888}
 .nd-name.rio{color:#6a5a40;font-weight:600}
 .nd-name.rio-main{color:#6a5a40;font-size:16px;font-weight:600}
 .nd-role{font-size:11px;color:#999;margin-top:3px}
+/* ドット: ノード内の名前の前に表示 */
+.nd-dot{display:inline-block;vertical-align:middle;border-radius:50%;margin-right:6px}
+.nd-dot.gold{width:7px;height:7px;background:#8b6914}
+.nd-dot.silver{width:6px;height:6px;background:#a0a5b0}
+/* onclickなしのノードは薄く */
+.nd:not([onclick]){background:rgba(255,255,255,.75);box-shadow:0 2px 12px rgba(0,0,0,.12)}
 
 /* 親から子への縦線（ノードの下から伸びる） */
 .v-down{width:2px;height:35px;margin:0 auto;background:rgba(255,255,255,.5)}
@@ -238,10 +246,9 @@ body{font-family:'Noto Sans JP',sans-serif;background:#2a2218;color:var(--tx);li
 
 <div class="legend">
   <span style="font-weight:500;color:var(--tx2)">凡例</span>
-  <div class="leg-item"><span style="font-family:'Shippori Mincho',serif;font-size:12px;color:#8b6914;font-weight:600">金色テキスト</span> = 重要人物</div>
-  <div class="leg-item"><span style="font-family:'Shippori Mincho',serif;font-size:12px;color:#1a1a1a;font-weight:600">太字テキスト</span> = 直系</div>
-  <div class="leg-item"><span style="font-family:'Shippori Mincho',serif;font-size:12px;color:#555">通常テキスト</span> = 一般</div>
-  <div class="leg-item"><div style="width:30px;height:2px;background:linear-gradient(90deg,#a0a5b0,#c8cdd8)"></div>接続線（銀グラデ）</div>
+  <div class="leg-item"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#8b6914"></span> 物語あり（タップで詳細+物語へ）</div>
+  <div class="leg-item"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#a0a5b0"></span> 詳細あり（タップで情報表示）</div>
+  <div class="leg-item"><span style="font-family:'Shippori Mincho',serif;font-size:12px;color:#888">薄い文字</span> = 名前のみ</div>
 </div>
 
 <div class="tree-wrap">
@@ -946,7 +953,22 @@ function fixBars() {
     hbar.style.width = (lastCenter - firstCenter) + 'px';
   });
 }
-window.addEventListener('load', fixBars);
+window.addEventListener('load', function(){
+  fixBars();
+  // ドットを自動挿入
+  document.querySelectorAll('.nd[onclick]').forEach(nd=>{
+    const m=nd.getAttribute('onclick').match(/show\('([^']+)'\)/);
+    if(!m)return;
+    const id=m[1];
+    const nameEl=nd.querySelector('.nd-name');
+    if(!nameEl)return;
+    const dot=document.createElement('span');
+    dot.className='nd-dot';
+    // STORY_MAPにあれば金ドット（物語あり）、なければ銀ドット（詳細のみ）
+    if(typeof STORY_MAP!=='undefined'&&STORY_MAP[id]){dot.classList.add('gold')}else{dot.classList.add('silver')}
+    nameEl.insertBefore(dot,nameEl.firstChild);
+  });
+});
 window.addEventListener('resize', fixBars);
 
 const P={
